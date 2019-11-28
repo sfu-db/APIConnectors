@@ -1,0 +1,34 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://api.spotify.com/v1/search?type=artist",
+        "method": "GET",
+        "authorization": "Bearer",
+        "params": {
+            "q": true
+        }
+    },
+   "response": {
+        "ctype": "application/json",
+        "tablePath": "$.artists.items[*]",
+        "schema": {
+            "name": {
+                "target": "$.name",
+                "type": "string"
+            },
+            "genres": {
+                "target": "$.genres",
+                "type": "object"
+            },
+            "popularity": {
+                "target": "$.popularity",
+                "type": "float"
+            },
+            "# followers": {
+                "target": "$.followers.total",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}
