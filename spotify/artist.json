@@ -30,7 +30,7 @@
             },
             "# followers": {
                 "target": "$.followers.total",
-                "type": "string"
+                "type": "int"
             }
         },
         "orient": "records"
