@@ -3,12 +3,16 @@
     "request": {
         "url": "https://api.spotify.com/v1/search?type=artist",
         "method": "GET",
-        "authorization": "Bearer",
+        "authorization": {
+            "type": "OAuth2",
+            "grantType": "ClientCredentials",
+            "tokenServerUrl": "https://accounts.spotify.com/api/token"
+        },
         "params": {
             "q": true
         }
     },
-   "response": {
+    "response": {
         "ctype": "application/json",
         "tablePath": "$.artists.items[*]",
         "schema": {
