@@ -20,23 +20,23 @@
                 "target": "$.name",
                 "type": "string"
             },
-            "release_date":{
+            "release_date": {
                 "target": "$.release_date",
                 "type": "string"
             },
-            "total_tracks":{
+            "total_tracks": {
                 "target": "$.total_tracks",
                 "type": "string"
             },
-            "artist":{
+            "artist": {
                 "target": "$.artists[0].name",
                 "type": "string"
             },
-            "available_markets":{
+            "available_markets": {
                 "target": "$.available_markets",
                 "type": "string"
             },
-            "image":{
+            "image": {
                 "target": "$.images[0].url",
                 "type": "string"
             }

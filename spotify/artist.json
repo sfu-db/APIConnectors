@@ -12,7 +12,7 @@
             "q": true
         }
     },
-   "response": {
+    "response": {
         "ctype": "application/json",
         "tablePath": "$.artists.items[*]",
         "schema": {
