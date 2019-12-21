@@ -11,7 +11,7 @@
         "ctype": "application/xml",
         "tablePath": "/result/hits/*",
         "schema": {
-            "author": {
+            "authors": {
                 "target": "info/authors/*/text()",
                 "type": "object"
             },
@@ -23,7 +23,7 @@
                 "target": "info/venue/text()",
                 "type": "object"
             },
-            "page": {
+            "pages": {
                 "target": "info/pages/text()",
                 "type": "string"
             },
