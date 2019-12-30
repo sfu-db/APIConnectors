@@ -20,25 +20,33 @@
                 "target": "$.name",
                 "type": "string"
             },
-            "release_date": {
+            "release_date":{
                 "target": "$.release_date",
                 "type": "string"
             },
-            "total_tracks": {
+            "total_tracks":{
                 "target": "$.total_tracks",
                 "type": "string"
             },
-            "artist": {
-                "target": "$.artists[0].name",
-                "type": "string"
+            "artist":{
+                "target": "$.artists[*].name",
+                "type": "object"
             },
-            "available_markets": {
+            "available_markets":{
                 "target": "$.available_markets",
                 "type": "string"
             },
-            "image": {
-                "target": "$.images[0].url",
+            "external urls":{
+                "target": "$.external_urls",
                 "type": "string"
+            },
+            "image url":{
+                 "target": "$.images[0].url",
+                 "type": "string"
+            },
+            "album type":{
+                "target": "$.album_type",
+                 "type": "string"
             }
         },
         "orient": "records"
