@@ -4,7 +4,8 @@
         "url": "https://dblp.org/search/publ/api",
         "method": "GET",
         "params": {
-            "q": true
+            "q": true,
+            "h": false
         }
     },
     "response": {
