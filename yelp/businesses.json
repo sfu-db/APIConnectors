@@ -6,7 +6,7 @@
         "authorization": "Bearer",
         "params": {
             "term": true,
-            "location": false,
+            "location": true,
             "latitude": false,
             "longitude": false
         }
