@@ -1,0 +1,32 @@
+on: pull_request
+name: Run Impacted Tests
+jobs:
+  test-job:
+    name: Test Job
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.7]
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    
+    - name: Set up Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install dependencies
+      run: |
+        pip install dataprep
+        pip install pytest
+    
+    - name: Run tests
+      run: |
+        URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${{ github.event.pull_request.number }}/files"
+        FILES=$(curl -s -X GET -G $URL | jq -r '.[] | .filename')
+        .github/runTests.sh "$FILES"
+    
