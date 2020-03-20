@@ -1,8 +1,7 @@
-echo $PWD
 ARRAY=()
 for file in $1
 do
-    echo $file
+    echo changed_files:$file
     filename="$(basename -- $file)"
     extension="${filename##*.}"
     parentdir="$(basename "$(dirname "$file")")"
@@ -14,12 +13,12 @@ uniquedirs=($(for v in "${ARRAY[@]}"; do echo "$v";done| sort| uniq| xargs))
 echo changed_dirs:"${uniquedirs[@]}"
 
 dirs=()
-for dirname in $(find ${PWD} -maxdepth 1 -type d)
+echo $PWD
+for dirname in $(find ${PWD} -maxdepth 1 -type d -not -path '*/\.*')
 do
-    echo $dirname
     result="${dirname%"${dirname##*[!/]}"}"
     result="${result##*/}"
-    echo "${result}"
+    echo dirs_under_root:"${result}"
     dirs+=(${result})
 done
 
