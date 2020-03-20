@@ -28,7 +28,7 @@ do
         for testfile in ./${dir}/tests/*
         do
             echo testfile:"$testfile"
-            poetry run pytest $testfile
+            pytest $testfile
         done
     fi  
 done
