@@ -5,7 +5,7 @@
         "method": "GET",
         "params": {
             "q": false,
-            "h": false,
+            "h": true,
             "author": {
                 "template": "author:{{first_name}}_{{last_name}}:",
                 "required": false,
