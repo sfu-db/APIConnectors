@@ -4,7 +4,7 @@
         "url": "https://dblp.org/search/publ/api",
         "method": "GET",
         "params": {
-            "q": false,
+            "q": true,
             "h": false,
             "author": {
                 "template": "author:{{first_name}}_{{last_name}}:",
