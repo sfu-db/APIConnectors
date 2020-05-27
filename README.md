@@ -19,7 +19,7 @@ In the parameter section, select the targets you want as a response for your app
 # Obtaining an access token
 Yelp requires the user to have an access token to make API requests on their behalf. The access token represents the authorization of a specific application to access particular parts of a user's data. To obtain the access token, create an app, enter some information about its use and generate a key, please visit this [link](https://www.yelp.com/developers/documentation/v3/get_started).
 
-<img src="images/Yelp_authentication.png" style= "width: 600px; height:400px;"/>
+<img src="images/Yelp_Authentication.png" style= "width: 600px; height:400px;"/>
 
 Now that you created your token, it’s time to create the config files. 
 
