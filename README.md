@@ -1,6 +1,6 @@
 # Setting up the data connector config file
 
-This README will go over how to build your configuration file with Yelp's API, specifically an API for phone number searches. 
+This README is intended for contributors and developers who want to build your configuration file. In this file, it will go over how to make a configuration file with Yelp's API, specifically an API for phone number searches. 
 
 Read through the Yelp API documentation and review what the available endpoints are, please visit this [link](https://www.yelp.com/developers/documentation/v3/get_started). 
 
