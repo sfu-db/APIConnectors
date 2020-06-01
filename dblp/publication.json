@@ -6,12 +6,19 @@
         "params": {
             "q": false,
             "h": false,
+            "f": false,
             "author": {
                 "template": "author:{{first_name}}_{{last_name}}:",
                 "required": false,
                 "removeIfEmpty": true,
                 "toKey": "q"
             }
+        },
+        "pagination":{
+            "type":"limit",
+            "anchor_key":"f",
+            "count_key":"h",
+            "max_count":1000
         }
     },
     "response": {

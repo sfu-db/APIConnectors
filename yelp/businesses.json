@@ -8,7 +8,14 @@
             "term": true,
             "location": true,
             "latitude": false,
-            "longitude": false
+            "longitude": false,
+            "limit": false
+        },
+        "pagination":{
+            "type":"limit",
+            "anchor_key":"offset",
+            "count_key":"limit",
+            "max_count": 50
         }
     },
     "response": {
