@@ -9,7 +9,7 @@
             "tokenServerUrl": "https://api.twitter.com/oauth2/token"
         },
         "params": {
-            "q": true,
+            "q": false,
             "count": false,
             "max_id": false
         },
