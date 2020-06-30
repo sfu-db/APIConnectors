@@ -44,6 +44,11 @@
             "hashtags":{
                 "target": "$.entities.hashtags",
                 "type": "string"
+            },
+            "id": 
+            {
+                "target": "$.id",
+                "type": "int"
             }
         },
         "orient": "records"
