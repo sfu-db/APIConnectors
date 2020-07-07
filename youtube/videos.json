@@ -4,7 +4,7 @@
         "url": "https://www.googleapis.com/youtube/v3/search",
         "method": "GET",
         "authorization": {
-            "type": "TokenParam",
+            "type": "QueryParam",
             "keyParam": "key"
         },
         "params": {
