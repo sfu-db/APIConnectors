@@ -1,0 +1,58 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://finnhub.io/api/v1/news",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "token"
+        },
+        "params": {
+            "category": true,
+            "minId": false
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$[*]",
+        "schema": {
+            "category": {
+                "target": "$.category",
+                "type": "string"
+            },
+            "datetime": {
+                "target": "$.datetime",
+                "type": "int"
+            },
+            "headline": {
+                "target": "$.headline",
+                "type": "string"
+            },
+            "id": {
+                "target": "$.id",
+                "type": "int"
+            },
+            "image": {
+                "target": "$.image",
+                "type": "string"
+            },
+            "related": {
+                "target": "$.related",
+                "type": "string"
+            },
+            "source": {
+                "target": "$.source",
+                "type": "string"
+            },
+            "summary": {
+                "target": "$.summary",
+                "type": "string"
+            },
+            "url": {
+                "target": "$.url",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}

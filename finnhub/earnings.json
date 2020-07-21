@@ -1,0 +1,38 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://finnhub.io/api/v1/stock/earnings",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "token"
+        },
+        "params": {
+            "symbol": true,
+            "limit": false
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$[*]",
+        "schema": {
+            "actual": {
+                "target": "$.actual",
+                "type": "float"
+            },
+            "estimate": {
+                "target": "$.estimate",
+                "type": "float"
+            },
+            "period": {
+                "target": "$.period",
+                "type": "string"
+            },
+            "symbol": {
+                "target": "$.symbol",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}

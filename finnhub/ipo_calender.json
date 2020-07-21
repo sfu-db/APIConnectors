@@ -1,0 +1,59 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://finnhub.io/api/v1/calendar/ipo",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "token"
+        },
+        "params": {
+            "from_": true,
+            "from": {
+                "required": false,
+                "removeIfEmpty": true,
+                "template": "{{from_}}"
+            },
+            "to": true
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.ipoCalendar[*]",
+        "schema": {
+            "date": {
+                "target": "$.date",
+                "type": "string"
+            },
+            "exchange": {
+                "target": "$.exchange",
+                "type": "string"
+            },
+            "name": {
+                "target": "$.name",
+                "type": "string"
+            },
+            "numberOfShares": {
+                "target": "$.numberOfShares",
+                "type": "int"
+            },
+            "price": {
+                "target": "$.price",
+                "type": "string"
+            },
+            "status": {
+                "target": "$.status",
+                "type": "string"
+            },
+            "symbol": {
+                "target": "$.symbol",
+                "type": "string"
+            },
+            "totalSharesValue": {
+                "target": "$.totalSharesValue",
+                "type": "float"
+            }
+        },
+        "orient": "records"
+    }
+}

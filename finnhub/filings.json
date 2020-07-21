@@ -1,0 +1,58 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://finnhub.io/api/v1/stock/filings",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "token"
+        },
+        "params": {
+            "symbol": false,
+            "cik": false,
+            "accessNumber": false,
+            "form": false,
+            "from": false,
+            "to": false
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$[*]",
+        "schema": {
+            "accessNumber": {
+                "target": "$.accessNumber",
+                "type": "string"
+            },
+            "symbol": {
+                "target": "$.symbol",
+                "type": "string"
+            },
+            "cik": {
+                "target": "$.cik",
+                "type": "string"
+            },
+            "form": {
+                "target": "$.form",
+                "type": "string"
+            },
+            "filedDate": {
+                "target": "$.filedDate",
+                "type": "string"
+            },
+            "acceptedDate": {
+                "target": "$.acceptedDate",
+                "type": "string"
+            },
+            "reportUrl": {
+                "target": "$.reportUrl",
+                "type": "string"
+            },
+            "filingUrl": {
+                "target": "$.filingUrl",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}

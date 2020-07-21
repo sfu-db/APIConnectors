@@ -1,0 +1,44 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://finnhub.io/api/v1/country",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "token"
+        },
+        "params": {
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$[*]",
+        "schema": {
+            "country": {
+                "target": "$.country",
+                "type": "string"
+            },
+            "code2": {
+                "target": "$.code2",
+                "type": "string"
+            },
+            "code3": {
+                "target": "$.code3",
+                "type": "string"
+            },
+            "codeNo": {
+                "target": "$.codeNo",
+                "type": "string"
+            },
+            "currency": {
+                "target": "$.currency",
+                "type": "string"
+            },
+            "currencyCode": {
+                "target": "$.currencyCode",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}
