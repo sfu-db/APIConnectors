@@ -1,0 +1,52 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://finnhub.io/api/v1/calendar/economic",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "token"
+        },
+        "params": {
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.economicCalendar[*]",
+        "schema": {
+            "actual": {
+                "target": "$.actual",
+                "type": "float"
+            },
+            "country": {
+                "target": "$.country",
+                "type": "string"
+            },
+            "estimate": {
+                "target": "$.estimate",
+                "type": "float"
+            },
+            "event": {
+                "target": "$.event",
+                "type": "string"
+            },
+            "impact": {
+                "target": "$.impact",
+                "type": "string"
+            },
+            "prev": {
+                "target": "$.prev",
+                "type": "float"
+            },
+            "time": {
+                "target": "$.time",
+                "type": "string"
+            },
+            "unit": {
+                "target": "$.unit",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}

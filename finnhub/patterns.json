@@ -1,0 +1,122 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://finnhub.io/api/v1/scan/pattern",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "token"
+        },
+        "params": {
+            "symbol": true,
+            "resolution": true
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.points[*]",
+        "schema": {
+            "aprice": {
+                "target": "$.aprice",
+                "type": "float"
+            },
+            "atime": {
+                "target": "$.atime",
+                "type": "int"
+            },
+            "bprice": {
+                "target": "$.bprice",
+                "type": "float"
+            },
+            "btime": {
+                "target": "$.btime",
+                "type": "int"
+            },
+            "cprice": {
+                "target": "$.cprice",
+                "type": "float"
+            },
+            "ctime": {
+                "target": "$.ctime",
+                "type": "int"
+            },
+            "dprice": {
+                "target": "$.dprice",
+                "type": "float"
+            },
+            "dtime": {
+                "target": "$.dtime",
+                "type": "int"
+            },
+            "end_price": {
+                "target": "$.end_price",
+                "type": "float"
+            },
+            "end_time": {
+                "target": "$.end_time",
+                "type": "int"
+            },
+            "entry": {
+                "target": "$.entry",
+                "type": "float"
+            },
+            "eprice": {
+                "target": "$.eprice",
+                "type": "float"
+            },
+            "etime": {
+                "target": "$.etime",
+                "type": "int"
+            },
+            "mature": {
+                "target": "$.mature",
+                "type": "float"
+            },
+            "patternname": {
+                "target": "$.patternname",
+                "type": "string"
+            },
+            "patterntype": {
+                "target": "$.patterntype",
+                "type": "string"
+            },
+            "profit1": {
+                "target": "$.profit1",
+                "type": "float"
+            },
+            "profit2": {
+                "target": "$.profit2",
+                "type": "float"
+            },
+            "sortTime": {
+                "target": "$.sortTime",
+                "type": "int"
+            },
+            "start_price": {
+                "target": "$.start_price",
+                "type": "float"
+            },
+            "start_time": {
+                "target": "$.start_time",
+                "type": "int"
+            },
+            "status": {
+                "target": "$.status",
+                "type": "string"
+            },
+            "stoploss": {
+                "target": "$.stoploss",
+                "type": "float"
+            },
+            "symbol": {
+                "target": "$.symbol",
+                "type": "string"
+            },
+            "terminal": {
+                "target": "$.terminal",
+                "type": "float"
+            }
+        },
+        "orient": "records"
+    }
+}

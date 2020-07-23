@@ -1,0 +1,36 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://finnhub.io/api/v1/covid19/us",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "token"
+        },
+        "params": {
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$[*]",
+        "schema": {
+            "state": {
+                "target": "$.state",
+                "type": "string"
+            },
+            "case": {
+                "target": "$.case",
+                "type": "int"
+            },
+            "death": {
+                "target": "$.death",
+                "type": "int"
+            },
+            "updated": {
+                "target": "$.updated",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}

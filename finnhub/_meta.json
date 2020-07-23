@@ -1,0 +1,15 @@
+{
+    "tables": [
+        "general_news",
+        "company_news",
+        "filings",
+        "ipo_calender",
+        "recommendations",
+        "earnings",
+        "earnings_calender",
+        "patterns",
+        "covid19",
+        "countries",
+        "economic_calender"
+    ]
+}

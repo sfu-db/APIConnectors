@@ -1,0 +1,49 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://finnhub.io/api/v1/stock/recommendation",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "token"
+        },
+        "params": {
+            "symbol": true
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$[*]",
+        "schema": {
+            "buy": {
+                "target": "$.buy",
+                "type": "int"
+            },
+            "hold": {
+                "target": "$.hold",
+                "type": "int"
+            },
+            "period": {
+                "target": "$.period",
+                "type": "string"
+            },
+            "sell": {
+                "target": "$.sell",
+                "type": "int"
+            },
+            "strongBuy": {
+                "target": "$.strongBuy",
+                "type": "int"
+            },
+            "strongSell": {
+                "target": "$.strongSell",
+                "type": "int"
+            },
+            "symbol": {
+                "target": "$.symbol",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}

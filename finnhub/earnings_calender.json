@@ -1,0 +1,65 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://finnhub.io/api/v1/calendar/earnings",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "token"
+        },
+        "params": {
+            "symbol": false,
+            "from_": false,
+            "from": {
+                "required": false,
+                "removeIfEmpty": true,
+                "template": "{{from_}}"
+            },
+            "to": false,
+            "international": false
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.earningsCalendar[*]",
+        "schema": {
+            "date": {
+                "target": "$.date",
+                "type": "string"
+            },
+            "epsActual": {
+                "target": "$.epsActual",
+                "type": "float"
+            },
+            "epsEstimate": {
+                "target": "$.epsEstimate",
+                "type": "float"
+            },
+            "hour": {
+                "target": "$.hour",
+                "type": "string"
+            },
+            "quarter": {
+                "target": "$.quarter",
+                "type": "int"
+            },
+            "revenueActual": {
+                "target": "$.revenueActual",
+                "type": "float"
+            },
+            "revenueEstimate": {
+                "target": "$.revenueEstimate",
+                "type": "float"
+            },
+            "symbol": {
+                "target": "$.symbol",
+                "type": "string"
+            },
+            "year": {
+                "target": "$.year",
+                "type": "int"
+            }
+        },
+        "orient": "records"
+    }
+}
