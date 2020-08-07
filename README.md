@@ -14,12 +14,12 @@ In the parameter section, select the targets you want as a response for your app
 
 “A parameter is an option that can be passed with the endpoint to influence the response”.
 
-<img src="images/Yelp_search.png" style= "width: 500px; height:350px;"/>
+<img src=".assets/Yelp_search.png" style= "width: 500px; height:350px;"/>
 
 # Obtaining an access token
 Yelp requires the user to have an access token to make API requests on their behalf. The access token represents the authorization of a specific application to access particular parts of a user's data. To obtain the access token, create an app, enter some information about its use and generate a key, please visit this [link](https://www.yelp.com/developers/documentation/v3/get_started).
 
-<img src="images/Yelp_Authentication.png" style= "width: 600px; height:400px;"/>
+<img src=".assets/Yelp_Authentication.png" style= "width: 600px; height:400px;"/>
 
 Now that you created your token, it’s time to create the config files. 
 
@@ -30,18 +30,18 @@ The data connector requires two files to run, meta.json and table.json.
 
 The meta.json file contains the key value of the table and its name in an array. It tells the connector how many tables are in the data source and which tables to access. The meta.json file needs to manually written.
 
-<img src="images/Yelp_meta.png" style= "width: 550px; height:90px;"/>
+<img src=".assets/Yelp_meta.png" style= "width: 550px; height:90px;"/>
 
 ## Create the businesses.json file
 
-<img src="images/Yelp_rnr.png" style= "width: 600px; height:450px;"/>
+<img src=".assets/Yelp_rnr.png" style= "width: 600px; height:450px;"/>
 
 The business file contains information needed to communicate with Yelp’s API. In this file, there is the request and response section. 
 
 ## Top Level
 ### Request:
 
-<img src="images/Yelp_request.png" style= "width: 500px; height:150px;"/>
+<img src=".assets/Yelp_request.png" style= "width: 500px; height:150px;"/>
 
 
 URL: "https://api.yelp.com/v3/businesses/search/phone"
@@ -62,7 +62,7 @@ Params: {"phone": true}
 
 ### Response:
 
-<img src="images/Yelp_response.png" style= "width: 600px; height:350px;"/>
+<img src=".assets/Yelp_response.png" style= "width: 600px; height:350px;"/>
 
 ctype: "application/json"
 - The Content-Type, or ctype, is used to indicate the media type of the resource. A Content-Type header tells the client what the content type of the returned information actually is. With data connector, the contect type is application/json. 
@@ -78,17 +78,17 @@ id: {"target": "$.id", "type": "string"}
 
 - To build the schema, you would need to review the response section of the specific endpoint page.  
 
-<img src="images/Yelp_build_schema.png" style= "width: 600px; height:400px;"/>
+<img src=".assets/Yelp_build_schema.png" style= "width: 600px; height:400px;"/>
 
 The user selects the responses they are interested in and sets them up in the appropriate format. Take a look at the response section of the page. The target is the response name, and the type is the data format response generated. 
 
-<img src="images/Yelp_single_response.png" style= "width: 500px; height:50px;"/>
+<img src=".assets/Yelp_single_response.png" style= "width: 500px; height:50px;"/>
 
-<img src="images/Yelp_single_resp_json.png" style= "width: 600px; height:50px;"/>
+<img src=".assets/Yelp_single_resp_json.png" style= "width: 600px; height:50px;"/>
 
 Once the user sets up the appropriate responses in the Json file then the user can start up the data connection. 
 
-<img src="images/Data_connector.png" style= "width: 600px; height:260px;"/>
+<img src=".assets/Data_connector.png" style= "width: 600px; height:260px;"/>
 
 # That's all for now
 
