@@ -11,11 +11,11 @@
             "longitude": false,
             "limit": false
         },
-        "pagination":{
-            "type":"limit",
-            "anchor_key":"offset",
-            "count_key":"limit",
-            "max_count": 50
+        "pagination": {
+            "type": "offset",
+            "offsetKey": "offset",
+            "limitKey": "limit",
+            "maxCount": 50
         }
     },
     "response": {

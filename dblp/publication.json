@@ -14,11 +14,11 @@
                 "toKey": "q"
             }
         },
-        "pagination":{
-            "type":"limit",
-            "anchor_key":"f",
-            "count_key":"h",
-            "max_count":1000
+        "pagination": {
+            "type": "offset",
+            "offsetKey": "f",
+            "limitKey": "h",
+            "maxCount": 1000
         }
     },
     "response": {

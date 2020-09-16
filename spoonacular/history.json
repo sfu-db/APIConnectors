@@ -1,21 +1,21 @@
 {
     "version": 1,
     "request": {
-        "url": "https://api.spoonacular.com/recipes/findByNutrients?",
+        "url": "https://api.spoonacular.com/recipes/findByNutrients",
         "method": "GET",
         "authorization": {
             "type": "TokenParam",
             "keyParam": "apiKey"
-        }
+        },
         "params": {
             "minProtein": false,
             "minCarbs": false
         },
-        "pagination":{
-            "type":"limit",
-            "anchor_key":"offset",
-            "count_key":"limit",
-            "max_count": 1000
+        "pagination": {
+            "type": "offset",
+            "offsetKey": "offset",
+            "limitKey": "limit",
+            "maxCount": 1000
         }
     },
     "response": {

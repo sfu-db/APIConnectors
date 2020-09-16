@@ -13,11 +13,11 @@
             "limit": false,
             "offset": false
         },
-        "pagination":{
-            "type":"limit",
-            "anchor_key":"offset",
-            "count_key":"limit",
-            "max_count": 50
+        "pagination": {
+            "type": "offset",
+            "offsetKey": "offset",
+            "limitKey": "limit",
+            "maxCount": 50
         }
     },
     "response": {
@@ -40,13 +40,13 @@
                 "target": "$.followers.total",
                 "type": "int"
             },
-            "external urls":{
+            "external urls": {
                 "target": "$.external_urls",
                 "type": "string"
             },
-            "image url":{
-                 "target": "$.images[0].url",
-                 "type": "string"
+            "image url": {
+                "target": "$.images[0].url",
+                "type": "string"
             }
         },
         "orient": "records"
