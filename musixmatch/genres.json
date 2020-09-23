@@ -1,0 +1,30 @@
+{
+    "version": 1,
+    "request": {
+        "url": "http://api.musixmatch.com/ws/1.1/music.genres.get?",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "apikey"
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.message.body.music_genre_list.[*].music_genre",
+        "schema": {
+        	"id": {
+                "target": "$.music_genre_id",
+                "type": "int"
+            },
+            "parent_id": {
+                "target": "$.music_genre_parent_id",
+                "type": "int"
+            },
+            "name": {
+                "target": "$.music_genre_name",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}
