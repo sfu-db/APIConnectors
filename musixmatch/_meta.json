@@ -2,18 +2,14 @@
     "tables": [
         "album_info",
         "album_tracks",
-        "albums",
+        "artist_albums",
         "artist_info",
         "artists",
         "genres",
-        "lyrics_matches",
-        "lyric_translations",
         "related_artists",
         "top_artists",
         "top_tracks",
         "track_info",
-        "track_lyrics",
-        "track_matches",
-        "tracks"
+        "track_matches"
     ]
 }
