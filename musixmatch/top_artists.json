@@ -1,0 +1,58 @@
+{
+    "version": 1,
+    "request": {
+        "url": "http://api.musixmatch.com/ws/1.1/chart.artists.get",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "apikey"
+        },
+        "params": {
+            "country": false,
+            "page": false,
+            "page_size": false,
+            "format": false
+        },
+        "pagination": {
+            "type": "offset",
+            "offsetKey": "offset",
+            "limitKey": "limit",
+            "maxCount": 100
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.message.body.artist_list.[*].artist",
+        "schema": {
+            "id": {
+                "target": "$.artist_id",
+                "type": "int"
+            },
+            "name": {
+                "target": "$.artist_name",
+                "type": "string"
+            },
+            "rating": {
+                "target": "$.artist_rating",
+                "type": "int"
+            },
+            "country": {
+                "target": "$.artist_country",
+                "type": "string"
+            },
+            "twitter_url": {
+                "target": "$.artist_twitter_url",
+                "type": "string"
+            },
+            "updated_time": {
+                "target": "$.updated_time",
+                "type": "string"
+            },
+            "artist_alias_list": {
+                "target": "$.artist_alias_list.[*].artist_alias",
+                "type": "object"
+            }
+        },
+        "orient": "records"
+    }
+}

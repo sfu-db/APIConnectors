@@ -1,0 +1,14 @@
+{
+    "tables": [
+        "album_info",
+        "album_tracks",
+        "artist_info",
+        "artists",
+        "genres",
+        "related_artists",
+        "top_artists",
+        "top_tracks",
+        "track_info",
+        "track_matches"
+    ]
+}
