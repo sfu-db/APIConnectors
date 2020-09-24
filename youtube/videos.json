@@ -11,23 +11,27 @@
             "q": true,
             "part": true,
             "type": false,
-            "maxResults": false
+            "maxResults": false,
+            "pageToken": false
         },
-        "pagination":{
-            "type":"cursor",
-            "count_key":"maxResults",
-            "max_count": 50
+        "pagination": {
+            "type": "token",
+            "tokenKey": "pageToken",
+            "tokenLocation": "body",
+            "tokenAccessor": "$.nextPageToken",
+            "limitKey": "maxResults",
+            "maxCount": 50
         }
     },
     "response": {
         "ctype": "application/json",
         "tablePath": "$.items[*]",
         "schema": {
-            "etag":{
+            "etag": {
                 "target": "$.etag",
                 "type": "string"
             },
-            "videoId":{
+            "videoId": {
                 "target": "$.id.videoId",
                 "type": "string"
             },
