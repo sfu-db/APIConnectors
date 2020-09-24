@@ -13,12 +13,12 @@
             "count": false,
             "max_id": false
         },
-        "pagination":{
-            "type":"cursor",
-            "cursor_id":"id",
-            "cursor_key":"max_id",
-            "count_key":"count",
-            "max_count": 100
+        "pagination": {
+            "type": "seek",
+            "seekId": "id",
+            "seekKey": "max_id",
+            "limitKey": "count",
+            "maxCount": 100
         }
     },
     "response": {
@@ -29,24 +29,23 @@
                 "target": "$.created_at",
                 "type": "string"
             },
-            "text":{
+            "text": {
                 "target": "$.text",
                 "type": "string"
             },
-            "truncated":{
+            "truncated": {
                 "target": "$.truncated",
                 "type": "boolean"
             },
-             "iso_language_code":{
+            "iso_language_code": {
                 "target": "$.metadata.iso_language_code",
                 "type": "string"
             },
-            "hashtags":{
+            "hashtags": {
                 "target": "$.entities.hashtags",
                 "type": "string"
             },
-            "id": 
-            {
+            "id": {
                 "target": "$.id",
                 "type": "int"
             }

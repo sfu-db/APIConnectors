@@ -13,11 +13,11 @@
             "limit": false,
             "offset": false
         },
-        "pagination":{
-            "type":"limit",
-            "anchor_key":"offset",
-            "count_key":"limit",
-            "max_count": 50
+        "pagination": {
+            "type": "offset",
+            "offsetKey": "offset",
+            "limitKey": "limit",
+            "maxCount": 50
         }
     },
     "response": {
@@ -28,33 +28,33 @@
                 "target": "$.name",
                 "type": "string"
             },
-            "release_date":{
+            "release_date": {
                 "target": "$.release_date",
                 "type": "string"
             },
-            "total_tracks":{
+            "total_tracks": {
                 "target": "$.total_tracks",
                 "type": "string"
             },
-            "artist":{
+            "artist": {
                 "target": "$.artists[*].name",
                 "type": "object"
             },
-            "available_markets":{
+            "available_markets": {
                 "target": "$.available_markets",
                 "type": "string"
             },
-            "external urls":{
+            "external urls": {
                 "target": "$.external_urls",
                 "type": "string"
             },
-            "image url":{
-                 "target": "$.images[0].url",
-                 "type": "string"
+            "image url": {
+                "target": "$.images[0].url",
+                "type": "string"
             },
-            "album type":{
+            "album type": {
                 "target": "$.album_type",
-                 "type": "string"
+                "type": "string"
             }
         },
         "orient": "records"

@@ -9,13 +9,13 @@
         },
         "params": {
             "symbol": true,
-"from_": true,
-"from": {
-    "required": false,
-    "removeIfEmpty": true,
-    "template": "{{from_}}"
-},
-"to": true
+            "from_": true,
+            "from": {
+                "required": false,
+                "removeIfEmpty": true,
+                "template": "{{from_}}"
+            },
+            "to": true
         }
     },
     "response": {
