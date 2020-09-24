@@ -1,0 +1,82 @@
+{
+    "version": 1,
+    "request": {
+        "url": "http://api.musixmatch.com/ws/1.1/track.get",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "apikey"
+        },
+        "params": {
+            "commontrack_id": false,
+            "track_isrc": false
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.message.body.track",
+        "schema": {
+            "id": {
+                "target": "$.track_id",
+                "type": "int"
+            },
+            "name": {
+                "target": "$.track_name",
+                "type": "string"
+            },
+            "rating": {
+                "target": "$.track_rating",
+                "type": "int"
+            },
+            "commontrack_id": {
+                "target": "$.commontrack_id",
+                "type": "int"
+            },
+            "has_instrumental": {
+                "target": "$.instrumental",
+                "type": "int"
+            },
+            "is_explicit": {
+                "target": "$.explicit",
+                "type": "int"
+            },
+            "has_lyrics": {
+                "target": "$.has_lyrics",
+                "type": "int"
+            },
+            "has_subtitles": {
+                "target": "$.has_subtitles",
+                "type": "int"
+            },
+            "album_id": {
+                "target": "$.album_id",
+                "type": "int"
+            },
+            "album_name": {
+                "target": "$.album_name",
+                "type": "string"
+            },
+            "artist_id": {
+                "target": "$.artist_id",
+                "type": "int"
+            },
+            "artist_name": {
+                "target": "$.artist_name",
+                "type": "string"
+            },
+            "track_share_url": {
+                "target": "$.track_share_url",
+                "type": "string"
+            },
+            "updated_time": {
+                "target": "$.updated_time",
+                "type": "string"
+            },
+            "genres": {
+                "target": "$.primary_genres.music_genre_list.[*].music_genre.music_genre_name",
+                "type": "object"
+            }
+        },
+        "orient": "records"
+    }
+}

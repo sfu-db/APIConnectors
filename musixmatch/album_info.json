@@ -1,0 +1,69 @@
+{
+    "version": 1,
+    "request": {
+        "url": "http://api.musixmatch.com/ws/1.1/album.get",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "apikey"
+        },
+        "params": {
+            "album_id": true
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.message.body.album",
+        "schema": {
+            "id": {
+                "target": "$.album_id",
+                "type": "int"
+            },
+            "name": {
+                "target": "$.album_name",
+                "type": "string"
+            },
+            "rating": {
+                "target": "$.album_rating",
+                "type": "int"
+            },
+            "release_date": {
+                "target": "$.album_release_date",
+                "type": "string"
+            },
+            "artist_id": {
+                "target": "$.artist_id",
+                "type": "int"
+            },
+            "artist_name": {
+                "target": "$.artist_name",
+                "type": "string"
+            },
+            "genre_id": {
+                "target": "$.primary_genres.music_genre_list.[*].music_genre.music_genre_id",
+                "type": "object"
+            },
+            "genre_parent_id": {
+                "target": "$.primary_genres.music_genre_list.[*].music_genre.music_genre_parent_id",
+                "type": "object"
+            },
+            "genre_name": {
+                "target": "$.primary_genres.music_genre_list.[*].music_genre.music_genre_name",
+                "type": "object"
+            },
+            "copyright": {
+                "target": "$.album_copyright",
+                "type": "string"
+            },
+            "record_label": {
+                "target": "$.album_label",
+                "type": "string"
+            },
+            "updated_time": {
+                "target": "$.updated_time",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}
