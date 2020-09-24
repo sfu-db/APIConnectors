@@ -1,0 +1,33 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://marvel.fandom.com/api/v1/Search/List",
+        "method": "GET",
+        "params": {
+            "query": true,
+            "batch": false,
+            "limit": false
+        },
+        "pagination": {
+            "type": "page",
+            "pageKey": "batch",
+            "limitKey": "limit",
+            "maxCount": 100
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.items[*]",
+        "schema": {
+            "title": {
+                "target": "$.title",
+                "type": "string"
+            },
+            "snippet": {
+                "target": "$.snippet",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}

@@ -1,0 +1,34 @@
+{
+    "version": 1,
+    "request": {
+        "url": "http://www.mapquestapi.com/search/v4/place",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "key"
+        },
+        "params": {
+            "q": true,
+            "sort": true,
+            "page": false,
+            "pageSize": false
+        },
+        "pagination": {
+            "type": "page",
+            "pageKey": "page",
+            "limitKey": "pageSize",
+            "maxCount": 50
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.results[*]",
+        "schema": {
+            "name": {
+                "target": "$.name",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}

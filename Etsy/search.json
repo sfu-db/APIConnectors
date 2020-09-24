@@ -1,0 +1,45 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://openapi.etsy.com/v2/listings/active",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "api_key"
+        },
+        "params": {
+            "keywords": true,
+            "offset": false,
+            "limit": false
+        },
+        "pagination": {
+            "type": "offset",
+            "offsetKey": "offset",
+            "limitKey": "limit",
+            "maxCount": 25
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.results[*]",
+        "schema": {
+            "title": {
+                "target": "$.title",
+                "type": "string"
+            },
+            "description": {
+                "target": "$.description",
+                "type": "string"
+            },
+            "price": {
+                "target": "$.price",
+                "type": "string"
+            },
+            "views": {
+                "target": "$.views",
+                "type": "int"
+            }
+        },
+        "orient": "records"
+    }
+}
