@@ -6,7 +6,8 @@
         "authorization": {
             "type": "QueryParam",
             "keyParam": "apikey"
-        }
+        },
+        "params": {}
     },
     "response": {
         "ctype": "application/json",

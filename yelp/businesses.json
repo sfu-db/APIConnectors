@@ -21,6 +21,9 @@
             "offsetKey": "offset",
             "limitKey": "limit",
             "maxCount": 50
+        },
+        "search": {
+            "key": "term"
         }
     },
     "response": {

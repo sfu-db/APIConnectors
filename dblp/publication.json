@@ -22,6 +22,9 @@
             "offsetKey": "f",
             "limitKey": "h",
             "maxCount": 1000
+        },
+        "search": {
+            "key": "q"
         }
     },
     "response": {
