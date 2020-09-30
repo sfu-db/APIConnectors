@@ -5,8 +5,10 @@
         "method": "GET",
         "authorization": {
             "type": "OAuth2",
-            "grantType": "ClientCredentials",
-            "tokenServerUrl": "https://accounts.spotify.com/api/token"
+            "grantType": "AuthorizationCode",
+            "authServerUrl": "https://accounts.spotify.com/authorize",
+            "tokenServerUrl": "https://accounts.spotify.com/api/token",
+            "scopes": []
         },
         "params": {
             "q": true,
