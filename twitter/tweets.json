@@ -13,6 +13,9 @@
             "count": false,
             "max_id": false
         },
+        "search": {
+            "key": "q"
+        },
         "pagination": {
             "type": "seek",
             "seekId": "id",
