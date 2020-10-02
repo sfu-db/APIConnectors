@@ -3,7 +3,10 @@
     "request": {
         "url": "https://community-open-weather-map.p.rapidapi.com/weather",
         "method": "GET",
-        "authorization": "x-rapidapi-key",
+        "authorization": {
+            "type": "Header",
+            "keyName": "x-rapidapi-key"
+        },
         "params": {
             "q": true
         }
