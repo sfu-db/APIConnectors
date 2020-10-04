@@ -1,4 +1,4 @@
-from dataprep.data_connector import Connector
+from dataprep.connector import Connector
 
 
 def test_sanity():

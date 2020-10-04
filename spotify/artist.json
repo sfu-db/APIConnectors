@@ -13,6 +13,9 @@
             "limit": false,
             "offset": false
         },
+        "search": {
+            "key": "q"
+        },
         "pagination": {
             "type": "offset",
             "offsetKey": "offset",

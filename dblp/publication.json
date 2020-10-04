@@ -4,7 +4,7 @@
         "url": "https://dblp.org/search/publ/api",
         "method": "GET",
         "params": {
-            "q": false,
+            "q": true,
             "h": false,
             "f": false,
             "author": {
@@ -13,6 +13,9 @@
                 "removeIfEmpty": true,
                 "toKey": "q"
             }
+        },
+        "search": {
+            "key": "q"
         },
         "pagination": {
             "type": "offset",
