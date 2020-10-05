@@ -1,11 +1,11 @@
 {
     "version": 1,
     "request": {
-        "url": "https://community-open-weather-map.p.rapidapi.com/weather",
+        "url": "http://api.openweathermap.org/data/2.5/weather",
         "method": "GET",
         "authorization": {
-            "type": "Header",
-            "keyName": "x-rapidapi-key"
+            "type": "QueryParam",
+            "keyParam": "appid"
         },
         "params": {
             "q": true
