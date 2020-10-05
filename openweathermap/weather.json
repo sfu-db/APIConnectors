@@ -1,0 +1,61 @@
+{
+    "version": 1,
+    "request": {
+        "url": "http://api.openweathermap.org/data/2.5/weather",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "appid"
+        },
+        "params": {
+            "q": true
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$[*]",
+        "schema": {
+            "description": {
+                "target": "$.weather.main",
+                "type": "string"
+            },
+            "temp": {
+                "target": "$.main.temp",
+                "type": "float"
+            },
+            "feels_like": {
+                "target": "$.main.feels_like",
+                "type": "float"
+            },
+            "temp_min": {
+                "target": "$.main.temp_min",
+                "type": "float"
+            },
+            "temp_max": {
+                "target": "$.main.temp_max",
+                "type": "float"
+            },
+            "pressure": {
+                "target": "$.main.pressure",
+                "type": "float"
+            },
+            "humidity": {
+                "target": "$.main.humidity",
+                "type": "float"
+            },
+            "wind": {
+                "target": "$.wind.speed",
+                "type": "float"
+            },
+            "sunrise": {
+                "target": "$.sys.sunrise",
+                "type": "int"
+            },
+            "sunset": {
+                "target": "$.sys.sunset",
+                "type": "int"
+            }
+        },
+        "orient": "records"
+    }
+}
