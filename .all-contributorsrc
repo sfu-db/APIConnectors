@@ -1,0 +1,25 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "peiwangdb",
+      "name": "peiwangdb",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/15167104?v=4",
+      "profile": "http://www.sfu.ca/~peiw/",
+      "contributions": [
+        "code",
+        "maintenance"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "DataConnectorConfigs",
+  "projectOwner": "sfu-db",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
