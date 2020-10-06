@@ -9,11 +9,12 @@
         },
         "params": {
             "symbol": false,
-            "from_": false,
-            "from": {
+            "from_date": {
                 "required": false,
                 "removeIfEmpty": true,
-                "template": "{{from_}}"
+                "template": "{{from_}}",
+                "fromKey": ["from_"],
+                "toKey": "from"
             },
             "to": false,
             "international": false

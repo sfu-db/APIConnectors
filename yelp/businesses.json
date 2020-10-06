@@ -13,9 +13,6 @@
             "longitude": false,
             "limit": false
         },
-        "search": {
-            "key": "term"
-        },
         "pagination": {
             "type": "offset",
             "offsetKey": "offset",

@@ -8,11 +8,12 @@
             "keyParam": "token"
         },
         "params": {
-            "from_": true,
-            "from": {
-                "required": false,
+            "from_date": {
+                "required": true,
                 "removeIfEmpty": true,
-                "template": "{{from_}}"
+                "template": "{{from_}}",
+                "fromKey": ["from_"],
+                "toKey": "from"
             },
             "to": true
         }
