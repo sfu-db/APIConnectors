@@ -14,9 +14,6 @@
                 "toKey": "q"
             }
         },
-        "search": {
-            "key": "q"
-        },
         "pagination": {
             "type": "offset",
             "offsetKey": "f",
