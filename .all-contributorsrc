@@ -1,0 +1,24 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "pallavibharadwaj",
+      "name": "Pallavi Bharadwaj",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/17384838?v=4",
+      "profile": "https://www.pallavibharadwaj.com",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "DataConnectorConfigs",
+  "projectOwner": "sfu-db",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
