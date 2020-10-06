@@ -1,0 +1,25 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "dovahcrow",
+      "name": "Weiyuan Wu",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/998606?v=4",
+      "profile": "http://wooya.me",
+      "contributions": [
+        "code",
+        "maintenance"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "DataConnectorConfigs",
+  "projectOwner": "sfu-db",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
