@@ -1,0 +1,24 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "nick-zrymiak",
+      "name": "nick-zrymiak",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/35017006?v=4",
+      "profile": "https://github.com/nick-zrymiak",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "DataConnectorConfigs",
+  "projectOwner": "sfu-db",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
