@@ -42,6 +42,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "h-asmat",
+      "name": "Hilal Asmat",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/28606148?v=4",
+      "profile": "https://www.linkedin.com/in/hilal-asmat/",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
