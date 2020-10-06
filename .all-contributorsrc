@@ -1,0 +1,24 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "h-asmat",
+      "name": "Hilal Asmat",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/28606148?v=4",
+      "profile": "https://www.linkedin.com/in/hilal-asmat/",
+      "contributions": [
+        "doc"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "DataConnectorConfigs",
+  "projectOwner": "sfu-db",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
