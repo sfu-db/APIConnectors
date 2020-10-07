@@ -3,15 +3,15 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-This README is intended for contributors and developers who want to build your configuration file. In this file, it will go over how to make a configuration file with Yelp's API, specifically an API for phone number searches. 
+This README is intended for contributors and developers who want to build a configuration file. This readme will outline the process to build a configuration file for Yelp's phone number search API. 
 
-Read through the Yelp API documentation and review what the available endpoints are, please visit this [link](https://www.yelp.com/developers/documentation/v3/get_started). 
+You can review the Yelp API documentation to determine the available endpoints [here](https://www.yelp.com/developers/documentation/v3/get_started). 
 
 # Inspecting endpoints
 
 “Endpoints are communication channels. When an API interacts with another system, they communicate with each other and allows you to match business data on the information you provide.”
 
-When you decide on an endpoint, explore the page. Under request is the HTTP request method and the specific source. Store the information as it will be used to build the config file. 
+Once you choose an endpoint, review its documentation. Make a note of the HTTP request method (e.g., GET, PUT, etc) and the specific source.  
 
 In the parameter section, select the targets you want as a response for your app.
 
@@ -20,7 +20,7 @@ In the parameter section, select the targets you want as a response for your app
 <img src=".assets/Yelp_search.png" style= "width: 500px; height:350px;"/>
 
 # Obtaining an access token
-Yelp requires the user to have an access token to make API requests on their behalf. The access token represents the authorization of a specific application to access particular parts of a user's data. To obtain the access token, create an app, enter some information about its use and generate a key, please visit this [link](https://www.yelp.com/developers/documentation/v3/get_started).
+Yelp requires each user to have an access token to make API requests on their behalf. An access token represents the authorization of a specific application to access particular parts of a user's data. Start [here](https://www.yelp.com/developers/documentation/v3/get_started) to generate the access token. (You will create an app, provide the required information about its use to generate the token.)
 
 <img src=".assets/Yelp_Authentication.png" style= "width: 600px; height:400px;"/>
 
