@@ -28,10 +28,6 @@
         "ctype": "application/json",
         "tablePath": "$.result.hits.hit[*].info",
         "schema": {
-            "authors": {
-                "target": "$.authors.author[*].text",
-                "type": "object"
-            },
             "title": {
                 "target": "$.title",
                 "type": "string"
@@ -40,8 +36,8 @@
                 "target": "$.venue",
                 "type": "object"
             },
-            "pages": {
-                "target": "$.pages",
+            "publisher": {
+                "target": "$.publisher",
                 "type": "string"
             },
             "year": {
@@ -52,8 +48,28 @@
                 "target": "$.type",
                 "type": "string"
             },
+            "key": {
+                "target": "$.key",
+                "type": "string"
+            },
+            "ee": {
+                "target": "$.ee",
+                "type": "string"
+            },
             "url": {
                 "target": "$.url",
+                "type": "string"
+            },
+            "authors": {
+                "target": "$.authors.author[*].text",
+                "type": "object"
+            },
+            "pages": {
+                "target": "$.pages",
+                "type": "string"
+            },
+            "doi": {
+                "target": "$.doi",
                 "type": "string"
             }
         },
