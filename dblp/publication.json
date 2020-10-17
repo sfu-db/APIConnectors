@@ -1,7 +1,7 @@
 {
     "version": 1,
     "request": {
-        "url": "https://dblp.org/search/publ/api",
+        "url": "https://dblp.org/search/publ/api?format=json",
         "method": "GET",
         "params": {
             "q": true,
@@ -25,35 +25,35 @@
         }
     },
     "response": {
-        "ctype": "application/xml",
-        "tablePath": "/result/hits/*",
+        "ctype": "application/json",
+        "tablePath": "$.result.hits.hit[*].info",
         "schema": {
             "authors": {
-                "target": "info/authors/*/text()",
+                "target": "$.authors.author[*].text",
                 "type": "object"
             },
             "title": {
-                "target": "info/title/text()",
+                "target": "$.title",
                 "type": "string"
             },
             "venue": {
-                "target": "info/venue/text()",
+                "target": "$.venue",
                 "type": "object"
             },
             "pages": {
-                "target": "info/pages/text()",
+                "target": "$.pages",
                 "type": "string"
             },
-            "publish year": {
-                "target": "info/year/text()",
+            "year": {
+                "target": "$.year",
                 "type": "string"
             },
-            "publication type": {
-                "target": "info/type/text()",
+            "type": {
+                "target": "$.type",
                 "type": "string"
             },
-            "publication url": {
-                "target": "info/url/text()",
+            "url": {
+                "target": "$.url",
                 "type": "string"
             }
         },
