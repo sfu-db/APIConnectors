@@ -7,7 +7,7 @@
             "type": "Bearer"
         },
         "params": {
-            "term": true,
+            "term": false,
             "location": true,
             "latitude": false,
             "longitude": false,
