@@ -1,0 +1,22 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://api.kanye.rest",
+        "method": "GET",
+        "params": {
+            "q": false,
+            "format": false
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$[*]",
+        "schema": {
+            "quote": {
+                "target": "$.quote",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}
