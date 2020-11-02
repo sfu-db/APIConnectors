@@ -1,65 +1,85 @@
-# Setting up the data connector config file
+# Welcome to DataPrep.Connector's config repo!
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-This README is intended for contributors and developers who want to build a configuration file. This readme will outline the process to build a configuration file for Yelp's phone number search API. 
+DataPrep.Connector is an easy-to-use, open-source API wrapper that speeds up development by standardizing calls to multiple APIs as a simple workflow. 
 
-You can review the Yelp API documentation to determine the available endpoints [here](https://www.yelp.com/developers/documentation/v3/get_started). 
+This README is intended for contributors and developers who want to build a configuration file. We will go over how to make a configuration file using Yelp's API as an example.  Specifically, the Yelp API is an API for phone number searches. 
 
-# Inspecting endpoints
+We recommend you read through the Yelp API documentation and review what the available endpoints are at this [link](https://www.yelp.com/developers/documentation/v3/get_started). Even if you are a beginner to APIs, this will help you understand how DataPrep.Connector (and your API) work.
 
-“Endpoints are communication channels. When an API interacts with another system, they communicate with each other and allows you to match business data on the information you provide.”
+# What is the config file?
 
-Once you choose an endpoint, review its documentation. Make a note of the HTTP request method (e.g., GET, PUT, etc) and the specific source.  
+DataPrep.Connector enables users who wish to include APIs in their code to do so without worrying about the overhead of learning how to work with each API. 
 
-In the parameter section, select the targets you want as a response for your app.
+A **config file** is what DataPrep.Connector needs in order to make these APIs available for users. Contributors like you create these config files (one per API). They include all the nitty gritty details on the API like the auth methods, parameters, schema and more, so that the tool can handle them. This is what allows users to not have to worry about figuring out too many of the specifics of the API when using our tool.
 
-“A parameter is an option that can be passed with the endpoint to influence the response”.
+# Getting started
 
-<img src=".assets/Yelp_search.png" style= "width: 500px; height:350px;"/>
+## Understanding API Authorization
 
-# Obtaining an access token
-Yelp requires each user to have an access token to make API requests on their behalf. An access token represents the authorization of a specific application to access particular parts of a user's data. Start [here](https://www.yelp.com/developers/documentation/v3/get_started) to generate the access token. (You will create an app, provide the required information about its use to generate the token.)
+Many APIs require **authentication** and **authorization** (often abbreviated as auth). These are how the APIs can 1) track who is invoking API calls and 2) allow them to invoke said API calls. Often, in order to obtain the insturctions, credentials and/or access tokens for these, you have to register a developer account or app with an API. This is usually the first thing you see on the API's documentation.
+
+For example, on the [Yelp API's documentation](https://www.yelp.com/developers/documentation/v3), you can see the Authentication guide linked under the "Introduction" section.
 
 <img src=".assets/Yelp_Authentication.png" style= "width: 600px; height:400px;"/>
 
-Now that you created your token, it’s time to create the config files. 
+## Obtaining your Auth method
 
-# The config files
+As you can see, for the Yelp API, we must first create and register an app with Yelp. Don't worry, this doesn't mean you need to create an app first. It's just registering a future application. 
+
+Once we do this, we will obtain an **API Key**. It's like your own personal login. Sometimes this will be called a token, or a secret, or soemthing different. **Remember that this key should be treated like a password.** 
+
+ Next, you can see Yelp uses the Bearer auth method. There are multiple methods for auth, and DataPrep.Connector supports the following:
+
+1. OAuth
+2. Query Parameter
+3. Bearer
+4. Header
+
+*Note*: The auth method is how the API chooses to authenticate and authorize its users. An API key, access token, client secret & client ID or whatever else it may be called, is the login you use for this method. For example, for Yelp, we use the Bearer method with an API key.
+
+# Creating the config files
 The data connector requires two files to run, meta.json and table.json.
 
 ## Create the meta.json file
 
-The meta.json file contains the key value of the table and its name in an array. It tells the connector how many tables are in the data source and which tables to access. The meta.json file needs to manually written.
+The meta.json file tells DataPrep.Connector tool how many tables are in the data source and which tables to access. It contains the names of these tables. The meta.json file needs to be manually written.
 
 <img src=".assets/Yelp_meta.png" style= "width: 550px; height:90px;"/>
 
-## Create the businesses.json file
+## Create the [table].json file
+
+Depending on how many tables of data the API provides, you can decide which and how many tables to create. Each of these tables maps to a [table].json file. This [table].json file includes details on how to interact with the API, as well as information on what is returned and passed in.
+
+For example, let's take a look at the Yelp API. It returns businesses with details on the businesses. So it makes sense to create a businesses.json file. Take a look at other config files to get a better sense of the [table].json files.
 
 <img src=".assets/Yelp_rnr.png" style= "width: 600px; height:450px;"/>
 
-The business file contains information needed to communicate with Yelp’s API. In this file, there is the request and response section. 
+Let's break down the components of the [table].json file. 
 
 ## Top Level
 ### Request:
 
 <img src=".assets/Yelp_request.png" style= "width: 500px; height:150px;"/>
 
+Version:
+- The version of the config file
 
 URL: "https://api.yelp.com/v3/businesses/search/phone"
-- Contains the URL path for the API
+- Contains the URL path for invoking the API
 
 method: "GET" 
-- GET is used to request data from a specified resource, For the Yelp's API request, leave it as GET.
+- GET is used to request (or GET) data from a specified resource. For the Yelp's API request, leave it as GET, since we are retrieving data.
 
 authorization: "Bearer"
-- Authorization to ensure that client requests access data securely. The Bearer allows requests to authenticate using an access key, such as a token. For Yelp's API request, leave it as Bearer.
+- Authorization method used. For Yelp's API request, leave it as Bearer.
+    - Note: For other API’s, please read how they may authorize your application. Depending on the method, a different authorization may be required. 
 
-- Note: For other API’s, please read how they may authorize your application. Depending on the method, a different authorization may be required. 
-
-Params: {"phone": true}
-- Parameters, or Params, contain the requested criteria to the API. Before creating the config file, the parameters should be selected. Each parameter as a key-value pair where the name is the key and the value is Boolean. If you take a look at the Yelp Phone Search documentation, it shows that phone is a required parameter.
+params: {"phone": true}
+- Parameters contain the requested information to make the API call. Some parameters might be required, and some may be optional. This will all be in the documentation of your respective API. Each parameter in the config file is a key-value pair where the name is the key and the value is Boolean. If you take a look at the Yelp Phone Search documentation, it shows that phone is a required parameter.
   - A True value refers to the required parameter to query a request. 
   - A False value refers to the optional parameter to query a request. 
 
@@ -68,34 +88,38 @@ Params: {"phone": true}
 <img src=".assets/Yelp_response.png" style= "width: 600px; height:350px;"/>
 
 ctype: "application/json"
-- The Content-Type, or ctype, is used to indicate the media type of the resource. A Content-Type header tells the client what the content type of the returned information actually is. With data connector, the contect type is application/json. 
+- The Content-Type, or ctype, is used to indicate the media type of the resource. A Content-Type header tells the client what the content type of the returned information actually is. With DataPrep.Connector, the content type is application/json. 
   
 tablePath: "$.businesses[*]"
-- When the response is received it delievers an array and under the array is the table content. With data connector and Yelp, the tablePath is $.businesses[*].
-
-schema: { }
-- After finding table content, it looks at schema.
-  
-id: {"target": "$.id", "type": "string"}
-- The schema will be read until all elements of the business array received. ID is at the root of the first row of the business array, and it will access the ID attribute. 
-
-- To build the schema, you would need to review the response section of the specific endpoint page.  
+- The tablePath always starts with "$". After this, depending on what your API returns as a response to being called, you can build out the remainder. In the case of Yelp, this is what the response looks like:
 
 <img src=".assets/Yelp_build_schema.png" style= "width: 600px; height:400px;"/>
 
-The user selects the responses they are interested in and sets them up in the appropriate format. Take a look at the response section of the page. The target is the response name, and the type is the data format response generated. 
+- it returns a total parameter with how many businesses were found, then an array of businesses, with some info for each business. So our tablePath then becomes $businesses[\*]. The [\*] indicates that it is a dynamic part of the response, and you will clarify what it is in the following schema.
+
+schema: { }
+- After finding table content, we look at the schema. Let's break down what the schema looks like for Yelp.
+  
+id: {"target": "$.id", "type": "string"}
+- The schema will be read until all elements of the business array received. ID is at the root of the first row of the business array, and it will access the ID attribute. 
+    - The first "id" you write here is what you decide to call the returned value. You could change it to "business_id" if you felt it was more appropriate.  
+    - The second "$.id" you see is what is actually returned from the API. This will also always start with a $. As you can see, if we build off of tablePath, this would become "$.businesses[*].id". The [\*] here is what will be changing (the index of the businesses array item). The .id is what is returned every time for each business.
+
+- Build the remainder of the schema in the same way by viewing the same response section of your specific endpoint page that you looked at to create the tablePath.
+
+<img src=".assets/Yelp_build_schema.png" style= "width: 600px; height:400px;"/>
 
 <img src=".assets/Yelp_single_response.png" style= "width: 500px; height:50px;"/>
 
 <img src=".assets/Yelp_single_resp_json.png" style= "width: 600px; height:50px;"/>
 
-Once the user sets up the appropriate responses in the Json file then the user can start up the data connection. 
+You can test the config file by passing it to the library: 
 
 <img src=".assets/Data_connector.png" style= "width: 600px; height:260px;"/>
 
-# That's all for now
+# That's all for now!
 
-Please visit the other tutorials that are available if you are interested in setting up a data connector.
+Please visit the other tutorials and have a look at the other config files that are available if you are interested in setting up a config file.
 
 ## Contributors ✨
 
@@ -117,5 +141,3 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
