@@ -12,6 +12,9 @@
             "currentPage": false,
             "pageSize": false
         },
+        "search": {
+            "key": "q"
+        },
         "pagination": {
             "type": "page",
             "pageKey": "currentPage",
@@ -25,6 +28,18 @@
         "schema": {
             "headline": {
                 "target": "$.webTitle",
+                "type": "string"
+            },
+            "section": {
+                "target": "$.sectionName",
+                "type": "string"
+            },
+            "url": {
+                "target": "$.webUrl",
+                "type": "string"
+            },
+            "publish_date": {
+                "target": "$.webPublicationDate",
                 "type": "string"
             }
         },

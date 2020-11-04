@@ -13,6 +13,9 @@
             "page": false,
             "pageSize": false
         },
+        "search": {
+            "key": "q"
+        },
         "pagination": {
             "type": "page",
             "pageKey": "page",
@@ -26,6 +29,34 @@
         "schema": {
             "name": {
                 "target": "$.name",
+                "type": "string"
+            },
+            "country": {
+                "target": "$.place.properties.countryCode",
+                "type": "string"
+            },
+            "state": {
+                "target": "$.place.properties.stateCode",
+                "type": "string"
+            },
+            "city": {
+                "target": "$.place.properties.city",
+                "type": "string"
+            },
+            "address": {
+                "target": "$.place.properties.street",
+                "type": "string"
+            },
+            "postalCode": {
+                "target": "$.place.properties.postalCode",
+                "type": "string"
+            },
+            "coordinates": {
+                "target": "$.place.geometry.coordinates",
+                "type": "list"
+            },
+            "details": {
+                "target": "$.displayString",
                 "type": "string"
             }
         },

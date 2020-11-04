@@ -1,5 +1,6 @@
 {
     "tables": [
-        "search"
+        "articles",
+        "cross-wiki"
     ]
 }

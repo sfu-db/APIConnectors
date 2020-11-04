@@ -12,6 +12,9 @@
             "offset": false,
             "limit": false
         },
+        "search": {
+            "key": "keywords"
+        },
         "pagination": {
             "type": "offset",
             "offsetKey": "offset",
@@ -27,6 +30,14 @@
                 "target": "$.title",
                 "type": "string"
             },
+            "state": {
+                "target": "$.state",
+                "type": "string"
+            },
+            "url": {
+                "target": "$.url",
+                "type": "string"
+            },
             "description": {
                 "target": "$.description",
                 "type": "string"
@@ -35,8 +46,20 @@
                 "target": "$.price",
                 "type": "string"
             },
+            "currency": {
+                "target": "$.currency_code",
+                "type": "string"
+            },
+            "quantity": {
+                "target": "$.quantity",
+                "type": "int"
+            },
             "views": {
                 "target": "$.views",
+                "type": "int"
+            },
+            "favorites": {
+                "target": "$.num_favorers",
                 "type": "int"
             }
         },

@@ -15,6 +15,9 @@
             "offset": false,
             "count": false
         },
+        "search": {
+            "key": "query"
+        },
         "pagination": {
             "type": "offset",
             "offsetKey": "offset",
@@ -26,8 +29,24 @@
         "ctype": "application/json",
         "tablePath": "$.channels[*]",
         "schema": {
-            "display_name": {
+            "name": {
                 "target": "$.display_name",
+                "type": "string"
+            },
+            "status": {
+                "target": "$.status",
+                "type": "string"
+            },
+            "language": {
+                "target": "$.broadcaster_language",
+                "type": "string"
+            },
+            "created_at": {
+                "target": "$.created_at",
+                "type": "string"
+            },
+            "updated_at": {
+                "target": "$.updated_at",
                 "type": "string"
             },
             "game": {
@@ -39,8 +58,16 @@
                 "type": "int"
             },
             "views": {
-                "target": "$.followers",
+                "target": "$.views",
                 "type": "int"
+            },
+            "logo_url": {
+                "target": "$.logo",
+                "type": "string"
+            },
+            "video_banner": {
+                "target": "$.video_banner",
+                "type": "string"
             }
         },
         "orient": "records"

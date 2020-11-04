@@ -1,12 +1,15 @@
 {
     "version": 1,
     "request": {
-        "url": "https://marvel.fandom.com/api/v1/Search/List",
+        "url": "https://www.wikia.com/api/v1/Search/List",
         "method": "GET",
         "params": {
             "query": true,
             "batch": false,
             "limit": false
+        },
+        "search": {
+            "key": "query"
         },
         "pagination": {
             "type": "page",
@@ -19,12 +22,20 @@
         "ctype": "application/json",
         "tablePath": "$.items[*]",
         "schema": {
+            "id": {
+                "target": "$.id",
+                "type": "int"
+            },
             "title": {
                 "target": "$.title",
                 "type": "string"
             },
             "snippet": {
                 "target": "$.snippet",
+                "type": "string"
+            },
+            "url": {
+                "target": "$.url",
                 "type": "string"
             }
         },

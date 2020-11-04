@@ -1,5 +1,6 @@
 {
     "tables": [
-        "search"
+        "items",
+        "shops"
     ]
 }
