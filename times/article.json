@@ -1,0 +1,60 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://api.nytimes.com/svc/search/v2/articlesearch.json",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "api-key"
+        },
+        "params": {
+            "q": true,
+            "page": false,
+            "limit": false
+        },
+        "search": {
+            "key": "q"
+        },
+        "pagination": {
+            "type": "page",
+            "pageKey": "page",
+            "limitKey": "limit",
+            "maxCount": 10
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.response.docs[*]",
+        "schema": {
+            "headline": {
+                "target": "$.headline.main",
+                "type": "string"
+            },
+            "authors": {
+                "target": "$.byline.original",
+                "type": "string"
+            },
+            "abstract": {
+                "target": "$.abstract",
+                "type": "string"
+            },
+            "url": {
+                "target": "$.web_url",
+                "type": "string"
+            },
+            "lead_paragraph": {
+                "target": "$.lead_paragraph",
+                "type": "string"
+            },
+            "word_count": {
+                "target": "$.word_count",
+                "type": "int"
+            },
+            "pub_date": {
+                "target": "$.pub_date",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}
