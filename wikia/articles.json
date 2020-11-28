@@ -1,7 +1,7 @@
 {
     "version": 1,
     "request": {
-        "url": "https://www.wikia.com/api/v1/Search/List",
+        "url": "http://www.wikia.com/api/v1/Search/List",
         "method": "GET",
         "params": {
             "query": true,

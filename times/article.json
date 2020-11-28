@@ -1,7 +1,7 @@
 {
     "version": 1,
     "request": {
-        "url": "https://api.nytimes.com/svc/search/v2/articlesearch.json",
+        "url": "http://api.nytimes.com/svc/search/v2/articlesearch.json",
         "method": "GET",
         "authorization": {
             "type": "QueryParam",

@@ -1,7 +1,7 @@
 {
     "version": 1,
     "request": {
-        "url": "https://www.wikia.com/api/v1/Search/CrossWiki",
+        "url": "http://www.wikia.com/api/v1/Search/CrossWiki",
         "method": "GET",
         "params": {
             "query": true,

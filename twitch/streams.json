@@ -1,7 +1,7 @@
 {
     "version": 1,
     "request": {
-        "url": "https://api.twitch.tv/kraken/search/streams",
+        "url": "http://api.twitch.tv/kraken/search/streams",
         "method": "GET",
         "authorization": {
             "type": "Header",

@@ -1,7 +1,7 @@
 {
     "version": 1,
     "request": {
-        "url": "https://api.cognitive.microsoft.com/bing/v7.0/search",
+        "url": "http://api.cognitive.microsoft.com/bing/v7.0/search",
         "method": "GET",
         "authorization": {
             "type": "Header",

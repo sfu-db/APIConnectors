@@ -1,7 +1,7 @@
 {
     "version": 1,
     "request": {
-        "url": "https://openapi.etsy.com/v2/listings/active",
+        "url": "http://openapi.etsy.com/v2/listings/active",
         "method": "GET",
         "authorization": {
             "type": "QueryParam",
