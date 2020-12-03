@@ -22,6 +22,9 @@
             "maxCount": 25
         }
     },
+    "examples": {
+            "shop_name": "'nike'"
+    },
     "response": {
         "ctype": "application/json",
         "tablePath": "$.results[*]",

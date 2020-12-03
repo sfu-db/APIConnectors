@@ -24,6 +24,9 @@
             "maxCount": 100
         }
     },
+    "examples": {
+        "q": "'celebrity'"
+    },
     "response": {
         "ctype": "application/json",
         "tablePath": "$.statuses[*]",

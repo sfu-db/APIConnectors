@@ -23,6 +23,9 @@
             "maxCount": 50
         }
     },
+    "examples": {
+        "q": "'views'"
+    },
     "response": {
         "ctype": "application/json",
         "tablePath": "$.albums.items[*]",

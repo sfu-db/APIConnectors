@@ -18,6 +18,9 @@
             "maxCount": 100
         }
     },
+    "examples": {
+        "query": "'computer science'"
+    },
     "response": {
         "ctype": "application/json",
         "tablePath": "$.items[*]",

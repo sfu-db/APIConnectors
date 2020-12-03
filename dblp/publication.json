@@ -35,6 +35,9 @@
             "key": "q"
         }
     },
+    "examples": {
+    	"q": "'lee'"
+    },
     "response": {
         "ctype": "application/json",
         "tablePath": "$.result.hits.hit[*].info",

@@ -25,6 +25,9 @@
             "maxCount": 100
         }
     },
+    "examples": {
+        "query": "'riot games'"
+    },
     "response": {
         "ctype": "application/json",
         "tablePath": "$.channels[*]",

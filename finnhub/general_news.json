@@ -12,6 +12,9 @@
             "minId": false
         }
     },
+    "examples": {
+    	"category": "'general'" 
+    },
     "response": {
         "ctype": "application/json",
         "tablePath": "$[*]",

@@ -25,6 +25,9 @@
             "key": "term"
         }
     },
+    "examples": {
+        "location": "'seattle'"
+    },
     "response": {
         "ctype": "application/json",
         "tablePath": "$.businesses[*]",

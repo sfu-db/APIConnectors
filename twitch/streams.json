@@ -25,6 +25,9 @@
             "maxCount": 100
         }
     },
+    "examples": {
+        "query": "'ninja'"
+    },
     "response": {
         "ctype": "application/json",
         "tablePath": "$.streams[*]",
