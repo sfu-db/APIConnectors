@@ -536,12 +536,696 @@ Average calories for high calorie Korean foods: 644.765 kcal
 ### Music
 
 #### [MusixMatch](./musicmatch) -- Collect Music Lyrics Data
+<details>
+  <summary>What is Katy Perry's Twitter URL?</summary>
+  
+```python
+from dataprep.connector import connect
+
+# You can get ”musixmatch_access_token“ by registering as a developer https://developer.musixmatch.com/signup
+conn_musixmatch = connect("musixmatch", _auth={"access_token":musixmatch_access_token})
+
+df = await conn_musixmatch.query("artist_info", artist_mbid = "122d63fc-8671-43e4-9752-34e846d62a9c")
+
+df[['name', 'twitter_url']]
+```
+
+
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>twitter_url</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Katy Perry</td>
+      <td>https://twitter.com/katyperry</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+  </details>
+  
+<details>
+  <summary>What album is the song "Gone, Gone, Gone" in?</summary>
+  
+```python
+from dataprep.connector import connect
+
+# You can get ”musixmatch_access_token“ by registering as a developer https://developer.musixmatch.com/signup
+conn_musixmatch = connect("musixmatch", _auth={"access_token":musixmatch_access_token})
+
+df = await conn_musixmatch.query("track_matches", q_track = "Gone, Gone, Gone")
+
+df[['name', 'album_name']]
+```
+
+
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>album_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Gone, Gone, Gone</td>
+      <td>The World From the Side of the Moon</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+</details>
+<details>
+  <summary>Which artist/artists group is most popular in Canada?</summary>
+  
+```python
+from dataprep.connector import connect
+
+# You can get ”musixmatch_access_token“ by registering as a developer https://developer.musixmatch.com/signup
+conn_musixmatch = connect("musixmatch", _auth={"access_token":musixmatch_access_token})
+
+df = await conn_musixmatch.query("top_artists", country = "Canada")
+
+df['name'][0]
+```
+
+
+
+
+    'BTS'
+</details>
+<details>
+  <summary>How many genres are in the Musixmatch database?</summary>
+  
+```python
+from dataprep.connector import connect
+
+# You can get ”musixmatch_access_token“ by registering as a developer https://developer.musixmatch.com/signup
+conn_musixmatch = connect("musixmatch", _auth={"access_token":musixmatch_access_token})
+
+df = await conn_musixmatch.query("genres")
+
+len(df)
+```
+
+
+
+
+    362
+
+  </details>  
+<details>
+  <summary>Who is the most popular American artist named Michael?</summary>
+  
+```python
+from dataprep.connector import connect
+
+# You can get ”musixmatch_access_token“ by registering as a developer https://developer.musixmatch.com/signup
+conn_musixmatch = connect("musixmatch", _auth={"access_token":musixmatch_access_token}, _concurrency = 5)
+
+df = await conn_musixmatch.query("artists", q_artist = "Michael")
+df = df[df['country'] == "US"].sort_values('rating', ascending=False)
+
+df['name'].iloc[0]
+```
+
+
+
+
+    'Michael Jackson'
+
+  </details>  
+<details>
+  <summary>What is the genre of the album "Atlas"?</summary>
+  
+```python
+from dataprep.connector import connect
+
+# You can get ”musixmatch_access_token“ by registering as a developer https://developer.musixmatch.com/signup
+conn_musixmatch = connect("musixmatch", _auth={"access_token":musixmatch_access_token})
+
+album = await conn_musixmatch.query("album_info", album_id = 11339785)
+genres = await conn_musixmatch.query("genres")
+album_genre = genres[genres['id'] == album['genre_id'][0][0]]['name']
+
+album_genre.iloc[0]
+```
+
+
+
+
+    'Soundtrack'
+
+  </details>  
+<details>
+  <summary>What is the link to lyrics of the most popular song in the album "Yellow"?</summary>
+  
+```python
+from dataprep.connector import connect
+
+# You can get ”musixmatch_access_token“ by registering as a developer https://developer.musixmatch.com/signup
+conn_musixmatch = connect("musixmatch", _auth={"access_token":musixmatch_access_token}, _concurrency = 5)
+
+df = await conn_musixmatch.query("album_tracks", album_id = 10266231)
+df = df.sort_values('rating', ascending=False)
+
+df['track_share_url'].iloc[0]
+```
+
+
+
+
+    'https://www.musixmatch.com/lyrics/Coldplay/Yellow?utm_source=application&utm_campaign=api&utm_medium=SFU%3A1409620992740'
+
+  </details>  
+<details>
+  <summary>What are Lady Gaga's albums from most to least recent?</summary>
+  
+```python
+from dataprep.connector import connect
+
+# You can get ”musixmatch_access_token“ by registering as a developer https://developer.musixmatch.com/signup
+conn_musixmatch = connect("musixmatch", _auth={"access_token":musixmatch_access_token}, update = True)
+
+df = await conn_musixmatch.query("artist_albums", artist_mbid = "650e7db6-b795-4eb5-a702-5ea2fc46c848", s_release_date = "desc")
+
+df.name.unique()
+```
+
+
+
+
+    array(['Chromatica', 'Stupid Love',
+           'A Star Is Born (Original Motion Picture Soundtrack)', 'Your Song'],
+          dtype=object)
+
+  </details>  
+<details>
+  <summary>Which artists are similar to Lady Gaga?</summary>
+  
+```python
+from dataprep.connector import connect
+
+# You can get ”musixmatch_access_token“ by registering as a developer https://developer.musixmatch.com/signup
+conn_musixmatch = connect("musixmatch", _auth={"access_token":musixmatch_access_token})
+
+df = await conn_musixmatch.query("related_artists", artist_mbid = "650e7db6-b795-4eb5-a702-5ea2fc46c848")
+
+df
+```
+
+
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>name</th>
+      <th>rating</th>
+      <th>country</th>
+      <th>twitter_url</th>
+      <th>updated_time</th>
+      <th>artist_alias_list</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>6985</td>
+      <td>Cast</td>
+      <td>41</td>
+      <td></td>
+      <td></td>
+      <td>2015-03-29T03:32:49Z</td>
+      <td>[キャスト]</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>7014</td>
+      <td>black eyed peas</td>
+      <td>77</td>
+      <td>US</td>
+      <td>https://twitter.com/bep</td>
+      <td>2016-06-30T10:07:05Z</td>
+      <td>[The Black Eyed Peas, ブラック・アイド・ピーズ, heiyandoud...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>269346</td>
+      <td>OneRepublic</td>
+      <td>74</td>
+      <td>US</td>
+      <td>https://twitter.com/OneRepublic</td>
+      <td>2015-01-07T08:21:52Z</td>
+      <td>[ワンリパブリツク, Gong He Shi Dai, Timbaland presents...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>276451</td>
+      <td>Taio Cruz</td>
+      <td>60</td>
+      <td>GB</td>
+      <td></td>
+      <td>2016-06-30T10:32:58Z</td>
+      <td>[タイオ クルーズ, tai ou ke lu zi, Trio Cruz, Jacob M...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>409736</td>
+      <td>Inna</td>
+      <td>54</td>
+      <td>RO</td>
+      <td>https://twitter.com/inna_ro</td>
+      <td>2014-11-13T03:37:43Z</td>
+      <td>[インナ]</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>475281</td>
+      <td>Skrillex</td>
+      <td>62</td>
+      <td>US</td>
+      <td>https://twitter.com/Skrillex</td>
+      <td>2013-11-05T11:28:57Z</td>
+      <td>[スクリレックス, shi qi lei ke si, Sonny, Skillrex]</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>13895270</td>
+      <td>Imagine Dragons</td>
+      <td>82</td>
+      <td>US</td>
+      <td>https://twitter.com/Imaginedragons</td>
+      <td>2013-11-05T11:30:28Z</td>
+      <td>[イマジン・ドラゴンズ, IMAGINE DRAGONS]</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>27846837</td>
+      <td>Shawn Mendes</td>
+      <td>80</td>
+      <td>CA</td>
+      <td></td>
+      <td>2015-02-17T10:33:56Z</td>
+      <td>[ショーン・メンデス, xiaoenmengdezi]</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>33491890</td>
+      <td>Rihanna</td>
+      <td>81</td>
+      <td>GB</td>
+      <td>https://twitter.com/rihanna</td>
+      <td>2018-10-15T20:32:58Z</td>
+      <td>[りあーな, Rihanna, 蕾哈娜, Rhianna, Riannah, Robyn R...</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>33491981</td>
+      <td>Avicii</td>
+      <td>74</td>
+      <td>SE</td>
+      <td>https://twitter.com/avicii</td>
+      <td>2018-04-20T18:27:01Z</td>
+      <td>[アヴィーチー, ai wei qi, Avicci]</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+  </details>  
+<details>
+  <summary>What are the highest rated songs in Canada from highest to lowest popularity?</summary>
+  
+```python
+from dataprep.connector import connect
+
+# You can get ”musixmatch_access_token“ by registering as a developer https://developer.musixmatch.com/signup
+conn_musixmatch = connect("musixmatch", _auth={"access_token":musixmatch_access_token}, _concurrency = 5)
+
+df = await conn_musixmatch.query("top_tracks", country = 'CA')
+
+df[df['is_explicit'] == 0].sort_values('rating', ascending = False).reset_index()
+```
+
+
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>index</th>
+      <th>id</th>
+      <th>name</th>
+      <th>rating</th>
+      <th>commontrack_id</th>
+      <th>has_instrumental</th>
+      <th>is_explicit</th>
+      <th>has_lyrics</th>
+      <th>has_subtitles</th>
+      <th>album_id</th>
+      <th>album_name</th>
+      <th>artist_id</th>
+      <th>artist_name</th>
+      <th>track_share_url</th>
+      <th>updated_time</th>
+      <th>genres</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5</td>
+      <td>201621042</td>
+      <td>Dynamite</td>
+      <td>99</td>
+      <td>114947355</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>39721115</td>
+      <td>Dynamite - Single</td>
+      <td>24410130</td>
+      <td>BTS</td>
+      <td>https://www.musixmatch.com/lyrics/BTS/Dynamite...</td>
+      <td>2021-01-15T16:40:48Z</td>
+      <td>[Pop]</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>9</td>
+      <td>187880919</td>
+      <td>Before You Go</td>
+      <td>99</td>
+      <td>103153140</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>35611759</td>
+      <td>Divinely Uninspired To A Hellish Extent (Exten...</td>
+      <td>33258132</td>
+      <td>Lewis Capaldi</td>
+      <td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
+      <td>2019-11-20T08:44:05Z</td>
+      <td>[Pop, Alternative]</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>7</td>
+      <td>189704353</td>
+      <td>Breaking Me</td>
+      <td>98</td>
+      <td>105304416</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>34892017</td>
+      <td>Keep On Loving</td>
+      <td>42930474</td>
+      <td>Topic feat. A7S</td>
+      <td>https://www.musixmatch.com/lyrics/Topic-8/Brea...</td>
+      <td>2021-01-19T16:57:29Z</td>
+      <td>[House, Dance]</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>189626475</td>
+      <td>Watermelon Sugar</td>
+      <td>95</td>
+      <td>103096346</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>36101498</td>
+      <td>Fine Line</td>
+      <td>24505463</td>
+      <td>Harry Styles</td>
+      <td>https://www.musixmatch.com/lyrics/Harry-Styles...</td>
+      <td>2020-02-14T08:07:12Z</td>
+      <td>[Music]</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+  </details>  
+<details>
+  <summary>What are other songs in the same album as the song "Before You Go"?</summary>
+  
+```python
+from dataprep.connector import connect
+
+# You can get ”musixmatch_access_token“ by registering as a developer https://developer.musixmatch.com/signup
+conn_musixmatch = connect("musixmatch", _auth={"access_token":musixmatch_access_token})
+
+song = await conn_musixmatch.query("track_info", commontrack_id = 103153140)
+album = await conn_musixmatch.query("album_tracks", album_id = song["album_id"][0])
+
+album
+```
+
+
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>name</th>
+      <th>rating</th>
+      <th>commontrack_id</th>
+      <th>has_instrumental</th>
+      <th>is_explicit</th>
+      <th>has_lyrics</th>
+      <th>has_subtitles</th>
+      <th>album_id</th>
+      <th>album_name</th>
+      <th>artist_id</th>
+      <th>artist_name</th>
+      <th>track_share_url</th>
+      <th>updated_time</th>
+      <th>genres</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>186884178</td>
+      <td>Grace</td>
+      <td>31</td>
+      <td>87857108</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>35611759</td>
+      <td>Divinely Uninspired To A Hellish Extent (Exten...</td>
+      <td>33258132</td>
+      <td>Lewis Capaldi</td>
+      <td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
+      <td>2019-04-09T10:21:29Z</td>
+      <td>[Folk-Rock]</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>186884184</td>
+      <td>Bruises</td>
+      <td>68</td>
+      <td>70395936</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>35611759</td>
+      <td>Divinely Uninspired To A Hellish Extent (Exten...</td>
+      <td>33258132</td>
+      <td>Lewis Capaldi</td>
+      <td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
+      <td>2020-07-31T12:58:04Z</td>
+      <td>[Music, Alternative]</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>186884187</td>
+      <td>Hold Me While You Wait</td>
+      <td>89</td>
+      <td>95176135</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>35611759</td>
+      <td>Divinely Uninspired To A Hellish Extent (Exten...</td>
+      <td>33258132</td>
+      <td>Lewis Capaldi</td>
+      <td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
+      <td>2020-08-02T07:23:21Z</td>
+      <td>[Music]</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>186884189</td>
+      <td>Someone You Loved</td>
+      <td>95</td>
+      <td>89461086</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>35611759</td>
+      <td>Divinely Uninspired To A Hellish Extent (Exten...</td>
+      <td>33258132</td>
+      <td>Lewis Capaldi</td>
+      <td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
+      <td>2020-06-22T15:34:07Z</td>
+      <td>[Pop, Alternative]</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>186884190</td>
+      <td>Maybe</td>
+      <td>31</td>
+      <td>95541701</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>35611759</td>
+      <td>Divinely Uninspired To A Hellish Extent (Exten...</td>
+      <td>33258132</td>
+      <td>Lewis Capaldi</td>
+      <td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
+      <td>2019-05-20T11:41:00Z</td>
+      <td>[Music]</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>186884191</td>
+      <td>Forever</td>
+      <td>67</td>
+      <td>95541702</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>35611759</td>
+      <td>Divinely Uninspired To A Hellish Extent (Exten...</td>
+      <td>33258132</td>
+      <td>Lewis Capaldi</td>
+      <td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
+      <td>2019-11-18T10:46:36Z</td>
+      <td>[Music]</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>186884192</td>
+      <td>One</td>
+      <td>31</td>
+      <td>95541699</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>35611759</td>
+      <td>Divinely Uninspired To A Hellish Extent (Exten...</td>
+      <td>33258132</td>
+      <td>Lewis Capaldi</td>
+      <td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
+      <td>2019-05-19T04:08:23Z</td>
+      <td>[Music]</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>186884193</td>
+      <td>Don't Get Me Wrong</td>
+      <td>31</td>
+      <td>95541698</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>35611759</td>
+      <td>Divinely Uninspired To A Hellish Extent (Exten...</td>
+      <td>33258132</td>
+      <td>Lewis Capaldi</td>
+      <td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
+      <td>2019-12-20T08:25:26Z</td>
+      <td>[Music]</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>186884194</td>
+      <td>Hollywood</td>
+      <td>31</td>
+      <td>95541700</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>35611759</td>
+      <td>Divinely Uninspired To A Hellish Extent (Exten...</td>
+      <td>33258132</td>
+      <td>Lewis Capaldi</td>
+      <td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
+      <td>2019-05-21T08:00:54Z</td>
+      <td>[Music]</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>186884195</td>
+      <td>Lost on You</td>
+      <td>31</td>
+      <td>73530089</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>35611759</td>
+      <td>Divinely Uninspired To A Hellish Extent (Exten...</td>
+      <td>33258132</td>
+      <td>Lewis Capaldi</td>
+      <td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
+      <td>2020-03-17T08:35:18Z</td>
+      <td>[Alternative]</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</details>  
 
 
 
 #### [Spotify](./spotify) -- Collect Albums, Artists, and Tracks Metadata
-
-
 
 
 
@@ -659,8 +1343,7 @@ ranking_df
 | 0   | Scikit-learn - Machine Learning in Python. | [Fabian Pedregosa, Gaël Varoquaux, Alexandre G... | 2011 |
 
   </details>
-
- <details>
+  <details>
   <summary>How to fetch all publications of Andrew Y. Ng?</summary>
 
   ```python
@@ -678,7 +1361,6 @@ ranking_df
 | ... | ...                                               | ...                                               | ...              | ...  |
 | 242 | An Experimental and Theoretical Comparison of ... | [Michael J. Kearns, Yishay Mansour, Andrew Y. ... | [COLT]           | 1995 |
   </details>
-
 <details>
   <summary>How to fetch all publications of NeurIPS 2020?</summary>
 
@@ -694,14 +1376,12 @@ ranking_df
   df = df[(df['year'] == '2020')]
   df[["title", "venue", "year"]].reset_index(drop=True)
   ```
-
 | id   | title                                             | venue     | year |
 | ---- | ------------------------------------------------- | --------- | ---- |
 | 0    | Towards More Practical Adversarial Attacks on ... | [NeurIPS] | 2020 |
 | ...  | ...                                               | ...       | ...  |
 | 1899 | Triple descent and the two kinds of overfittin... | [NeurIPS] | 2020 |
   </details>
-
 
 
 ### Shopping
@@ -875,6 +1555,9 @@ new_df.sort_values(by="views", ascending=False).reset_index(drop=True).head(10)
 ### Social
 
 #### [Twitch](./twitch) -- Colect Twitch Streams and Channels Information
+
+
+
 
 #### [Twitter](./twitter) -- Colect Tweets Information
 
