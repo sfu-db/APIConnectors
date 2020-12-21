@@ -4,7 +4,7 @@
         "url": "https://api.spoonacular.com/recipes/findByNutrients",
         "method": "GET",
         "authorization": {
-            "type": "TokenParam",
+            "type": "QueryParam",
             "keyParam": "apiKey"
         },
         "params": {
