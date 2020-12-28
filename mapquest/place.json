@@ -1,0 +1,65 @@
+{
+    "version": 1,
+    "request": {
+        "url": "http://www.mapquestapi.com/search/v4/place",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "key"
+        },
+        "params": {
+            "q": true,
+            "sort": true,
+            "page": false,
+            "pageSize": false
+        },
+        "search": {
+            "key": "q"
+        },
+        "pagination": {
+            "type": "page",
+            "pageKey": "page",
+            "limitKey": "pageSize",
+            "maxCount": 50
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.results[*]",
+        "schema": {
+            "name": {
+                "target": "$.name",
+                "type": "string"
+            },
+            "country": {
+                "target": "$.place.properties.countryCode",
+                "type": "string"
+            },
+            "state": {
+                "target": "$.place.properties.stateCode",
+                "type": "string"
+            },
+            "city": {
+                "target": "$.place.properties.city",
+                "type": "string"
+            },
+            "address": {
+                "target": "$.place.properties.street",
+                "type": "string"
+            },
+            "postalCode": {
+                "target": "$.place.properties.postalCode",
+                "type": "string"
+            },
+            "coordinates": {
+                "target": "$.place.geometry.coordinates",
+                "type": "list"
+            },
+            "details": {
+                "target": "$.displayString",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}

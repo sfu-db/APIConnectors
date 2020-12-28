@@ -1,0 +1,48 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://content.guardianapis.com/search",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "api-key"
+        },
+        "params": {
+            "q": true,
+            "currentPage": false,
+            "pageSize": false
+        },
+        "search": {
+            "key": "q"
+        },
+        "pagination": {
+            "type": "page",
+            "pageKey": "currentPage",
+            "limitKey": "pageSize",
+            "maxCount": 10
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.response.results[*]",
+        "schema": {
+            "headline": {
+                "target": "$.webTitle",
+                "type": "string"
+            },
+            "section": {
+                "target": "$.sectionName",
+                "type": "string"
+            },
+            "url": {
+                "target": "$.webUrl",
+                "type": "string"
+            },
+            "publish_date": {
+                "target": "$.webPublicationDate",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}

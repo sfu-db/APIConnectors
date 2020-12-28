@@ -1,0 +1,91 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://api.twitch.tv/kraken/search/streams",
+        "method": "GET",
+        "authorization": {
+            "type": "Header",
+            "keyName": "Client-ID",
+            "extra": {
+                "Accept": "application/vnd.twitchtv.v5+json"
+            }
+        },
+        "params": {
+            "query": true,
+            "offset": false,
+            "count": false
+        },
+        "search": {
+            "key": "query"
+        },
+        "pagination": {
+            "type": "offset",
+            "offsetKey": "offset",
+            "limitKey": "limit",
+            "maxCount": 100
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.streams[*]",
+        "schema": {
+            "game": {
+                "target": "$.game",
+                "type": "string"
+            },
+            "viewers": {
+                "target": "$.viewers",
+                "type": "int"
+            },
+            "video_height": {
+                "target": "$.video_height",
+                "type": "int"
+            },
+            "average_fps": {
+                "target": "$.average_fps",
+                "type": "int"
+            },
+            "stream_created_at": {
+                "target": "$.created_at",
+                "type": "string"
+            },
+            "channel_name": {
+                "target": "$.channel.display_name",
+                "type": "string"
+            },
+            "status": {
+                "target": "$.channel.status",
+                "type": "string"
+            },
+            "language": {
+                "target": "$.channel.broadcaster_language",
+                "type": "string"
+            },
+            "channel_created_at": {
+                "target": "$.channel.created_at",
+                "type": "string"
+            },
+            "channel_updated_at": {
+                "target": "$.channel.updated_at",
+                "type": "string"
+            },
+            "channel_followers": {
+                "target": "$.channel.followers",
+                "type": "int"
+            },
+            "channel_views": {
+                "target": "$.channel.views",
+                "type": "int"
+            },
+            "logo_url": {
+                "target": "$.channel.logo",
+                "type": "string"
+            },
+            "video_banner": {
+                "target": "$.channel.video_banner",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}

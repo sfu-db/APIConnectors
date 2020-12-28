@@ -1,0 +1,41 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://api.cognitive.microsoft.com/bing/v7.0/search",
+        "method": "GET",
+        "authorization": {
+            "type": "Header",
+            "keyName": "Ocp-Apim-Subscription-Key"
+        },
+        "params": {
+            "q": true,
+            "offset": false,
+            "count": false
+        },
+        "pagination": {
+            "type": "offset",
+            "offsetKey": "offset",
+            "limitKey": "count",
+            "maxCount": 50
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.webPages.value[*]",
+        "schema": {
+            "name": {
+                "target": "$.name",
+                "type": "string"
+            },
+            "url": {
+                "target": "$.url",
+                "type": "string"
+            },
+            "snippet": {
+                "target": "$.snippet",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}

@@ -1,0 +1,68 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://www.wikia.com/api/v1/Search/CrossWiki",
+        "method": "GET",
+        "params": {
+            "query": true,
+            "batch": false,
+            "limit": false
+        },
+        "search": {
+            "key": "query"
+        },
+        "pagination": {
+            "type": "page",
+            "pageKey": "batch",
+            "limitKey": "limit",
+            "maxCount": 100
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.items[*]",
+        "schema": {
+            "id": {
+                "target": "$.id",
+                "type": "string"
+            },
+            "title": {
+                "target": "$.title",
+                "type": "string"
+            },
+            "topic": {
+                "target": "$.topic",
+                "type": "string"
+            },
+            "description": {
+                "target": "$.desc",
+                "type": "string"
+            },
+            "language": {
+                "target": "$.language",
+                "type": "string"
+            },
+            "url": {
+                "target": "$.url",
+                "type": "string"
+            },
+            "image_url": {
+                "target": "$.image",
+                "type": "string"
+            },
+            "articles": {
+                "target": "$.stats.articles",
+                "type": "int"
+            },
+            "images": {
+                "target": "$.stats.images",
+                "type": "int"
+            },
+            "videos": {
+                "target": "$.stats.videos",
+                "type": "int"
+            }
+        },
+        "orient": "records"
+    }
+}
