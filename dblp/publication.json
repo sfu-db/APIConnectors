@@ -8,9 +8,20 @@
             "h": false,
             "f": false,
             "author": {
+                "template": "author:{{author | replace(\" \", \"_\")}}:",
+                "required": false,
+                "removeIfEmpty": true,
+                "fromKey": "author",
+                "toKey": "q"
+            },
+            "name_parts": {
                 "template": "author:{{first_name}}_{{last_name}}:",
                 "required": false,
                 "removeIfEmpty": true,
+                "fromKey": [
+                    "first_name",
+                    "last_name"
+                ],
                 "toKey": "q"
             }
         },
