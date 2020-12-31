@@ -7,7 +7,7 @@
 A curated list of example code to collect data from Web APIs using DataPrep.Connector.
 
 ## How to Contribute?
-You can contribute to this project in two way. Please see the [contributing guide](CONTRIBUTING.md).
+You can contribute to this project in two ways. Please check the [contributing guide](CONTRIBUTING.md).
 1. Add your example code on this page
 2. Add a new configuration file to this repo
 
@@ -35,19 +35,21 @@ You can contribute to this project in two way. Please see the [contributing guid
 <details>
   <summary>What's the phone number of Capilano Suspension Bridge Park?</summary>
   
-  ```python
-  from dataprep.connector import connect
+```python
+from dataprep.connector import connect
 
-  # You can get ”yelp_access_token“ by following https://www.yelp.com/developers/documentation/v3/authentication
-  conn_yelp = connect("yelp", _auth={"access_token":yelp_access_token}, _concurrency = 5)
+# You can get ”yelp_access_token“ by following https://www.yelp.com/developers/documentation/v3/authentication
+conn_yelp = connect("yelp", _auth={"access_token":yelp_access_token}, _concurrency = 5)
 
-  df = await conn_yelp.query("businesses", term = "Capilano Suspension Bridge Park", location = "Vancouver", _count = 1)
+df = await conn_yelp.query("businesses", term = "Capilano Suspension Bridge Park", location = "Vancouver", _count = 1)
 
-  df[["name","display_phone"]]
-  ```
- id | name  |display_phone
- ---| ----- | ----
- 0   |Capilano Suspension Bridge Park | +1 604-985-7474
+df[["name","display_phone"]]
+```
+
+| id  | name                            | display_phone   |
+| --- | ------------------------------- | --------------- |
+| 0   | Capilano Suspension Bridge Park | +1 604-985-7474 |
+
   </details>
 <details>
   <summary>Which yoga store has the highest review count in Vancouver?</summary>
@@ -62,9 +64,9 @@ You can contribute to this project in two way. Please see the [contributing guid
   df = await conn_yelp.query("businesses", categories = "yoga", location = "Vancouver", sort_by = "review_count", _count = 1)
   df[["name", "review_count"]]
   ```
- id | name  |review_count
- ---| ----- | ----
- 0   |YYOGA Downtown Flow   | 107
+ | id  | name                | review_count |
+ | --- | ------------------- | ------------ |
+ | 0   | YYOGA Downtown Flow | 107          |
   </details>  
   
 <details>
@@ -81,12 +83,12 @@ You can contribute to this project in two way. Please see the [contributing guid
   df = df[(df['city'] == 'Seattle') & (df['name'] == 'Starbucks')]
   df = df[['name', 'address1', 'city', 'state', 'country', 'zip_code']].reset_index(drop=True)
   ```
-id   | name      |  address1          | city   |  state  |  country | zip_code
------| --------- |  ----------------  | -------| ------- | -------- | -------
-0    | Starbucks | 515 Westlake Ave N | Seattle | WA  | US |  98109
-1    | Starbucks |  442 Terry Avenue N |  Seattle | WA  | US  | 98109
-...  | .......   |  .......            |  ......  | ..  |  .. | ....
-126  | Starbucks | 17801 International Blvd | Seattle | WA | US | 98158
+| id  | name      | address1                 | city    | state | country | zip_code |
+| --- | --------- | ------------------------ | ------- | ----- | ------- | -------- |
+| 0   | Starbucks | 515 Westlake Ave N       | Seattle | WA    | US      | 98109    |
+| 1   | Starbucks | 442 Terry Avenue N       | Seattle | WA    | US      | 98109    |
+| ... | .......   | .......                  | ......  | ..    | ..      | ....     |
+| 126 | Starbucks | 17801 International Blvd | Seattle | WA    | US      | 98158    |
 
 </details>
 <details>
@@ -108,12 +110,12 @@ id   | name      |  address1          | city   |  state  |  country | zip_code
   df = pd.concat(await results)
   df[["name", "rating", "city"]].reset_index(drop=True)
   ```
-  ID   | Name                            | Rating  | City 
------- | ------------------------------- | ------- | --------
-  0    | Miku                            | 4.5     | Vancouver 
-  1    | Boulevard Kitchen & Oyster Bar  | 4.0     | Vancouver  
-  ...  |      ...                        |   ...   |  ...  
-  20   | Hokkaido Ramen Santouka         | 4.0     | Vancouver
+  | ID  | Name                           | Rating | City      |
+  | --- | ------------------------------ | ------ | --------- |
+  | 0   | Miku                           | 4.5    | Vancouver |
+  | 1   | Boulevard Kitchen & Oyster Bar | 4.0    | Vancouver |
+  | ... | ...                            | ...    | ...       |
+  | 20  | Hokkaido Ramen Santouka        | 4.0    | Vancouver |
 </details>
 
 
@@ -135,9 +137,6 @@ id   | name      |  address1          | city   |  state  |  country | zip_code
 ### Lifestyle
 
 #### [Spoonacular](./spoonacular) -- Collect Recipe, Food, and Nutritional Information Data
-
-
-
 
 
 ### Music
@@ -176,9 +175,9 @@ id   | name      |  address1          | city   |  state  |  country | zip_code
   df = await conn_dblp.query("publication", q = "Scikit-learn: Machine learning in Python", _count = 1)
   df[["title", "authors", "year"]]
   ```
-id | title | authors | year
-  ---  | ----- | -----   | ----
- 0     |Scikit-learn - Machine Learning in Python.| [Fabian Pedregosa, Gaël Varoquaux, Alexandre G... | 2011
+| id  | title                                      | authors                                           | year |
+| --- | ------------------------------------------ | ------------------------------------------------- | ---- |
+| 0   | Scikit-learn - Machine Learning in Python. | [Fabian Pedregosa, Gaël Varoquaux, Alexandre G... | 2011 |
  
   </details>
   
@@ -194,11 +193,11 @@ id | title | authors | year
   ```
 
 
- id | title | authors | year
-  ---  | ----- | -----   | ----
-  0 | On Local Rewards and Scaling Distributed Reinf... | [J. Andrew Bagnell, Andrew Y. Ng] | 2005
-   ...   | ...   | ... | ...
-   242 | An Experimental and Theoretical Comparison .... |  [Michael J. Kearns, Yishay Mansour, Andrew Y. Ng,.... | 1992
+ | id  | title                                             | authors                                               | year |
+ | --- | ------------------------------------------------- | ----------------------------------------------------- | ---- |
+ | 0   | On Local Rewards and Scaling Distributed Reinf... | [J. Andrew Bagnell, Andrew Y. Ng]                     | 2005 |
+ | ... | ...                                               | ...                                                   | ...  |
+ | 242 | An Experimental and Theoretical Comparison ....   | [Michael J. Kearns, Yishay Mansour, Andrew Y. Ng,.... | 1992 |
   </details>
   
 <details>
@@ -217,11 +216,11 @@ id | title | authors | year
   df = df[["title", "venue", "year"]].reset_index(drop=True)
   ```
 
-  id | title | authors | year
-  ---  | ----- | -----   | ----
- 0     |Towards More Practical Adversarial Attacks on ... | [NeurIPS] | 2020
- ...   | ...   | ... | ...
- 1899  | Triple descent and the two kinds of overfittin...  | [NeurIPS] | 2020
+  | id   | title                                             | authors   | year |
+  | ---- | ------------------------------------------------- | --------- | ---- |
+  | 0    | Towards More Practical Adversarial Attacks on ... | [NeurIPS] | 2020 |
+  | ...  | ...                                               | ...       | ...  |
+  | 1899 | Triple descent and the two kinds of overfittin... | [NeurIPS] | 2020 |
   </details>
   
 
@@ -258,8 +257,7 @@ id | title | authors | year
 #### [OpenWeatherMap](openweathermap) -- Colect Current and Historical Weather Data
 
 
-**[⬆ Back to Index](#index)**
-
+**[⬆️ Back to Index](#index)**
 
 
 ## Contributors ✨
