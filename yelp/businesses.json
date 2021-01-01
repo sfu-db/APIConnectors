@@ -11,7 +11,9 @@
             "location": true,
             "latitude": false,
             "longitude": false,
-            "limit": false
+            "limit": false,
+            "categories": false,
+            "sort_by": false
         },
         "pagination": {
             "type": "offset",

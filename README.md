@@ -43,10 +43,10 @@ conn_yelp = connect("yelp", _auth={"access_token":yelp_access_token}, _concurren
 
 df = await conn_yelp.query("businesses", term = "Capilano Suspension Bridge Park", location = "Vancouver", _count = 1)
 
-df[["name","display_phone"]]
+df[["name","phone"]]
 ```
 
-| id  | name                            | display_phone   |
+| id  | name                            | phone           |
 | --- | ------------------------------- | --------------- |
 | 0   | Capilano Suspension Bridge Park | +1 604-985-7474 |
 
@@ -54,19 +54,21 @@ df[["name","display_phone"]]
 <details>
   <summary>Which yoga store has the highest review count in Vancouver?</summary>
   
-  ```python
-  from dataprep.connector import connect
+```python
+from dataprep.connector import connect
 
-  # You can get ”yelp_access_token“ by following https://www.yelp.com/developers/documentation/v3/authentication
-  conn_yelp = connect("yelp", _auth={"access_token":yelp_access_token}, _concurrency = 1)
+# You can get ”yelp_access_token“ by following https://www.yelp.com/developers/documentation/v3/authentication
+conn_yelp = connect("yelp", _auth={"access_token":yelp_access_token}, _concurrency = 1)
 
-   # Check all supported categories: https://www.yelp.ca/developers/documentation/v3/all_category_list
-  df = await conn_yelp.query("businesses", categories = "yoga", location = "Vancouver", sort_by = "review_count", _count = 1)
-  df[["name", "review_count"]]
-  ```
- | id  | name                | review_count |
- | --- | ------------------- | ------------ |
- | 0   | YYOGA Downtown Flow | 107          |
+  # Check all supported categories: https://www.yelp.ca/developers/documentation/v3/all_category_list
+df = await conn_yelp.query("businesses", categories = "yoga", location = "Vancouver", sort_by = "review_count", _count = 1)
+df[["name", "review_count"]]
+```
+
+| id  | name                | review_count |
+| --- | ------------------- | ------------ |
+| 0   | YYOGA Downtown Flow | 107          |
+
   </details>  
   
 <details>
