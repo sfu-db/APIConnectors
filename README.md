@@ -83,7 +83,7 @@ df[["name", "review_count"]]
 
   # Remove irrelevant data
   df = df[(df['city'] == 'Seattle') & (df['name'] == 'Starbucks')]
-  df = df[['name', 'address1', 'city', 'state', 'country', 'zip_code']].reset_index(drop=True)
+  df[['name', 'address1', 'city', 'state', 'country', 'zip_code']].reset_index(drop=True)
   ```
 | id  | name      | address1                 | city    | state | country | zip_code |
 | --- | --------- | ------------------------ | ------- | ----- | ------- | -------- |
@@ -190,16 +190,16 @@ df[["name", "review_count"]]
   from dataprep.connector import connect
 
   conn_dblp = connect("dblp", _concurrency = 5)
-  df = await conn_dblp.query("publication", author = "Andrew Y. Ng",  _count = 2000)
-  df[["title", "authors", "year"]].reset_index(drop=True)
+  df = await conn_dblp.query("publication", author = "Andrew Y. Ng", _count = 2000)
+  df[["title", "authors", "venue", "year"]].reset_index(drop=True)
   ```
 
 
- | id  | title                                             | authors                                               | year |
- | --- | ------------------------------------------------- | ----------------------------------------------------- | ---- |
- | 0   | On Local Rewards and Scaling Distributed Reinf... | [J. Andrew Bagnell, Andrew Y. Ng]                     | 2005 |
- | ... | ...                                               | ...                                                   | ...  |
- | 242 | An Experimental and Theoretical Comparison ....   | [Michael J. Kearns, Yishay Mansour, Andrew Y. Ng,.... | 1992 |
+ | id  | title                                             | authors                                            | venue            | year |
+ | --- | ------------------------------------------------- | -------------------------------------------------- | ---------------- | ---- |
+ | 0   | The 1st Agriculture-Vision Challenge - Methods... | [Mang Tik Chiu, Xingqian Xu, Kai Wang, Jennife...  | [CVPR Workshops] | 2020 |
+ | ... | ...                                               | ...                                                | ...              | ...  |  
+ | 242 | An Experimental and Theoretical Comparison of ... | [Michael J. Kearns, Yishay Mansour, Andrew Y. ...  | [COLT]           | 1995 |
   </details>
   
 <details>
@@ -215,7 +215,7 @@ df[["name", "review_count"]]
   mask = df.venue.apply(lambda x: 'NeurIPS' in x)
   df = df[mask]
   df = df[(df['year'] == '2020')]
-  df = df[["title", "venue", "year"]].reset_index(drop=True)
+  df[["title", "venue", "year"]].reset_index(drop=True)
   ```
 
   | id   | title                                             | authors   | year |
