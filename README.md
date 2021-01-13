@@ -218,7 +218,7 @@ df[["name", "review_count"]]
   df[["title", "venue", "year"]].reset_index(drop=True)
   ```
 
-  | id   | title                                             | authors   | year |
+  | id   | title                                             | venue     | year |
   | ---- | ------------------------------------------------- | --------- | ---- |
   | 0    | Towards More Practical Adversarial Attacks on ... | [NeurIPS] | 2020 |
   | ...  | ...                                               | ...       | ...  |
