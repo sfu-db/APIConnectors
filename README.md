@@ -195,11 +195,11 @@ df[["name", "review_count"]]
   ```
 
 
- | id  | title                                             | authors                                            | venue            | year |
- | --- | ------------------------------------------------- | -------------------------------------------------- | ---------------- | ---- |
- | 0   | The 1st Agriculture-Vision Challenge - Methods... | [Mang Tik Chiu, Xingqian Xu, Kai Wang, Jennife...  | [CVPR Workshops] | 2020 |
- | ... | ...                                               | ...                                                | ...              | ...  |  
- | 242 | An Experimental and Theoretical Comparison of ... | [Michael J. Kearns, Yishay Mansour, Andrew Y. ...  | [COLT]           | 1995 |
+ | id  | title                                             | authors                                           | venue            | year |
+ | --- | ------------------------------------------------- | ------------------------------------------------- | ---------------- | ---- |
+ | 0   | The 1st Agriculture-Vision Challenge - Methods... | [Mang Tik Chiu, Xingqian Xu, Kai Wang, Jennife... | [CVPR Workshops] | 2020 |
+ | ... | ...                                               | ...                                               | ...              | ...  |
+ | 242 | An Experimental and Theoretical Comparison of ... | [Michael J. Kearns, Yishay Mansour, Andrew Y. ... | [COLT]           | 1995 |
   </details>
   
 <details>
@@ -218,7 +218,7 @@ df[["name", "review_count"]]
   df[["title", "venue", "year"]].reset_index(drop=True)
   ```
 
-  | id   | title                                             | authors   | year |
+  | id   | title                                             | venue     | year |
   | ---- | ------------------------------------------------- | --------- | ---- |
   | 0    | Towards More Practical Adversarial Attacks on ... | [NeurIPS] | 2020 |
   | ...  | ...                                               | ...       | ...  |
