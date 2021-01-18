@@ -1,5 +1,8 @@
 {
-    "tables": [
-        "spoon"
+	 "tables": [
+        "nutrients",
+        "ingredients",
+        "complex",
+        "product"
     ]
 }

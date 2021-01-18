@@ -20,11 +20,11 @@
     },
     "response": {
         "ctype": "application/json",
-        "tablePath": "$.history[*]",
+        "tablePath": "$[*]",
         "schema": {
             "id": {
                 "target": "$.id",
-                "type": "float"
+                "type": "int"
             },
             "calories": {
                 "target": "$.calories",
