@@ -20,7 +20,7 @@
     },
     "response": {
         "ctype": "application/json",
-        "tablePath": "$.history[*]",
+        "tablePath": "$[*]",
         "schema": {
             "id": {
                 "target": "$.id",
