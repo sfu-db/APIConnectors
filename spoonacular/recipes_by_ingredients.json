@@ -1,0 +1,64 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://api.spoonacular.com/recipes/findByIngredients",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "apiKey"
+        },
+        "params": {
+            "ingredients": true,
+            "number": false
+        },
+        "pagination": {
+            "type": "offset",
+            "offsetKey": "offset",
+            "limitKey": "limit",
+            "maxCount": 1000
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$[*]",
+        "schema": {
+            "id": {
+                "target": "$.id",
+                "type": "float"
+            },
+            "title": {
+                "target": "$.title",
+                "type": "string"
+            },
+            "image": {
+                "target": "$.image",
+                "type": "string"
+            },
+            "imageType": {
+                "target": "$.imageType",
+                "type": "string"
+            },
+            "usedIngredientCount": {
+                "target": "$.usedIngredientCount",
+                "type": "int"
+            },
+            "missedIngredientCount": {
+                "target": "$.missedIngredientCount",
+                "type": "int"
+            },
+            "missedIngredients": {
+                "target": "$.missedIngredients",
+                "type": "list"
+            },
+            "usedIngredient": {
+                "target": "$.usedIngredients",
+                "type": "list"
+            },
+            "likes": {
+                "target": "$.likes",
+                "type": "int"
+            }
+        },
+        "orient": "records"
+    }
+}

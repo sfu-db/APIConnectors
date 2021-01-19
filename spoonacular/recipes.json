@@ -1,0 +1,55 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://api.spoonacular.com/recipes/complexSearch",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "apiKey"
+        },
+        "params": {
+            "query": true,
+            "minProtein": false,
+            "minCalories": false,
+            "minCarbs": false,
+            "cuisine": false,
+            "diet": false,
+            "maxCarbs": false,
+            "maxCalories": false,
+            "maxProtein": false
+        },
+        "pagination": {
+            "type": "offset",
+            "offsetKey": "offset",
+            "limitKey": "limit",
+            "maxCount": 1000
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.results[*]",
+        "schema": {
+            "id": {
+                "target": "$.id",
+                "type": "int"
+            },
+            "title": {
+                "target": "$.title",
+                "type": "string"
+            },
+            "image": {
+                "target": "$.image",
+                "type": "string"
+            },
+            "imageType": {
+                "target": "$.imageType",
+                "type": "string"
+            },
+            "nutrients": {
+                "target": "$.nutrition.nutrients",
+                "type": "list"
+            }
+        },
+        "orient": "records"
+    }
+}
