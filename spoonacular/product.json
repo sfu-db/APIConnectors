@@ -36,6 +36,14 @@
             "title": {
                 "target": "$.title",
                 "type": "string"
+            },
+            "image": {
+                "target": "$.image",
+                "type": "string"
+            },
+            "imageType": {
+                "target": "$.imageType",
+                "type": "string"
             }
         },
         "orient": "records"
