@@ -9,17 +9,17 @@
         },
         "params": {
             "q": true,
-            "currentPage": false,
-            "pageSize": false
+            "page": false,
+            "page-size": false
         },
         "search": {
             "key": "q"
         },
         "pagination": {
             "type": "page",
-            "pageKey": "currentPage",
-            "limitKey": "pageSize",
-            "maxCount": 10
+            "pageKey": "page",
+            "limitKey": "page-size",
+            "maxCount": 50
         }
     },
     "response": {
