@@ -1,22 +1,21 @@
 {
     "version": 1,
     "request": {
-        "url": "https://api.spoonacular.com/recipes/complexSearch",
+        "url": "https://api.spoonacular.com/recipes/findByNutrients",
         "method": "GET",
         "authorization": {
             "type": "QueryParam",
             "keyParam": "apiKey"
         },
         "params": {
-            "query": true,
             "minProtein": false,
             "minCarbs": false,
-            "cuisine": false , 
-            "diet": false, 
-            "minProtein": false, 
-            "maxCarbs": false, 
-            "minCalories": false, 
-            "maxCalories": false
+            "maxProtein": false,
+            "maxCarbs": false,
+            "minCalories": false,
+            "maxCalories": false,
+            "minFat": false,
+            "maxFat": false
         },
         "pagination": {
             "type": "offset",
@@ -27,30 +26,38 @@
     },
     "response": {
         "ctype": "application/json",
-        "tablePath": "$.results[*]",
+        "tablePath": "$[*]",
         "schema": {
             "id": {
                 "target": "$.id",
                 "type": "int"
             },
+            "title": {
+                "target": "$.title",
+                "type": "string"
+            },
+            "image": {
+                "target": "$.image",
+                "type": "string"
+            },
+            "image_type": {
+                "target": "$.imageType",
+                "type": "string"
+            },
             "calories": {
                 "target": "$.calories",
-                "type": "string"
-            },
-            "carbs": {
-                "target": "$.carbs",
-                "type": "string"
-            },
-            "fat": {
-                "target": "$.fat",
                 "type": "string"
             },
             "protein": {
                 "target": "$.protein",
                 "type": "string"
             },
-            "title": {
-                "target": "$.title",
+            "fat": {
+                "target": "$.fat",
+                "type": "string"
+            },
+            "carbs": {
+                "target": "$.carbs",
                 "type": "string"
             }
         },

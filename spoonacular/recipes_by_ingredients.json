@@ -30,6 +30,14 @@
                 "target": "$.title",
                 "type": "string"
             },
+            "image": {
+                "target": "$.image",
+                "type": "string"
+            },
+            "imageType": {
+                "target": "$.imageType",
+                "type": "string"
+            },
             "usedIngredientCount": {
                 "target": "$.usedIngredientCount",
                 "type": "int"
@@ -37,7 +45,19 @@
             "missedIngredientCount": {
                 "target": "$.missedIngredientCount",
                 "type": "int"
-            }     
+            },
+            "missedIngredients": {
+                "target": "$.missedIngredients",
+                "type": "list"
+            },
+            "usedIngredient": {
+                "target": "$.usedIngredients",
+                "type": "list"
+            },
+            "likes": {
+                "target": "$.likes",
+                "type": "int"
+            }
         },
         "orient": "records"
     }

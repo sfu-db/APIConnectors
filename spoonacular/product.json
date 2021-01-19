@@ -10,11 +10,13 @@
         "params": {
             "query": true,
             "minProtein": false,
+            "maxProtein": false,
             "minCarbs": false,
-            "minProtein": false, 
-            "maxCarbs": false, 
-            "minCalories": false, 
-            "maxCalories": false
+            "minCalories": false,
+            "maxCarbs": false,
+            "maxCalories": false,
+            "minFat": false,
+            "maxFat": false
         },
         "pagination": {
             "type": "offset",

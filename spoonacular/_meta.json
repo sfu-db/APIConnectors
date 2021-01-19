@@ -1,8 +1,8 @@
 {
-	 "tables": [
-        "nutrients",
-        "ingredients",
-        "complex",
+    "tables": [
+        "recipes_by_nutrients",
+        "recipes_by_ingredients",
+        "recipes",
         "product"
     ]
 }

@@ -1,15 +1,22 @@
 {
     "version": 1,
     "request": {
-        "url": "https://api.spoonacular.com/recipes/findByNutrients",
+        "url": "https://api.spoonacular.com/recipes/complexSearch",
         "method": "GET",
         "authorization": {
             "type": "QueryParam",
             "keyParam": "apiKey"
         },
         "params": {
+            "query": true,
             "minProtein": false,
-            "minCarbs": false
+            "minCalories": false,
+            "minCarbs": false,
+            "cuisine": false,
+            "diet": false,
+            "maxCarbs": false,
+            "maxCalories": false,
+            "maxProtein": false
         },
         "pagination": {
             "type": "offset",
@@ -20,27 +27,27 @@
     },
     "response": {
         "ctype": "application/json",
-        "tablePath": "$[*]",
+        "tablePath": "$.results[*]",
         "schema": {
             "id": {
                 "target": "$.id",
                 "type": "int"
             },
-            "calories": {
-                "target": "$.calories",
+            "title": {
+                "target": "$.title",
                 "type": "string"
             },
-            "carbs": {
-                "target": "$.carbs",
+            "image": {
+                "target": "$.image",
                 "type": "string"
             },
-            "fat": {
-                "target": "$.fat",
+            "imageType": {
+                "target": "$.imageType",
                 "type": "string"
             },
-            "protein": {
-                "target": "$.protein",
-                "type": "string"
+            "nutrients": {
+                "target": "$.nutrition.nutrients",
+                "type": "list"
             }
         },
         "orient": "records"
