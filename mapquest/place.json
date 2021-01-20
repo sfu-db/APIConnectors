@@ -11,7 +11,8 @@
             "q": true,
             "sort": true,
             "page": false,
-            "pageSize": false
+            "pageSize": false,
+            "bbox": false
         },
         "search": {
             "key": "q"
