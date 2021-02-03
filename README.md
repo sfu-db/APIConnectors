@@ -1259,16 +1259,7 @@ album
 </table>
 </div>
 </details>  
-
-
-
 #### [Spotify](./spotify) -- Collect Albums, Artists, and Tracks Metadata
-
-
-
-    12
-
-  </details>  
 <details>
   <summary>In the last quarter of 2020, which artist released the album with the most tracks?</summary>
   
@@ -1375,8 +1366,6 @@ print(df['album_name'] + ", by " + df['artist'][0] + ", with " + str(df['market_
 
     
 </details> 
-
-
 ### News
 
 
@@ -1703,8 +1692,321 @@ new_df.sort_values(by="views", ascending=False).reset_index(drop=True).head(10)
 ### Social
 
 #### [Twitch](./twitch) -- Colect Twitch Streams and Channels Information
+<details>
+  <summary>How many followers does the Twitch user "Logic" have?</summary>
+  
+```python
+from dataprep.connector import connect
+
+# You can get ”twitch_access_token“ by registering https://www.twitch.tv/signup
+conn_twitch = connect("twitch", _auth={"access_token":twitch_access_token}, _concurrency=3)
+
+df = await conn_twitch.query("channels", query="logic", _count = 1000)
+
+df = df.where(df['name'] == 'logic').dropna()
+df = df[['name', 'followers']]
+df.reset_index()
+```
 
 
+
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>index</th>
+      <th>name</th>
+      <th>followers</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>logic</td>
+      <td>540274.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+  </details>  
+<details>
+  <summary>Which 5 Twitch users that speak English have the most views and what games do they play?</summary>
+  
+```python
+from dataprep.connector import connect
+
+# You can get ”twitch_access_token“ by registering https://www.twitch.tv/signup
+conn_twitch = connect("twitch", _auth={"access_token":twitch_access_token}, _concurrency=3)
+
+df = await conn_twitch.query("channels",query="%", _count = 1000)
+
+df = df[df['language'] == 'en']
+df = df.sort_values('views', ascending = False)
+df = df[['name', 'views', 'game', 'language']]
+df = df.head(5)
+df.reset_index()
+```
+
+
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>index</th>
+      <th>name</th>
+      <th>views</th>
+      <th>game</th>
+      <th>language</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>495</td>
+      <td>Fextralife</td>
+      <td>1280705870</td>
+      <td>The Elder Scrolls Online</td>
+      <td>en</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>9</td>
+      <td>Riot Games</td>
+      <td>1265668908</td>
+      <td>League of Legends</td>
+      <td>en</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>16</td>
+      <td>ESL_CSGO</td>
+      <td>548559390</td>
+      <td>Counter-Strike: Global Offensive</td>
+      <td>en</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>160</td>
+      <td>BeyondTheSummit</td>
+      <td>462493560</td>
+      <td>Dota 2</td>
+      <td>en</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>shroud</td>
+      <td>433902453</td>
+      <td>Rust</td>
+      <td>en</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+  </details>  
+<details>
+  <summary>Which channel has the most viewers for each of the top 10 games?</summary>
+  
+```python
+from dataprep.connector import connect
+
+# You can get ”twitch_access_token“ by registering https://www.twitch.tv/signup
+conn_twitch = connect("twitch", _auth={"access_token":twitch_access_token}, _concurrency=3)
+
+df = await conn_twitch.query("streams", query="%", _count = 1000)
+
+# Group by games, sum viewers and sort by total viewers
+df_new = df.groupby(['game'], as_index = False)['viewers'].agg('sum').rename(columns = {'game':'games', 'viewers':'total_viewers'})
+df_new = df_new.sort_values('total_viewers',ascending = False)
+
+# Select the channel with most viewers from each game 
+df_2 = df.loc[df.groupby(['game'])['viewers'].idxmax()]
+
+# Select the most popular channels for each of the 10 most popular games
+df_new = df_new.head(10)['games']
+best_games = df_new.tolist()
+result_df = df_2[df_2['game'].isin(best_games)]
+result_df = result_df.head(10)
+result_df = result_df[['game','channel_name', 'viewers']]
+result_df.reset_index()
+```
+
+
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>index</th>
+      <th>game</th>
+      <th>channel_name</th>
+      <th>viewers</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>3</td>
+      <td></td>
+      <td>seonghwazip</td>
+      <td>32126</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>21</td>
+      <td>Call of Duty: Warzone</td>
+      <td>FaZeBlaze</td>
+      <td>7521</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>9</td>
+      <td>Dota 2</td>
+      <td>dota2mc_ru</td>
+      <td>16118</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2</td>
+      <td>Escape From Tarkov</td>
+      <td>summit1g</td>
+      <td>33768</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>15</td>
+      <td>Fortnite</td>
+      <td>Fresh</td>
+      <td>10371</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>8</td>
+      <td>Hearthstone</td>
+      <td>SilverName</td>
+      <td>16765</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>22</td>
+      <td>Just Chatting</td>
+      <td>Trainwreckstv</td>
+      <td>6927</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0</td>
+      <td>League of Legends</td>
+      <td>LCK_Korea</td>
+      <td>77613</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>10</td>
+      <td>Minecraft</td>
+      <td>Tfue</td>
+      <td>15209</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>11</td>
+      <td>VALORANT</td>
+      <td>TenZ</td>
+      <td>13617</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+  </details>  
+<details>
+  <summary>(1) What is the number of Fortnite and Valorant streams in the past 24 hours?
+      (2) Is there any relationship between viewers and channel followers?
+</summary>
+  
+```python
+from dataprep.connector import connect
+import pandas as pd
+
+# You can get ”twitch_access_token“ by registering https://www.twitch.tv/signup
+conn_twitch = connect("twitch", _auth = {"access_token":twitch_access_token}, _concurrency = 3)
+
+df = await conn_twitch.query("streams", query = "%fortnite%VALORANT%", _count = 1000)
+
+df = df[['stream_created_at', 'game', 'viewers', 'channel_followers']]
+df['stream_created_at'] = df['stream_created_at'].astype('str') # Convert date to string
+
+for idx, value in enumerate(df['stream_created_at']):
+    df.loc[idx,'stream_created_at'] = value[0:9] + ' ' + value[-9:-1] # Extract datetime
+
+df['stream_created_at'] = pd.to_datetime(df['stream_created_at']) 
+df['diff'] = pd.Timestamp.now().normalize() - df['stream_created_at'] 
+df['diff'] = df['diff'].dt.total_seconds().astype('int') 
+
+df2 = df[['channel_followers', 'viewers']].corr(method='pearson') # Find correlation (part 2)
+
+df = df[df['diff'] > 864000] # Find streams in last 24 hours
+
+options = ['Fortnite', 'VALORANT']
+df = df[df['game'].isin(options)]
+df = df.groupby(['game'], as_index=False)['diff'].agg('count').rename(columns={'diff':'count'})
+
+# Print correlation part 2
+print("Correlation between viewers and channel followers:")
+print(df2)
+
+# Print part 1
+print('Number of streams in the past 24 hours:')
+df
+```
+
+    Correlation between viewers and channel followers:
+                       channel_followers   viewers
+    channel_followers           1.000000  0.851698
+    viewers                     0.851698  1.000000
+    
+Number of streams in the past 24 hours:
+
+
+
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>game</th>
+      <th>count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Fortnite</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>VALORANT</td>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</details>  
 
 
 #### [Twitter](./twitter) -- Colect Tweets Information
