@@ -1,0 +1,33 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://finnhub.io/api/v1/crypto/symbol",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "token"
+        },
+        "params": {
+            "exchange" : true
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$[*]",
+        "schema": {
+            "description": {
+                "target": "$[*].description",
+                "type": "string"
+            },
+            "displaySymbol": {
+                "target": "$[*].displaySymbol",
+                "type": "string"
+            },
+            "symbol": {
+                "target": "$[*].symbol",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}
