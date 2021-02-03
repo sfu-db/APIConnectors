@@ -1,0 +1,54 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://api.coingecko.com/api/v3/exchanges",
+        "method": "GET",
+        "params": {
+            "per_page": false,
+            "page": false
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.[*]",
+        "schema": {
+            "id": {
+                "target": "$.id",
+                "type": "string"
+            },
+            "name": {
+                "target": "$.name",
+                "type": "string"
+            },
+            "year_established": {
+                "target": "$.year_established",
+                "type": "string"
+            },
+            "country": {
+                "target": "$.country",
+                "type": "string"
+            },
+            "url": {
+                "target": "$.url",
+                "type": "string"
+            },
+            "trust_score": {
+                "target": "$.trust_score",
+                "type": "int"
+            },
+            "trust_score_rank": {
+                "target": "$.trust_score_rank",
+                "type": "int"
+            },
+            "trade_volume_24h_btc": {
+                "target": "$.trade_volume_24h_btc",
+                "type": "float"
+            },
+            "trade_volume_24h_btc_normalized": {
+                "target": "$.trade_volume_24h_btc_normalized",
+                "type": "float"
+            }
+        },
+        "orient": "records"
+    }
+}

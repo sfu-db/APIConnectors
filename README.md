@@ -235,6 +235,107 @@ result
 </details>
 
 
+#### [CoinGecko](./coingecko) -- Collect Cryptocurrency Data
+
+<details>
+  <summary>What is top 10 cryptocurrency with highest market cap and their current information?</summary>
+  
+```python
+from dataprep.connector import connect
+
+conn_coingecko = connect("coingecko")
+df = await conn_coingecko.query('markets', vs_currency='usd', order='market_cap_desc', per_page=10, page=1)
+df
+```
+|    | name         | symbol   |   current_price |   market_cap |   market_cap_rank |     high_24h |      low_24h |   price_change_24h |   price_change_percentage_24h |   market_cap_change_24h |   market_cap_change_percentage_24h | last_updated             |
+|---:|:-------------|:---------|----------------:|-------------:|------------------:|-------------:|-------------:|-------------------:|------------------------------:|------------------------:|-----------------------------------:|:-------------------------|
+|  0 | Bitcoin      | btc      |    36811        |  6.86613e+11 |                 1 | 37153        | 35344        |      1440.68       |                       4.0731  |             3.10933e+10 |                            4.7433  | 2021-02-03T19:24:09.271Z |
+|  1 | Ethereum     | eth      |     1628.99     |  1.87035e+11 |                 2 |  1645.73     |  1486.42     |       132.91       |                       8.88404 |             1.64296e+10 |                            9.63018 | 2021-02-03T19:22:32.413Z |
+| .. | ...          | ...      |  ...            |  ...         |               ... |   ...        |     ...      |        ...         |                           ... |                     ... |                                ... |                      ... |
+|  9 | Binance Coin | bnb      |       51.47     |  7.60256e+09 |                10 |    51.63     |    49.76     |         1.24       |                       2.47631 |             1.64863e+08 |                            2.21659 | 2021-02-03T19:25:45.456Z |
+</details>
+
+<details>
+  <summary>What are the cryptocurrency with highest increase percentage and decrease percentage?</summary>
+  
+```python
+from dataprep.connector import connect
+
+conn_coingecko = connect("coingecko")
+df = await conn_coingecko.query('markets', vs_currency='usd', per_page=1000, page=1)
+df = df.sort_values(by=['price_change_percentage_24h']).reset_index(drop=True).dropna()
+print("Coin with highest decrease percetage: {}, which decreases {}%".format(df['name'].iloc[0], df['price_change_percentage_24h'].iloc[0]))
+print("Coin with highest increase percetage: {}, which decreases {}%".format(df['name'].iloc[-1], df['price_change_percentage_24h'].iloc[-1]))
+```
+Coin with the highest decrease percentage: `PancakeSwap`, which decreases `-13.79622%`
+
+Coin with the highest increase percentage: `StormX`, which decreases `101.24182%`
+</details>
+
+<details>
+  <summary>What is the trending in CoinGecko?</summary>
+  
+```python
+from dataprep.connector import connect
+
+conn_coingecko = connect("coingecko")
+df = await conn_coingecko.query('trend')
+df
+```
+|    | id                | name        | symbol   |   market_cap_rank |   score |
+|---:|:------------------|:------------|:---------|------------------:|--------:|
+|  0 | bao-finance       | Bao Finance | BAO      |               175 |       0 |
+|  1 | milk2             | MILK2       | MILK2    |               634 |       1 |
+|  2 | unitrade          | Unitrade    | TRADE    |               529 |       2 |
+|  3 | pancakeswap-token | PancakeSwap | CAKE     |               110 |       3 |
+|  4 | fsw-token         | Falconswap  | FSW      |               564 |       4 |
+|  5 | zeroswap          | ZeroSwap    | ZEE      |               550 |       5 |
+|  6 | storm             | StormX      | STMX     |               211 |       6 |
+
+</details>
+
+<details>
+  <summary>What are the top10 US exchanges with highest trade volume in 24h?</summary>
+
+```python
+from dataprep.connector import connect
+
+conn_coingecko = connect("coingecko")
+df = await conn_coingecko.query('exchanges')
+result = df[df['country']=='United States'].reset_index(drop=True).head(10)
+result
+```
+|    | id         | name         |   year_established | ... |   trade_volume_24h_btc_normalized |
+|---:|:-----------|:-------------|-------------------:|:----|----------------------------------:|
+|  0 | gdax       | Coinbase Pro |               2012 | ... |                         90085.6   |
+|  1 | kraken     | Kraken       |               2011 | ... |                         48633.1   |
+|  2 | binance_us | Binance US   |               2019 | ... |                         7380.83   |
+| .. | ...        | ...          |                ... | ... | ...                               |
+
+</details>
+
+<details>
+  <summary>What are the top3 latest traded derivatives with perpetual contract?</summary>
+
+```python
+from dataprep.connector import connect
+import pandas as pd
+
+conn_coingecko = connect("coingecko")
+df = await conn_coingecko.query('derivatives')
+perpetual_df = df[df['contract_type'] == 'perpetual'].reset_index(drop=True)
+perpetual_df['last_traded_at'] = pd.to_datetime(perpetual_df['last_traded_at'], unit='s')
+perpetual_df.sort_values(by=['last_traded_at'], ascending=False).head(3).reset_index(drop=True)
+```
+|    | market         | symbol     | index_id   | contract_type   |         index |     basis |   funding_rate |   open_interest |       volume_24h | last_traded_at      |
+|---:|:---------------|:-----------|:-----------|:----------------|--------------:|----------:|---------------:|----------------:|-----------------:|:--------------------|
+|  0 | Huobi Futures  | MATIC-USDT | MATIC      | perpetual       |     0.0433357 | -0.606296 |       0.247604 |             nan |      1.43338e+06 | 2021-02-03 20:14:24 |
+|  1 | Biki (Futures) | 1          | BTC        | perpetual       | 36769.8       | -0.153111 |      -0.0519   |             nan |      1.00131e+08 | 2021-02-03 20:14:23 |
+|  2 | Huobi Futures  | CVC-USDT   | CVC        | perpetual       |     0.178268  | -0.336302 |       0.106314 |             nan | 876960           | 2021-02-03 20:14:23 |
+</details>
+
+
+
 ### Geocoding
 
 #### [MapQuest](./mapquest) -- Collect Driving Directions, Maps, Traffic Data
