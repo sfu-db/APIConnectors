@@ -1,0 +1,56 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://openapi.etsy.com/v2/shops",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "api_key"
+        },
+        "params": {
+            "shop_name": true,
+            "offset": false,
+            "limit": false
+        },
+        "search": {
+            "key": "shop_name"
+        },
+        "pagination": {
+            "type": "offset",
+            "offsetKey": "offset",
+            "limitKey": "limit",
+            "maxCount": 25
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.results[*]",
+        "schema": {
+            "name": {
+                "target": "$.shop_name",
+                "type": "string"
+            },
+            "intro": {
+                "target": "$.title",
+                "type": "string"
+            },
+            "announcement": {
+                "target": "$.announcement",
+                "type": "string"
+            },
+            "url": {
+                "target": "$.url",
+                "type": "string"
+            },
+            "banner_url": {
+                "target": "$.image_url_760x100",
+                "type": "string"
+            },
+            "favorites": {
+                "target": "$.num_favorers",
+                "type": "int"
+            }
+        },
+        "orient": "records"
+    }
+}

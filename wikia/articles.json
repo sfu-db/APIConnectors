@@ -1,0 +1,44 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://www.wikia.com/api/v1/Search/List",
+        "method": "GET",
+        "params": {
+            "query": true,
+            "batch": false,
+            "limit": false
+        },
+        "search": {
+            "key": "query"
+        },
+        "pagination": {
+            "type": "page",
+            "pageKey": "batch",
+            "limitKey": "limit",
+            "maxCount": 100
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.items[*]",
+        "schema": {
+            "id": {
+                "target": "$.id",
+                "type": "int"
+            },
+            "title": {
+                "target": "$.title",
+                "type": "string"
+            },
+            "snippet": {
+                "target": "$.snippet",
+                "type": "string"
+            },
+            "url": {
+                "target": "$.url",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}

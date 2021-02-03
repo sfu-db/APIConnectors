@@ -1,0 +1,51 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://api.spoonacular.com/food/products/search",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "apiKey"
+        },
+        "params": {
+            "query": true,
+            "minProtein": false,
+            "maxProtein": false,
+            "minCarbs": false,
+            "minCalories": false,
+            "maxCarbs": false,
+            "maxCalories": false,
+            "minFat": false,
+            "maxFat": false
+        },
+        "pagination": {
+            "type": "offset",
+            "offsetKey": "offset",
+            "limitKey": "limit",
+            "maxCount": 1000
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.products[*]",
+        "schema": {
+            "id": {
+                "target": "$.id",
+                "type": "int"
+            },
+            "title": {
+                "target": "$.title",
+                "type": "string"
+            },
+            "image": {
+                "target": "$.image",
+                "type": "string"
+            },
+            "imageType": {
+                "target": "$.imageType",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}

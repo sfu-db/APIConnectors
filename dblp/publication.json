@@ -1,16 +1,27 @@
 {
     "version": 1,
     "request": {
-        "url": "https://dblp.org/search/publ/api",
+        "url": "https://dblp.org/search/publ/api?format=json",
         "method": "GET",
         "params": {
             "q": true,
             "h": false,
             "f": false,
             "author": {
+                "template": "author:{{author | replace(\" \", \"_\")}}:",
+                "required": false,
+                "removeIfEmpty": true,
+                "fromKey": "author",
+                "toKey": "q"
+            },
+            "name_parts": {
                 "template": "author:{{first_name}}_{{last_name}}:",
                 "required": false,
                 "removeIfEmpty": true,
+                "fromKey": [
+                    "first_name",
+                    "last_name"
+                ],
                 "toKey": "q"
             }
         },
@@ -25,35 +36,51 @@
         }
     },
     "response": {
-        "ctype": "application/xml",
-        "tablePath": "/result/hits/*",
+        "ctype": "application/json",
+        "tablePath": "$.result.hits.hit[*].info",
         "schema": {
-            "authors": {
-                "target": "info/authors/*/text()",
-                "type": "object"
-            },
             "title": {
-                "target": "info/title/text()",
+                "target": "$.title",
                 "type": "string"
             },
             "venue": {
-                "target": "info/venue/text()",
+                "target": "$.venue",
+                "type": "object"
+            },
+            "publisher": {
+                "target": "$.publisher",
+                "type": "string"
+            },
+            "year": {
+                "target": "$.year",
+                "type": "string"
+            },
+            "type": {
+                "target": "$.type",
+                "type": "string"
+            },
+            "key": {
+                "target": "$.key",
+                "type": "string"
+            },
+            "ee": {
+                "target": "$.ee",
+                "type": "string"
+            },
+            "url": {
+                "target": "$.url",
+                "type": "string"
+            },
+            "authors": {
+                "target": "$.authors.author[*].text",
                 "type": "object"
             },
             "pages": {
-                "target": "info/pages/text()",
+                "target": "$.pages",
                 "type": "string"
             },
-            "publish year": {
-                "target": "info/year/text()",
-                "type": "string"
-            },
-            "publication type": {
-                "target": "info/type/text()",
-                "type": "string"
-            },
-            "publication url": {
-                "target": "info/url/text()",
+            "doi": {
+                "target": "$.doi",
                 "type": "string"
             }
         },

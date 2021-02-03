@@ -4,12 +4,18 @@
         "url": "https://api.spoonacular.com/recipes/findByNutrients",
         "method": "GET",
         "authorization": {
-            "type": "TokenParam",
+            "type": "QueryParam",
             "keyParam": "apiKey"
         },
         "params": {
             "minProtein": false,
-            "minCarbs": false
+            "minCarbs": false,
+            "maxProtein": false,
+            "maxCarbs": false,
+            "minCalories": false,
+            "maxCalories": false,
+            "minFat": false,
+            "maxFat": false
         },
         "pagination": {
             "type": "offset",
@@ -20,26 +26,38 @@
     },
     "response": {
         "ctype": "application/json",
-        "tablePath": "$.history[*]",
+        "tablePath": "$[*]",
         "schema": {
             "id": {
                 "target": "$.id",
-                "type": "float"
+                "type": "int"
+            },
+            "title": {
+                "target": "$.title",
+                "type": "string"
+            },
+            "image": {
+                "target": "$.image",
+                "type": "string"
+            },
+            "image_type": {
+                "target": "$.imageType",
+                "type": "string"
             },
             "calories": {
                 "target": "$.calories",
                 "type": "string"
             },
-            "carbs": {
-                "target": "$.carbs",
+            "protein": {
+                "target": "$.protein",
                 "type": "string"
             },
             "fat": {
                 "target": "$.fat",
                 "type": "string"
             },
-            "protein": {
-                "target": "$.protein",
+            "carbs": {
+                "target": "$.carbs",
                 "type": "string"
             }
         },

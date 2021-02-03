@@ -34,6 +34,44 @@
         "code",
         "maintenance"
       ]
+    },
+    {
+      "login": "pallavibharadwaj",
+      "name": "Pallavi Bharadwaj",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/17384838?v=4",
+      "profile": "https://www.pallavibharadwaj.com",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "h-asmat",
+      "name": "Hilal Asmat",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/28606148?v=4",
+      "profile": "https://www.linkedin.com/in/hilal-asmat/",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "Wukkkinz-0725",
+      "name": "Wukkkinz-0725",
+      "avatar_url": "https://avatars.githubusercontent.com/u/60677420?v=4",
+      "profile": "https://github.com/Wukkkinz-0725",
+       "contributions": [
+        "code",
+        "maintenance"
+      ]
+    },
+    {
+      "login": "Yizhou150",
+      "name": "Yizhou",
+      "avatar_url": "https://avatars.githubusercontent.com/u/62522644?v=4",
+      "profile": "https://github.com/Yizhou150",
+      "contributions": [
+        "code",
+        "maintenance"
+      ]
     }
   ],
   "contributorsPerLine": 7,

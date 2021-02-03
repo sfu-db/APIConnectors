@@ -13,7 +13,10 @@
             "from": {
                 "required": false,
                 "removeIfEmpty": true,
-                "template": "{{from_}}"
+                "template": "{{from_}}",
+                "fromKey": [
+                    "from_"
+                ]
             },
             "to": true
         }
