@@ -11,6 +11,9 @@
             "album_id": true
         }
     },
+    "examples": {
+        "album_id": "14250417"
+    },
     "response": {
         "ctype": "application/json",
         "tablePath": "$.message.body.album",

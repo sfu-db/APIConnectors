@@ -12,6 +12,9 @@
             "limit": false
         }
     },
+    "examples": {
+        "symbol": "'aapl'"
+    },
     "response": {
         "ctype": "application/json",
         "tablePath": "$[*]",

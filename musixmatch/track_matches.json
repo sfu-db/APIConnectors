@@ -13,6 +13,9 @@
             "q_album": false
         }
     },
+    "examples": {
+        "q_track": "'lose'"
+    },
     "response": {
         "ctype": "application/json",
         "tablePath": "$.message.body.track",

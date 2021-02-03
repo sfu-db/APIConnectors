@@ -20,6 +20,10 @@
             "to": true
         }
     },
+    "examples": {
+        "from_": "'2020-01-01'",
+        "to": "'2020-04-30'"
+    },
     "response": {
         "ctype": "application/json",
         "tablePath": "$.ipoCalendar[*]",

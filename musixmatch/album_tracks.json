@@ -15,9 +15,9 @@
             "page_size": false
         },
         "pagination": {
-            "type": "offset",
-            "offsetKey": "offset",
-            "limitKey": "limit",
+            "type": "page",
+            "pageKey": "page",
+            "limitKey": "page_size",
             "maxCount": 100
         }
     },

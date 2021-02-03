@@ -11,6 +11,9 @@
             "q": true
         }
     },
+    "examples": {
+        "q": "'vancouver'"
+    },
     "response": {
         "ctype": "application/json",
         "tablePath": "$[*]",

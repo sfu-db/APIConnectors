@@ -12,6 +12,10 @@
             "resolution": true
         }
     },
+    "examples": {
+        "symbol": "'aapl'",
+        "resolution": "'d'"
+    },
     "response": {
         "ctype": "application/json",
         "tablePath": "$.points[*]",
