@@ -51,6 +51,16 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "Yizhou150",
+      "name": "Yizhou",
+      "avatar_url": "https://avatars.githubusercontent.com/u/62522644?v=4",
+      "profile": "https://github.com/Yizhou150",
+      "contributions": [
+        "code",
+        "maintenance"
+      ]
     }
   ],
   "contributorsPerLine": 7,
