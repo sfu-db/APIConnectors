@@ -641,6 +641,62 @@ ranking_df
 |  5 | Kim Kardashian |                    0 |
 </details>
 
+
+
+#### [Currents](./currents) -- Collect Currents News Data
+<details>
+  <summary>How to get latest Chinese news?</summary>
+  
+```python
+from dataprep.connector import connect
+
+# You can get ”currents_access_token“ by following https://currentsapi.services/zh_CN
+conn_currents = connect('currents', _auth={'access_token': currents_access_token})
+df = await conn_currents.query('latest_news', language='zh')
+df.head()
+```
+| id | title            | category     | ... | author  | published                 |
+|---:|:-----------------|:-------------|:----|:--------|:--------------------------|
+|  0 | 為何上市公司該汰換了 |[entrepreneur]| ... | 經濟日報 | 2021-02-03 08:48:39 +0000 |
+</details>
+
+<details>
+  <summary>How to get the politics news about 'Trump'?</summary>
+  
+```python
+from dataprep.connector import connect
+
+# You can get ”currents_access_token“ by following https://currentsapi.services/zh_CN
+conn_currents = connect('currents', _auth={'access_token': currents_access_token})
+df = await conn_currents.query('search', keywords='Trump', category='politics')
+df.head(3)
+```
+|    | title                                                                                                        | category              | description                                                                                                                    | url                                                                                                               | author        | published                 |
+|---:|:-------------------------------------------------------------------------------------------------------------|:----------------------|:-------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------------|:--------------|:--------------------------|
+|  0 | Biden Started The Process Of Unwinding Trump's Assault On Immigration, But Activists Want Him To Move Faster | ['politics', 'world'] | "These people cannot continue to wait."                                                                                        | https://www.buzzfeednews.com/article/adolfoflores/biden-immigration-executive-orders-review                       | Adolfo Flores | 2021-02-03 08:39:51 +0000 |
+|  1 | Pro-Trump lawyer Lin Wood reportedly under investigation for voter fraud                                     | ['politics', 'world'] | A source told CBS Atlanta affiliate WGCL that Lin Wood is being investigated for allegedly voting "out of state."              | https://www.cbsnews.com/news/pro-trump-lawyer-lin-wood-under-investigation-for-alleged-illegal-voting-2020-02-03/ | April Siese   | 2021-02-03 08:21:25 +0000 |
+|  2 | Trump Supporters Say They Attacked The Capitol Because He Told Them To, Undercutting His Impeachment Defense | ['politics', 'world'] | “President Trump told Us to ‘fight like hell,’” one Trump supporter reportedly posted online after the assault on the Capitol. | https://www.buzzfeednews.com/article/zoetillman/trump-impeachment-capitol-rioters-fight-like-hell                 | Zoe Tillman   | 2021-02-03 07:25:34 +0000 |
+</details>
+
+<details>
+  <summary>How to get the news about 'covid-19' in 2020-12-25?</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”currents_access_token“ by following https://currentsapi.services/zh_CN
+conn_currents = connect('currents', _auth={'access_token': currents_access_token})
+df = await conn_currents.query('search', keywords='covid', start_date='2020-12-25',end_date='2020-12-25')
+df.head(1)
+```
+
+|    | title                                                               | category    | ... | published                 |
+|---:|:--------------------------------------------------------------------|:------------|:----|:--------------------------|
+|  0 | Commentary: Let our charitable giving equal our political donations | ['opinion'] | ... | 2020-12-25 00:00:00 +0000 |
+</details>
+
+
+
 ### Science
 
 #### [DBLP](./dblp) -- Collect Computer Science Publication Data
@@ -701,7 +757,6 @@ ranking_df
 | ...  | ...                                               | ...       | ...  |
 | 1899 | Triple descent and the two kinds of overfittin... | [NeurIPS] | 2020 |
   </details>
-
 
 
 ### Shopping
