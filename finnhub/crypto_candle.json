@@ -1,0 +1,60 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://finnhub.io/api/v1/crypto/candle",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "token"
+        },
+        "params": {
+            "symbol" : true,
+            "resolution" : true,
+            "from_": true,
+            "from": {
+                "required": false,
+                "removeIfEmpty": true,
+                "template": "{{from_}}",
+                "fromKey": [
+                    "from_"
+                ]
+            },
+            "to" : true
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$[*]",
+        "schema": {
+            "open_price": {
+                "target": "$.o[*]",
+                "type": "object"
+            },
+            "high_price": {
+                "target": "$.h[*]",
+                "type": "object"
+            },
+            "low_price": {
+                "target": "$.l[*]",
+                "type": "object"
+            },
+            "close_price": {
+                "target": "$.c[*]",
+                "type": "object"
+            },
+            "volume": {
+                "target": "$.v[*]",
+                "type": "object"
+            },
+            "timestamp": {
+                "target": "$.t[*]",
+                "type": "object"
+            },
+            "status": {
+                "target": "$.s",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}
