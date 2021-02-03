@@ -707,7 +707,7 @@ ranking_df
 ### Shopping
 
 
-#### [Etsy](./etsy) -- Colect Handmade Marketplace Data.
+#### [Etsy](./etsy) -- Collect Handmade Marketplace Data.
 
 <details>
   <summary>What are the products I can get when I search for "winter jackets"?</summary>
