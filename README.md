@@ -873,6 +873,43 @@ df
 </table>
 </div>
 
+<details>
+  <summary>How many followers does Eminem have?</summary>
+  
+```python
+from dataprep.connector import connect
+
+# You can get ”spotify_client_id“ and "spotify_client_secret" by registering as a developer https://developer.spotify.com/dashboard/#
+conn_spotify = connect("spotify", _auth={"client_id":spotify_client_id, "client_secret":spotify_client_secret}, _concurrency=3)
+
+df = await conn_spotify.query("artist", q="Eminem", _count=500)
+
+df.loc[df['# followers'].idxmax(), '# followers']
+```
+
+
+
+
+    41157398
+
+  </details>  
+<details>
+  <summary>How many singles does Pink Floyd have that are available in Canada?</summary>
+  
+```python
+from dataprep.connector import connect
+
+# You can get ”spotify_client_id“ and "spotify_client_secret" by registering as a developer https://developer.spotify.com/dashboard/#
+conn_spotify = connect("spotify", _auth={"client_id":spotify_client_id, "client_secret":spotify_client_secret}, _concurrency=3)
+
+artist_name = "Pink Floyd"
+df = await conn_spotify.query("album", q = artist_name, _count = 500)
+
+df = df.loc[[(artist_name in x) for x in df['artist']]]
+df = df.loc[[('CA' in x) for x in df['available_markets']]]
+df = df.loc[df['total_tracks'] == '1']
+df.shape[0]
+```
 
   </details>  
 <details>
@@ -1227,6 +1264,117 @@ album
 
 #### [Spotify](./spotify) -- Collect Albums, Artists, and Tracks Metadata
 
+
+
+    12
+
+  </details>  
+<details>
+  <summary>In the last quarter of 2020, which artist released the album with the most tracks?</summary>
+  
+```python
+from dataprep.connector import connect
+import pandas as pd
+
+# You can get ”spotify_client_id“ and "spotify_client_secret" by registering as a developer https://developer.spotify.com/dashboard/#
+conn_spotify = connect("spotify", _auth={"client_id":spotify_client_id, "client_secret":spotify_client_secret}, _concurrency=3)
+
+df = await conn_spotify.query("album", q = "2020", _count = 500)
+
+df['date'] = pd.to_datetime(df['release_date'])
+df = df[df['date'] > '2020-10-01'].drop(columns = ['image url', 'external urls', 'release_date'])
+df['total_tracks'] = df['total_tracks'].astype(int)
+df = df.loc[df['total_tracks'].idxmax()]
+print(df['album_name'] + ", by " + df['artist'][0] + ", tracks: " + str(df['total_tracks']))
+```
+
+    ASOT 996 - A State Of Trance Episode 996 (Top 50 Of 2020 Special), by Armin van Buuren ASOT Radio, tracks: 172
+
+  </details>  
+<details>
+  <summary>Who is the most popular artist: Eminem, Beyonce, Pink Floyd and Led Zeppelin</summary>
+  
+```python
+# and what are their popularity ratings?
+from dataprep.connector import connect
+
+# You can get ”spotify_client_id“ and "spotify_client_secret" by registering as a developer https://developer.spotify.com/dashboard/#
+conn_spotify = connect("spotify", _auth={"client_id":spotify_client_id, "client_secret":spotify_client_secret}, _concurrency=3)
+
+artists_and_num_followers = []
+for artist in ['Beyonce', 'Pink Floyd', 'Eminem', 'Led Zeppelin']:
+    df = await conn_spotify.query("artist", q = artist, _count = 500) 
+    num_followers = df.loc[df['# followers'].idxmax(), 'popularity']
+    artists_and_num_followers.append((artist, num_followers))
+
+print(sorted(artists_and_num_followers, key=lambda x: x[1], reverse=True))
+```
+
+    [('Eminem', 94.0), ('Beyonce', 88.0), ('Pink Floyd', 83.0), ('Led Zeppelin', 81.0)]```python
+    
+</details> 
+<details>
+  <summary>Who are the top 5 artists with the most followers from the current Billboard top 100 artists?</summary>
+  
+```python
+from dataprep.connector import connect
+from bs4 import BeautifulSoup
+import requests
+
+# You can get ”spotify_client_id“ and "spotify_client_secret" by registering as a developer https://developer.spotify.com/dashboard/#
+conn_spotify = connect("spotify", _auth={"client_id":spotify_client_id, "client_secret":spotify_client_secret}, _concurrency=3)
+
+web_page = requests.get("https://www.billboard.com/charts/artist-100")
+html_soup = BeautifulSoup(web_page.text, 'html.parser')
+artist_100 = html_soup.find_all('span', class_ = 'chart-list-item__title-text')
+
+artists = {}
+artists_top5 = []
+for artist in artist_100:
+    df_temp = await conn_spotify.query("artist", q = artist.text.strip(), _count = 10)
+    df_temp = df_temp.loc[df_temp['popularity'].idxmax()]
+    artists[df_temp['name']] = df_temp['# followers']
+artists_top5 = sorted(artists, key = artists.get, reverse = True)[:5]
+artists_top5
+```
+
+
+
+
+    ['Ed Sheeran', 'Ariana Grande', 'Drake', 'Justin Bieber', 'Eminem']
+    
+</details> 
+<details>
+  <summary>For a list of top 10 most popular albums from rollingstone.com which album has most selling markets (countries) around the world in 2020?</summary>
+  
+```python
+from dataprep.connector import connect
+import asyncio
+
+# You can get ”spotify_client_id“ and "spotify_client_secret" by registering as a developer https://developer.spotify.com/dashboard/#
+conn_spotify = connect("spotify", _auth={"client_id":spotify_client_id, "client_secret":spotify_client_secret}, _concurrency=3)
+
+def count_markets(text):
+    lst = text.split(',')
+    return len(lst)
+
+album_artists = ["Folklore", "Fetch the Bolt Cutters", "YHLQMDLG", "Rough and Rowdy Ways", "Future Nostalgia",
+                 "RTJ4", "Saint Cloud", "Eternal Atake", "What’s Your Pleasure", "Punisher"]
+
+album_list = [conn_spotify.query("album", q = name, _count = 1) for name in album_artists]
+combined = asyncio.gather(*album_list)
+df = pd.concat(await combined).reset_index()
+df = df.drop(columns = ['image url', 'external urls', 'index'])
+df['market_count'] = df['available_markets'].apply(lambda x: count_markets(x))
+df = df.loc[df['market_count'].idxmax()]
+print(df['album_name'] + ", by " + df['artist'][0] + ", with " + str(df['market_count']) + " avalible countries")
+```
+
+
+    folklore, by Taylor Swift, with 92 avalible countries
+
+    
+</details> 
 
 
 ### News
