@@ -2,6 +2,7 @@
     "tables": [
         "album_info",
         "album_tracks",
+        "artist_albums",
         "artist_info",
         "artists",
         "genres",
