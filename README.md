@@ -873,6 +873,358 @@ df
 </table>
 </div>
 
+</details>
+
+<details>
+<summary>What are the highest rated songs in Canada from highest to lowest popularity?</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”musixmatch_access_token“ by registering as a developer https://developer.musixmatch.com/signup
+conn_musixmatch = connect("musixmatch", _auth={"access_token":musixmatch_access_token}, _concurrency = 5)
+
+df = await conn_musixmatch.query("top_tracks", country = 'CA')
+
+df[df['is_explicit'] == 0].sort_values('rating', ascending = False).reset_index()
+```
+
+
+
+
+<div>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>index</th>
+<th>id</th>
+<th>name</th>
+<th>rating</th>
+<th>commontrack_id</th>
+<th>has_instrumental</th>
+<th>is_explicit</th>
+<th>has_lyrics</th>
+<th>has_subtitles</th>
+<th>album_id</th>
+<th>album_name</th>
+<th>artist_id</th>
+<th>artist_name</th>
+<th>track_share_url</th>
+<th>updated_time</th>
+<th>genres</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>5</td>
+<td>201621042</td>
+<td>Dynamite</td>
+<td>99</td>
+<td>114947355</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>39721115</td>
+<td>Dynamite - Single</td>
+<td>24410130</td>
+<td>BTS</td>
+<td>https://www.musixmatch.com/lyrics/BTS/Dynamite...</td>
+<td>2021-01-15T16:40:48Z</td>
+<td>[Pop]</td>
+</tr>
+<tr>
+<th>1</th>
+<td>9</td>
+<td>187880919</td>
+<td>Before You Go</td>
+<td>99</td>
+<td>103153140</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>35611759</td>
+<td>Divinely Uninspired To A Hellish Extent (Exten...</td>
+<td>33258132</td>
+<td>Lewis Capaldi</td>
+<td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
+<td>2019-11-20T08:44:05Z</td>
+<td>[Pop, Alternative]</td>
+</tr>
+<tr>
+<th>2</th>
+<td>7</td>
+<td>189704353</td>
+<td>Breaking Me</td>
+<td>98</td>
+<td>105304416</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>34892017</td>
+<td>Keep On Loving</td>
+<td>42930474</td>
+<td>Topic feat. A7S</td>
+<td>https://www.musixmatch.com/lyrics/Topic-8/Brea...</td>
+<td>2021-01-19T16:57:29Z</td>
+<td>[House, Dance]</td>
+</tr>
+<tr>
+<th>3</th>
+<td>3</td>
+<td>189626475</td>
+<td>Watermelon Sugar</td>
+<td>95</td>
+<td>103096346</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>36101498</td>
+<td>Fine Line</td>
+<td>24505463</td>
+<td>Harry Styles</td>
+<td>https://www.musixmatch.com/lyrics/Harry-Styles...</td>
+<td>2020-02-14T08:07:12Z</td>
+<td>[Music]</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</details>  
+<details>
+<summary>What are other songs in the same album as the song "Before You Go"?</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”musixmatch_access_token“ by registering as a developer https://developer.musixmatch.com/signup
+conn_musixmatch = connect("musixmatch", _auth={"access_token":musixmatch_access_token})
+
+song = await conn_musixmatch.query("track_info", commontrack_id = 103153140)
+album = await conn_musixmatch.query("album_tracks", album_id = song["album_id"][0])
+
+album
+```
+
+
+
+
+<div>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>id</th>
+<th>name</th>
+<th>rating</th>
+<th>commontrack_id</th>
+<th>has_instrumental</th>
+<th>is_explicit</th>
+<th>has_lyrics</th>
+<th>has_subtitles</th>
+<th>album_id</th>
+<th>album_name</th>
+<th>artist_id</th>
+<th>artist_name</th>
+<th>track_share_url</th>
+<th>updated_time</th>
+<th>genres</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>186884178</td>
+<td>Grace</td>
+<td>31</td>
+<td>87857108</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>35611759</td>
+<td>Divinely Uninspired To A Hellish Extent (Exten...</td>
+<td>33258132</td>
+<td>Lewis Capaldi</td>
+<td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
+<td>2019-04-09T10:21:29Z</td>
+<td>[Folk-Rock]</td>
+</tr>
+<tr>
+<th>1</th>
+<td>186884184</td>
+<td>Bruises</td>
+<td>68</td>
+<td>70395936</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>35611759</td>
+<td>Divinely Uninspired To A Hellish Extent (Exten...</td>
+<td>33258132</td>
+<td>Lewis Capaldi</td>
+<td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
+<td>2020-07-31T12:58:04Z</td>
+<td>[Music, Alternative]</td>
+</tr>
+<tr>
+<th>2</th>
+<td>186884187</td>
+<td>Hold Me While You Wait</td>
+<td>89</td>
+<td>95176135</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>35611759</td>
+<td>Divinely Uninspired To A Hellish Extent (Exten...</td>
+<td>33258132</td>
+<td>Lewis Capaldi</td>
+<td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
+<td>2020-08-02T07:23:21Z</td>
+<td>[Music]</td>
+</tr>
+<tr>
+<th>3</th>
+<td>186884189</td>
+<td>Someone You Loved</td>
+<td>95</td>
+<td>89461086</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>35611759</td>
+<td>Divinely Uninspired To A Hellish Extent (Exten...</td>
+<td>33258132</td>
+<td>Lewis Capaldi</td>
+<td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
+<td>2020-06-22T15:34:07Z</td>
+<td>[Pop, Alternative]</td>
+</tr>
+<tr>
+<th>4</th>
+<td>186884190</td>
+<td>Maybe</td>
+<td>31</td>
+<td>95541701</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>35611759</td>
+<td>Divinely Uninspired To A Hellish Extent (Exten...</td>
+<td>33258132</td>
+<td>Lewis Capaldi</td>
+<td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
+<td>2019-05-20T11:41:00Z</td>
+<td>[Music]</td>
+</tr>
+<tr>
+<th>5</th>
+<td>186884191</td>
+<td>Forever</td>
+<td>67</td>
+<td>95541702</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>35611759</td>
+<td>Divinely Uninspired To A Hellish Extent (Exten...</td>
+<td>33258132</td>
+<td>Lewis Capaldi</td>
+<td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
+<td>2019-11-18T10:46:36Z</td>
+<td>[Music]</td>
+</tr>
+<tr>
+<th>6</th>
+<td>186884192</td>
+<td>One</td>
+<td>31</td>
+<td>95541699</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>35611759</td>
+<td>Divinely Uninspired To A Hellish Extent (Exten...</td>
+<td>33258132</td>
+<td>Lewis Capaldi</td>
+<td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
+<td>2019-05-19T04:08:23Z</td>
+<td>[Music]</td>
+</tr>
+<tr>
+<th>7</th>
+<td>186884193</td>
+<td>Don't Get Me Wrong</td>
+<td>31</td>
+<td>95541698</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>35611759</td>
+<td>Divinely Uninspired To A Hellish Extent (Exten...</td>
+<td>33258132</td>
+<td>Lewis Capaldi</td>
+<td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
+<td>2019-12-20T08:25:26Z</td>
+<td>[Music]</td>
+</tr>
+<tr>
+<th>8</th>
+<td>186884194</td>
+<td>Hollywood</td>
+<td>31</td>
+<td>95541700</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>35611759</td>
+<td>Divinely Uninspired To A Hellish Extent (Exten...</td>
+<td>33258132</td>
+<td>Lewis Capaldi</td>
+<td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
+<td>2019-05-21T08:00:54Z</td>
+<td>[Music]</td>
+</tr>
+<tr>
+<th>9</th>
+<td>186884195</td>
+<td>Lost on You</td>
+<td>31</td>
+<td>73530089</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>35611759</td>
+<td>Divinely Uninspired To A Hellish Extent (Exten...</td>
+<td>33258132</td>
+<td>Lewis Capaldi</td>
+<td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
+<td>2020-03-17T08:35:18Z</td>
+<td>[Alternative]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</details>  
+
+#### [Spotify](./spotify) -- Collect Albums, Artists, and Tracks Metadata
+
 <details>
   <summary>How many followers does Eminem have?</summary>
   
@@ -911,355 +1263,9 @@ df = df.loc[df['total_tracks'] == '1']
 df.shape[0]
 ```
 
+    12
   </details>  
-<details>
-  <summary>What are the highest rated songs in Canada from highest to lowest popularity?</summary>
-  
-```python
-from dataprep.connector import connect
 
-# You can get ”musixmatch_access_token“ by registering as a developer https://developer.musixmatch.com/signup
-conn_musixmatch = connect("musixmatch", _auth={"access_token":musixmatch_access_token}, _concurrency = 5)
-
-df = await conn_musixmatch.query("top_tracks", country = 'CA')
-
-df[df['is_explicit'] == 0].sort_values('rating', ascending = False).reset_index()
-```
-
-
-
-
-<div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>index</th>
-      <th>id</th>
-      <th>name</th>
-      <th>rating</th>
-      <th>commontrack_id</th>
-      <th>has_instrumental</th>
-      <th>is_explicit</th>
-      <th>has_lyrics</th>
-      <th>has_subtitles</th>
-      <th>album_id</th>
-      <th>album_name</th>
-      <th>artist_id</th>
-      <th>artist_name</th>
-      <th>track_share_url</th>
-      <th>updated_time</th>
-      <th>genres</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>5</td>
-      <td>201621042</td>
-      <td>Dynamite</td>
-      <td>99</td>
-      <td>114947355</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>39721115</td>
-      <td>Dynamite - Single</td>
-      <td>24410130</td>
-      <td>BTS</td>
-      <td>https://www.musixmatch.com/lyrics/BTS/Dynamite...</td>
-      <td>2021-01-15T16:40:48Z</td>
-      <td>[Pop]</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>9</td>
-      <td>187880919</td>
-      <td>Before You Go</td>
-      <td>99</td>
-      <td>103153140</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>35611759</td>
-      <td>Divinely Uninspired To A Hellish Extent (Exten...</td>
-      <td>33258132</td>
-      <td>Lewis Capaldi</td>
-      <td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
-      <td>2019-11-20T08:44:05Z</td>
-      <td>[Pop, Alternative]</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>7</td>
-      <td>189704353</td>
-      <td>Breaking Me</td>
-      <td>98</td>
-      <td>105304416</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>34892017</td>
-      <td>Keep On Loving</td>
-      <td>42930474</td>
-      <td>Topic feat. A7S</td>
-      <td>https://www.musixmatch.com/lyrics/Topic-8/Brea...</td>
-      <td>2021-01-19T16:57:29Z</td>
-      <td>[House, Dance]</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>3</td>
-      <td>189626475</td>
-      <td>Watermelon Sugar</td>
-      <td>95</td>
-      <td>103096346</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>36101498</td>
-      <td>Fine Line</td>
-      <td>24505463</td>
-      <td>Harry Styles</td>
-      <td>https://www.musixmatch.com/lyrics/Harry-Styles...</td>
-      <td>2020-02-14T08:07:12Z</td>
-      <td>[Music]</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-  </details>  
-<details>
-  <summary>What are other songs in the same album as the song "Before You Go"?</summary>
-  
-```python
-from dataprep.connector import connect
-
-# You can get ”musixmatch_access_token“ by registering as a developer https://developer.musixmatch.com/signup
-conn_musixmatch = connect("musixmatch", _auth={"access_token":musixmatch_access_token})
-
-song = await conn_musixmatch.query("track_info", commontrack_id = 103153140)
-album = await conn_musixmatch.query("album_tracks", album_id = song["album_id"][0])
-
-album
-```
-
-
-
-
-<div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>id</th>
-      <th>name</th>
-      <th>rating</th>
-      <th>commontrack_id</th>
-      <th>has_instrumental</th>
-      <th>is_explicit</th>
-      <th>has_lyrics</th>
-      <th>has_subtitles</th>
-      <th>album_id</th>
-      <th>album_name</th>
-      <th>artist_id</th>
-      <th>artist_name</th>
-      <th>track_share_url</th>
-      <th>updated_time</th>
-      <th>genres</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>186884178</td>
-      <td>Grace</td>
-      <td>31</td>
-      <td>87857108</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>35611759</td>
-      <td>Divinely Uninspired To A Hellish Extent (Exten...</td>
-      <td>33258132</td>
-      <td>Lewis Capaldi</td>
-      <td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
-      <td>2019-04-09T10:21:29Z</td>
-      <td>[Folk-Rock]</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>186884184</td>
-      <td>Bruises</td>
-      <td>68</td>
-      <td>70395936</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>35611759</td>
-      <td>Divinely Uninspired To A Hellish Extent (Exten...</td>
-      <td>33258132</td>
-      <td>Lewis Capaldi</td>
-      <td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
-      <td>2020-07-31T12:58:04Z</td>
-      <td>[Music, Alternative]</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>186884187</td>
-      <td>Hold Me While You Wait</td>
-      <td>89</td>
-      <td>95176135</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>35611759</td>
-      <td>Divinely Uninspired To A Hellish Extent (Exten...</td>
-      <td>33258132</td>
-      <td>Lewis Capaldi</td>
-      <td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
-      <td>2020-08-02T07:23:21Z</td>
-      <td>[Music]</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>186884189</td>
-      <td>Someone You Loved</td>
-      <td>95</td>
-      <td>89461086</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>35611759</td>
-      <td>Divinely Uninspired To A Hellish Extent (Exten...</td>
-      <td>33258132</td>
-      <td>Lewis Capaldi</td>
-      <td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
-      <td>2020-06-22T15:34:07Z</td>
-      <td>[Pop, Alternative]</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>186884190</td>
-      <td>Maybe</td>
-      <td>31</td>
-      <td>95541701</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>1</td>
-      <td>35611759</td>
-      <td>Divinely Uninspired To A Hellish Extent (Exten...</td>
-      <td>33258132</td>
-      <td>Lewis Capaldi</td>
-      <td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
-      <td>2019-05-20T11:41:00Z</td>
-      <td>[Music]</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>186884191</td>
-      <td>Forever</td>
-      <td>67</td>
-      <td>95541702</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>35611759</td>
-      <td>Divinely Uninspired To A Hellish Extent (Exten...</td>
-      <td>33258132</td>
-      <td>Lewis Capaldi</td>
-      <td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
-      <td>2019-11-18T10:46:36Z</td>
-      <td>[Music]</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>186884192</td>
-      <td>One</td>
-      <td>31</td>
-      <td>95541699</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>35611759</td>
-      <td>Divinely Uninspired To A Hellish Extent (Exten...</td>
-      <td>33258132</td>
-      <td>Lewis Capaldi</td>
-      <td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
-      <td>2019-05-19T04:08:23Z</td>
-      <td>[Music]</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>186884193</td>
-      <td>Don't Get Me Wrong</td>
-      <td>31</td>
-      <td>95541698</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>35611759</td>
-      <td>Divinely Uninspired To A Hellish Extent (Exten...</td>
-      <td>33258132</td>
-      <td>Lewis Capaldi</td>
-      <td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
-      <td>2019-12-20T08:25:26Z</td>
-      <td>[Music]</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>186884194</td>
-      <td>Hollywood</td>
-      <td>31</td>
-      <td>95541700</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>35611759</td>
-      <td>Divinely Uninspired To A Hellish Extent (Exten...</td>
-      <td>33258132</td>
-      <td>Lewis Capaldi</td>
-      <td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
-      <td>2019-05-21T08:00:54Z</td>
-      <td>[Music]</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>186884195</td>
-      <td>Lost on You</td>
-      <td>31</td>
-      <td>73530089</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>35611759</td>
-      <td>Divinely Uninspired To A Hellish Extent (Exten...</td>
-      <td>33258132</td>
-      <td>Lewis Capaldi</td>
-      <td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
-      <td>2020-03-17T08:35:18Z</td>
-      <td>[Alternative]</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</details>  
-#### [Spotify](./spotify) -- Collect Albums, Artists, and Tracks Metadata
 <details>
   <summary>In the last quarter of 2020, which artist released the album with the most tracks?</summary>
   
@@ -1366,6 +1372,7 @@ print(df['album_name'] + ", by " + df['artist'][0] + ", with " + str(df['market_
 
     
 </details> 
+
 ### News
 
 
