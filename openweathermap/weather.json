@@ -19,7 +19,7 @@
         "tablePath": "$[*]",
         "schema": {
             "description": {
-                "target": "$.weather.main",
+                "target": "$.weather.[*].description",
                 "type": "string"
             },
             "temp": {
