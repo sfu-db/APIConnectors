@@ -5,6 +5,7 @@
         "artist_info",
         "artists",
         "genres",
+        "artist_albums",
         "related_artists",
         "top_artists",
         "top_tracks",

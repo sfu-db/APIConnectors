@@ -8,15 +8,22 @@
             "keyParam": "appid"
         },
         "params": {
-            "q": true
+            "q": true,
+            "units" : false,
+            "mode" : false,
+            "lang" : false
         }
     },
     "response": {
         "ctype": "application/json",
         "tablePath": "$[*]",
         "schema": {
-            "description": {
+            "main": {
                 "target": "$.weather.main",
+                "type": "string"
+            },
+            "description": {
+                "target": "$.weather.description",
                 "type": "string"
             },
             "temp": {
@@ -59,3 +66,5 @@
         "orient": "records"
     }
 }
+
+
