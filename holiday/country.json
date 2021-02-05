@@ -1,0 +1,34 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://holidayapi.com/v1/countries",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "key"
+        },
+        "params": {
+            "country": false,
+            "public": false
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.countries[*]",
+        "schema": {
+            "code": {
+                "target": "$.code",
+                "type": "string"
+            },
+            "name": {
+                "target": "$.name",
+                "type": "string"
+            },
+            "languages": {
+                "target": "$.languages",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}
