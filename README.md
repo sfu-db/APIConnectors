@@ -2148,7 +2148,6 @@ tag_count = tag_count.iloc[0:10,:]
 tag_count
   ```
 
-| id   | tag_list                 | tag_count |
 | ---- | ------------------------ | --------- |
 | 0    | jobs                     | 52        |
 | 1    | TractorMarch             | 24        |
