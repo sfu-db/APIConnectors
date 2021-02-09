@@ -1,0 +1,23 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://api.hunter.io/v2/account",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "api_key"
+        },
+        "params": {}
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.data",
+        "schema": {
+            "requests available": {
+                "target": "$.requests.available",
+                "type": "int"
+            }
+        },
+        "orient": "records"
+    }
+}

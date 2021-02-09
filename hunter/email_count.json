@@ -1,0 +1,46 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://api.hunter.io/v2/email-count",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "api_key"
+        },
+        "params": {
+            "domain": true
+        },
+        "pagination": {
+            "type": "offset",
+            "offsetKey": "offset",
+            "limitKey": "limit",
+            "maxCount": 10
+        }
+    },
+    "examples": {
+        "domain": "'intercom.io'"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.data",
+        "schema": {
+            "total": {
+                "target": "$.total",
+                "type": "int"
+            },
+            "junior": {
+                "target": "$.seniority.junior",
+                "type": "int"
+            },
+            "senior": {
+                "target": "$.seniority.senior",
+                "type": "int"
+            },
+            "executive": {
+                "target": "$.seniority.executive",
+                "type": "int"
+            }
+        },
+        "orient": "records"
+    }
+}
