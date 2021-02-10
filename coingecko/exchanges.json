@@ -6,6 +6,12 @@
         "params": {
             "per_page": false,
             "page": false
+        },
+        "pagination": {
+            "type": "offset",
+            "offsetKey": "offset",
+            "limitKey": "limit",
+            "maxCount": 100
         }
     },
     "response": {

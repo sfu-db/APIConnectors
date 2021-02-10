@@ -3,8 +3,12 @@
     "request": {
         "url": "https://api.coingecko.com/api/v3/search/trending",
         "method": "GET",
-        "params": {
-
+        "params": {},
+        "pagination": {
+            "type": "offset",
+            "offsetKey": "offset",
+            "limitKey": "limit",
+            "maxCount": 100
         }
     },
 

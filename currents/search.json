@@ -14,6 +14,12 @@
             "category": false,
             "start_date": false,
             "end_date": false
+        },
+        "pagination": {
+            "type": "offset",
+            "offsetKey": "offset",
+            "limitKey": "limit",
+            "maxCount": 100
         }
     },
 

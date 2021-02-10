@@ -5,6 +5,12 @@
         "method": "GET",
         "params": {
             "include_tickers": false
+        },
+        "pagination": {
+            "type": "offset",
+            "offsetKey": "offset",
+            "limitKey": "limit",
+            "maxCount": 100
         }
     },
 
