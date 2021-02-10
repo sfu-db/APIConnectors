@@ -22,6 +22,9 @@
             "maxCount": 10
         }
     },
+    "examples": {
+        "q": "'politics'"
+    },
     "response": {
         "ctype": "application/json",
         "tablePath": "$.response.docs[*]",

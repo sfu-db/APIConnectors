@@ -1,7 +1,7 @@
 # Data Collection From Web APIs
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 A curated list of example code to collect data from Web APIs using DataPrep.Connector.
@@ -637,14 +637,842 @@ Average calories for high calorie Korean foods: 644.765 kcal
 ### Music
 
 #### [MusixMatch](./musicmatch) -- Collect Music Lyrics Data
+<details>
+  <summary>What is Katy Perry's Twitter URL?</summary>
+  
+```python
+from dataprep.connector import connect
+
+# You can get ”musixmatch_access_token“ by registering as a developer https://developer.musixmatch.com/signup
+conn_musixmatch = connect("musixmatch", _auth={"access_token":musixmatch_access_token})
+
+df = await conn_musixmatch.query("artist_info", artist_mbid = "122d63fc-8671-43e4-9752-34e846d62a9c")
+
+df[['name', 'twitter_url']]
+```
 
 
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>twitter_url</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Katy Perry</td>
+      <td>https://twitter.com/katyperry</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+  </details>
+  
+<details>
+  <summary>What album is the song "Gone, Gone, Gone" in?</summary>
+  
+```python
+from dataprep.connector import connect
+
+# You can get ”musixmatch_access_token“ by registering as a developer https://developer.musixmatch.com/signup
+conn_musixmatch = connect("musixmatch", _auth={"access_token":musixmatch_access_token})
+
+df = await conn_musixmatch.query("track_matches", q_track = "Gone, Gone, Gone")
+
+df[['name', 'album_name']]
+```
+
+
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>album_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Gone, Gone, Gone</td>
+      <td>The World From the Side of the Moon</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+</details>
+<details>
+  <summary>Which artist/artists group is most popular in Canada?</summary>
+  
+```python
+from dataprep.connector import connect
+
+# You can get ”musixmatch_access_token“ by registering as a developer https://developer.musixmatch.com/signup
+conn_musixmatch = connect("musixmatch", _auth={"access_token":musixmatch_access_token})
+
+df = await conn_musixmatch.query("top_artists", country = "Canada")
+
+df['name'][0]
+```
+
+
+
+
+    'BTS'
+</details>
+<details>
+  <summary>How many genres are in the Musixmatch database?</summary>
+  
+```python
+from dataprep.connector import connect
+
+# You can get ”musixmatch_access_token“ by registering as a developer https://developer.musixmatch.com/signup
+conn_musixmatch = connect("musixmatch", _auth={"access_token":musixmatch_access_token})
+
+df = await conn_musixmatch.query("genres")
+
+len(df)
+```
+
+
+
+
+    362
+
+  </details>  
+<details>
+  <summary>Who is the most popular American artist named Michael?</summary>
+  
+```python
+from dataprep.connector import connect
+
+# You can get ”musixmatch_access_token“ by registering as a developer https://developer.musixmatch.com/signup
+conn_musixmatch = connect("musixmatch", _auth={"access_token":musixmatch_access_token}, _concurrency = 5)
+
+df = await conn_musixmatch.query("artists", q_artist = "Michael")
+df = df[df['country'] == "US"].sort_values('rating', ascending=False)
+
+df['name'].iloc[0]
+```
+
+
+
+
+    'Michael Jackson'
+
+  </details>  
+<details>
+  <summary>What is the genre of the album "Atlas"?</summary>
+  
+```python
+from dataprep.connector import connect
+
+# You can get ”musixmatch_access_token“ by registering as a developer https://developer.musixmatch.com/signup
+conn_musixmatch = connect("musixmatch", _auth={"access_token":musixmatch_access_token})
+
+album = await conn_musixmatch.query("album_info", album_id = 11339785)
+genres = await conn_musixmatch.query("genres")
+album_genre = genres[genres['id'] == album['genre_id'][0][0]]['name']
+
+album_genre.iloc[0]
+```
+
+
+
+
+    'Soundtrack'
+
+  </details>  
+<details>
+  <summary>What is the link to lyrics of the most popular song in the album "Yellow"?</summary>
+  
+```python
+from dataprep.connector import connect
+
+# You can get ”musixmatch_access_token“ by registering as a developer https://developer.musixmatch.com/signup
+conn_musixmatch = connect("musixmatch", _auth={"access_token":musixmatch_access_token}, _concurrency = 5)
+
+df = await conn_musixmatch.query("album_tracks", album_id = 10266231)
+df = df.sort_values('rating', ascending=False)
+
+df['track_share_url'].iloc[0]
+```
+
+
+
+
+    'https://www.musixmatch.com/lyrics/Coldplay/Yellow?utm_source=application&utm_campaign=api&utm_medium=SFU%3A1409620992740'
+
+  </details>  
+<details>
+  <summary>What are Lady Gaga's albums from most to least recent?</summary>
+  
+```python
+from dataprep.connector import connect
+
+# You can get ”musixmatch_access_token“ by registering as a developer https://developer.musixmatch.com/signup
+conn_musixmatch = connect("musixmatch", _auth={"access_token":musixmatch_access_token}, update = True)
+
+df = await conn_musixmatch.query("artist_albums", artist_mbid = "650e7db6-b795-4eb5-a702-5ea2fc46c848", s_release_date = "desc")
+
+df.name.unique()
+```
+
+
+
+
+    array(['Chromatica', 'Stupid Love',
+           'A Star Is Born (Original Motion Picture Soundtrack)', 'Your Song'],
+          dtype=object)
+
+  </details>  
+<details>
+  <summary>Which artists are similar to Lady Gaga?</summary>
+  
+```python
+from dataprep.connector import connect
+
+# You can get ”musixmatch_access_token“ by registering as a developer https://developer.musixmatch.com/signup
+conn_musixmatch = connect("musixmatch", _auth={"access_token":musixmatch_access_token})
+
+df = await conn_musixmatch.query("related_artists", artist_mbid = "650e7db6-b795-4eb5-a702-5ea2fc46c848")
+
+df
+```
+
+
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>name</th>
+      <th>rating</th>
+      <th>country</th>
+      <th>twitter_url</th>
+      <th>updated_time</th>
+      <th>artist_alias_list</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>6985</td>
+      <td>Cast</td>
+      <td>41</td>
+      <td></td>
+      <td></td>
+      <td>2015-03-29T03:32:49Z</td>
+      <td>[キャスト]</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>7014</td>
+      <td>black eyed peas</td>
+      <td>77</td>
+      <td>US</td>
+      <td>https://twitter.com/bep</td>
+      <td>2016-06-30T10:07:05Z</td>
+      <td>[The Black Eyed Peas, ブラック・アイド・ピーズ, heiyandoud...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>269346</td>
+      <td>OneRepublic</td>
+      <td>74</td>
+      <td>US</td>
+      <td>https://twitter.com/OneRepublic</td>
+      <td>2015-01-07T08:21:52Z</td>
+      <td>[ワンリパブリツク, Gong He Shi Dai, Timbaland presents...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>276451</td>
+      <td>Taio Cruz</td>
+      <td>60</td>
+      <td>GB</td>
+      <td></td>
+      <td>2016-06-30T10:32:58Z</td>
+      <td>[タイオ クルーズ, tai ou ke lu zi, Trio Cruz, Jacob M...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>409736</td>
+      <td>Inna</td>
+      <td>54</td>
+      <td>RO</td>
+      <td>https://twitter.com/inna_ro</td>
+      <td>2014-11-13T03:37:43Z</td>
+      <td>[インナ]</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>475281</td>
+      <td>Skrillex</td>
+      <td>62</td>
+      <td>US</td>
+      <td>https://twitter.com/Skrillex</td>
+      <td>2013-11-05T11:28:57Z</td>
+      <td>[スクリレックス, shi qi lei ke si, Sonny, Skillrex]</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>13895270</td>
+      <td>Imagine Dragons</td>
+      <td>82</td>
+      <td>US</td>
+      <td>https://twitter.com/Imaginedragons</td>
+      <td>2013-11-05T11:30:28Z</td>
+      <td>[イマジン・ドラゴンズ, IMAGINE DRAGONS]</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>27846837</td>
+      <td>Shawn Mendes</td>
+      <td>80</td>
+      <td>CA</td>
+      <td></td>
+      <td>2015-02-17T10:33:56Z</td>
+      <td>[ショーン・メンデス, xiaoenmengdezi]</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>33491890</td>
+      <td>Rihanna</td>
+      <td>81</td>
+      <td>GB</td>
+      <td>https://twitter.com/rihanna</td>
+      <td>2018-10-15T20:32:58Z</td>
+      <td>[りあーな, Rihanna, 蕾哈娜, Rhianna, Riannah, Robyn R...</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>33491981</td>
+      <td>Avicii</td>
+      <td>74</td>
+      <td>SE</td>
+      <td>https://twitter.com/avicii</td>
+      <td>2018-04-20T18:27:01Z</td>
+      <td>[アヴィーチー, ai wei qi, Avicci]</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+</details>
+
+<details>
+<summary>What are the highest rated songs in Canada from highest to lowest popularity?</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”musixmatch_access_token“ by registering as a developer https://developer.musixmatch.com/signup
+conn_musixmatch = connect("musixmatch", _auth={"access_token":musixmatch_access_token}, _concurrency = 5)
+
+df = await conn_musixmatch.query("top_tracks", country = 'CA')
+
+df[df['is_explicit'] == 0].sort_values('rating', ascending = False).reset_index()
+```
+
+
+
+
+<div>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>index</th>
+<th>id</th>
+<th>name</th>
+<th>rating</th>
+<th>commontrack_id</th>
+<th>has_instrumental</th>
+<th>is_explicit</th>
+<th>has_lyrics</th>
+<th>has_subtitles</th>
+<th>album_id</th>
+<th>album_name</th>
+<th>artist_id</th>
+<th>artist_name</th>
+<th>track_share_url</th>
+<th>updated_time</th>
+<th>genres</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>5</td>
+<td>201621042</td>
+<td>Dynamite</td>
+<td>99</td>
+<td>114947355</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>39721115</td>
+<td>Dynamite - Single</td>
+<td>24410130</td>
+<td>BTS</td>
+<td>https://www.musixmatch.com/lyrics/BTS/Dynamite...</td>
+<td>2021-01-15T16:40:48Z</td>
+<td>[Pop]</td>
+</tr>
+<tr>
+<th>1</th>
+<td>9</td>
+<td>187880919</td>
+<td>Before You Go</td>
+<td>99</td>
+<td>103153140</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>35611759</td>
+<td>Divinely Uninspired To A Hellish Extent (Exten...</td>
+<td>33258132</td>
+<td>Lewis Capaldi</td>
+<td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
+<td>2019-11-20T08:44:05Z</td>
+<td>[Pop, Alternative]</td>
+</tr>
+<tr>
+<th>2</th>
+<td>7</td>
+<td>189704353</td>
+<td>Breaking Me</td>
+<td>98</td>
+<td>105304416</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>34892017</td>
+<td>Keep On Loving</td>
+<td>42930474</td>
+<td>Topic feat. A7S</td>
+<td>https://www.musixmatch.com/lyrics/Topic-8/Brea...</td>
+<td>2021-01-19T16:57:29Z</td>
+<td>[House, Dance]</td>
+</tr>
+<tr>
+<th>3</th>
+<td>3</td>
+<td>189626475</td>
+<td>Watermelon Sugar</td>
+<td>95</td>
+<td>103096346</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>36101498</td>
+<td>Fine Line</td>
+<td>24505463</td>
+<td>Harry Styles</td>
+<td>https://www.musixmatch.com/lyrics/Harry-Styles...</td>
+<td>2020-02-14T08:07:12Z</td>
+<td>[Music]</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</details>  
+<details>
+<summary>What are other songs in the same album as the song "Before You Go"?</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”musixmatch_access_token“ by registering as a developer https://developer.musixmatch.com/signup
+conn_musixmatch = connect("musixmatch", _auth={"access_token":musixmatch_access_token})
+
+song = await conn_musixmatch.query("track_info", commontrack_id = 103153140)
+album = await conn_musixmatch.query("album_tracks", album_id = song["album_id"][0])
+
+album
+```
+
+
+
+
+<div>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>id</th>
+<th>name</th>
+<th>rating</th>
+<th>commontrack_id</th>
+<th>has_instrumental</th>
+<th>is_explicit</th>
+<th>has_lyrics</th>
+<th>has_subtitles</th>
+<th>album_id</th>
+<th>album_name</th>
+<th>artist_id</th>
+<th>artist_name</th>
+<th>track_share_url</th>
+<th>updated_time</th>
+<th>genres</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>186884178</td>
+<td>Grace</td>
+<td>31</td>
+<td>87857108</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>35611759</td>
+<td>Divinely Uninspired To A Hellish Extent (Exten...</td>
+<td>33258132</td>
+<td>Lewis Capaldi</td>
+<td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
+<td>2019-04-09T10:21:29Z</td>
+<td>[Folk-Rock]</td>
+</tr>
+<tr>
+<th>1</th>
+<td>186884184</td>
+<td>Bruises</td>
+<td>68</td>
+<td>70395936</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>35611759</td>
+<td>Divinely Uninspired To A Hellish Extent (Exten...</td>
+<td>33258132</td>
+<td>Lewis Capaldi</td>
+<td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
+<td>2020-07-31T12:58:04Z</td>
+<td>[Music, Alternative]</td>
+</tr>
+<tr>
+<th>2</th>
+<td>186884187</td>
+<td>Hold Me While You Wait</td>
+<td>89</td>
+<td>95176135</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>35611759</td>
+<td>Divinely Uninspired To A Hellish Extent (Exten...</td>
+<td>33258132</td>
+<td>Lewis Capaldi</td>
+<td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
+<td>2020-08-02T07:23:21Z</td>
+<td>[Music]</td>
+</tr>
+<tr>
+<th>3</th>
+<td>186884189</td>
+<td>Someone You Loved</td>
+<td>95</td>
+<td>89461086</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>35611759</td>
+<td>Divinely Uninspired To A Hellish Extent (Exten...</td>
+<td>33258132</td>
+<td>Lewis Capaldi</td>
+<td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
+<td>2020-06-22T15:34:07Z</td>
+<td>[Pop, Alternative]</td>
+</tr>
+<tr>
+<th>4</th>
+<td>186884190</td>
+<td>Maybe</td>
+<td>31</td>
+<td>95541701</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>35611759</td>
+<td>Divinely Uninspired To A Hellish Extent (Exten...</td>
+<td>33258132</td>
+<td>Lewis Capaldi</td>
+<td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
+<td>2019-05-20T11:41:00Z</td>
+<td>[Music]</td>
+</tr>
+<tr>
+<th>5</th>
+<td>186884191</td>
+<td>Forever</td>
+<td>67</td>
+<td>95541702</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>35611759</td>
+<td>Divinely Uninspired To A Hellish Extent (Exten...</td>
+<td>33258132</td>
+<td>Lewis Capaldi</td>
+<td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
+<td>2019-11-18T10:46:36Z</td>
+<td>[Music]</td>
+</tr>
+<tr>
+<th>6</th>
+<td>186884192</td>
+<td>One</td>
+<td>31</td>
+<td>95541699</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>35611759</td>
+<td>Divinely Uninspired To A Hellish Extent (Exten...</td>
+<td>33258132</td>
+<td>Lewis Capaldi</td>
+<td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
+<td>2019-05-19T04:08:23Z</td>
+<td>[Music]</td>
+</tr>
+<tr>
+<th>7</th>
+<td>186884193</td>
+<td>Don't Get Me Wrong</td>
+<td>31</td>
+<td>95541698</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>35611759</td>
+<td>Divinely Uninspired To A Hellish Extent (Exten...</td>
+<td>33258132</td>
+<td>Lewis Capaldi</td>
+<td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
+<td>2019-12-20T08:25:26Z</td>
+<td>[Music]</td>
+</tr>
+<tr>
+<th>8</th>
+<td>186884194</td>
+<td>Hollywood</td>
+<td>31</td>
+<td>95541700</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>35611759</td>
+<td>Divinely Uninspired To A Hellish Extent (Exten...</td>
+<td>33258132</td>
+<td>Lewis Capaldi</td>
+<td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
+<td>2019-05-21T08:00:54Z</td>
+<td>[Music]</td>
+</tr>
+<tr>
+<th>9</th>
+<td>186884195</td>
+<td>Lost on You</td>
+<td>31</td>
+<td>73530089</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>35611759</td>
+<td>Divinely Uninspired To A Hellish Extent (Exten...</td>
+<td>33258132</td>
+<td>Lewis Capaldi</td>
+<td>https://www.musixmatch.com/lyrics/Lewis-Capald...</td>
+<td>2020-03-17T08:35:18Z</td>
+<td>[Alternative]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</details>  
 
 #### [Spotify](./spotify) -- Collect Albums, Artists, and Tracks Metadata
 
+<details>
+  <summary>How many followers does Eminem have?</summary>
+  
+```python
+from dataprep.connector import connect
+
+# You can get ”spotify_client_id“ and "spotify_client_secret" by registering as a developer https://developer.spotify.com/dashboard/#
+conn_spotify = connect("spotify", _auth={"client_id":spotify_client_id, "client_secret":spotify_client_secret}, _concurrency=3)
+
+df = await conn_spotify.query("artist", q="Eminem", _count=500)
+
+df.loc[df['# followers'].idxmax(), '# followers']
+```
 
 
 
+
+    41157398
+
+  </details>  
+<details>
+  <summary>How many singles does Pink Floyd have that are available in Canada?</summary>
+  
+```python
+from dataprep.connector import connect
+
+# You can get ”spotify_client_id“ and "spotify_client_secret" by registering as a developer https://developer.spotify.com/dashboard/#
+conn_spotify = connect("spotify", _auth={"client_id":spotify_client_id, "client_secret":spotify_client_secret}, _concurrency=3)
+
+artist_name = "Pink Floyd"
+df = await conn_spotify.query("album", q = artist_name, _count = 500)
+
+df = df.loc[[(artist_name in x) for x in df['artist']]]
+df = df.loc[[('CA' in x) for x in df['available_markets']]]
+df = df.loc[df['total_tracks'] == '1']
+df.shape[0]
+```
+
+    12
+  </details>  
+
+<details>
+  <summary>In the last quarter of 2020, which artist released the album with the most tracks?</summary>
+  
+```python
+from dataprep.connector import connect
+import pandas as pd
+
+# You can get ”spotify_client_id“ and "spotify_client_secret" by registering as a developer https://developer.spotify.com/dashboard/#
+conn_spotify = connect("spotify", _auth={"client_id":spotify_client_id, "client_secret":spotify_client_secret}, _concurrency=3)
+
+df = await conn_spotify.query("album", q = "2020", _count = 500)
+
+df['date'] = pd.to_datetime(df['release_date'])
+df = df[df['date'] > '2020-10-01'].drop(columns = ['image url', 'external urls', 'release_date'])
+df['total_tracks'] = df['total_tracks'].astype(int)
+df = df.loc[df['total_tracks'].idxmax()]
+print(df['album_name'] + ", by " + df['artist'][0] + ", tracks: " + str(df['total_tracks']))
+```
+
+    ASOT 996 - A State Of Trance Episode 996 (Top 50 Of 2020 Special), by Armin van Buuren ASOT Radio, tracks: 172
+
+  </details>  
+<details>
+  <summary>Who is the most popular artist: Eminem, Beyonce, Pink Floyd and Led Zeppelin</summary>
+  
+```python
+# and what are their popularity ratings?
+from dataprep.connector import connect
+
+# You can get ”spotify_client_id“ and "spotify_client_secret" by registering as a developer https://developer.spotify.com/dashboard/#
+conn_spotify = connect("spotify", _auth={"client_id":spotify_client_id, "client_secret":spotify_client_secret}, _concurrency=3)
+
+artists_and_num_followers = []
+for artist in ['Beyonce', 'Pink Floyd', 'Eminem', 'Led Zeppelin']:
+    df = await conn_spotify.query("artist", q = artist, _count = 500) 
+    num_followers = df.loc[df['# followers'].idxmax(), 'popularity']
+    artists_and_num_followers.append((artist, num_followers))
+
+print(sorted(artists_and_num_followers, key=lambda x: x[1], reverse=True))
+```
+
+    [('Eminem', 94.0), ('Beyonce', 88.0), ('Pink Floyd', 83.0), ('Led Zeppelin', 81.0)]```python
+    
+</details> 
+<details>
+  <summary>Who are the top 5 artists with the most followers from the current Billboard top 100 artists?</summary>
+  
+```python
+from dataprep.connector import connect
+from bs4 import BeautifulSoup
+import requests
+
+# You can get ”spotify_client_id“ and "spotify_client_secret" by registering as a developer https://developer.spotify.com/dashboard/#
+conn_spotify = connect("spotify", _auth={"client_id":spotify_client_id, "client_secret":spotify_client_secret}, _concurrency=3)
+
+web_page = requests.get("https://www.billboard.com/charts/artist-100")
+html_soup = BeautifulSoup(web_page.text, 'html.parser')
+artist_100 = html_soup.find_all('span', class_ = 'chart-list-item__title-text')
+
+artists = {}
+artists_top5 = []
+for artist in artist_100:
+    df_temp = await conn_spotify.query("artist", q = artist.text.strip(), _count = 10)
+    df_temp = df_temp.loc[df_temp['popularity'].idxmax()]
+    artists[df_temp['name']] = df_temp['# followers']
+artists_top5 = sorted(artists, key = artists.get, reverse = True)[:5]
+artists_top5
+```
+
+
+
+
+    ['Ed Sheeran', 'Ariana Grande', 'Drake', 'Justin Bieber', 'Eminem']
+    
+</details> 
+<details>
+  <summary>For a list of top 10 most popular albums from rollingstone.com which album has most selling markets (countries) around the world in 2020?</summary>
+  
+```python
+from dataprep.connector import connect
+import asyncio
+
+# You can get ”spotify_client_id“ and "spotify_client_secret" by registering as a developer https://developer.spotify.com/dashboard/#
+conn_spotify = connect("spotify", _auth={"client_id":spotify_client_id, "client_secret":spotify_client_secret}, _concurrency=3)
+
+def count_markets(text):
+    lst = text.split(',')
+    return len(lst)
+
+album_artists = ["Folklore", "Fetch the Bolt Cutters", "YHLQMDLG", "Rough and Rowdy Ways", "Future Nostalgia",
+                 "RTJ4", "Saint Cloud", "Eternal Atake", "What’s Your Pleasure", "Punisher"]
+
+album_list = [conn_spotify.query("album", q = name, _count = 1) for name in album_artists]
+combined = asyncio.gather(*album_list)
+df = pd.concat(await combined).reset_index()
+df = df.drop(columns = ['image url', 'external urls', 'index'])
+df['market_count'] = df['available_markets'].apply(lambda x: count_markets(x))
+df = df.loc[df['market_count'].idxmax()]
+print(df['album_name'] + ", by " + df['artist'][0] + ", with " + str(df['market_count']) + " avalible countries")
+```
+
+
+    folklore, by Taylor Swift, with 92 avalible countries
+
+    
+</details> 
 
 ### News
 
@@ -816,8 +1644,7 @@ df.head(1)
 | 0   | Scikit-learn - Machine Learning in Python. | [Fabian Pedregosa, Gaël Varoquaux, Alexandre G... | 2011 |
 
   </details>
-
- <details>
+  <details>
   <summary>How to fetch all publications of Andrew Y. Ng?</summary>
 
   ```python
@@ -835,7 +1662,6 @@ df.head(1)
 | ... | ...                                               | ...                                               | ...              | ...  |
 | 242 | An Experimental and Theoretical Comparison of ... | [Michael J. Kearns, Yishay Mansour, Andrew Y. ... | [COLT]           | 1995 |
   </details>
-
 <details>
   <summary>How to fetch all publications of NeurIPS 2020?</summary>
 
@@ -851,7 +1677,6 @@ df.head(1)
   df = df[(df['year'] == '2020')]
   df[["title", "venue", "year"]].reset_index(drop=True)
   ```
-
 | id   | title                                             | venue     | year |
 | ---- | ------------------------------------------------- | --------- | ---- |
 | 0    | Towards More Practical Adversarial Attacks on ... | [NeurIPS] | 2020 |
@@ -863,7 +1688,7 @@ df.head(1)
 ### Shopping
 
 
-#### [Etsy](./etsy) -- Colect Handmade Marketplace Data.
+#### [Etsy](./etsy) -- Collect Handmade Marketplace Data.
 
 <details>
   <summary>What are the products I can get when I search for "winter jackets"?</summary>
@@ -1031,6 +1856,322 @@ new_df.sort_values(by="views", ascending=False).reset_index(drop=True).head(10)
 ### Social
 
 #### [Twitch](./twitch) -- Colect Twitch Streams and Channels Information
+<details>
+  <summary>How many followers does the Twitch user "Logic" have?</summary>
+  
+```python
+from dataprep.connector import connect
+
+# You can get ”twitch_access_token“ by registering https://www.twitch.tv/signup
+conn_twitch = connect("twitch", _auth={"access_token":twitch_access_token}, _concurrency=3)
+
+df = await conn_twitch.query("channels", query="logic", _count = 1000)
+
+df = df.where(df['name'] == 'logic').dropna()
+df = df[['name', 'followers']]
+df.reset_index()
+```
+
+
+
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>index</th>
+      <th>name</th>
+      <th>followers</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>logic</td>
+      <td>540274.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+  </details>  
+<details>
+  <summary>Which 5 Twitch users that speak English have the most views and what games do they play?</summary>
+  
+```python
+from dataprep.connector import connect
+
+# You can get ”twitch_access_token“ by registering https://www.twitch.tv/signup
+conn_twitch = connect("twitch", _auth={"access_token":twitch_access_token}, _concurrency=3)
+
+df = await conn_twitch.query("channels",query="%", _count = 1000)
+
+df = df[df['language'] == 'en']
+df = df.sort_values('views', ascending = False)
+df = df[['name', 'views', 'game', 'language']]
+df = df.head(5)
+df.reset_index()
+```
+
+
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>index</th>
+      <th>name</th>
+      <th>views</th>
+      <th>game</th>
+      <th>language</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>495</td>
+      <td>Fextralife</td>
+      <td>1280705870</td>
+      <td>The Elder Scrolls Online</td>
+      <td>en</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>9</td>
+      <td>Riot Games</td>
+      <td>1265668908</td>
+      <td>League of Legends</td>
+      <td>en</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>16</td>
+      <td>ESL_CSGO</td>
+      <td>548559390</td>
+      <td>Counter-Strike: Global Offensive</td>
+      <td>en</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>160</td>
+      <td>BeyondTheSummit</td>
+      <td>462493560</td>
+      <td>Dota 2</td>
+      <td>en</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>shroud</td>
+      <td>433902453</td>
+      <td>Rust</td>
+      <td>en</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+  </details>  
+<details>
+  <summary>Which channel has the most viewers for each of the top 10 games?</summary>
+  
+```python
+from dataprep.connector import connect
+
+# You can get ”twitch_access_token“ by registering https://www.twitch.tv/signup
+conn_twitch = connect("twitch", _auth={"access_token":twitch_access_token}, _concurrency=3)
+
+df = await conn_twitch.query("streams", query="%", _count = 1000)
+
+# Group by games, sum viewers and sort by total viewers
+df_new = df.groupby(['game'], as_index = False)['viewers'].agg('sum').rename(columns = {'game':'games', 'viewers':'total_viewers'})
+df_new = df_new.sort_values('total_viewers',ascending = False)
+
+# Select the channel with most viewers from each game 
+df_2 = df.loc[df.groupby(['game'])['viewers'].idxmax()]
+
+# Select the most popular channels for each of the 10 most popular games
+df_new = df_new.head(10)['games']
+best_games = df_new.tolist()
+result_df = df_2[df_2['game'].isin(best_games)]
+result_df = result_df.head(10)
+result_df = result_df[['game','channel_name', 'viewers']]
+result_df.reset_index()
+```
+
+
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>index</th>
+      <th>game</th>
+      <th>channel_name</th>
+      <th>viewers</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>3</td>
+      <td></td>
+      <td>seonghwazip</td>
+      <td>32126</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>21</td>
+      <td>Call of Duty: Warzone</td>
+      <td>FaZeBlaze</td>
+      <td>7521</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>9</td>
+      <td>Dota 2</td>
+      <td>dota2mc_ru</td>
+      <td>16118</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2</td>
+      <td>Escape From Tarkov</td>
+      <td>summit1g</td>
+      <td>33768</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>15</td>
+      <td>Fortnite</td>
+      <td>Fresh</td>
+      <td>10371</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>8</td>
+      <td>Hearthstone</td>
+      <td>SilverName</td>
+      <td>16765</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>22</td>
+      <td>Just Chatting</td>
+      <td>Trainwreckstv</td>
+      <td>6927</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0</td>
+      <td>League of Legends</td>
+      <td>LCK_Korea</td>
+      <td>77613</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>10</td>
+      <td>Minecraft</td>
+      <td>Tfue</td>
+      <td>15209</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>11</td>
+      <td>VALORANT</td>
+      <td>TenZ</td>
+      <td>13617</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+  </details>  
+<details>
+  <summary>(1) What is the number of Fortnite and Valorant streams in the past 24 hours?
+      (2) Is there any relationship between viewers and channel followers?
+</summary>
+  
+```python
+from dataprep.connector import connect
+import pandas as pd
+
+# You can get ”twitch_access_token“ by registering https://www.twitch.tv/signup
+conn_twitch = connect("twitch", _auth = {"access_token":twitch_access_token}, _concurrency = 3)
+
+df = await conn_twitch.query("streams", query = "%fortnite%VALORANT%", _count = 1000)
+
+df = df[['stream_created_at', 'game', 'viewers', 'channel_followers']]
+df['stream_created_at'] = df['stream_created_at'].astype('str') # Convert date to string
+
+for idx, value in enumerate(df['stream_created_at']):
+    df.loc[idx,'stream_created_at'] = value[0:9] + ' ' + value[-9:-1] # Extract datetime
+
+df['stream_created_at'] = pd.to_datetime(df['stream_created_at']) 
+df['diff'] = pd.Timestamp.now().normalize() - df['stream_created_at'] 
+df['diff'] = df['diff'].dt.total_seconds().astype('int') 
+
+df2 = df[['channel_followers', 'viewers']].corr(method='pearson') # Find correlation (part 2)
+
+df = df[df['diff'] > 864000] # Find streams in last 24 hours
+
+options = ['Fortnite', 'VALORANT']
+df = df[df['game'].isin(options)]
+df = df.groupby(['game'], as_index=False)['diff'].agg('count').rename(columns={'diff':'count'})
+
+# Print correlation part 2
+print("Correlation between viewers and channel followers:")
+print(df2)
+
+# Print part 1
+print('Number of streams in the past 24 hours:')
+df
+```
+
+    Correlation between viewers and channel followers:
+                       channel_followers   viewers
+    channel_followers           1.000000  0.851698
+    viewers                     0.851698  1.000000
+    
+Number of streams in the past 24 hours:
+
+
+
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>game</th>
+      <th>count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Fortnite</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>VALORANT</td>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</details>  
+
 
 #### [Twitter](./twitter) -- Colect Tweets Information
 
@@ -1280,14 +2421,18 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="http://wooya.me"><img src="https://avatars1.githubusercontent.com/u/998606?v=4" width="100px;" alt=""/><br /><sub><b>Weiyuan Wu</b></sub></a><br /><a href="https://github.com/sfu-db/DataConnectorConfigs/commits?author=dovahcrow" title="Code">💻</a> <a href="#maintenance-dovahcrow" title="Maintenance">🚧</a></td>
-    <td align="center"><a href="http://www.sfu.ca/~peiw/"><img src="https://avatars0.githubusercontent.com/u/15167104?v=4" width="100px;" alt=""/><br /><sub><b>peiwangdb</b></sub></a><br /><a href="https://github.com/sfu-db/DataConnectorConfigs/commits?author=peiwangdb" title="Code">💻</a> <a href="#maintenance-peiwangdb" title="Maintenance">🚧</a></td>
-    <td align="center"><a href="https://github.com/nick-zrymiak"><img src="https://avatars0.githubusercontent.com/u/35017006?v=4" width="100px;" alt=""/><br /><sub><b>nick-zrymiak</b></sub></a><br /><a href="https://github.com/sfu-db/DataConnectorConfigs/commits?author=nick-zrymiak" title="Code">💻</a></td>
-    <td align="center"><a href="https://www.pallavibharadwaj.com"><img src="https://avatars1.githubusercontent.com/u/17384838?v=4" width="100px;" alt=""/><br /><sub><b>Pallavi Bharadwaj</b></sub></a><br /><a href="https://github.com/sfu-db/DataConnectorConfigs/commits?author=pallavibharadwaj" title="Code">💻</a></td>
-    <td align="center"><a href="https://www.linkedin.com/in/hilal-asmat/"><img src="https://avatars1.githubusercontent.com/u/28606148?v=4" width="100px;" alt=""/><br /><sub><b>Hilal Asmat</b></sub></a><br /><a href="https://github.com/sfu-db/DataConnectorConfigs/commits?author=h-asmat" title="Documentation">📖</a></td>
+    <td align="center"><a href="http://wooya.me"><img src="https://avatars1.githubusercontent.com/u/998606?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Weiyuan Wu</b></sub></a><br /><a href="https://github.com/sfu-db/DataConnectorConfigs/commits?author=dovahcrow" title="Code">💻</a> <a href="#maintenance-dovahcrow" title="Maintenance">🚧</a></td>
+    <td align="center"><a href="http://www.sfu.ca/~peiw/"><img src="https://avatars0.githubusercontent.com/u/15167104?v=4?s=100" width="100px;" alt=""/><br /><sub><b>peiwangdb</b></sub></a><br /><a href="https://github.com/sfu-db/DataConnectorConfigs/commits?author=peiwangdb" title="Code">💻</a> <a href="#maintenance-peiwangdb" title="Maintenance">🚧</a></td>
+    <td align="center"><a href="https://github.com/nick-zrymiak"><img src="https://avatars0.githubusercontent.com/u/35017006?v=4?s=100" width="100px;" alt=""/><br /><sub><b>nick-zrymiak</b></sub></a><br /><a href="https://github.com/sfu-db/DataConnectorConfigs/commits?author=nick-zrymiak" title="Code">💻</a> <a href="#maintenance-nick-zrymiak" title="Maintenance">🚧</a></td>
+    <td align="center"><a href="https://www.pallavibharadwaj.com"><img src="https://avatars1.githubusercontent.com/u/17384838?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Pallavi Bharadwaj</b></sub></a><br /><a href="https://github.com/sfu-db/DataConnectorConfigs/commits?author=pallavibharadwaj" title="Code">💻</a></td>
+    <td align="center"><a href="https://www.linkedin.com/in/hilal-asmat/"><img src="https://avatars1.githubusercontent.com/u/28606148?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Hilal Asmat</b></sub></a><br /><a href="https://github.com/sfu-db/DataConnectorConfigs/commits?author=h-asmat" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/Wukkkinz-0725"><img src="https://avatars.githubusercontent.com/u/60677420?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Wukkkinz-0725</b></sub></a><br /><a href="https://github.com/sfu-db/DataConnectorConfigs/commits?author=Wukkkinz-0725" title="Code">💻</a> <a href="#maintenance-Wukkkinz-0725" title="Maintenance">🚧</a></td>
+    <td align="center"><a href="https://github.com/Yizhou150"><img src="https://avatars.githubusercontent.com/u/62522644?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Yizhou</b></sub></a><br /><a href="https://github.com/sfu-db/DataConnectorConfigs/commits?author=Yizhou150" title="Code">💻</a> <a href="#maintenance-Yizhou150" title="Maintenance">🚧</a></td>
+
   </tr>
 </table>
 
-<!-- markdownlint-enable -->
+<!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
