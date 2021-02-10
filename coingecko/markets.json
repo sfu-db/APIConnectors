@@ -17,7 +17,9 @@
             "maxCount": 100
         }
     },
-
+    "examples": {
+        "vs_currency": "'usd'"
+    },
     "response": {
         "ctype": "application/json",
         "tablePath": "$.[*]",

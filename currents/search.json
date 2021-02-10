@@ -22,7 +22,11 @@
             "maxCount": 100
         }
     },
-
+    "examples": {
+        "keywords": "'covid19'",
+        "start_date": "'2020-10-10'",
+        "end_date": "'2021-01-01'"
+    },
     "response": {
         "ctype": "application/json",
         "tablePath": "$.news[*]",
