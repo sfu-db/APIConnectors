@@ -18,8 +18,14 @@
                 ]
             },
             "to": true,
-            "routeType": false
+            "routeType": false,
+            "ambiguities": false,
+            "unit": false
         }
+    },
+    "examples": {
+        "from_": "'8888 University Drive E, Burnaby'",
+        "to": "'StarBucks'"
     },
     "response": {
         "ctype": "application/json",
