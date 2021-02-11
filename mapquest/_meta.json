@@ -1,5 +1,6 @@
 {
     "tables": [
-        "place"
+        "place",
+        "route"
     ]
 }
