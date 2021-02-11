@@ -2251,6 +2251,61 @@ df[['title', 'description', 'channelTitle']]
 
 #### [OpenWeatherMap](openweathermap) -- Colect Current and Historical Weather Data
 
+<details>
+  <summary>What is the temperature of London, Ontario?</summary>
+
+```python
+from dataprep.connector import connect
+
+owm_connector = connect("openweathermap", _auth={"access_token":access_token})
+df = await owm_connector.query('weather',q='London,Ontario,CA')
+df[["temp"]]
+```
+
+| id  | temp   |
+| --- | ------ |
+| 0   | 267.96 |
+
+  </details>
+  
+<details>
+  <summary>What is the wind speed in each provincial capital city?</summary>
+
+```python
+from dataprep.connector import connect
+import pandas as pd
+import asyncio
+
+conn = connect("openweathermap", _auth={'access_token':'899b50a47d4c9dad99b6c61f812b786e'}, _concurrency = 5)
+
+names = ["Edmonton", "Victoria", "Winnipeg", "Fredericton", "St. John's", "Halifax", "Toronto", "Charlottetown", \
+ "Quebec City", "Regina", "Yellowknife", "Iqaluit", "Whitehorse"]
+
+query_list = [conn.query("weather", q = name) for name in names]
+results = asyncio.gather(*query_list)
+df = pd.concat(await results)
+df['name'] = names
+df[["name", "wind"]].reset_index(drop=True)
+```
+
+| id | name          | wind |
+|----|---------------|------|
+| 0  | Edmonton      | 6.17 |
+| 1  | Victoria      | 1.34 |
+| 2  | Winnipeg      | 2.57 |
+| 3  | Fredericton   | 4.63 |
+| 4  | St. John's    | 5.14 |
+| 5  | Halifax       | 5.14 |
+| 6  | Toronto       | 1.76 |
+| 7  | Charlottetown | 5.14 |
+| 8  | Quebec City   | 3.09 |
+| 9  | Regina        | 4.12 |
+| 10 | Yellowknife   | 3.60 |
+| 11 | Iqaluit       | 5.66 |
+| 12 | Whitehorse    | 9.77 |
+
+  </details>
+
 
 **[⬆️ Back to Index](#index)**
 
