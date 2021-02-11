@@ -11,6 +11,9 @@
             "symbol": true
         }
     },
+    "examples": {
+        "symbol": "'aapl'"
+    },
     "response": {
         "ctype": "application/json",
         "tablePath": "$[*]",

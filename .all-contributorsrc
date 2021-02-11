@@ -31,7 +31,8 @@
       "avatar_url": "https://avatars0.githubusercontent.com/u/35017006?v=4",
       "profile": "https://github.com/nick-zrymiak",
       "contributions": [
-        "code"
+        "code",
+        "maintenance"
       ]
     },
     {
@@ -50,6 +51,26 @@
       "profile": "https://www.linkedin.com/in/hilal-asmat/",
       "contributions": [
         "doc"
+      ]
+    },
+    {
+      "login": "Wukkkinz-0725",
+      "name": "Wukkkinz-0725",
+      "avatar_url": "https://avatars.githubusercontent.com/u/60677420?v=4",
+      "profile": "https://github.com/Wukkkinz-0725",
+       "contributions": [
+        "code",
+        "maintenance"
+      ]
+    },
+    {
+      "login": "Yizhou150",
+      "name": "Yizhou",
+      "avatar_url": "https://avatars.githubusercontent.com/u/62522644?v=4",
+      "profile": "https://github.com/Yizhou150",
+      "contributions": [
+        "code",
+        "maintenance"
       ]
     }
   ],

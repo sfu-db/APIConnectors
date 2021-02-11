@@ -22,6 +22,9 @@
             "maxCount": 25
         }
     },
+    "examples": {
+        "keywords": "'shirt'"
+    },
     "response": {
         "ctype": "application/json",
         "tablePath": "$.results[*]",

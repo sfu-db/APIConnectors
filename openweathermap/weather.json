@@ -14,16 +14,15 @@
             "lang" : false
         }
     },
+    "examples": {
+        "q": "'vancouver'"
+    },
     "response": {
         "ctype": "application/json",
         "tablePath": "$[*]",
         "schema": {
-            "main": {
-                "target": "$.weather.main",
-                "type": "string"
-            },
             "description": {
-                "target": "$.weather.description",
+                "target": "$.weather.[*].description",
                 "type": "string"
             },
             "temp": {
@@ -66,5 +65,3 @@
         "orient": "records"
     }
 }
-
-

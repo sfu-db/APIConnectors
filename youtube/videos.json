@@ -26,6 +26,10 @@
             "maxCount": 50
         }
     },
+    "examples": {
+        "q": "'animation'",
+        "part": "'snippet'"
+    },
     "response": {
         "ctype": "application/json",
         "tablePath": "$.items[*]",

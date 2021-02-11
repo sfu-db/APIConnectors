@@ -28,6 +28,10 @@
             "maxCount": 50
         }
     },
+    "examples": {
+        "q": "'[-180, 180]'",
+        "sort": "'relevance'"
+    },
     "response": {
         "ctype": "application/json",
         "tablePath": "$.results[*]",
