@@ -127,7 +127,7 @@ df[["name", "review_count"]]
 #### [Finnhub](./finnhub) -- Collect Financial, Market, Economic Data
 <details>
   <summary>How to get a list of cryptocurrencies and their exchanges</summary>
-  
+
 ```python
 import pandas as pd
 from dataprep.connector import connect
@@ -147,7 +147,7 @@ df_symbols
 
 | id     | description       | displaySymbol	              | symbol           |
 | ------ | ----------------- | ------------------------------ | ---------------  |
-| 0      | Binance FRONT/ETH | FRONT/ETH	                  | BINANCE:FRONTETH | 
+| 0      | Binance FRONT/ETH | FRONT/ETH	                  | BINANCE:FRONTETH |
 | 1      | Binance ATOM/BUSD | ATOM/BUSD	                  | BINANCE:ATOMBUSD |
 | ...    | ...           	 | ...   	                      | ...              |
 | 281    | Poloniex AKRO/BTC | AKRO/BTC                       | POLONIEX:BTC_AKRO|
@@ -155,7 +155,7 @@ df_symbols
 
 <details>
   <summary>Which ipo in the current month has the highest total share values?</summary>
-  
+
 ```python
 import calendar
 from datetime import datetime
@@ -178,7 +178,7 @@ ipo_df[ipo_df['totalSharesValue'] == ipo_df['totalSharesValue'].max()]
 
 <details>
   <summary>What are the average acutal earnings from the last 4 seasons of a list of 10 popular stocks?</summary>
-  
+
 ```python
 import asyncio
 import pandas as pd
@@ -208,7 +208,7 @@ stocks_df.reset_index(drop=True)
 
 <details>
   <summary>What is the earnings of last 4 quarters of a given company? (e.g. TSLA)</summary>
-  
+
 ```python
 from dataprep.connector import connect
 from datetime import datetime, timedelta, timezone
@@ -240,7 +240,7 @@ result
 #### [MapQuest](./mapquest) -- Collect Driving Directions, Maps, Traffic Data
 <details>
   <summary>Where is the Simon Fraser University? Give all the places if there is more than one campus.</summary>
-  
+
 ```python
 from dataprep.connector import connect
 
@@ -260,7 +260,7 @@ campus = campus[campus["name"] == "Simon Fraser University"].reset_index()
 
 <details>
   <summary>How many KFC are there in Burnaby? What are their address?</summary>
-  
+
 ```python
 from dataprep.connector import connect
 
@@ -286,7 +286,7 @@ Their addresses are:
 
 <details>
   <summary>The ratio of Starbucks to Tim Hortons in Vancouver?</summary>
-  
+
 ```python
 from dataprep.connector import connect
 
@@ -309,7 +309,7 @@ The ratio of Starbucks:Tim Hortons in Vancouver is 188:120
 
 <details>
   <summary>What is the closest gas station from Metropolist and how far is it?</summary>
-  
+
 ```python
 from dataprep.connector import connect
 from numpy import radians, sin, cos, arctan2, sqrt
@@ -346,7 +346,7 @@ The gas station is Chevron at 4692 Imperial St
 
 <details>
   <summary>In BC, which city has the most amount of shopping centers?</summary>
-  
+
 ```python
 from dataprep.connector import connect
 
@@ -372,7 +372,7 @@ shop_list.groupby('city')['name'].count().sort_values(ascending=False).head(10)
 
 <details>
   <summary>Where is the nearest grocery of SFU? How many miles far? And how much time estimated for driving?</summary>
-  
+
 ```python
 from dataprep.connector import connect
 
@@ -538,7 +538,7 @@ Average calories for high calorie Korean foods: 644.765 kcal
 #### [MusixMatch](./musicmatch) -- Collect Music Lyrics Data
 <details>
   <summary>What is Katy Perry's Twitter URL?</summary>
-  
+
 ```python
 from dataprep.connector import connect
 
@@ -573,10 +573,10 @@ df[['name', 'twitter_url']]
 </div>
 
   </details>
-  
+
 <details>
   <summary>What album is the song "Gone, Gone, Gone" in?</summary>
-  
+
 ```python
 from dataprep.connector import connect
 
@@ -614,7 +614,7 @@ df[['name', 'album_name']]
 </details>
 <details>
   <summary>Which artist/artists group is most popular in Canada?</summary>
-  
+
 ```python
 from dataprep.connector import connect
 
@@ -633,7 +633,7 @@ df['name'][0]
 </details>
 <details>
   <summary>How many genres are in the Musixmatch database?</summary>
-  
+
 ```python
 from dataprep.connector import connect
 
@@ -653,7 +653,7 @@ len(df)
   </details>  
 <details>
   <summary>Who is the most popular American artist named Michael?</summary>
-  
+
 ```python
 from dataprep.connector import connect
 
@@ -674,7 +674,7 @@ df['name'].iloc[0]
   </details>  
 <details>
   <summary>What is the genre of the album "Atlas"?</summary>
-  
+
 ```python
 from dataprep.connector import connect
 
@@ -696,7 +696,7 @@ album_genre.iloc[0]
   </details>  
 <details>
   <summary>What is the link to lyrics of the most popular song in the album "Yellow"?</summary>
-  
+
 ```python
 from dataprep.connector import connect
 
@@ -717,7 +717,7 @@ df['track_share_url'].iloc[0]
   </details>  
 <details>
   <summary>What are Lady Gaga's albums from most to least recent?</summary>
-  
+
 ```python
 from dataprep.connector import connect
 
@@ -739,7 +739,7 @@ df.name.unique()
   </details>  
 <details>
   <summary>Which artists are similar to Lady Gaga?</summary>
-  
+
 ```python
 from dataprep.connector import connect
 
@@ -1227,7 +1227,7 @@ album
 
 <details>
   <summary>How many followers does Eminem have?</summary>
-  
+
 ```python
 from dataprep.connector import connect
 
@@ -1247,7 +1247,7 @@ df.loc[df['# followers'].idxmax(), '# followers']
   </details>  
 <details>
   <summary>How many singles does Pink Floyd have that are available in Canada?</summary>
-  
+
 ```python
 from dataprep.connector import connect
 
@@ -1268,7 +1268,7 @@ df.shape[0]
 
 <details>
   <summary>In the last quarter of 2020, which artist released the album with the most tracks?</summary>
-  
+
 ```python
 from dataprep.connector import connect
 import pandas as pd
@@ -1290,7 +1290,7 @@ print(df['album_name'] + ", by " + df['artist'][0] + ", tracks: " + str(df['tota
   </details>  
 <details>
   <summary>Who is the most popular artist: Eminem, Beyonce, Pink Floyd and Led Zeppelin</summary>
-  
+
 ```python
 # and what are their popularity ratings?
 from dataprep.connector import connect
@@ -1308,11 +1308,11 @@ print(sorted(artists_and_num_followers, key=lambda x: x[1], reverse=True))
 ```
 
     [('Eminem', 94.0), ('Beyonce', 88.0), ('Pink Floyd', 83.0), ('Led Zeppelin', 81.0)]```python
-    
+
 </details> 
 <details>
   <summary>Who are the top 5 artists with the most followers from the current Billboard top 100 artists?</summary>
-  
+
 ```python
 from dataprep.connector import connect
 from bs4 import BeautifulSoup
@@ -1339,11 +1339,11 @@ artists_top5
 
 
     ['Ed Sheeran', 'Ariana Grande', 'Drake', 'Justin Bieber', 'Eminem']
-    
+
 </details> 
 <details>
   <summary>For a list of top 10 most popular albums from rollingstone.com which album has most selling markets (countries) around the world in 2020?</summary>
-  
+
 ```python
 from dataprep.connector import connect
 import asyncio
@@ -1370,7 +1370,8 @@ print(df['album_name'] + ", by " + df['artist'][0] + ", with " + str(df['market_
 
     folklore, by Taylor Swift, with 92 avalible countries
 
-    
+
+​    
 </details> 
 
 ### News
@@ -1381,7 +1382,7 @@ print(df['album_name'] + ", by " + df['artist'][0] + ", with " + str(df['market_
 #### [Times](./times) -- Collect New York Times Data
 <details>
   <summary>Who is the author of article 'Yellen Outlines Economic Priorities, and Republicans Draw Battle Lines'</summary>
-  
+
 ```python
 from dataprep.connector import connect
 
@@ -1397,7 +1398,7 @@ df[["authors"]]
 
 <details>
   <summary>What is the newest news from Ottawa</summary>
-  
+
 ```python
 from dataprep.connector import connect
 
@@ -1413,7 +1414,7 @@ df[['headline','authors','abstract','url','pub_date']].head(1)
 
 <details>
   <summary>What are Headlines of articles where Trump was mentioned in the last 6 months of 2020 in the technology news section</summary>
-  
+
 ```python
 from dataprep.connector import connect
 
@@ -1437,7 +1438,7 @@ Trump was mentioned in 50 articles
 
 <details>
   <summary>What is the ranking of times a celebrity is mentioned in a headline in latter half of 2020?</summary>
-  
+
 ```python
 from dataprep.connector import connect
 import pandas as pd
@@ -1701,7 +1702,7 @@ new_df.sort_values(by="views", ascending=False).reset_index(drop=True).head(10)
 #### [Twitch](./twitch) -- Colect Twitch Streams and Channels Information
 <details>
   <summary>How many followers does the Twitch user "Logic" have?</summary>
-  
+
 ```python
 from dataprep.connector import connect
 
@@ -1742,7 +1743,7 @@ df.reset_index()
   </details>  
 <details>
   <summary>Which 5 Twitch users that speak English have the most views and what games do they play?</summary>
-  
+
 ```python
 from dataprep.connector import connect
 
@@ -1822,7 +1823,7 @@ df.reset_index()
   </details>  
 <details>
   <summary>Which channel has the most viewers for each of the top 10 games?</summary>
-  
+
 ```python
 from dataprep.connector import connect
 
@@ -1942,7 +1943,7 @@ result_df.reset_index()
   <summary>(1) What is the number of Fortnite and Valorant streams in the past 24 hours?
       (2) Is there any relationship between viewers and channel followers?
 </summary>
-  
+
 ```python
 from dataprep.connector import connect
 import pandas as pd
@@ -1983,7 +1984,7 @@ df
                        channel_followers   viewers
     channel_followers           1.000000  0.851698
     viewers                     0.851698  1.000000
-    
+
 Number of streams in the past 24 hours:
 
 
@@ -2172,7 +2173,7 @@ tag_count
 
 <details>
   <summary>What are the top 10 Fitness Channels?</summary>
-  
+
   ```python
 from dataprep.connector import connect, info
 
@@ -2199,7 +2200,7 @@ df[['title', 'description']]
 
 <details>
   <summary>Whats the top Playlists of a list of Singers?</summary>
-  
+
   ```python
 from dataprep.connector import connect, info
 import pandas as pd
@@ -2238,6 +2239,33 @@ df[['title', 'description', 'channelTitle']]
 | 6    | Lady Gaga - Greatest Hits                           | Lady Gaga - Greatest Hits 01 The Edge Of Glory...   | Gunther Ruymen         |
 | 7    | Shreya Ghoshal Tamil Hit Songs \| #TamilSongs \|... |                                                     | Sony Music South       |
 | 8    | The Best of Bruno Mars                              |                                                     | Warner Music Australia |
+
+</details>
+
+<details>
+  <summary>What are the top 10 sports activities?</summary>
+  
+  ```python
+from dataprep.connector import connect, info
+import pandas as pd
+dc = connect('youtube', _auth={'access_token': auth_token})
+
+df = await dc.query('videos', q='Sports', part='snippet', type='activity', _count=10)
+df[['title', 'description', 'channelTitle']]
+  ```
+
+|      | title                                               | description                                         | channelTitle       |
+| ---- | --------------------------------------------------- | --------------------------------------------------- | ------------------ |
+| 0    | Sports Tak                                          | Sports Tak, as the name suggests, is all about...   | Sports Tak         |
+| 1    | Sports                                              | sport : an activity involving physical exertio...   | Sports             |
+| 2    | Greatest Sports Moments                             | UPDATE: I AM IN THE PROCESS OF MAKING REVISION...   | WTD Productions    |
+| 3    | Viagra Boys - Sports (Official Video)               | Director: Simon Jung DOP: Paul Evans Producer:...   | viagra boys        |
+| 4    | Volleyball Open Tournament, Jagdev Kalan \|\| 12... | Volleyball Open Tournament, Jagdev Kalan \|\| 12... | Fine Sports        |
+| 5    | Beach Bunny - Sports                                | booking/inquires: beachbunnymusic@gmail.com hu...   | Beach Bunny        |
+| 6    | Top 100 Best Sports Bloopers 2020                   | Watch the Top 100 best sports bloopers from 20...   | Crazy Laugh Action |
+| 7    | Memorable Moments in Sports History                 | Memorable Moments in Sports History! SUBSCRİBE...   | Cenk Bezirci       |
+| 8    | Craziest “Saving Lives” Moments in Sports History   | Craziest “Saving Lives” Moments in Sports Hist...   | Highlight Reel     |
+| 9    | Most Savage Sports Highlights on Youtube (S01E01)   | I do these videos ever year or so, they are ba...   | Joseph Vincent     |
 
 </details>
 
