@@ -1,0 +1,53 @@
+{
+    "version": 1,
+    "request": {
+        "url": "http://www.mapquestapi.com/directions/v2/route",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "key"
+        },
+        "params": {
+            "from_": true,
+            "from": {
+                "required": true,
+                "removeIfEmpty": true,
+                "template": "{{from_}}",
+                "fromKey": [
+                    "from_"
+                ]
+            },
+            "to": true,
+            "routeType": false,
+            "ambiguities": false,
+            "unit": false
+        }
+    },
+    "examples": {
+        "from_": "'8888 University Drive E, Burnaby'",
+        "to": "'StarBucks'"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.route.legs[0].maneuvers[*]",
+        "schema": {
+            "index": {
+                "target": "$.index",
+                "type": "string"
+            },
+            "narrative": {
+                "target": "$.narrative",
+                "type": "string"
+            },
+            "distance": {
+                "target": "$.distance",
+                "type": "string"
+            },
+            "time": {
+                "target": "$.time",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}

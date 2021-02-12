@@ -1377,6 +1377,77 @@ print(df['album_name'] + ", by " + df['artist'][0] + ", with " + str(df['market_
 
 
 #### [Guardian](./guardian) -- Collect Guardian News Data 
+<details>
+  <summary>Which news section contain most mentions related to bitcoin ?</summary>
+  
+```python
+from dataprep.connector import connect, info, Connector
+import pandas as pd
+
+conn_guardian = connect('guardian', update = True, _auth={'access_token': API_key}, concurrency=3)
+df3 = await conn_guardian.query('article', _q='covid 19', _count=1000)
+df3.groupby('section').count().sort_values("headline", ascending=False)
+
+```
+| section                            | headline | url | publish_date |
+|------------------------------------|----------|-----|--------------|
+|                                    |          |     |              |
+| World news                         | 378      | 378 | 378          |
+| Business                           | 103      | 103 | 103          |
+| US news                            | 76       | 76  | 76           |
+| Opinion                            | 72       | 72  | 72           |
+| Sport                              | 53       | 53  | 53           |
+| Australia news                     | 49       | 49  | 49           |
+| Society                            | 44       | 44  | 44           |
+| Politics                           | 34       | 34  | 34           |
+| Football                           | 28       | 28  | 28           |
+| Global development                 | 26       | 26  | 26           |
+| UK news                            | 26       | 26  | 26           |
+| Education                          | 17       | 17  | 17           |
+| Environment                        | 14       | 14  | 14           |
+| Technology                         | 10       | 10  | 10           |
+| Film                               | 10       | 10  | 10           |
+| Science                            | 8        | 8   | 8            |
+| Books                              | 8        | 8   | 8            |
+| Life and style                     | 7        | 7   | 7            |
+| Television & radio                 | 6        | 6   | 6            |
+| Media                              | 4        | 4   | 4            |
+| Culture                            | 4        | 4   | 4            |
+| Stage                              | 4        | 4   | 4            |
+| News                               | 4        | 4   | 4            |
+| Travel                             | 2        | 2   | 2            |
+| WEHI: Brighter together            | 2        | 2   | 2            |
+| Xero: Resilient business           | 2        | 2   | 2            |
+| Money                              | 2        | 2   | 2            |
+| The new rules of work              | 1        | 1   | 1            |
+| LinkedIn: Hybrid workplace         | 1        | 1   | 1            |
+| Global                             | 1        | 1   | 1            |
+| Getting back on track              | 1        | 1   | 1            |
+| Westpac Scholars: Rethink tomorrow | 1        | 1   | 1            |
+| Food                               | 1        | 1   | 1            |
+| All together                       | 1        | 1   | 1            |
+</details>
+
+<details>
+  <summary>Find articles with covid precautions ?</summary>
+  
+```python
+from dataprep.connector import connect, Connector
+
+conn_guardian = connect('guardian', update = True, _auth={'access_token': API_key}, concurrency=3)
+df2 = await conn_guardian.query('article', _q='covid 19 protect',  _count=100)
+df2[df2.section=='Opinion']
+```
+| id | headline                                          | section | url                                               | publish_date         |
+|----|---------------------------------------------------|---------|---------------------------------------------------|----------------------|
+| 0  | Billionaires made $1tn since Covid-19. They ca... | Opinion | https://www.theguardian.com/commentisfree/2020... | 2020-12-09T11:32:20Z |
+| 1  | Jeff Bezos became even richer thanks to Covid-... | Opinion | https://www.theguardian.com/commentisfree/2020... | 2020-12-13T07:30:00Z |
+| 20 | Here's how to tackle the Covid-19 anti-vaxxers... | Opinion | https://www.theguardian.com/commentisfree/2020... | 2020-11-26T16:02:14Z |
+| 41 | Can the UK deliver on the Covid vaccine rollou... | Opinion | https://www.theguardian.com/commentisfree/2020... | 2020-12-11T09:00:24Z |
+| 68 | Covid-19 has turned back the clock on working ... | Opinion | https://www.theguardian.com/commentisfree/2020... | 2020-12-10T14:19:27Z |
+| 84 | The Guardian view on Covid-19 promises: season... | Opinion | https://www.theguardian.com/commentisfree/2020... | 2020-12-14T18:42:10Z |
+| 88 | The Guardian view on responding to the Covid-1... | Opinion | https://www.theguardian.com/commentisfree/2020... | 2020-12-30T18:58:05Z |
+</details>
 
 #### [Times](./times) -- Collect New York Times Data
 <details>
@@ -2250,6 +2321,61 @@ df[['title', 'description', 'channelTitle']]
 
 
 #### [OpenWeatherMap](openweathermap) -- Colect Current and Historical Weather Data
+
+<details>
+  <summary>What is the temperature of London, Ontario?</summary>
+
+```python
+from dataprep.connector import connect
+
+owm_connector = connect("openweathermap", _auth={"access_token":access_token})
+df = await owm_connector.query('weather',q='London,Ontario,CA')
+df[["temp"]]
+```
+
+| id  | temp   |
+| --- | ------ |
+| 0   | 267.96 |
+
+  </details>
+  
+<details>
+  <summary>What is the wind speed in each provincial capital city?</summary>
+
+```python
+from dataprep.connector import connect
+import pandas as pd
+import asyncio
+
+conn = connect("openweathermap", _auth={'access_token':'899b50a47d4c9dad99b6c61f812b786e'}, _concurrency = 5)
+
+names = ["Edmonton", "Victoria", "Winnipeg", "Fredericton", "St. John's", "Halifax", "Toronto", "Charlottetown", \
+ "Quebec City", "Regina", "Yellowknife", "Iqaluit", "Whitehorse"]
+
+query_list = [conn.query("weather", q = name) for name in names]
+results = asyncio.gather(*query_list)
+df = pd.concat(await results)
+df['name'] = names
+df[["name", "wind"]].reset_index(drop=True)
+```
+
+| id | name          | wind |
+|----|---------------|------|
+| 0  | Edmonton      | 6.17 |
+| 1  | Victoria      | 1.34 |
+| 2  | Winnipeg      | 2.57 |
+| 3  | Fredericton   | 4.63 |
+| 4  | St. John's    | 5.14 |
+| 5  | Halifax       | 5.14 |
+| 6  | Toronto       | 1.76 |
+| 7  | Charlottetown | 5.14 |
+| 8  | Quebec City   | 3.09 |
+| 9  | Regina        | 4.12 |
+| 10 | Yellowknife   | 3.60 |
+| 11 | Iqaluit       | 5.66 |
+| 12 | Whitehorse    | 9.77 |
+
+  </details>
 
 
 **[⬆️ Back to Index](#index)**

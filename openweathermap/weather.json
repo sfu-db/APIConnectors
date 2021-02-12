@@ -8,7 +8,10 @@
             "keyParam": "appid"
         },
         "params": {
-            "q": true
+            "q": true,
+            "units" : false,
+            "mode" : false,
+            "lang" : false
         }
     },
     "examples": {
