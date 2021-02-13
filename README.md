@@ -120,6 +120,230 @@ df[["name", "review_count"]]
 | 20  | Hokkaido Ramen Santouka        | 4.0    | Vancouver |
 </details>
 
+#### [Hunter](./hunter) -- Collect and Verify Professional Email Addresses
+<details>
+<summary>Who are executives of Asana and what are their emails?</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”hunter_access_token“ by registering as a developer https://hunter.io/users/sign_up
+conn_hunter = connect("hunter", _auth={"access_token":'hunter_access_token'})
+
+df = await conn_hunter.query('all_emails', domain='asana.com', _count=10)
+
+df[df['department']=='executive']
+```
+
+
+
+
+<div>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>first_name</th>
+<th>last_name</th>
+<th>email</th>
+<th>position</th>
+<th>department</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>Dustin</td>
+<td>Moskovitz</td>
+<td>dustin@asana.com</td>
+<td>Cofounder</td>
+<td>executive</td>
+</tr>
+<tr>
+<th>1</th>
+<td>Stephanie</td>
+<td>Heß</td>
+<td>shess@asana.com</td>
+<td>CEO</td>
+<td>executive</td>
+</tr>
+<tr>
+<th>2</th>
+<td>Erin</td>
+<td>Cheng</td>
+<td>erincheng@asana.com</td>
+<td>Strategic Initiatives</td>
+<td>executive</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+</details>
+<details>
+<summary>What is Dustin Moskovitz's email?</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”hunter_access_token“ by registering as a developer https://hunter.io/users/sign_up
+conn_hunter = connect("hunter", _auth={"access_token":'hunter_access_token'})
+
+df = await conn_hunter.query("individual_email", full_name='dustin moskovitz', domain='asana.com')
+
+df
+```
+
+
+
+
+<div>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>first_name</th>
+<th>last_name</th>
+<th>email</th>
+<th>position</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>Dustin</td>
+<td>Moskovitz</td>
+<td>dustin@asana.com</td>
+<td>Cofounder</td>
+</tr>
+</tbody>
+</table>
+</div>
+</details>  
+
+<details>
+<summary>Are the emails of Asana executives valid?</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”hunter_access_token“ by registering as a developer https://hunter.io/users/sign_up
+conn_hunter = connect("hunter", _auth={"access_token":'hunter_access_token'})
+
+employees = await conn_hunter.query("all_emails", domain='asana.com', _count=10)
+executives = employees.loc[employees['department']=='executive']
+emails = executives[['email']]
+
+for email in emails.iterrows():
+status = await conn_hunter.query("email_verifier", email=email[1][0])
+emails['status'] = status
+
+emails
+```
+
+<div>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>email</th>
+<th>status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>dustin@asana.com</td>
+<td>valid</td>
+</tr>
+<tr>
+<th>3</th>
+<td>shess@asana.com</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>4</th>
+<td>erincheng@asana.com</td>
+<td>NaN</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</details>
+<details>
+<summary>How many available requests do I have left?</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”hunter_access_token“ by registering as a developer https://hunter.io/users/sign_up
+conn_hunter = connect("hunter", _auth={"access_token":'hunter_access_token'})
+
+df = await conn_hunter.query("account")
+df
+```
+
+
+
+
+<div>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>requests available</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>19475</td>
+</tr>
+</tbody>
+</table>
+</div>
+</details>
+
+<details>
+<summary>What are the counts of each level of seniority of Intercom employees?</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”hunter_access_token“ by registering as a developer https://hunter.io/users/sign_up
+conn_hunter = connect("hunter", _auth={"access_token":'hunter_access_token'})
+
+df = await conn_hunter.query("email_count", domain='intercom.io')
+df.drop('total', axis=1)
+```
+
+
+
+
+<div>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>junior</th>
+<th>senior</th>
+<th>executive</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>0</td>
+<td>2</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+</div>
+</details>
+
 
 
 ### Finance

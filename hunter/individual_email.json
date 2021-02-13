@@ -1,0 +1,44 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://api.hunter.io/v2/email-finder",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "api_key"
+        },
+        "params": {
+            "domain": true,
+            "first_name": false,
+            "last_name": false,
+            "full_name": false,
+            "max_duration": false
+        }
+    },
+    "examples": {
+        "domain": "'asana.com'"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.data",
+        "schema": {
+            "first_name": {
+                "target": "$.first_name",
+                "type": "string"
+            },
+            "last_name": {
+                "target": "$.last_name",
+                "type": "string"
+            },
+            "email": {
+                "target": "$.email",
+                "type": "string"
+            },
+            "position": {
+                "target": "$.position",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}

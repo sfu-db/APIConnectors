@@ -1,0 +1,53 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://api.hunter.io/v2/domain-search",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "api_key"
+        },
+        "params": {
+            "domain": true,
+            "type": false,
+            "seniority": false,
+            "department": false
+        },
+        "pagination": {
+            "type": "offset",
+            "offsetKey": "offset",
+            "limitKey": "limit",
+            "maxCount": 10
+        }
+    },
+    "examples": {
+        "domain": "'intercom.io'"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.data.[*].emails.[*]",
+        "schema": {
+            "first_name": {
+                "target": "$.first_name",
+                "type": "string"
+            },
+            "last_name": {
+                "target": "$.last_name",
+                "type": "string"
+            },
+            "email": {
+                "target": "$.value",
+                "type": "string"
+            },
+            "position": {
+                "target": "$.position",
+                "type": "string"
+            },
+            "department": {
+                "target": "$.department",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}
