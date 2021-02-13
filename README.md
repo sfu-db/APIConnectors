@@ -1770,7 +1770,7 @@ new_df.sort_values(by="views", ascending=False).reset_index(drop=True).head(10)
 
 ### Social
 
-#### [Twitch](./twitch) -- Colect Twitch Streams and Channels Information
+#### [Twitch](./twitch) -- Collect Twitch Streams and Channels Information
 <details>
   <summary>How many followers does the Twitch user "Logic" have?</summary>
 
@@ -2088,7 +2088,7 @@ Number of streams in the past 24 hours:
 </details>  
 
 
-#### [Twitter](./twitter) -- Colect Tweets Information
+#### [Twitter](./twitter) -- Collect Tweets Information
 
 <details>
   <summary>What are the 10 latest english tweets by SFU handle (@SFU) ?</summary>
@@ -2240,7 +2240,7 @@ tag_count
 ### Video
 
 
-#### [Youtube](./youtube) -- Colect Youtube's Content MetaData.
+#### [Youtube](./youtube) -- Collect Youtube's Content MetaData.
 
 <details>
   <summary>What are the top 10 Fitness Channels?</summary>
@@ -2348,7 +2348,7 @@ df[['title', 'description', 'channelTitle']]
 ### Weather
 
 
-#### [OpenWeatherMap](openweathermap) -- Colect Current and Historical Weather Data
+#### [OpenWeatherMap](openweathermap) -- Collect Current and Historical Weather Data
 
 <details>
   <summary>What is the temperature of London, Ontario?</summary>
