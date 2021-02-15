@@ -18,8 +18,10 @@ You can contribute to this project in two ways. Please check the [contributing g
 ## Index
 
 * [Business](#business)
+* [Calendar](#calendar)
 * [Finance](#finance)
 * [Geocoding](#geocoding)
+* [Job](#job)
 * [Lifestyle](#lifestyle)
 * [Music](#music)
 * [News](#news)
@@ -345,6 +347,76 @@ df.drop('total', axis=1)
 </details>
 
 
+### Calendar
+
+[Holidays](./holiday) -- Collect Holiday, Workday Data
+
+<details>
+  <summary>What are the supported countries and their country code and languages supported by this api?</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”holiday_key“ by following https://holidayapi.com/docs
+dc = connect('./DataConnectorConfigs/holiday', _auth={'access_token': holiday_key})
+
+df = await dc.query("country")
+df
+```
+
+|      | code | name                 | languages |
+| ---- | ---- | -------------------- | --------- |
+| 0    | AD   | Andorra              | ['ca'     |
+| 1    | AE   | United Arab Emirates | ['ar']    |
+| ..   | ..   | ...                  | ...       |
+| 249  | ZW   | Zimbabwe             | ['en']    |
+
+</details>
+
+<details>
+  <summary>What are the public holidays of Canada in 2020?</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”holiday_key“ by following https://holidayapi.com/docs
+dc = connect('./DataConnectorConfigs/holiday', _auth={'access_token': holiday_key})
+
+df = await dc.query('holiday', country='CA', year=2020, public=True)
+df
+```
+
+|      | name           | date       | public | observed   | weekday   |
+| ---- | -------------- | ---------- | ------ | ---------- | --------- |
+| 0    | New Year's Day | 2020-01-01 | True   | 2020-01-01 | Wednesday |
+| 1    | Good Friday    | 2020-04-10 | True   | 2020-04-10 | Friday    |
+| 2    | Victoria Day   | 2020-05-18 | True   | 2020-05-18 | Monday    |
+| 3    | Canada Day     | 2020-07-01 | True   | 2020-07-01 | Wednesday |
+| 4    | Labor Day      | 2020-09-07 | True   | 2020-09-07 | Monday    |
+| 5    | Christmas Day  | 2020-12-25 | True   | 2020-12-25 | Friday    |
+
+
+</details>
+
+<details>
+  <summary>Which day is the 100th workday start from 2020-01-01, in Canada?</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”holiday_key“ by following https://holidayapi.com/docs
+dc = connect('./DataConnectorConfigs/holiday', _auth={'access_token': holiday_key})
+
+df = await dc.query('workday', country='CA', start='2020-01-01', days=100)
+df
+```
+
+|      | date      | weekday |
+| ---- | --------- | ------- |
+| 0    | 2020-5-22 | Friday  |
+
+</details>
+
 
 ### Finance
 
@@ -621,6 +693,95 @@ The nearest grocery of SFU is Nesters Market. It is 1.234 miles far, and It is e
 |  1 |       1 | Turn left to stay on University Dr.                                  |      0.606 |     84 |
 |  2 |       2 | Enter next roundabout and take the 1st exit onto University High St. |      0.28  |     60 |
 |  3 |       3 | 9000 UNIVERSITY HIGH STREET is on the left.                          |      0     |      0 |
+
+</details>
+
+### Job
+
+#### [The Muse](./themuse) -- Collect Job Ads, Company Information
+
+<details>
+  <summary>What are the first 10 data science jobs I can do in Vancouver?</summary>
+
+  ```python
+from dataprep.connector import connect
+
+# You can get ”app_key“ by following https://www.themuse.com/developers/api/v2/apps
+dc = connect('./DataConnectorConfigs/themuse', _auth={'access_token': app_key})
+
+df = await dc.query('jobs', page=1, category='Data Science', location='Vancouver, Canada')
+df[['id', 'name', 'company', 'locations', 'levels', 'publication_date']]
+  ```
+
+|      | id      | name                                              | company           | locations                                         | levels       | publication_date            |
+| ---- | ------- | ------------------------------------------------- | ----------------- | ------------------------------------------------- | ------------ | --------------------------- |
+| 0    | 4601051 | Senior Business Intelligence & Data Analyst       | Affirm            | [{'name': 'Flexible / Remote'}]                   | Senior Level | 2021-01-21T23:09:59.077344Z |
+| 1    | 5130731 | Senior Data Scientist                             | Humana            | [{'name': 'Flexible / Remote'}]                   | Senior Level | 2021-01-26T11:42:44.232111Z |
+| 2    | 3569168 | Trauma Registrar - Senior Quality Information ... | Q-Centrix         | [{'name': 'Flexible / Remote'}]                   | Senior Level | 2020-09-16T23:03:34.722243Z |
+| 3    | 5133767 | Marketing Data Analyst                            | PagerDuty         | [{'name': 'Flexible / Remote'}]                   | Mid Level    | 2021-01-27T11:02:42.752022Z |
+| 4    | 5137992 | Machine Learning Engineer II                      | Amazon            | [{'name': 'Vancouver, Canada'}]                   | Mid Level    | 2021-02-01T22:56:37.147021Z |
+| 5    | 4347658 | Senior Data Scientist                             | Socure            | [{'name': 'Flexible / Remote'}, {'name': 'New ... | Senior Level | 2020-12-16T23:07:27.812538Z |
+| 6    | 4414851 | Senior Data Scientist -- Clinical Outcomes        | Grand Rounds Inc. | [{'name': 'Flexible / Remote'}]                   | Senior Level | 2021-01-26T23:06:02.526521Z |
+| 7    | 4674721 | Lead Data Scientist                               | Grand Rounds Inc. | [{'name': 'Flexible / Remote'}]                   | Senior Level | 2021-01-08T23:04:14.654638Z |
+| 8    | 5111506 | People Data Analyst, Reporting & Analytics - L... | Dropbox           | [{'name': 'Flexible / Remote'}]                   | Mid Level    | 2021-02-04T11:10:34.704271Z |
+| 9    | 5181876 | Senior Data Analyst-Hardware & Supply Analytics   | Lime              | [{'name': 'Flexible / Remote'}]                   | Senior Level | 2021-02-03T23:02:36.355894Z |
+
+</details>
+
+<details>
+
+  <summary>What are the first 10 senior level data science positions in Amazon?</summary>
+
+  ```python
+from dataprep.connector import connect
+
+# You can get ”app_key“ by following https://www.themuse.com/developers/api/v2/apps
+dc = connect('./DataConnectorConfigs/themuse', _auth={'access_token': app_key})
+
+df = await dc.query('jobs', page=1, category='Data Science', company='Amazon', level='Senior Level')
+df[:10][['id', 'name', 'company', 'locations', 'levels', 'publication_date']]
+  ```
+
+|      | id      | name                                              | company | locations                            | levels       | publication_date            |
+| ---- | ------- | ------------------------------------------------- | ------- | ------------------------------------ | ------------ | --------------------------- |
+| 0    | 5153796 | Sr. Data Architect, Data Lake & Analytics - Na... | Amazon  | [{'name': 'San Diego, CA'}]          | Senior Level | 2021-02-01T22:54:14.002653Z |
+| 1    | 4083477 | Principal Data Architect, Data Lake & Analytics   | Amazon  | [{'name': 'Chicago, IL'}]            | Senior Level | 2021-02-01T23:14:17.251814Z |
+| 2    | 4149878 | Principal Data Architect, Data Warehousing & MPP  | Amazon  | [{'name': 'Arlington, VA'}]          | Senior Level | 2021-02-01T23:15:22.017573Z |
+| 3    | 4497753 | Data Architect - Data Lake & Analytics - Natio... | Amazon  | [{'name': 'Irvine, CA'}]             | Senior Level | 2021-02-01T23:15:22.439949Z |
+| 4    | 4870271 | Data Scientist                                    | Amazon  | [{'name': 'Seattle, WA'}]            | Senior Level | 2021-02-01T23:04:25.967878Z |
+| 5    | 4603482 | Data Scientist - Prime Gaming                     | Amazon  | [{'name': 'Seattle, WA'}]            | Senior Level | 2021-02-01T23:10:37.628292Z |
+| 6    | 5193240 | Data Scientist                                    | Amazon  | [{'name': 'Seattle, WA'}]            | Senior Level | 2021-02-04T23:56:19.176327Z |
+| 7    | 4678426 | Sr Data Architect - Streaming                     | Amazon  | [{'name': 'Roseville, CA'}]          | Senior Level | 2021-02-01T22:51:25.598645Z |
+| 8    | 4150011 | Data Architect - Data Lake & Analytics - Natio... | Amazon  | [{'name': 'Tampa, FL'}]              | Senior Level | 2021-02-04T23:56:18.281215Z |
+| 9    | 4346719 | Sr. Data Scientist - ML Labs                      | Amazon  | [{'name': 'London, United Kingdom'}] | Senior Level | 2021-02-01T23:12:42.038111Z |
+
+</details>
+
+<details>
+  <summary>What are the top 10 companies in engneering?(intelligently sorted by a number of factors such as trendiness, uniqueness, newness, etc)</summary>
+
+  ```python
+from dataprep.connector import connect
+
+# You can get ”app_key“ by following https://www.themuse.com/developers/api/v2/apps
+dc = connect('./DataConnectorConfigs/themuse', _auth={'access_token': app_key})
+
+df = await dc.query('companies', industry='Engineering', page=1)
+df[:10]
+  ```
+
+|      | id    | name                 | locations                                         | size        | publication_date            | url                                               |
+| ---- | ----- | -------------------- | ------------------------------------------------- | ----------- | --------------------------- | ------------------------------------------------- |
+| 0    | 706   | Appian               | [{'name': 'Tysons Corner, VA'}]                   | Medium Size | 2015-11-25T18:17:50.926146Z | https://www.themuse.com/companies/appian          |
+| 1    | 12168 | Bristol Myers Squibb | [{'name': 'Boudry, Switzerland'}, {'name': 'De... | Large Size  | 2020-12-15T15:55:56.940074Z | https://www.themuse.com/companies/bristolmyers... |
+| 2    | 11897 | McMaster-Carr        | [{'name': 'Atlanta, GA'}, {'name': 'Chicago, I... | Large Size  | 2020-02-10T21:57:15.338561Z | https://www.themuse.com/companies/mcmastercarr    |
+| 3    | 12162 | ServiceNow           | [{'name': 'Santa Clara, CA'}]                     | Large Size  | 2021-01-26T23:48:13.066632Z | https://www.themuse.com/companies/servicenow      |
+| 4    | 11731 | Tenaska              | [{'name': 'Boston, MA'}, {'name': 'Dallas, TX'... | Large Size  | 2019-03-14T14:01:54.465873Z | https://www.themuse.com/companies/tenaska         |
+| 5    | 11885 | Brex                 | [{'name': 'Flexible / Remote'}, {'name': 'New ... | Medium Size | 2020-02-05T23:16:44.780028Z | https://www.themuse.com/companies/brex            |
+| 6    | 1483  | Inline Plastics      | [{'name': 'Shelton, CT'}]                         | Medium Size | 2017-09-11T14:49:24.153633Z | https://www.themuse.com/companies/inlineplastics  |
+| 7    | 12113 | Dematic              | [{'name': 'Atlanta, GA'}, {'name': 'Banbury, U... | Large Size  | 2020-09-17T20:29:19.400892Z | https://www.themuse.com/companies/dematic         |
+| 8    | 11967 | Kairos Power         | [{'name': 'Albuquerque, NM'}, {'name': 'Charlo... | Medium Size | 2020-12-07T21:29:33.538815Z | https://www.themuse.com/companies/kairospower     |
+| 9    | 11913 | Siemens              | [{'name': 'Munich, Germany'}]                     | Large Size  | 2020-01-23T21:35:56.937727Z | https://www.themuse.com/companies/siemens         |
 
 </details>
 
@@ -2444,7 +2605,6 @@ tag_count = tag_count.iloc[0:10,:]
 tag_count
   ```
 
-| id   | tag_list                 | tag_count |
 | ---- | ------------------------ | --------- |
 | 0    | jobs                     | 52        |
 | 1    | TractorMarch             | 24        |

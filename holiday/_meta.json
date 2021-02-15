@@ -1,0 +1,7 @@
+{
+    "tables": [
+        "holiday",
+        "workday",
+        "country"
+    ]
+}

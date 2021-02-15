@@ -1,0 +1,52 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://holidayapi.com/v1/holidays",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "key"
+        },
+        "params": {
+            "year": true,
+            "country": true,
+            "month": false,
+            "day": false,
+            "public": false,
+            "subdivisions": false,
+            "previous": false,
+            "upcoming": false
+        }
+    },
+    "examples": {
+        "year": "'2020'",
+        "country": "'CA'"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.holidays[*]",
+        "schema": {
+            "name": {
+                "target": "$.name",
+                "type": "string"
+            },
+            "date": {
+                "target": "$.date",
+                "type": "string"
+            },
+            "public": {
+                "target": "$.public",
+                "type": "string"
+            },
+            "observed":  {
+                "target": "$.observed",
+                "type": "string"
+            },
+            "weekday": {
+                "target": "$.weekday.date.name",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}
