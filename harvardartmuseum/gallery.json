@@ -1,0 +1,56 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://api.harvardartmuseums.org/gallery",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "apikey"
+        },
+        "params": {
+            "q": false,
+            "size": false,
+            "page": false,
+            "floor": false,
+            "fields": false,
+            "aggregation": false
+        },
+        "pagination": {
+            "type": "offset",
+            "offsetKey": "offset",
+            "limitKey": "limit",
+            "maxCount": 100
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.records[*]",
+        "schema": {
+            "id": {
+                "target": "$.id",
+                "type": "string"
+            },
+            "name": {
+                "target": "$.name",
+                "type": "string"
+            },
+            "theme": {
+                "target": "$.theme",
+                "type": "string"
+            },
+            "object count": {
+                "target": "$.objectcount",
+                "type": "int"
+            },
+            "floor": {
+                "target": "$.floor",
+                "type": "string"
+            },
+            "url": {
+                "target": "$.url",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}
