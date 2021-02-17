@@ -31,32 +31,28 @@
         "ctype": "application/json",
         "tablePath": "$.results[*]",
         "schema": {
-            "provided_location": {
-                "target": "$.providedLocation.location",
-                "type": "string"
-            },
             "country": {
-                "target": "$.locations.adminArea1",
+                "target": "$.locations.[*].adminArea1",
                 "type": "string"
             },
             "state": {
-                "target": "$.locations.adminArea3",
+                "target": "$.locations.[*].adminArea3",
                 "type": "string"
             },
             "city": {
-                "target": "$.locations.adminArea5",
+                "target": "$.locations.[*].adminArea5",
                 "type": "string"
             },
             "address": {
-                "target": "$.locations.street",
+                "target": "$.locations.[*].street",
                 "type": "string"
             },
             "postalCode": {
-                "target": "$.locations.postalCode",
+                "target": "$.locations.[*].postalCode",
                 "type": "string"
             },
             "coordinates": {
-                "target": "$.locations.latLng",
+                "target": "$.locations.[*].latLng",
                 "type": "list"
             }
         },

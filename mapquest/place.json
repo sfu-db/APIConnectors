@@ -1,14 +1,14 @@
 {
     "version": 1,
     "request": {
-        "url": "http://www.mapquestapi.com/search/v4",
+        "url": "http://www.mapquestapi.com/search/v4/place",
         "method": "GET",
         "authorization": {
             "type": "QueryParam",
             "keyParam": "key"
         },
         "params": {
-            "q": true,
+            "q": false,
             "sort": true,
             "page": false,
             "pageSize": false,

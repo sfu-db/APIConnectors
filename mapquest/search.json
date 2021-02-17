@@ -36,7 +36,7 @@
                 "type": "string"
             },
             "country": {
-                "target": "$.fields.adminArea1",
+                "target": "$.fields.country",
                 "type": "string"
             },
             "state": {
@@ -48,11 +48,11 @@
                 "type": "string"
             },
             "address": {
-                "target": "$.address",
+                "target": "$.fields.address",
                 "type": "string"
             },
             "postalCode": {
-                "target": "$.fields.postalCode",
+                "target": "$.fields.postal_code",
                 "type": "string"
             },
             "phone": {
