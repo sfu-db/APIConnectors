@@ -22,6 +22,7 @@ You can contribute to this project in two ways. Please check the [contributing g
 * [Geocoding](#geocoding)
 * [Lifestyle](#lifestyle)
 * [Music](#music)
+* [Networking](#networking)
 * [News](#news)
 * [Science](#science)
 * [Shopping](#shopping)
@@ -1598,6 +1599,138 @@ print(df['album_name'] + ", by " + df['artist'][0] + ", with " + str(df['market_
 ​    
 </details> 
 
+### Networking
+
+#### [IPLegit](./iplegit) -- Collect IP Address Data
+
+<details>
+<summary>How can I check if an IP address is bad, so I can block it from accessing my website?</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”iplegit_access_token“ by registering as a developer https://rapidapi.com/IPLegit/api/iplegit
+conn_iplegit = connect('./DataConnectorConfigs/iplegit', _auth={'access_token':iplegit_access_token})
+
+ip_addresses = ['16.210.143.176', 
+                '98.124.198.1', 
+                '182.50.236.215', 
+                '90.104.138.217', 
+                '61.44.131.150', 
+                '210.64.150.243', 
+                '89.141.156.184']
+
+for ip in ip_addresses:
+    ip_status = await conn_iplegit.query('status', ip=ip)
+    bad_status = ip_status['bad_status'].get(0)
+    if bad_status == True:
+        print('block ip address: ', ip_status['ip'].get(0))
+```
+
+block ip address:  98.124.198.1
+
+
+</details>
+
+<details>
+<summary>What country are most people from who have visited my website?</summary>
+
+```python
+from dataprep.connector import connect
+import pandas as pd
+
+# You can get ”iplegit_access_token“ by registering as a developer https://rapidapi.com/IPLegit/api/iplegit
+conn_iplegit = connect('./DataConnectorConfigs/iplegit', _auth={'access_token':iplegit_access_token})
+
+ip_addresses = ['16.210.143.176', 
+                '98.124.198.1', 
+                '182.50.236.215', 
+                '90.104.138.217', 
+                '61.44.131.150', 
+                '210.64.150.243', 
+                '89.141.156.184',
+                '85.94.168.133', 
+                '98.14.201.52', 
+                '98.57.106.207', 
+                '185.254.139.250', 
+                '206.246.126.82', 
+                '147.44.75.68', 
+                '123.42.224.40', 
+                '253.29.140.44', 
+                '97.203.209.153', 
+                '196.63.36.253']
+
+ip_details = []
+for ip in ip_addresses:
+    ip_details.append(await conn_iplegit.query('details', ip=ip))
+
+df = pd.concat(ip_details)
+df.country.mode().get(0)
+```
+
+
+
+
+'UNITED STATES'
+
+
+
+
+</details>
+
+<details>
+<summary>Make a map showing locations of people who have visited my website.</summary>
+
+```python
+from dataprep.connector import connect
+import pandas as pd
+from shapely.geometry import Point
+import geopandas as gpd
+from geopandas import GeoDataFrame
+
+# You can get ”iplegit_access_token“ by registering as a developer https://rapidapi.com/IPLegit/api/iplegit
+conn_iplegit = connect('./DataConnectorConfigs/iplegit', _auth={'access_token':iplegit_access_token})
+
+ip_addresses = ['16.210.143.176', 
+                '98.124.198.1', 
+                '182.50.236.215', 
+                '90.104.138.217', 
+                '61.44.131.150', 
+                '210.64.150.243', 
+                '89.141.156.184',
+                '85.94.168.133', 
+                '98.14.201.52', 
+                '98.57.106.207', 
+                '185.254.139.250', 
+                '206.246.126.82', 
+                '147.44.75.68', 
+                '123.42.224.40', 
+                '253.29.140.44', 
+                '97.203.209.153', 
+                '196.63.36.253']
+
+ip_details = []
+for ip in ip_addresses:
+    ip_details.append(await conn_iplegit.query('details', ip=ip))
+
+df = pd.concat(ip_details)
+geometry = [Point(xy) for xy in zip(df['longitude'], df['latitude'])]
+gdf = GeoDataFrame(df, geometry=geometry)   
+
+world = gpd.read_file(gpd.datasets.get_path('naturalearth_lowres'))
+gdf.plot(ax=world.plot(figsize=(10, 6)), marker='o', color='red', markersize=15);
+```
+
+
+
+![png](assets/iplegit_map.png)
+
+
+
+
+</details>
+
+
 ### News
 
 
@@ -1764,6 +1897,7 @@ ranking_df
 |  4 | Rihanna        |                    1 |
 |  5 | Kim Kardashian |                    0 |
 </details>
+
 
 ### Science
 
