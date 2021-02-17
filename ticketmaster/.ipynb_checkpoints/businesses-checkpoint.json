@@ -1,0 +1,122 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://api.yelp.com/v3/businesses/search",
+        "method": "GET",
+        "authorization": {
+            "type": "Bearer"
+        },
+        "params": {
+            "term": false,
+            "location": true,
+            "latitude": false,
+            "longitude": false,
+            "limit": false,
+            "categories": false,
+            "sort_by": false
+        },
+        "pagination": {
+            "type": "offset",
+            "offsetKey": "offset",
+            "limitKey": "limit",
+            "maxCount": 50
+        },
+        "search": {
+            "key": "term"
+        }
+    },
+    "examples": {
+        "location": "'seattle'"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.businesses[*]",
+        "schema": {
+            "id": {
+                "target": "$.id",
+                "type": "string"
+            },
+            "alias": {
+                "target": "$.alias",
+                "type": "string"
+            },
+            "name": {
+                "target": "$.name",
+                "type": "string"
+            },
+            "image_url": {
+                "target": "$.image_url",
+                "type": "string"
+            },
+            "is_closed": {
+                "target": "$.is_closed",
+                "type": "boolean"
+            },
+            "url": {
+                "target": "$.url",
+                "type": "string"
+            },
+            "review_count": {
+                "target": "$.review_count",
+                "type": "int"
+            },
+            "rating": {
+                "target": "$.rating",
+                "type": "float"
+            },
+            "latitude": {
+                "target": "$.coordinates.latitude",
+                "type": "float"
+            },
+            "longtitude": {
+                "target": "$.coordinates.longitude",
+                "type": "float"
+            },
+            "categories": {
+                "target": "$.categories[*].title",
+                "type": "object"
+            },
+            "address1": {
+                "target": "$.location.address1",
+                "type": "string"
+            },
+            "address2": {
+                "target": "$.location.address2",
+                "type": "string"
+            },
+            "address3": {
+                "target": "$.location.address3",
+                "type": "string"
+            },
+            "city": {
+                "target": "$.location.city",
+                "type": "string"
+            },
+            "country": {
+                "target": "$.location.country",
+                "type": "string"
+            },
+            "state": {
+                "target": "$.location.state",
+                "type": "string"
+            },
+            "zip_code": {
+                "target": "$.location.zip_code",
+                "type": "string"
+            },
+            "phone": {
+                "target": "$.phone",
+                "type": "string"
+            },
+            "distance": {
+                "target": "$.distance",
+                "type": "string"
+            },
+            "price": {
+                "target": "$.price",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}
