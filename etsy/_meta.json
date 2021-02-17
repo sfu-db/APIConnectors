@@ -1,6 +1,7 @@
 {
     "tables": [
         "items",
-        "shops"
+        "shops",
+        "shipping_info"
     ]
 }

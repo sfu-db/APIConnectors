@@ -1,0 +1,65 @@
+{
+    "version": 1,
+    "request": {
+        "url": "http://www.mapquestapi.com/geocoding/v1/batch",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "key"
+        },
+        "params": {
+            "location": true,
+            "boundingBox ": false,
+            "page": false,
+            "pageSize": false,
+            "thumbMaps ": false
+        },
+        "search": {
+            "key": "location"
+        },
+        "pagination": {
+            "type": "page",
+            "pageKey": "page",
+            "limitKey": "pageSize",
+            "maxCount": 50
+        }
+    },
+    "examples": {
+        "location": "' 41.947239,-87.655636 OR 1060 W. Addison St., Chicago, IL 60613'"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.results[*]",
+        "schema": {
+            "provided_location": {
+                "target": "$.providedLocation.location",
+                "type": "string"
+            },
+            "country": {
+                "target": "$.locations.adminArea1",
+                "type": "string"
+            },
+            "state": {
+                "target": "$.locations.adminArea3",
+                "type": "string"
+            },
+            "city": {
+                "target": "$.locations.adminArea5",
+                "type": "string"
+            },
+            "address": {
+                "target": "$.locations.street",
+                "type": "string"
+            },
+            "postalCode": {
+                "target": "$.locations.postalCode",
+                "type": "string"
+            },
+            "coordinates": {
+                "target": "$.locations.latLng",
+                "type": "list"
+            }
+        },
+        "orient": "records"
+    }
+}

@@ -1,0 +1,65 @@
+{
+    "version": 1,
+    "request": {
+        "url": "http://www.mapquestapi.com/search/v2/radius",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "key"
+        },
+        "params": {
+            "origin": true,
+            "radius ": false,
+            "page": false,
+            "pageSize": false,
+            "maxMatches ": false
+        },
+        "search": {
+            "key": "origin"
+        },
+        "pagination": {
+            "type": "page",
+            "pageKey": "page",
+            "limitKey": "pageSize",
+            "maxCount": 50
+        }
+    },
+    "examples": {
+        "origin": "' 41.947239,-87.655636 OR 1060 W. Addison St., Chicago, IL 60613'"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.searchResults[*]",
+        "schema": {
+            "name": {
+                "target": "$.name",
+                "type": "string"
+            },
+            "country": {
+                "target": "$.fields.adminArea1",
+                "type": "string"
+            },
+            "state": {
+                "target": "$.fields.state",
+                "type": "string"
+            },
+            "city": {
+                "target": "$.fields.city",
+                "type": "string"
+            },
+            "address": {
+                "target": "$.address",
+                "type": "string"
+            },
+            "postalCode": {
+                "target": "$.fields.postalCode",
+                "type": "string"
+            },
+            "phone": {
+                "target": "$.fields.phone",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}

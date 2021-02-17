@@ -1,7 +1,7 @@
 {
     "version": 1,
     "request": {
-        "url": "https://content.guardianapis.com/search",
+        "url": "https://content.guardianapis.com/tags",
         "method": "GET",
         "authorization": {
             "type": "QueryParam",
@@ -11,8 +11,8 @@
             "q": true,
             "page": false,
             "page-size": false,
-            "query-fields": false,
-            "tag": false
+            "section": false,
+            "show-references": false
         },
         "search": {
             "key": "q"
@@ -43,8 +43,8 @@
                 "target": "$.webUrl",
                 "type": "string"
             },
-            "publish_date": {
-                "target": "$.webPublicationDate",
+            "tag_id": {
+                "target": "$.id",
                 "type": "string"
             }
         },
