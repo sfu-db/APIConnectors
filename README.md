@@ -754,7 +754,570 @@ Average calories for high calorie Korean foods: 644.765 kcal
 
 </details>
 
+#### [Ticketmaster](./ticketmaster) -- Collect upcoming events data in the US and CA
 
+
+<details>
+  <summary>What is the venue address of the 10 recent upcoming musical shows in British Columbia?</summary>
+  
+  ```python
+    #Queried based on classification name, which returns events with segment, genre, or subgenre Musical
+    #State symbol BC used for British columbia
+
+  df = await dc.query('events',classificationName="Musical",stateCode="BC",_count=999)
+
+  #values are sorted by event date and event time in ascending order and top 10 are returned
+
+  df=df.sort_values(by=["event_date","event_time"])
+  df[["name","event_date","event_time","genre_name","subgenre_name","address","city","state","country"]].iloc[0:10,]
+  ```
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>event_date</th>
+      <th>event_time</th>
+      <th>genre_name</th>
+      <th>subgenre_name</th>
+      <th>address</th>
+      <th>city</th>
+      <th>state</th>
+      <th>country</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Come from Away</td>
+      <td>2021-03-18</td>
+      <td>20:00:00</td>
+      <td>[Theatre]</td>
+      <td>[Musical]</td>
+      <td>{'line1': '600 Block Hamilton St'}</td>
+      <td>Vancouver</td>
+      <td>British Columbia</td>
+      <td>Canada</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Come from Away</td>
+      <td>2021-03-19</td>
+      <td>20:00:00</td>
+      <td>[Theatre]</td>
+      <td>[Musical]</td>
+      <td>{'line1': '600 Block Hamilton St'}</td>
+      <td>Vancouver</td>
+      <td>British Columbia</td>
+      <td>Canada</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Come from Away</td>
+      <td>2021-03-20</td>
+      <td>14:00:00</td>
+      <td>[Theatre]</td>
+      <td>[Musical]</td>
+      <td>{'line1': '600 Block Hamilton St'}</td>
+      <td>Vancouver</td>
+      <td>British Columbia</td>
+      <td>Canada</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Come from Away</td>
+      <td>2021-03-20</td>
+      <td>20:00:00</td>
+      <td>[Theatre]</td>
+      <td>[Musical]</td>
+      <td>{'line1': '600 Block Hamilton St'}</td>
+      <td>Vancouver</td>
+      <td>British Columbia</td>
+      <td>Canada</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Come from Away</td>
+      <td>2021-03-21</td>
+      <td>14:00:00</td>
+      <td>[Theatre]</td>
+      <td>[Musical]</td>
+      <td>{'line1': '600 Block Hamilton St'}</td>
+      <td>Vancouver</td>
+      <td>British Columbia</td>
+      <td>Canada</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Come from Away</td>
+      <td>2021-03-21</td>
+      <td>19:30:00</td>
+      <td>[Theatre]</td>
+      <td>[Musical]</td>
+      <td>{'line1': '600 Block Hamilton St'}</td>
+      <td>Vancouver</td>
+      <td>British Columbia</td>
+      <td>Canada</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Menopause The Musical</td>
+      <td>2021-09-19</td>
+      <td>19:30:00</td>
+      <td>[Theatre]</td>
+      <td>[Musical]</td>
+      <td>{'line1': '2329 Crescent Way'}</td>
+      <td>Abbotsford</td>
+      <td>British Columbia</td>
+      <td>Canada</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</details>
+
+<details>
+  <summary>What are the timings and venues for the events from 2021-02-2018 and before 2021-07-08 in New York state, United states?</summary>
+  
+  ```python
+  #Queried using data ranges set by startDateTime and endDateTime parameters for the NY state
+
+  df = await dc.query('events',stateCode="NY",startDateTime="2021-02-18T12:00:00Z",endDateTime="2021-03-13T00:00:00Z",_count=999)
+
+  #values are sorted by event date and event time in ascending order and top 10 are returned
+  df=df.sort_values(by=["event_date","event_time"])
+  df[["name","event_date","event_time","address","city","state","country"]].iloc[0:10,]
+  ```
+ 
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>event_date</th>
+      <th>event_time</th>
+      <th>address</th>
+      <th>city</th>
+      <th>state</th>
+      <th>country</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>22</th>
+      <td>Laughing Buddha Open Mic Spectacular, Jeff Law...</td>
+      <td>2021-02-18</td>
+      <td>17:30:00</td>
+      <td>{'line1': '487 Atlantic Avenue'}</td>
+      <td>Brooklyn</td>
+      <td>New York</td>
+      <td>United States Of America</td>
+    </tr>
+    <tr>
+      <th>144</th>
+      <td>Open Mic Thursday - Laughing Buddha</td>
+      <td>2021-02-18</td>
+      <td>18:00:00</td>
+      <td>{'line1': '487 Atlantic Avenue'}</td>
+      <td>Brooklyn</td>
+      <td>New York</td>
+      <td>United States Of America</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Hadestown (NY)</td>
+      <td>2021-02-18</td>
+      <td>19:00:00</td>
+      <td>{'line1': '219 West 48th Street'}</td>
+      <td>New York</td>
+      <td>New York</td>
+      <td>United States Of America</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Mean Girls (NY)</td>
+      <td>2021-02-18</td>
+      <td>19:00:00</td>
+      <td>{'line1': '245 West 52nd Street'}</td>
+      <td>New York</td>
+      <td>New York</td>
+      <td>United States Of America</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Emma Willmann, Jordan Rock, Janeane Garofalo</td>
+      <td>2021-02-18</td>
+      <td>19:30:00</td>
+      <td>{'line1': '487 Atlantic Avenue'}</td>
+      <td>Brooklyn</td>
+      <td>New York</td>
+      <td>United States Of America</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Penthouse Comedy, Dina Hashem, Andy Fiori</td>
+      <td>2021-02-18</td>
+      <td>21:30:00</td>
+      <td>{'line1': '487 Atlantic Avenue'}</td>
+      <td>Brooklyn</td>
+      <td>New York</td>
+      <td>United States Of America</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>Laughing Buddha Open Mic Spectacular, Jeff Law...</td>
+      <td>2021-02-19</td>
+      <td>18:00:00</td>
+      <td>{'line1': '487 Atlantic Avenue'}</td>
+      <td>Brooklyn</td>
+      <td>New York</td>
+      <td>United States Of America</td>
+    </tr>
+    <tr>
+      <th>149</th>
+      <td>Open Mic Friday - Laughing Buddha</td>
+      <td>2021-02-19</td>
+      <td>18:00:00</td>
+      <td>{'line1': '487 Atlantic Avenue'}</td>
+      <td>Brooklyn</td>
+      <td>New York</td>
+      <td>United States Of America</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Mean Girls (NY)</td>
+      <td>2021-02-19</td>
+      <td>20:00:00</td>
+      <td>{'line1': '245 West 52nd Street'}</td>
+      <td>New York</td>
+      <td>New York</td>
+      <td>United States Of America</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Hadestown (NY)</td>
+      <td>2021-02-19</td>
+      <td>20:00:00</td>
+      <td>{'line1': '219 West 48th Street'}</td>
+      <td>New York</td>
+      <td>New York</td>
+      <td>United States Of America</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+</details>
+ 
+<details>
+  <summary>What are the top 5 genres popular in British Columbia, Canada?</summary>
+  
+  ```python
+    df = await dc.query('events',stateCode="BC",countryCode="CA",_count=999)
+    temp=list(df['genre_name'])
+    index=0
+
+    #convert object array format to stirngs to enable hasing by groupby function.
+    #shows with multiple genres are seperated by "/" in asecending order of strings
+    for i in temp:
+        if (len(i)>1):
+            temp[index]="/".join(sorted(list(set(i))))
+        else:
+            temp[index]=i[0]
+        index+=1
+    df["genre_name"]=temp
+
+    #counts each type of genre and groups them together with its count
+    #values are sorted by count in ascending order and top 5 are returned
+    df_new=df.groupby(by="genre_name").size().reset_index(name="counts")
+    df_new=df_new.sort_values(by="counts",ascending=False)
+    df_new.iloc[0:5,]
+  ```
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>genre_name</th>
+      <th>counts</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>6</th>
+      <td>Fine Art</td>
+      <td>960</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Rock</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Theatre</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Comedy</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Children's Theatre</td>
+      <td>5</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+</details>
+
+<details>
+  <summary>Are there any tickets available for comedy events in Canada on 2021-02-17 in the price range of [20,40] CAD?</summary>
+  
+  ```python
+   #lower limit on sale date set by onsaleStartDateTime
+  #keyword comedy is used to search for all events with comedy in title, genre, segement, or subgenre
+
+  df = await dc.query('events',keyword="Comedy",countryCode="CA",onsaleStartDateTime="2021-02-17T22:00:00Z",_count=999)
+
+  #status onsale indicates if tickets are still available and the price range is checked before output
+
+  df.loc[(df.sale_status=="onsale") & (df.min_price>="20.0") & (df.max_price<="40.0")][["name","genre_name","min_price","max_price","sales_end_date","event_date","sale_status","city","country"]]
+  ```
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>genre_name</th>
+      <th>min_price</th>
+      <th>max_price</th>
+      <th>sales_end_date</th>
+      <th>event_date</th>
+      <th>sale_status</th>
+      <th>city</th>
+      <th>country</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>19</th>
+      <td>Pierre Hébert</td>
+      <td>[Comedy]</td>
+      <td>22.0</td>
+      <td>22.0</td>
+      <td>2021-02-27T03:00:00Z</td>
+      <td>2021-02-26</td>
+      <td>onsale</td>
+      <td>Brossard</td>
+      <td>Canada</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>Pierre Hébert</td>
+      <td>[Comedy]</td>
+      <td>20.0</td>
+      <td>20.0</td>
+      <td>2021-02-27T00:30:00Z</td>
+      <td>2021-02-26</td>
+      <td>onsale</td>
+      <td>Brossard</td>
+      <td>Canada</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>Simon Gouache</td>
+      <td>[Comedy]</td>
+      <td>32.0</td>
+      <td>32.0</td>
+      <td>2021-03-05T02:00:00Z</td>
+      <td>2021-03-04</td>
+      <td>onsale</td>
+      <td>Brossard</td>
+      <td>Canada</td>
+    </tr>
+    <tr>
+      <th>51</th>
+      <td>Pierre-yves Roy Desmarais</td>
+      <td>[Comedy]</td>
+      <td>25.0</td>
+      <td>25.0</td>
+      <td>2021-05-02T01:00:00Z</td>
+      <td>2021-05-01</td>
+      <td>onsale</td>
+      <td>Brossard</td>
+      <td>Canada</td>
+    </tr>
+    <tr>
+      <th>159</th>
+      <td>Jean Francois Mercier</td>
+      <td>[Comedy]</td>
+      <td>38.0</td>
+      <td>38.0</td>
+      <td>2021-03-18T01:00:00Z</td>
+      <td>2021-03-17</td>
+      <td>onsale</td>
+      <td>Brossard</td>
+      <td>Canada</td>
+    </tr>
+    <tr>
+      <th>164</th>
+      <td>Melanie Couture</td>
+      <td>[Comedy]</td>
+      <td>25.0</td>
+      <td>25.0</td>
+      <td>2021-05-08T01:00:00Z</td>
+      <td>2021-05-07</td>
+      <td>onsale</td>
+      <td>Brossard</td>
+      <td>Canada</td>
+    </tr>
+    <tr>
+      <th>246</th>
+      <td>Gala Comedie Star</td>
+      <td>[Theatre]</td>
+      <td>39.0</td>
+      <td>39.0</td>
+      <td>2021-03-24T01:00:00Z</td>
+      <td>2021-03-23</td>
+      <td>onsale</td>
+      <td>Brossard</td>
+      <td>Canada</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+</div>
+</details>
+
+<details>
+  <summary>What are, on average, the top 10 most exepensive American cities for upcoming Sports events in 2021?</summary>
+  
+  ```python
+    #keyword sports is used to get all sporting events in the US
+
+  df = await dc.query('events',keyword="sports",countryCode="US",_count=999)
+
+  #average price of each event is calculated by averaging the min and max posisble price a customer pays
+  df=df.astype({'max_price': 'float','min_price': 'float'})
+  df["average_price"]=(df["max_price"]+df["min_price"])/2
+
+  #data is grouped by states and cities using the mean of average price paid for all events in the city
+  df_new=df.groupby(["city","state"])["average_price"].mean().round(2).reset_index(name="average_cost")
+
+  #top 10 most expensive cities are returned
+  df_new.sort_values(by="average_cost",ascending=False).iloc[0:10,]
+  ```
+  <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>city</th>
+      <th>state</th>
+      <th>average_cost</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>71</th>
+      <td>Miami</td>
+      <td>Florida</td>
+      <td>1588.75</td>
+    </tr>
+    <tr>
+      <th>66</th>
+      <td>Louisville</td>
+      <td>Kentucky</td>
+      <td>645.88</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Atlanta</td>
+      <td>Georgia</td>
+      <td>508.50</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Baltimore</td>
+      <td>Maryland</td>
+      <td>473.00</td>
+    </tr>
+    <tr>
+      <th>68</th>
+      <td>Madison</td>
+      <td>Wisconsin</td>
+      <td>458.75</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>Dallas</td>
+      <td>Texas</td>
+      <td>448.11</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Bronx</td>
+      <td>New York</td>
+      <td>414.63</td>
+    </tr>
+    <tr>
+      <th>112</th>
+      <td>Tampa</td>
+      <td>Florida</td>
+      <td>344.73</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>Chicago</td>
+      <td>Illinois</td>
+      <td>335.00</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>Corpus Christi</td>
+      <td>Texas</td>
+      <td>310.00</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</details>
 
 
 ### Music
