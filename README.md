@@ -120,230 +120,6 @@ df[["name", "review_count"]]
 | 20  | Hokkaido Ramen Santouka        | 4.0    | Vancouver |
 </details>
 
-#### [Hunter](./hunter) -- Collect and Verify Professional Email Addresses
-<details>
-<summary>Who are executives of Asana and what are their emails?</summary>
-
-```python
-from dataprep.connector import connect
-
-# You can get ”hunter_access_token“ by registering as a developer https://hunter.io/users/sign_up
-conn_hunter = connect("hunter", _auth={"access_token":'hunter_access_token'})
-
-df = await conn_hunter.query('all_emails', domain='asana.com', _count=10)
-
-df[df['department']=='executive']
-```
-
-
-
-
-<div>
-<table border="1" class="dataframe">
-<thead>
-<tr style="text-align: right;">
-<th></th>
-<th>first_name</th>
-<th>last_name</th>
-<th>email</th>
-<th>position</th>
-<th>department</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<th>0</th>
-<td>Dustin</td>
-<td>Moskovitz</td>
-<td>dustin@asana.com</td>
-<td>Cofounder</td>
-<td>executive</td>
-</tr>
-<tr>
-<th>1</th>
-<td>Stephanie</td>
-<td>Heß</td>
-<td>shess@asana.com</td>
-<td>CEO</td>
-<td>executive</td>
-</tr>
-<tr>
-<th>2</th>
-<td>Erin</td>
-<td>Cheng</td>
-<td>erincheng@asana.com</td>
-<td>Strategic Initiatives</td>
-<td>executive</td>
-</tr>
-</tbody>
-</table>
-</div>
-
-
-</details>
-<details>
-<summary>What is Dustin Moskovitz's email?</summary>
-
-```python
-from dataprep.connector import connect
-
-# You can get ”hunter_access_token“ by registering as a developer https://hunter.io/users/sign_up
-conn_hunter = connect("hunter", _auth={"access_token":'hunter_access_token'})
-
-df = await conn_hunter.query("individual_email", full_name='dustin moskovitz', domain='asana.com')
-
-df
-```
-
-
-
-
-<div>
-<table border="1" class="dataframe">
-<thead>
-<tr style="text-align: right;">
-<th></th>
-<th>first_name</th>
-<th>last_name</th>
-<th>email</th>
-<th>position</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<th>0</th>
-<td>Dustin</td>
-<td>Moskovitz</td>
-<td>dustin@asana.com</td>
-<td>Cofounder</td>
-</tr>
-</tbody>
-</table>
-</div>
-</details>  
-
-<details>
-<summary>Are the emails of Asana executives valid?</summary>
-
-```python
-from dataprep.connector import connect
-
-# You can get ”hunter_access_token“ by registering as a developer https://hunter.io/users/sign_up
-conn_hunter = connect("hunter", _auth={"access_token":'hunter_access_token'})
-
-employees = await conn_hunter.query("all_emails", domain='asana.com', _count=10)
-executives = employees.loc[employees['department']=='executive']
-emails = executives[['email']]
-
-for email in emails.iterrows():
-status = await conn_hunter.query("email_verifier", email=email[1][0])
-emails['status'] = status
-
-emails
-```
-
-<div>
-<table border="1" class="dataframe">
-<thead>
-<tr style="text-align: right;">
-<th></th>
-<th>email</th>
-<th>status</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<th>0</th>
-<td>dustin@asana.com</td>
-<td>valid</td>
-</tr>
-<tr>
-<th>3</th>
-<td>shess@asana.com</td>
-<td>NaN</td>
-</tr>
-<tr>
-<th>4</th>
-<td>erincheng@asana.com</td>
-<td>NaN</td>
-</tr>
-</tbody>
-</table>
-</div>
-
-</details>
-<details>
-<summary>How many available requests do I have left?</summary>
-
-```python
-from dataprep.connector import connect
-
-# You can get ”hunter_access_token“ by registering as a developer https://hunter.io/users/sign_up
-conn_hunter = connect("hunter", _auth={"access_token":'hunter_access_token'})
-
-df = await conn_hunter.query("account")
-df
-```
-
-
-
-
-<div>
-<table border="1" class="dataframe">
-<thead>
-<tr style="text-align: right;">
-<th></th>
-<th>requests available</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<th>0</th>
-<td>19475</td>
-</tr>
-</tbody>
-</table>
-</div>
-</details>
-
-<details>
-<summary>What are the counts of each level of seniority of Intercom employees?</summary>
-
-```python
-from dataprep.connector import connect
-
-# You can get ”hunter_access_token“ by registering as a developer https://hunter.io/users/sign_up
-conn_hunter = connect("hunter", _auth={"access_token":'hunter_access_token'})
-
-df = await conn_hunter.query("email_count", domain='intercom.io')
-df.drop('total', axis=1)
-```
-
-
-
-
-<div>
-<table border="1" class="dataframe">
-<thead>
-<tr style="text-align: right;">
-<th></th>
-<th>junior</th>
-<th>senior</th>
-<th>executive</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<th>0</th>
-<td>0</td>
-<td>2</td>
-<td>2</td>
-</tr>
-</tbody>
-</table>
-</div>
-</details>
-
 
 
 ### Finance
@@ -457,6 +233,107 @@ result
 | 3  | 2011-02-15 |      -0.094 |    -0.101592  | amc    |         4 | ... | TSLA     |   2010 |
 
 </details>
+
+
+#### [CoinGecko](./coingecko) -- Collect Cryptocurrency Data
+
+<details>
+  <summary>What is top 10 cryptocurrency with highest market cap and their current information?</summary>
+
+```python
+from dataprep.connector import connect
+
+conn_coingecko = connect("coingecko")
+df = await conn_coingecko.query('markets', vs_currency='usd', order='market_cap_desc', per_page=10, page=1)
+df
+```
+|    | name         | symbol   |   current_price |   market_cap |   market_cap_rank |     high_24h |      low_24h |   price_change_24h |   price_change_percentage_24h |   market_cap_change_24h |   market_cap_change_percentage_24h | last_updated             |
+|---:|:-------------|:---------|----------------:|-------------:|------------------:|-------------:|-------------:|-------------------:|------------------------------:|------------------------:|-----------------------------------:|:-------------------------|
+|  0 | Bitcoin      | btc      |    36811        |  6.86613e+11 |                 1 | 37153        | 35344        |      1440.68       |                       4.0731  |             3.10933e+10 |                            4.7433  | 2021-02-03T19:24:09.271Z |
+|  1 | Ethereum     | eth      |     1628.99     |  1.87035e+11 |                 2 |  1645.73     |  1486.42     |       132.91       |                       8.88404 |             1.64296e+10 |                            9.63018 | 2021-02-03T19:22:32.413Z |
+| .. | ...          | ...      |  ...            |  ...         |               ... |   ...        |     ...      |        ...         |                           ... |                     ... |                                ... |                      ... |
+|  9 | Binance Coin | bnb      |       51.47     |  7.60256e+09 |                10 |    51.63     |    49.76     |         1.24       |                       2.47631 |             1.64863e+08 |                            2.21659 | 2021-02-03T19:25:45.456Z |
+</details>
+
+<details>
+  <summary>What are the cryptocurrency with highest increase percentage and decrease percentage?</summary>
+
+```python
+from dataprep.connector import connect
+
+conn_coingecko = connect("coingecko")
+df = await conn_coingecko.query('markets', vs_currency='usd', per_page=1000, page=1)
+df = df.sort_values(by=['price_change_percentage_24h']).reset_index(drop=True).dropna()
+print("Coin with highest decrease percetage: {}, which decreases {}%".format(df['name'].iloc[0], df['price_change_percentage_24h'].iloc[0]))
+print("Coin with highest increase percetage: {}, which decreases {}%".format(df['name'].iloc[-1], df['price_change_percentage_24h'].iloc[-1]))
+```
+Coin with the highest decrease percentage: `PancakeSwap`, which decreases `-13.79622%`
+
+Coin with the highest increase percentage: `StormX`, which decreases `101.24182%`
+</details>
+
+<details>
+  <summary>What is the trending in CoinGecko?</summary>
+
+```python
+from dataprep.connector import connect
+
+conn_coingecko = connect("coingecko")
+df = await conn_coingecko.query('trend')
+df
+```
+|    | id                | name        | symbol   |   market_cap_rank |   score |
+|---:|:------------------|:------------|:---------|------------------:|--------:|
+|  0 | bao-finance       | Bao Finance | BAO      |               175 |       0 |
+|  1 | milk2             | MILK2       | MILK2    |               634 |       1 |
+|  2 | unitrade          | Unitrade    | TRADE    |               529 |       2 |
+|  3 | pancakeswap-token | PancakeSwap | CAKE     |               110 |       3 |
+|  4 | fsw-token         | Falconswap  | FSW      |               564 |       4 |
+|  5 | zeroswap          | ZeroSwap    | ZEE      |               550 |       5 |
+|  6 | storm             | StormX      | STMX     |               211 |       6 |
+
+</details>
+
+<details>
+  <summary>What are the top10 US exchanges with highest trade volume in 24h?</summary>
+
+```python
+from dataprep.connector import connect
+
+conn_coingecko = connect("coingecko")
+df = await conn_coingecko.query('exchanges')
+result = df[df['country']=='United States'].reset_index(drop=True).head(10)
+result
+```
+|    | id         | name         |   year_established | ... |   trade_volume_24h_btc_normalized |
+|---:|:-----------|:-------------|-------------------:|:----|----------------------------------:|
+|  0 | gdax       | Coinbase Pro |               2012 | ... |                         90085.6   |
+|  1 | kraken     | Kraken       |               2011 | ... |                         48633.1   |
+|  2 | binance_us | Binance US   |               2019 | ... |                         7380.83   |
+| .. | ...        | ...          |                ... | ... | ...                               |
+
+</details>
+
+<details>
+  <summary>What are the top3 latest traded derivatives with perpetual contract?</summary>
+
+```python
+from dataprep.connector import connect
+import pandas as pd
+
+conn_coingecko = connect("coingecko")
+df = await conn_coingecko.query('derivatives')
+perpetual_df = df[df['contract_type'] == 'perpetual'].reset_index(drop=True)
+perpetual_df['last_traded_at'] = pd.to_datetime(perpetual_df['last_traded_at'], unit='s')
+perpetual_df.sort_values(by=['last_traded_at'], ascending=False).head(3).reset_index(drop=True)
+```
+|    | market         | symbol     | index_id   | contract_type   |         index |     basis |   funding_rate |   open_interest |       volume_24h | last_traded_at      |
+|---:|:---------------|:-----------|:-----------|:----------------|--------------:|----------:|---------------:|----------------:|-----------------:|:--------------------|
+|  0 | Huobi Futures  | MATIC-USDT | MATIC      | perpetual       |     0.0433357 | -0.606296 |       0.247604 |             nan |      1.43338e+06 | 2021-02-03 20:14:24 |
+|  1 | Biki (Futures) | 1          | BTC        | perpetual       | 36769.8       | -0.153111 |      -0.0519   |             nan |      1.00131e+08 | 2021-02-03 20:14:23 |
+|  2 | Huobi Futures  | CVC-USDT   | CVC        | perpetual       |     0.178268  | -0.336302 |       0.106314 |             nan | 876960           | 2021-02-03 20:14:23 |
+</details>
+
 
 
 ### Geocoding
@@ -1594,85 +1471,76 @@ print(df['album_name'] + ", by " + df['artist'][0] + ", with " + str(df['market_
 
     folklore, by Taylor Swift, with 92 avalible countries
 
-
-​    
 </details> 
+
+#### [iTunes](./itunes) — Collect iTunes Data
+
+<details>
+  <summary>What are all Jack Johnson audio and video content?</summary>
+
+```python
+from dataprep.connector import connect
+
+conn_itunes = connect('./DataConnectorConfigs/itunes')
+df = await conn_itunes.query('search', term="jack+johnson")
+df
+```
+
+|   id |  Type | kind |   artistName |                                    collectionName |                 trackName | trackTime |
+| ---: | ----: | ---: | -----------: | ------------------------------------------------: | ------------------------: | --------- |
+|    0 | track | song | Jack Johnson | Jack Johnson and Friends: Sing-A-Longs and Lul... |               Upside Down | 208643    |
+|    1 | track | song | Jack Johnson |           In Between Dreams (Bonus Track Version) |           Better Together | 207679    |
+|    2 | track | song | Jack Johnson |           In Between Dreams (Bonus Track Version) | Sitting, Waiting, Wishing | 183721    |
+|  ... |   ... |  ... |          ... |                                               ... |                       ... | ...       |
+|   49 | track | song | Jack Johnson |                          Sleep Through the Static |             While We Wait | 86112     |
+
+</details>
+
+<details>
+  <summary>How to compute the average track time of Rich Brian's music videos?</summary>
+
+```python
+from dataprep.connector import connect
+
+conn_itunes = connect('./DataConnectorConfigs/itunes')
+df = await conn_itunes.query("search", term="rich+brian", entity="musicVideo")
+avg_track_time = df['trackTime'].mean()/(1000*60)
+print("The average track time is {:.3} minutes.".format(avg_track_time))
+```
+
+The average track time is 4.13 minutes.
+
+</details>
+
+<details>
+  <summary>How to get all Ang Lee's movies which are made in the Unite States?</summary>
+
+```python
+from dataprep.connector import connect
+
+conn_itunes = connect('./DataConnectorConfigs/itunes')
+df = await conn_itunes.query("search", term="Ang+Lee", entity="movie", country="us")
+df = df[df['artistName']=='Ang Lee']
+df
+```
+
+| id   | type  | kind          | artistName | collectionName              | trackName           | trackTime |
+| ---- | ----- | ------------- | ---------- | --------------------------- | ------------------- | --------- |
+| 0    | track | feature-movie | Ang Lee    | Fox 4K HDR Drama Collection | Life of Pi          | 7642675   |
+| 1    | track | feature-movie | Ang Lee    | None                        | Gemini Man          | 7049958   |
+| ...  | ...   | ...           | ...        | ...                         | ...                 | ...       |
+| 11   | track | feature-movie | Ang Lee    | None                        | Ride With the Devil | 8290498   |
+
+</details>
+
+
+
+
 
 ### News
 
 
 #### [Guardian](./guardian) -- Collect Guardian News Data 
-<details>
-  <summary>Which news section contain most mentions related to bitcoin ?</summary>
-  
-```python
-from dataprep.connector import connect, info, Connector
-import pandas as pd
-
-conn_guardian = connect('guardian', update = True, _auth={'access_token': API_key}, concurrency=3)
-df3 = await conn_guardian.query('article', _q='covid 19', _count=1000)
-df3.groupby('section').count().sort_values("headline", ascending=False)
-
-```
-| section                            | headline | url | publish_date |
-|------------------------------------|----------|-----|--------------|
-|                                    |          |     |              |
-| World news                         | 378      | 378 | 378          |
-| Business                           | 103      | 103 | 103          |
-| US news                            | 76       | 76  | 76           |
-| Opinion                            | 72       | 72  | 72           |
-| Sport                              | 53       | 53  | 53           |
-| Australia news                     | 49       | 49  | 49           |
-| Society                            | 44       | 44  | 44           |
-| Politics                           | 34       | 34  | 34           |
-| Football                           | 28       | 28  | 28           |
-| Global development                 | 26       | 26  | 26           |
-| UK news                            | 26       | 26  | 26           |
-| Education                          | 17       | 17  | 17           |
-| Environment                        | 14       | 14  | 14           |
-| Technology                         | 10       | 10  | 10           |
-| Film                               | 10       | 10  | 10           |
-| Science                            | 8        | 8   | 8            |
-| Books                              | 8        | 8   | 8            |
-| Life and style                     | 7        | 7   | 7            |
-| Television & radio                 | 6        | 6   | 6            |
-| Media                              | 4        | 4   | 4            |
-| Culture                            | 4        | 4   | 4            |
-| Stage                              | 4        | 4   | 4            |
-| News                               | 4        | 4   | 4            |
-| Travel                             | 2        | 2   | 2            |
-| WEHI: Brighter together            | 2        | 2   | 2            |
-| Xero: Resilient business           | 2        | 2   | 2            |
-| Money                              | 2        | 2   | 2            |
-| The new rules of work              | 1        | 1   | 1            |
-| LinkedIn: Hybrid workplace         | 1        | 1   | 1            |
-| Global                             | 1        | 1   | 1            |
-| Getting back on track              | 1        | 1   | 1            |
-| Westpac Scholars: Rethink tomorrow | 1        | 1   | 1            |
-| Food                               | 1        | 1   | 1            |
-| All together                       | 1        | 1   | 1            |
-</details>
-
-<details>
-  <summary>Find articles with covid precautions ?</summary>
-  
-```python
-from dataprep.connector import connect, Connector
-
-conn_guardian = connect('guardian', update = True, _auth={'access_token': API_key}, concurrency=3)
-df2 = await conn_guardian.query('article', _q='covid 19 protect',  _count=100)
-df2[df2.section=='Opinion']
-```
-| id | headline                                          | section | url                                               | publish_date         |
-|----|---------------------------------------------------|---------|---------------------------------------------------|----------------------|
-| 0  | Billionaires made $1tn since Covid-19. They ca... | Opinion | https://www.theguardian.com/commentisfree/2020... | 2020-12-09T11:32:20Z |
-| 1  | Jeff Bezos became even richer thanks to Covid-... | Opinion | https://www.theguardian.com/commentisfree/2020... | 2020-12-13T07:30:00Z |
-| 20 | Here's how to tackle the Covid-19 anti-vaxxers... | Opinion | https://www.theguardian.com/commentisfree/2020... | 2020-11-26T16:02:14Z |
-| 41 | Can the UK deliver on the Covid vaccine rollou... | Opinion | https://www.theguardian.com/commentisfree/2020... | 2020-12-11T09:00:24Z |
-| 68 | Covid-19 has turned back the clock on working ... | Opinion | https://www.theguardian.com/commentisfree/2020... | 2020-12-10T14:19:27Z |
-| 84 | The Guardian view on Covid-19 promises: season... | Opinion | https://www.theguardian.com/commentisfree/2020... | 2020-12-14T18:42:10Z |
-| 88 | The Guardian view on responding to the Covid-1... | Opinion | https://www.theguardian.com/commentisfree/2020... | 2020-12-30T18:58:05Z |
-</details>
 
 #### [Times](./times) -- Collect New York Times Data
 <details>
@@ -1764,6 +1632,62 @@ ranking_df
 |  4 | Rihanna        |                    1 |
 |  5 | Kim Kardashian |                    0 |
 </details>
+
+
+
+#### [Currents](./currents) -- Collect Currents News Data
+<details>
+  <summary>How to get latest Chinese news?</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”currents_access_token“ by following https://currentsapi.services/zh_CN
+conn_currents = connect('currents', _auth={'access_token': currents_access_token})
+df = await conn_currents.query('latest_news', language='zh')
+df.head()
+```
+| id | title            | category     | ... | author  | published                 |
+|---:|:-----------------|:-------------|:----|:--------|:--------------------------|
+|  0 | 為何上市公司該汰換了 |[entrepreneur]| ... | 經濟日報 | 2021-02-03 08:48:39 +0000 |
+</details>
+
+<details>
+  <summary>How to get the politics news about 'Trump'?</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”currents_access_token“ by following https://currentsapi.services/zh_CN
+conn_currents = connect('currents', _auth={'access_token': currents_access_token})
+df = await conn_currents.query('search', keywords='Trump', category='politics')
+df.head(3)
+```
+|    | title                                                                                                        | category              | description                                                                                                                    | url                                                                                                               | author        | published                 |
+|---:|:-------------------------------------------------------------------------------------------------------------|:----------------------|:-------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------------|:--------------|:--------------------------|
+|  0 | Biden Started The Process Of Unwinding Trump's Assault On Immigration, But Activists Want Him To Move Faster | ['politics', 'world'] | "These people cannot continue to wait."                                                                                        | https://www.buzzfeednews.com/article/adolfoflores/biden-immigration-executive-orders-review                       | Adolfo Flores | 2021-02-03 08:39:51 +0000 |
+|  1 | Pro-Trump lawyer Lin Wood reportedly under investigation for voter fraud                                     | ['politics', 'world'] | A source told CBS Atlanta affiliate WGCL that Lin Wood is being investigated for allegedly voting "out of state."              | https://www.cbsnews.com/news/pro-trump-lawyer-lin-wood-under-investigation-for-alleged-illegal-voting-2020-02-03/ | April Siese   | 2021-02-03 08:21:25 +0000 |
+|  2 | Trump Supporters Say They Attacked The Capitol Because He Told Them To, Undercutting His Impeachment Defense | ['politics', 'world'] | “President Trump told Us to ‘fight like hell,’” one Trump supporter reportedly posted online after the assault on the Capitol. | https://www.buzzfeednews.com/article/zoetillman/trump-impeachment-capitol-rioters-fight-like-hell                 | Zoe Tillman   | 2021-02-03 07:25:34 +0000 |
+</details>
+
+<details>
+  <summary>How to get the news about 'covid-19' in 2020-12-25?</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”currents_access_token“ by following https://currentsapi.services/zh_CN
+conn_currents = connect('currents', _auth={'access_token': currents_access_token})
+df = await conn_currents.query('search', keywords='covid', start_date='2020-12-25',end_date='2020-12-25')
+df.head(1)
+```
+
+|    | title                                                               | category    | ... | published                 |
+|---:|:--------------------------------------------------------------------|:------------|:----|:--------------------------|
+|  0 | Commentary: Let our charitable giving equal our political donations | ['opinion'] | ... | 2020-12-25 00:00:00 +0000 |
+</details>
+
+
 
 ### Science
 
@@ -1994,7 +1918,7 @@ new_df.sort_values(by="views", ascending=False).reset_index(drop=True).head(10)
 
 ### Social
 
-#### [Twitch](./twitch) -- Collect Twitch Streams and Channels Information
+#### [Twitch](./twitch) -- Colect Twitch Streams and Channels Information
 <details>
   <summary>How many followers does the Twitch user "Logic" have?</summary>
 
@@ -2312,7 +2236,7 @@ Number of streams in the past 24 hours:
 </details>  
 
 
-#### [Twitter](./twitter) -- Collect Tweets Information
+#### [Twitter](./twitter) -- Colect Tweets Information
 
 <details>
   <summary>What are the 10 latest english tweets by SFU handle (@SFU) ?</summary>
@@ -2464,7 +2388,7 @@ tag_count
 ### Video
 
 
-#### [Youtube](./youtube) -- Collect Youtube's Content MetaData.
+#### [Youtube](./youtube) -- Colect Youtube's Content MetaData.
 
 <details>
   <summary>What are the top 10 Fitness Channels?</summary>
@@ -2537,33 +2461,6 @@ df[['title', 'description', 'channelTitle']]
 
 </details>
 
-<details>
-  <summary>What are the top 10 sports activities?</summary>
-  
-  ```python
-from dataprep.connector import connect, info
-import pandas as pd
-dc = connect('youtube', _auth={'access_token': auth_token})
-
-df = await dc.query('videos', q='Sports', part='snippet', type='activity', _count=10)
-df[['title', 'description', 'channelTitle']]
-  ```
-
-|      | title                                               | description                                         | channelTitle       |
-| ---- | --------------------------------------------------- | --------------------------------------------------- | ------------------ |
-| 0    | Sports Tak                                          | Sports Tak, as the name suggests, is all about...   | Sports Tak         |
-| 1    | Sports                                              | sport : an activity involving physical exertio...   | Sports             |
-| 2    | Greatest Sports Moments                             | UPDATE: I AM IN THE PROCESS OF MAKING REVISION...   | WTD Productions    |
-| 3    | Viagra Boys - Sports (Official Video)               | Director: Simon Jung DOP: Paul Evans Producer:...   | viagra boys        |
-| 4    | Volleyball Open Tournament, Jagdev Kalan \|\| 12... | Volleyball Open Tournament, Jagdev Kalan \|\| 12... | Fine Sports        |
-| 5    | Beach Bunny - Sports                                | booking/inquires: beachbunnymusic@gmail.com hu...   | Beach Bunny        |
-| 6    | Top 100 Best Sports Bloopers 2020                   | Watch the Top 100 best sports bloopers from 20...   | Crazy Laugh Action |
-| 7    | Memorable Moments in Sports History                 | Memorable Moments in Sports History! SUBSCRİBE...   | Cenk Bezirci       |
-| 8    | Craziest “Saving Lives” Moments in Sports History   | Craziest “Saving Lives” Moments in Sports Hist...   | Highlight Reel     |
-| 9    | Most Savage Sports Highlights on Youtube (S01E01)   | I do these videos ever year or so, they are ba...   | Joseph Vincent     |
-
-</details>
-
 
 
 
@@ -2572,62 +2469,7 @@ df[['title', 'description', 'channelTitle']]
 ### Weather
 
 
-#### [OpenWeatherMap](openweathermap) -- Collect Current and Historical Weather Data
-
-<details>
-  <summary>What is the temperature of London, Ontario?</summary>
-
-```python
-from dataprep.connector import connect
-
-owm_connector = connect("openweathermap", _auth={"access_token":access_token})
-df = await owm_connector.query('weather',q='London,Ontario,CA')
-df[["temp"]]
-```
-
-| id  | temp   |
-| --- | ------ |
-| 0   | 267.96 |
-
-  </details>
-  
-<details>
-  <summary>What is the wind speed in each provincial capital city?</summary>
-
-```python
-from dataprep.connector import connect
-import pandas as pd
-import asyncio
-
-conn = connect("openweathermap", _auth={'access_token':'899b50a47d4c9dad99b6c61f812b786e'}, _concurrency = 5)
-
-names = ["Edmonton", "Victoria", "Winnipeg", "Fredericton", "St. John's", "Halifax", "Toronto", "Charlottetown", \
- "Quebec City", "Regina", "Yellowknife", "Iqaluit", "Whitehorse"]
-
-query_list = [conn.query("weather", q = name) for name in names]
-results = asyncio.gather(*query_list)
-df = pd.concat(await results)
-df['name'] = names
-df[["name", "wind"]].reset_index(drop=True)
-```
-
-| id | name          | wind |
-|----|---------------|------|
-| 0  | Edmonton      | 6.17 |
-| 1  | Victoria      | 1.34 |
-| 2  | Winnipeg      | 2.57 |
-| 3  | Fredericton   | 4.63 |
-| 4  | St. John's    | 5.14 |
-| 5  | Halifax       | 5.14 |
-| 6  | Toronto       | 1.76 |
-| 7  | Charlottetown | 5.14 |
-| 8  | Quebec City   | 3.09 |
-| 9  | Regina        | 4.12 |
-| 10 | Yellowknife   | 3.60 |
-| 11 | Iqaluit       | 5.66 |
-| 12 | Whitehorse    | 9.77 |
-
-  </details>
+#### [OpenWeatherMap](openweathermap) -- Colect Current and Historical Weather Data
 
 
 **[⬆️ Back to Index](#index)**
