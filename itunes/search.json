@@ -1,0 +1,56 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://itunes.apple.com/search",
+        "method": "GET",
+        "params": {
+            "term": true,
+            "country": false,
+            "media": false,
+            "entity": false,
+            "attribute": false,
+            "limit": false,
+            "lang": false
+        },
+        "pagination": {
+            "type": "offset",
+            "offsetKey": "offset",
+            "limitKey": "limit",
+            "maxCount": 100
+        }
+    },
+    "examples": {
+        "term": "'json+johnson'"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.results[*]",
+        "schema": {
+            "type": {
+                "target": "$.wrapperType",
+                "type": "string"
+            },
+            "kind": {
+                "target": "$.kind",
+                "type": "string"
+            },
+            "artistName": {
+                "target": "$.artistName",
+                "type": "string"
+            },
+            "collectionName": {
+                "target": "$.collectionName",
+                "type": "string"
+            },
+            "trackName": {
+                "target": "$.trackName",
+                "type": "string"
+            },
+            "trackTime": {
+                "target": "$.trackTimeMillis",
+                "type": "int"
+            }
+        },
+        "orient": "records"
+    }
+}

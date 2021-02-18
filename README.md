@@ -1598,6 +1598,66 @@ print(df['album_name'] + ", by " + df['artist'][0] + ", with " + str(df['market_
 ​    
 </details> 
 
+
+#### [iTunes](./itunes) — Collect iTunes Data
+
+<details>
+  <summary>What are all Jack Johnson audio and video content?</summary>
+
+```python
+from dataprep.connector import connect
+
+conn_itunes = connect('./DataConnectorConfigs/itunes')
+df = await conn_itunes.query('search', term="jack+johnson")
+df
+```
+
+|   id |  Type | kind |   artistName |                                    collectionName |                 trackName | trackTime |
+| ---: | ----: | ---: | -----------: | ------------------------------------------------: | ------------------------: | --------- |
+|    0 | track | song | Jack Johnson | Jack Johnson and Friends: Sing-A-Longs and Lul... |               Upside Down | 208643    |
+|    1 | track | song | Jack Johnson |           In Between Dreams (Bonus Track Version) |           Better Together | 207679    |
+|    2 | track | song | Jack Johnson |           In Between Dreams (Bonus Track Version) | Sitting, Waiting, Wishing | 183721    |
+|  ... |   ... |  ... |          ... |                                               ... |                       ... | ...       |
+|   49 | track | song | Jack Johnson |                          Sleep Through the Static |             While We Wait | 86112     |
+
+</details>
+
+<details>
+  <summary>How to compute the average track time of Rich Brian's music videos?</summary>
+
+```python
+from dataprep.connector import connect
+
+conn_itunes = connect('./DataConnectorConfigs/itunes')
+df = await conn_itunes.query("search", term="rich+brian", entity="musicVideo")
+avg_track_time = df['trackTime'].mean()/(1000*60)
+print("The average track time is {:.3} minutes.".format(avg_track_time))
+```
+
+The average track time is 4.13 minutes.
+
+</details>
+
+<details>
+  <summary>How to get all Ang Lee's movies which are made in the Unite States?</summary>
+
+```python
+from dataprep.connector import connect
+
+conn_itunes = connect('./DataConnectorConfigs/itunes')
+df = await conn_itunes.query("search", term="Ang+Lee", entity="movie", country="us")
+df = df[df['artistName']=='Ang Lee']
+df
+```
+
+| id   | type  | kind          | artistName | collectionName              | trackName           | trackTime |
+| ---- | ----- | ------------- | ---------- | --------------------------- | ------------------- | --------- |
+| 0    | track | feature-movie | Ang Lee    | Fox 4K HDR Drama Collection | Life of Pi          | 7642675   |
+| 1    | track | feature-movie | Ang Lee    | None                        | Gemini Man          | 7049958   |
+| ...  | ...   | ...           | ...        | ...                         | ...                 | ...       |
+| 11   | track | feature-movie | Ang Lee    | None                        | Ride With the Devil | 8290498   |
+</details>
+
 ### News
 
 
