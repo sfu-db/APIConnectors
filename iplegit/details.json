@@ -1,0 +1,68 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://api.iplegit.com/full",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "X-RapidAPI-Key"
+        },
+        "params": {
+            "ip": true
+        }
+    },
+    "examples": {
+        "ip": "'16.210.143.176'"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$",
+        "schema": {
+            "ip": {
+                "target": "$.ip",
+                "type": "string"
+            },
+            "bad_status": {
+                "target": "$.bad",
+                "type": "boolean"
+            },
+            "type": {
+                "target": "$.type",
+                "type": "string"
+            },
+            "country_code": {
+                "target": "$.countryCode",
+                "type": "string"
+            },
+            "country": {
+                "target": "$.countryName",
+                "type": "string"
+            },
+            "latitude": {
+                "target": "$.latitude",
+                "type": "float"
+            },
+            "longitude": {
+                "target": "$.longitude",
+                "type": "float"
+            },
+            "city": {
+                "target": "$.city",
+                "type": "string"
+            },
+            "region": {
+                "target": "$.region",
+                "type": "string"
+            },
+            "isp": {
+                "target": "$.isp",
+                "type": "string"
+            },
+            "asn": {
+                "target": "$.asn",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}
