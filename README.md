@@ -1607,7 +1607,7 @@ print(df['album_name'] + ", by " + df['artist'][0] + ", with " + str(df['market_
 ```python
 from dataprep.connector import connect
 
-conn_itunes = connect('./DataConnectorConfigs/itunes')
+conn_itunes = connect('itunes')
 df = await conn_itunes.query('search', term="jack+johnson")
 df
 ```
@@ -1628,7 +1628,7 @@ df
 ```python
 from dataprep.connector import connect
 
-conn_itunes = connect('./DataConnectorConfigs/itunes')
+conn_itunes = connect('itunes')
 df = await conn_itunes.query("search", term="rich+brian", entity="musicVideo")
 avg_track_time = df['trackTime'].mean()/(1000*60)
 print("The average track time is {:.3} minutes.".format(avg_track_time))
@@ -1644,7 +1644,7 @@ The average track time is 4.13 minutes.
 ```python
 from dataprep.connector import connect
 
-conn_itunes = connect('./DataConnectorConfigs/itunes')
+conn_itunes = connect('itunes')
 df = await conn_itunes.query("search", term="Ang+Lee", entity="movie", country="us")
 df = df[df['artistName']=='Ang Lee']
 df
