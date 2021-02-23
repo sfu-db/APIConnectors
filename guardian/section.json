@@ -10,7 +10,7 @@
         "params": {
             "q": true,
             "page": false,
-            "page-size": false,
+            "page-size": false
         },
         "search": {
             "key": "q"
@@ -41,3 +41,4 @@
         "orient": "records"
     }
 }
+

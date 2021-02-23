@@ -53,7 +53,7 @@
             },
             "coordinates": {
                 "target": "$.locations.[*].latLng",
-                "type": "list"
+                "type": "string"
             }
         },
         "orient": "records"
