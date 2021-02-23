@@ -154,7 +154,7 @@ df[['id','name','theme','object count']]
 #### [Yelp](./yelp) -- Collect Local Business Data
 <details>
   <summary>What's the phone number of Capilano Suspension Bridge Park?</summary>
-  
+
 ```python
 from dataprep.connector import connect
 
@@ -173,7 +173,7 @@ df[["name","phone"]]
   </details>
 <details>
   <summary>Which yoga store has the highest review count in Vancouver?</summary>
-  
+
 ```python
 from dataprep.connector import connect
 
