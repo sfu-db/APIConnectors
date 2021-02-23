@@ -1856,7 +1856,7 @@ gdf.plot(ax=world.plot(figsize=(10, 6)), marker='o', color='red', markersize=15)
 #### [Guardian](./guardian) -- Collect Guardian News Data 
 <details>
   <summary>Which news section contain most mentions related to bitcoin ?</summary>
-
+  
 ```python
 from dataprep.connector import connect, info, Connector
 import pandas as pd
@@ -1907,7 +1907,7 @@ df3.groupby('section').count().sort_values("headline", ascending=False)
 
 <details>
   <summary>Find articles with covid precautions ?</summary>
-
+  
 ```python
 from dataprep.connector import connect, Connector
 
@@ -2792,7 +2792,7 @@ df[['title', 'description', 'channelTitle']]
 
 <details>
   <summary>What are the top 10 sports activities?</summary>
-
+  
   ```python
 from dataprep.connector import connect, info
 import pandas as pd
@@ -2843,7 +2843,7 @@ df[["temp"]]
 | 0   | 267.96 |
 
   </details>
-
+  
 <details>
   <summary>What is the wind speed in each provincial capital city?</summary>
 
