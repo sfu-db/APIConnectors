@@ -42,7 +42,7 @@ You can contribute to this project in two ways. Please check the [contributing g
   ```python
 from dataprep.connector import connect
 
-# You can get ”yelp_access_token“ by following https://docs.google.com/forms/d/e/1FAIpQLSfkmEBqH76HLMMiCC-GPPnhcvHC9aJS86E32dOd0Z8MpY2rvQ/viewform
+# You can get ”api_key“ by following https://docs.google.com/forms/d/e/1FAIpQLSfkmEBqH76HLMMiCC-GPPnhcvHC9aJS86E32dOd0Z8MpY2rvQ/viewform
 dc = connect('harvardartmuseum', _auth={'access_token': api_key})
 
 df = await dc.query('object', title='dog', yearmade=1990)
@@ -63,7 +63,7 @@ df[['title', 'division', 'classification', 'technique', 'department', 'century',
   ```python
 from dataprep.connector import connect
 
-# You can get ”yelp_access_token“ by following https://docs.google.com/forms/d/e/1FAIpQLSfkmEBqH76HLMMiCC-GPPnhcvHC9aJS86E32dOd0Z8MpY2rvQ/viewform
+# You can get ”api_key“ by following https://docs.google.com/forms/d/e/1FAIpQLSfkmEBqH76HLMMiCC-GPPnhcvHC9aJS86E32dOd0Z8MpY2rvQ/viewform
 dc = connect('harvardartmuseum', _auth={'access_token': api_key})
 
 df = await dc.query('person', q='culture:Dutch', size=10)
@@ -86,7 +86,7 @@ df[['display name', 'gender', 'culture', 'display date', 'object count', 'birth 
 ```python
 from dataprep.connector import connect
 
-# You can get ”yelp_access_token“ by following https://docs.google.com/forms/d/e/1FAIpQLSfkmEBqH76HLMMiCC-GPPnhcvHC9aJS86E32dOd0Z8MpY2rvQ/viewform
+# You can get ”api_key“ by following https://docs.google.com/forms/d/e/1FAIpQLSfkmEBqH76HLMMiCC-GPPnhcvHC9aJS86E32dOd0Z8MpY2rvQ/viewform
 dc = connect('harvardartmuseum', _auth={'access_token': api_key})
 
 df = await dc.query('exhibition', venue='HAM', after='2020-01-01')
@@ -105,7 +105,7 @@ df
   ```python
 from dataprep.connector import connect
 
-# You can get ”yelp_access_token“ by following https://docs.google.com/forms/d/e/1FAIpQLSfkmEBqH76HLMMiCC-GPPnhcvHC9aJS86E32dOd0Z8MpY2rvQ/viewform
+# You can get ”api_key“ by following https://docs.google.com/forms/d/e/1FAIpQLSfkmEBqH76HLMMiCC-GPPnhcvHC9aJS86E32dOd0Z8MpY2rvQ/viewform
 dc = connect('harvardartmuseum', _auth={'access_token': api_key})
 
 df = await dc.query('publication', q='publicationyear:2013', size=5)
@@ -128,7 +128,7 @@ df[['title','publication date','publication place','format']]
   ```python
 from dataprep.connector import connect
 
-# You can get ”yelp_access_token“ by following https://docs.google.com/forms/d/e/1FAIpQLSfkmEBqH76HLMMiCC-GPPnhcvHC9aJS86E32dOd0Z8MpY2rvQ/viewform
+# You can get ”api_key“ by following https://docs.google.com/forms/d/e/1FAIpQLSfkmEBqH76HLMMiCC-GPPnhcvHC9aJS86E32dOd0Z8MpY2rvQ/viewform
 dc = connect('harvardartmuseum', _auth={'access_token': api_key})
 
 df = await dc.query('gallery', floor=2, size=5)
