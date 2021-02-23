@@ -2738,7 +2738,7 @@ tag_count = tag_count.sort_values(by=['tag_count'], ascending=False).reset_index
 tag_count = tag_count.iloc[0:10,:]
 tag_count
   ```
-  
+
 | id   | tag_list                 | tag_count |
 | ---- | ------------------------ | --------- |
 | 0    | jobs                     | 52        |
