@@ -193,7 +193,7 @@ df[["name", "review_count"]]
 
 <details>
   <summary>How many Starbucks stores in Seattle and where are they?</summary>
-  
+
   ```python
   from dataprep.connector import connect
 
@@ -215,7 +215,7 @@ df[["name", "review_count"]]
 </details>
 <details>
   <summary>What are the ratings for a list of resturants?</summary>
-  
+
   ```python
   from dataprep.connector import connect
   import pandas as pd
