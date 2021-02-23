@@ -17,6 +17,8 @@ You can contribute to this project in two ways. Please check the [contributing g
 
 ## Index
 
+* [Art](#art)
+
 * [Business](#business)
 * [Finance](#finance)
 * [Geocoding](#geocoding)
@@ -29,6 +31,123 @@ You can contribute to this project in two ways. Please check the [contributing g
 * [Social](#social)
 * [Video](#video)
 * [Weather](#weather)
+
+### Art
+
+#### [Harvard Art Museum](./harvardartmuseum) -- Collect Museums' Collection Data
+
+<details>
+  <summary>Find the objects with dog in their titles and were made in 1990.</summary>
+
+  ```python
+from dataprep.connector import connect
+
+# You can get ”yelp_access_token“ by following https://docs.google.com/forms/d/e/1FAIpQLSfkmEBqH76HLMMiCC-GPPnhcvHC9aJS86E32dOd0Z8MpY2rvQ/viewform
+dc = connect('harvardartmuseum', _auth={'access_token': api_key})
+
+df = await dc.query('object', title='dog', yearmade=1990)
+df[['title', 'division', 'classification', 'technique', 'department', 'century', 'dated']]
+  ```
+
+|      | title                       | division                    | classification | technique            | department                | century      | dated |
+| ---- | --------------------------- | --------------------------- | -------------- | -------------------- | ------------------------- | ------------ | ----- |
+| 0    | Paris (black dog on street) | Modern and Contemporary Art | Photographs    | Gelatin silver print | Department of Photographs | 20th century | 1990s |
+| 1    | Pregnant Woman with Dog     | Modern and Contemporary Art | Photographs    | Gelatin silver print | Department of Photographs | 20th century | 1990  |
+| 2    | Pompeii Dog                 | Modern and Contemporary Art | Prints         | Drypoint             | Department of Prints      | 20th century | 1990  |
+
+</details>
+
+<details>
+  <summary>Find 10 people that are Dutch.</summary>
+  
+  ```python
+from dataprep.connector import connect
+
+# You can get ”yelp_access_token“ by following https://docs.google.com/forms/d/e/1FAIpQLSfkmEBqH76HLMMiCC-GPPnhcvHC9aJS86E32dOd0Z8MpY2rvQ/viewform
+dc = connect('harvardartmuseum', _auth={'access_token': api_key})
+
+df = await dc.query('person', q='culture:Dutch', size=10)
+df[['display name', 'gender', 'culture', 'display date', 'object count', 'birth place', 'death place']]
+  ```
+
+|      | display name                    | gender  | culture | display date   | object count | birth place                      | death place            |
+| ---- | ------------------------------- | ------- | ------- | -------------- | ------------ | -------------------------------- | ---------------------- |
+| 0    | Joris Abrahamsz. van der Haagen | unknown | Dutch   | 1615 - 1669    | 7            | Arnhem or Dordrecht, Netherlands | The Hague, Netherlands |
+| 1    | François Morellon de la Cave    | unknown | Dutch   | 1723 - 65      | 1            | None                             | None                   |
+| 2    | Cornelis Vroom                  | unknown | Dutch   | 1590/92 - 1661 | 3            | Haarlem(?), Netherlands          | Haarlem, Netherlands   |
+| 3    | Constantijn Daniel van Renesse  | unknown | Dutch   | 1626 - 1680    | 2            | Maarssen                         | Eindhoven              |
+| 4    | Dirck Dalens, the Younger       | unknown | Dutch   | 1654 - 1688    | 3            | Amsterdam, Netherlands           | Amsterdam, Netherlands |
+
+</details>
+
+<details>
+  <summary>Find all exhibitions that take place at a Harvard Art Museums venue after 2020-01-01.</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”yelp_access_token“ by following https://docs.google.com/forms/d/e/1FAIpQLSfkmEBqH76HLMMiCC-GPPnhcvHC9aJS86E32dOd0Z8MpY2rvQ/viewform
+dc = connect('harvardartmuseum', _auth={'access_token': api_key})
+
+df = await dc.query('exhibition', venue='HAM', after='2020-01-01')
+df
+```
+
+|      | title                                                   | begin date | end date   | url                                                      |
+| ---- | ------------------------------------------------------- | ---------- | ---------- | -------------------------------------------------------- |
+| 0    | Painting Edo: Japanese Art from the Feinberg Collection | 2020-02-14 | 2021-07-18 | https://www.harvardartmuseums.org/visit/exhibitions/5909 |
+
+</details>
+
+<details>
+  <summary>Find 5 records for publications that were published in 2013.</summary>
+  
+  ```python
+from dataprep.connector import connect
+
+# You can get ”yelp_access_token“ by following https://docs.google.com/forms/d/e/1FAIpQLSfkmEBqH76HLMMiCC-GPPnhcvHC9aJS86E32dOd0Z8MpY2rvQ/viewform
+dc = connect('harvardartmuseum', _auth={'access_token': api_key})
+
+df = await dc.query('publication', q='publicationyear:2013', size=5)
+df[['title','publication date','publication place','format']]
+  ```
+
+|      | title                                             | publication date | publication place | format                   |
+| ---- | ------------------------------------------------- | ---------------- | ----------------- | ------------------------ |
+| 0    | 19th Century Paintings, Drawings & Watercolours   | January 23, 2013 | London            | Auction/Dealer Catalogue |
+| 1    | "With Éclat" The Boston Athenæum and the Orig...  | 2013             | Boston, MA        | Book                     |
+| 2    | "Review: Fragonard's Progress of Love at the F... | 2013             | London            | Article/Essay            |
+| 3    | Alternative Narratives                            | February 2013    | None              | Article/Essay            |
+| 4    | Victorian & British Impressionist Art             | July 11, 2013    | London            | Auction/Dealer Catalogue |
+
+</details>
+
+<details>
+  <summary>Find 5 galleries that are on floor (Level) 2 in the Harvard Art Museums building.</summary>
+  
+  ```python
+from dataprep.connector import connect
+
+# You can get ”yelp_access_token“ by following https://docs.google.com/forms/d/e/1FAIpQLSfkmEBqH76HLMMiCC-GPPnhcvHC9aJS86E32dOd0Z8MpY2rvQ/viewform
+dc = connect('harvardartmuseum', _auth={'access_token': api_key})
+
+df = await dc.query('gallery', floor=2, size=5)
+df[['id','name','theme','object count']]
+  ```
+
+|      | id   | name                                         | theme                                             | object count |
+| ---- | ---- | -------------------------------------------- | ------------------------------------------------- | ------------ |
+| 0    | 2200 | European and American Art, 17th–19th century | The Emergence of Romanticism in Early Nineteen... | 20           |
+| 1    | 2210 | West Arcade                                  | None                                              | 6            |
+| 2    | 2340 | European and American Art, 17th–19th century | The Silver Cabinet: Art and Ritual, 1600–1850     | 73           |
+| 3    | 2460 | East Arcade                                  | None                                              | 2            |
+| 4    | 2700 | European and American Art, 19th century      | Impressionism and the Late Nineteenth Century     | 19           |
+
+</details>
+
+
+
+
 
 ### Business
 
@@ -1737,7 +1856,7 @@ gdf.plot(ax=world.plot(figsize=(10, 6)), marker='o', color='red', markersize=15)
 #### [Guardian](./guardian) -- Collect Guardian News Data 
 <details>
   <summary>Which news section contain most mentions related to bitcoin ?</summary>
-  
+
 ```python
 from dataprep.connector import connect, info, Connector
 import pandas as pd
@@ -1788,7 +1907,7 @@ df3.groupby('section').count().sort_values("headline", ascending=False)
 
 <details>
   <summary>Find articles with covid precautions ?</summary>
-  
+
 ```python
 from dataprep.connector import connect, Connector
 
@@ -2673,7 +2792,7 @@ df[['title', 'description', 'channelTitle']]
 
 <details>
   <summary>What are the top 10 sports activities?</summary>
-  
+
   ```python
 from dataprep.connector import connect, info
 import pandas as pd
@@ -2724,7 +2843,7 @@ df[["temp"]]
 | 0   | 267.96 |
 
   </details>
-  
+
 <details>
   <summary>What is the wind speed in each provincial capital city?</summary>
 
