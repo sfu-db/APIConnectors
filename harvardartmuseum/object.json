@@ -1,0 +1,77 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://api.harvardartmuseums.org/object",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "apikey"
+        },
+        "params": {
+            "q": false,
+            "size": false,
+            "page": false,
+            "century": false,
+            "classification": false,
+            "color": false,
+            "technique": false,
+            "title": false,
+            "period": false,
+            "person": false,
+            "yearmade": false,
+            "relatedto": false,
+            "objectnumber": false,
+            "fields": false,
+            "aggregation": false
+        },
+        "pagination": {
+            "type": "offset",
+            "offsetKey": "offset",
+            "limitKey": "limit",
+            "maxCount": 100
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.records[*]",
+        "schema": {
+            "title": {
+                "target": "$.title",
+                "type": "string"
+            },
+            "division": {
+                "target": "$.division",
+                "type": "string"
+            },
+            "classification": {
+                "target": "$.classification",
+                "type": "string"
+            },
+            "technique": {
+                "target": "$.technique",
+                "type": "string"
+            },
+            "department": {
+                "target": "$.department",
+                "type": "string"
+            },
+            "century": {
+                "target": "$.century",
+                "type": "string"
+            },
+            "dated": {
+                "target": "$.dated",
+                "type": "string"
+            },
+            "contact": {
+                "target": "$.contact",
+                "type": "string"
+            },
+            "url": {
+                "target": "$.url",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}

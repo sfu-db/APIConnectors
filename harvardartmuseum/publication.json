@@ -1,0 +1,51 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://api.harvardartmuseums.org/publication",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "apikey"
+        },
+        "params": {
+            "q": false,
+            "size": false,
+            "page": false,
+            "fields": false,
+            "aggregation": false
+        },
+        "pagination": {
+            "type": "offset",
+            "offsetKey": "offset",
+            "limitKey": "limit",
+            "maxCount": 100
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.records[*]",
+        "schema": {
+            "title": {
+                "target": "$.title",
+                "type": "string"
+            },
+            "publication date": {
+                "target": "$.publicationdate",
+                "type": "string"
+            },
+            "publication place": {
+                "target": "$.publicationplace",
+                "type": "string"
+            },
+            "format": {
+                "target": "$.format",
+                "type": "string"
+            },
+            "citation": {
+                "target": "$.citation",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}
