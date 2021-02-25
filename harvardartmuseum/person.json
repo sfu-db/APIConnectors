@@ -1,0 +1,63 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://api.harvardartmuseums.org/person",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "apikey"
+        },
+        "params": {
+            "q": false,
+            "size": false,
+            "page": false,
+            "fields": false,
+            "aggregation": false
+        },
+        "pagination": {
+            "type": "offset",
+            "offsetKey": "offset",
+            "limitKey": "limit",
+            "maxCount": 100
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.records[*]",
+        "schema": {
+            "display name": {
+                "target": "$.displayname",
+                "type": "string"
+            },
+            "gender": {
+                "target": "$.gender",
+                "type": "string"
+            },
+            "culture": {
+                "target": "$.culture",
+                "type": "string"
+            },
+            "display date": {
+                "target": "$.displaydate",
+                "type": "string"
+            },
+            "object count": {
+                "target": "$.objectcount",
+                "type": "int"
+            },
+            "birth place": {
+                "target": "$.birthplace",
+                "type": "string"
+            },
+            "death place": {
+                "target": "$.deathplace",
+                "type": "string"
+            },
+            "url": {
+                "target": "$.url",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}

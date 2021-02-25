@@ -1,0 +1,36 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://api.iplegit.com/info",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "X-RapidAPI-Key"
+        },
+        "params": {
+            "ip": true
+        }
+    },
+    "examples": {
+        "ip": "'16.210.143.176'"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$",
+        "schema": {
+            "ip": {
+                "target": "$.ip",
+                "type": "string"
+            },
+            "bad_status": {
+                "target": "$.bad",
+                "type": "boolean"
+            },
+            "type": {
+                "target": "$.type",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}
