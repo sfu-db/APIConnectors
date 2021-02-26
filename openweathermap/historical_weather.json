@@ -1,7 +1,7 @@
 {
     "version": 1,
     "request": {
-        "url": "http://api.openweathermap.org/data/2.5/weather",
+        "url": "http://history.openweathermap.org/data/2.5/history/city",
         "method": "GET",
         "authorization": {
             "type": "QueryParam",
@@ -12,10 +12,10 @@
             "lat" : false,
             "lon" : false,
             "id" : false,
-            "zip" : false,
-            "units" : false,
-            "mode" : false,
-            "lang" : false
+            "type" : true,
+            "start" : false,
+            "end" : false,
+            "cnt" : false
         }
     },
     "examples": {
@@ -23,11 +23,11 @@
         "lat" : "'35'",
         "lon" : "'139'",
         "id" : "'2885679'",
-        "zip" : "'94040'"
+        "type" : "'hour'"
     },
     "response": {
         "ctype": "application/json",
-        "tablePath": "$[*]",
+        "tablePath": "$.list.[*]",
         "schema": {
             "description": {
                 "target": "$.weather.[*].description",
@@ -60,14 +60,6 @@
             "wind": {
                 "target": "$.wind.speed",
                 "type": "float"
-            },
-            "sunrise": {
-                "target": "$.sys.sunrise",
-                "type": "int"
-            },
-            "sunset": {
-                "target": "$.sys.sunset",
-                "type": "int"
             }
         },
         "orient": "records"
