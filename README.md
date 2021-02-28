@@ -577,6 +577,106 @@ result
 </details>
 
 
+#### [CoinGecko](./coingecko) -- Collect Cryptocurrency Data
+
+<details>
+  <summary>What are the 10 cryptocurrencies with highest market cap and their current information?</summary>
+  
+```python
+from dataprep.connector import connect
+
+conn_coingecko = connect("coingecko")
+df = await conn_coingecko.query('markets', vs_currency='usd', order='market_cap_desc', per_page=10, page=1)
+df
+```
+|    | name         | symbol   |   current_price |   market_cap |   market_cap_rank |     high_24h |      low_24h |   price_change_24h |   price_change_percentage_24h |   market_cap_change_24h |   market_cap_change_percentage_24h | last_updated             |
+|---:|:-------------|:---------|----------------:|-------------:|------------------:|-------------:|-------------:|-------------------:|------------------------------:|------------------------:|-----------------------------------:|:-------------------------|
+|  0 | Bitcoin      | btc      |    36811        |  6.86613e+11 |                 1 | 37153        | 35344        |      1440.68       |                       4.0731  |             3.10933e+10 |                            4.7433  | 2021-02-03T19:24:09.271Z |
+|  1 | Ethereum     | eth      |     1628.99     |  1.87035e+11 |                 2 |  1645.73     |  1486.42     |       132.91       |                       8.88404 |             1.64296e+10 |                            9.63018 | 2021-02-03T19:22:32.413Z |
+| .. | ...          | ...      |  ...            |  ...         |               ... |   ...        |     ...      |        ...         |                           ... |                     ... |                                ... |                      ... |
+|  9 | Binance Coin | bnb      |       51.47     |  7.60256e+09 |                10 |    51.63     |    49.76     |         1.24       |                       2.47631 |             1.64863e+08 |                            2.21659 | 2021-02-03T19:25:45.456Z |
+</details>
+
+<details>
+  <summary>What are the cryptocurrencies with highest increasing and decreasing percentage?</summary>
+  
+```python
+from dataprep.connector import connect
+
+conn_coingecko = connect("coingecko")
+df = await conn_coingecko.query('markets', vs_currency='usd', per_page=1000, page=1)
+df = df.sort_values(by=['price_change_percentage_24h']).reset_index(drop=True).dropna()
+print("Coin with highest decreasing percetage: {}, which decreases {}%".format(df['name'].iloc[0], df['price_change_percentage_24h'].iloc[0]))
+print("Coin with highest increasing percetage: {}, which increases {}%".format(df['name'].iloc[-1], df['price_change_percentage_24h'].iloc[-1]))
+```
+Coin with the highest decreasing percentage: `PancakeSwap`, which decreases `-13.79622%`
+
+Coin with the highest increasing percentage: `StormX`, which increases `101.24182%`
+</details>
+
+<details>
+  <summary>Which cryptocurrencies are trending in CoinGecko?</summary>
+  
+```python
+from dataprep.connector import connect
+
+conn_coingecko = connect("coingecko")
+df = await conn_coingecko.query('trend')
+df
+```
+|    | id                | name        | symbol   |   market_cap_rank |   score |
+|---:|:------------------|:------------|:---------|------------------:|--------:|
+|  0 | bao-finance       | Bao Finance | BAO      |               175 |       0 |
+|  1 | milk2             | MILK2       | MILK2    |               634 |       1 |
+|  2 | unitrade          | Unitrade    | TRADE    |               529 |       2 |
+|  3 | pancakeswap-token | PancakeSwap | CAKE     |               110 |       3 |
+|  4 | fsw-token         | Falconswap  | FSW      |               564 |       4 |
+|  5 | zeroswap          | ZeroSwap    | ZEE      |               550 |       5 |
+|  6 | storm             | StormX      | STMX     |               211 |       6 |
+
+</details>
+
+<details>
+  <summary>What are the 10 US exchanges with highest trade volume in the past 24 hours?</summary>
+
+```python
+from dataprep.connector import connect
+
+conn_coingecko = connect("coingecko")
+df = await conn_coingecko.query('exchanges')
+result = df[df['country']=='United States'].reset_index(drop=True).head(10)
+result
+```
+|    | id         | name         |   year_established | ... |   trade_volume_24h_btc_normalized |
+|---:|:-----------|:-------------|-------------------:|:----|----------------------------------:|
+|  0 | gdax       | Coinbase Pro |               2012 | ... |                         90085.6   |
+|  1 | kraken     | Kraken       |               2011 | ... |                         48633.1   |
+|  2 | binance_us | Binance US   |               2019 | ... |                         7380.83   |
+| .. | ...        | ...          |                ... | ... | ...                               |
+
+</details>
+
+<details>
+  <summary>What are the 3 latest traded derivatives with perpetual contract?</summary>
+
+```python
+from dataprep.connector import connect
+import pandas as pd
+
+conn_coingecko = connect("coingecko")
+df = await conn_coingecko.query('derivatives')
+perpetual_df = df[df['contract_type'] == 'perpetual'].reset_index(drop=True)
+perpetual_df['last_traded_at'] = pd.to_datetime(perpetual_df['last_traded_at'], unit='s')
+perpetual_df.sort_values(by=['last_traded_at'], ascending=False).head(3).reset_index(drop=True)
+```
+|    | market         | symbol     | index_id   | contract_type   |         index |     basis |   funding_rate |   open_interest |       volume_24h | last_traded_at      |
+|---:|:---------------|:-----------|:-----------|:----------------|--------------:|----------:|---------------:|----------------:|-----------------:|:--------------------|
+|  0 | Huobi Futures  | MATIC-USDT | MATIC      | perpetual       |     0.0433357 | -0.606296 |       0.247604 |             nan |      1.43338e+06 | 2021-02-03 20:14:24 |
+|  1 | Biki (Futures) | 1          | BTC        | perpetual       | 36769.8       | -0.153111 |      -0.0519   |             nan |      1.00131e+08 | 2021-02-03 20:14:23 |
+|  2 | Huobi Futures  | CVC-USDT   | CVC        | perpetual       |     0.178268  | -0.336302 |       0.106314 |             nan | 876960           | 2021-02-03 20:14:23 |
+</details>
+
+
 ### Geocoding
 
 #### [MapQuest](./mapquest) -- Collect Driving Directions, Maps, Traffic Data
@@ -2072,6 +2172,59 @@ ranking_df
 |  0 | Katy Perry     |                    2 |
 |  4 | Rihanna        |                    1 |
 |  5 | Kim Kardashian |                    0 |
+</details>
+
+
+#### [Currents](./currents) -- Collect Currents News Data
+<details>
+  <summary>How to get latest Chinese news?</summary>
+  
+```python
+from dataprep.connector import connect
+
+# You can get ”currents_access_token“ by following https://currentsapi.services/zh_CN
+conn_currents = connect('currents', _auth={'access_token': currents_access_token})
+df = await conn_currents.query('latest_news', language='zh')
+df.head()
+```
+| id | title            | category     | ... | author  | published                 |
+|---:|:-----------------|:-------------|:----|:--------|:--------------------------|
+|  0 | 為何上市公司該汰換了 |[entrepreneur]| ... | 經濟日報 | 2021-02-03 08:48:39 +0000 |
+</details>
+
+<details>
+  <summary>How to get the political news about 'Trump'?</summary>
+  
+```python
+from dataprep.connector import connect
+
+# You can get ”currents_access_token“ by following https://currentsapi.services/zh_CN
+conn_currents = connect('currents', _auth={'access_token': currents_access_token})
+df = await conn_currents.query('search', keywords='Trump', category='politics')
+df.head(3)
+```
+|    | title                                                                                                        | category              | description                                                                                                                    | url                                                                                                               | author        | published                 |
+|---:|:-------------------------------------------------------------------------------------------------------------|:----------------------|:-------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------------|:--------------|:--------------------------|
+|  0 | Biden Started The Process Of Unwinding Trump's Assault On Immigration, But Activists Want Him To Move Faster | ['politics', 'world'] | "These people cannot continue to wait."                                                                                        | https://www.buzzfeednews.com/article/adolfoflores/biden-immigration-executive-orders-review                       | Adolfo Flores | 2021-02-03 08:39:51 +0000 |
+|  1 | Pro-Trump lawyer Lin Wood reportedly under investigation for voter fraud                                     | ['politics', 'world'] | A source told CBS Atlanta affiliate WGCL that Lin Wood is being investigated for allegedly voting "out of state."              | https://www.cbsnews.com/news/pro-trump-lawyer-lin-wood-under-investigation-for-alleged-illegal-voting-2020-02-03/ | April Siese   | 2021-02-03 08:21:25 +0000 |
+|  2 | Trump Supporters Say They Attacked The Capitol Because He Told Them To, Undercutting His Impeachment Defense | ['politics', 'world'] | “President Trump told Us to ‘fight like hell,’” one Trump supporter reportedly posted online after the assault on the Capitol. | https://www.buzzfeednews.com/article/zoetillman/trump-impeachment-capitol-rioters-fight-like-hell                 | Zoe Tillman   | 2021-02-03 07:25:34 +0000 |
+</details>
+
+<details>
+  <summary>How to get the news about COVID-19 from 2020-12-25?</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”currents_access_token“ by following https://currentsapi.services/zh_CN
+conn_currents = connect('currents', _auth={'access_token': currents_access_token})
+df = await conn_currents.query('search', keywords='covid', start_date='2020-12-25',end_date='2020-12-25')
+df.head(1)
+```
+
+|    | title                                                               | category    | ... | published                 |
+|---:|:--------------------------------------------------------------------|:------------|:----|:--------------------------|
+|  0 | Commentary: Let our charitable giving equal our political donations | ['opinion'] | ... | 2020-12-25 00:00:00 +0000 |
 </details>
 
 
