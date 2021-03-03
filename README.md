@@ -1788,7 +1788,7 @@ df
 from dataprep.connector import connect
 
 # You can get ”iplegit_access_token“ by registering as a developer https://rapidapi.com/IPLegit/api/iplegit
-conn_iplegit = connect('./DataConnectorConfigs/iplegit', _auth={'access_token':iplegit_access_token})
+conn_iplegit = connect('iplegit', _auth={'access_token':iplegit_access_token})
 
 ip_addresses = ['16.210.143.176', 
                 '98.124.198.1', 
@@ -1818,7 +1818,7 @@ from dataprep.connector import connect
 import pandas as pd
 
 # You can get ”iplegit_access_token“ by registering as a developer https://rapidapi.com/IPLegit/api/iplegit
-conn_iplegit = connect('./DataConnectorConfigs/iplegit', _auth={'access_token':iplegit_access_token})
+conn_iplegit = connect('iplegit', _auth={'access_token':iplegit_access_token})
 
 ip_addresses = ['16.210.143.176', 
                 '98.124.198.1', 
@@ -1867,7 +1867,7 @@ import geopandas as gpd
 from geopandas import GeoDataFrame
 
 # You can get ”iplegit_access_token“ by registering as a developer https://rapidapi.com/IPLegit/api/iplegit
-conn_iplegit = connect('./DataConnectorConfigs/iplegit', _auth={'access_token':iplegit_access_token})
+conn_iplegit = connect('iplegit', _auth={'access_token':iplegit_access_token})
 
 ip_addresses = ['16.210.143.176', 
                 '98.124.198.1', 
