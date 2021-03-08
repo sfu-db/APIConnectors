@@ -22,6 +22,12 @@
             "to" : true
         }
     },
+    "examples": {
+        "symbol" : "'ETHBTC'",
+        "resolution" : "'12'",
+        "from_": "'1613592066'",
+        "to" : "'1613692066'"
+    },
     "response": {
         "ctype": "application/json",
         "tablePath": "$[*]",

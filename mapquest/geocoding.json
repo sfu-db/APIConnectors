@@ -1,25 +1,21 @@
 {
     "version": 1,
     "request": {
-        "url": "http://www.mapquestapi.com/search/v4/place",
+        "url": "http://www.mapquestapi.com/geocoding/v1/batch",
         "method": "GET",
         "authorization": {
             "type": "QueryParam",
             "keyParam": "key"
         },
         "params": {
-            "q": false,
-            "sort": true,
+            "location": true,
+            "boundingBox ": false,
             "page": false,
             "pageSize": false,
-            "location": false,
-            "bbox": false,
-            "circle": false,
-            "corridor": false,
-            "category": false
+            "thumbMaps ": false
         },
         "search": {
-            "key": "q"
+            "key": "location"
         },
         "pagination": {
             "type": "page",
@@ -29,43 +25,34 @@
         }
     },
     "examples": {
-        "q": "'[-180, 180]'",
-        "sort": "'relevance'"
+        "location": "' 41.947239,-87.655636 OR 1060 W. Addison St., Chicago, IL 60613'"
     },
     "response": {
         "ctype": "application/json",
         "tablePath": "$.results[*]",
         "schema": {
-            "name": {
-                "target": "$.name",
-                "type": "string"
-            },
             "country": {
-                "target": "$.place.properties.countryCode",
+                "target": "$.locations.[*].adminArea1",
                 "type": "string"
             },
             "state": {
-                "target": "$.place.properties.stateCode",
+                "target": "$.locations.[*].adminArea3",
                 "type": "string"
             },
             "city": {
-                "target": "$.place.properties.city",
+                "target": "$.locations.[*].adminArea5",
                 "type": "string"
             },
             "address": {
-                "target": "$.place.properties.street",
+                "target": "$.locations.[*].street",
                 "type": "string"
             },
             "postalCode": {
-                "target": "$.place.properties.postalCode",
+                "target": "$.locations.[*].postalCode",
                 "type": "string"
             },
             "coordinates": {
-                "target": "$.place.geometry.coordinates",
-                "type": "list"
-            },
-            "details": {
-                "target": "$.displayString",
+                "target": "$.locations.[*].latLng",
                 "type": "string"
             }
         },

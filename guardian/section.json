@@ -1,7 +1,7 @@
 {
     "version": 1,
     "request": {
-        "url": "https://content.guardianapis.com/search",
+        "url": "https://content.guardianapis.com/sections",
         "method": "GET",
         "authorization": {
             "type": "QueryParam",
@@ -10,9 +10,7 @@
         "params": {
             "q": true,
             "page": false,
-            "page-size": false,
-            "query-fields": false,
-            "tag": false
+            "page-size": false
         },
         "search": {
             "key": "q"
@@ -35,19 +33,12 @@
                 "target": "$.webTitle",
                 "type": "string"
             },
-            "section": {
-                "target": "$.sectionName",
-                "type": "string"
-            },
             "url": {
                 "target": "$.webUrl",
-                "type": "string"
-            },
-            "publish_date": {
-                "target": "$.webPublicationDate",
                 "type": "string"
             }
         },
         "orient": "records"
     }
 }
+

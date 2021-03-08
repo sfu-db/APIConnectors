@@ -11,6 +11,9 @@
             "exchange" : true
         }
     },
+    "examples": {
+        "exchange": "'NASDAQ'"
+    },
     "response": {
         "ctype": "application/json",
         "tablePath": "$[*]",
