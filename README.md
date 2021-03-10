@@ -1,7 +1,7 @@
 # Data Collection From Web APIs
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-10-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 A curated list of example code to collect data from Web APIs using DataPrep.Connector.
@@ -2963,6 +2963,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://github.com/Lakshay-sethi"><img src="https://avatars.githubusercontent.com/u/58126894?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Lakshay-sethi</b></sub></a><br /><a href="https://github.com/sfu-db/DataConnectorConfigs/commits?author=Lakshay-sethi" title="Code">💻</a> <a href="#maintenance-Lakshay-sethi" title="Maintenance">🚧</a></td>
     <td align="center"><a href="https://github.com/kla55"><img src="https://avatars.githubusercontent.com/u/65270679?v=4?s=100" width="100px;" alt=""/><br /><sub><b>kla55</b></sub></a><br /><a href="https://github.com/sfu-db/DataConnectorConfigs/commits?author=kla55" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/hwec0112"><img src="https://avatars.githubusercontent.com/u/74725096?v=4?s=100" width="100px;" alt=""/><br /><sub><b>hwec0112</b></sub></a><br /><a href="https://github.com/sfu-db/DataConnectorConfigs/commits?author=hwec0112" title="Code">💻</a></td>
   </tr>
 </table>
 
