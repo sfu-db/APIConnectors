@@ -1,7 +1,7 @@
 # Data Collection From Web APIs
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 A curated list of example code to collect data from Web APIs using DataPrep.Connector.
@@ -2959,7 +2959,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://www.linkedin.com/in/hilal-asmat/"><img src="https://avatars1.githubusercontent.com/u/28606148?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Hilal Asmat</b></sub></a><br /><a href="https://github.com/sfu-db/DataConnectorConfigs/commits?author=h-asmat" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/Wukkkinz-0725"><img src="https://avatars.githubusercontent.com/u/60677420?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Wukkkinz-0725</b></sub></a><br /><a href="https://github.com/sfu-db/DataConnectorConfigs/commits?author=Wukkkinz-0725" title="Code">💻</a> <a href="#maintenance-Wukkkinz-0725" title="Maintenance">🚧</a></td>
     <td align="center"><a href="https://github.com/Yizhou150"><img src="https://avatars.githubusercontent.com/u/62522644?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Yizhou</b></sub></a><br /><a href="https://github.com/sfu-db/DataConnectorConfigs/commits?author=Yizhou150" title="Code">💻</a> <a href="#maintenance-Yizhou150" title="Maintenance">🚧</a></td>
-
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/Lakshay-sethi"><img src="https://avatars.githubusercontent.com/u/58126894?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Lakshay-sethi</b></sub></a><br /><a href="https://github.com/sfu-db/DataConnectorConfigs/commits?author=Lakshay-sethi" title="Code">💻</a> <a href="#maintenance-Lakshay-sethi" title="Maintenance">🚧</a></td>
   </tr>
 </table>
 
