@@ -1,7 +1,7 @@
 # Data Collection From Web APIs
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-12-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 A curated list of example code to collect data from Web APIs using DataPrep.Connector.
@@ -2966,6 +2966,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/hwec0112"><img src="https://avatars.githubusercontent.com/u/74725096?v=4?s=100" width="100px;" alt=""/><br /><sub><b>hwec0112</b></sub></a><br /><a href="https://github.com/sfu-db/DataConnectorConfigs/commits?author=hwec0112" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/yxie66"><img src="https://avatars.githubusercontent.com/u/22486719?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Yi Xie</b></sub></a><br /><a href="https://github.com/sfu-db/DataConnectorConfigs/commits?author=yxie66" title="Code">💻</a> <a href="#maintenance-yxie66" title="Maintenance">🚧</a></td>
     <td align="center"><a href="https://github.com/liuyejia"><img src="https://avatars.githubusercontent.com/u/10182591?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Yejia Liu</b></sub></a><br /><a href="https://github.com/sfu-db/DataConnectorConfigs/commits?author=liuyejia" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/sahmad11"><img src="https://avatars.githubusercontent.com/u/53022377?v=4?s=100" width="100px;" alt=""/><br /><sub><b>sahmad11</b></sub></a><br /><a href="https://github.com/sfu-db/DataConnectorConfigs/commits?author=sahmad11" title="Code">💻</a></td>
   </tr>
 </table>
 
