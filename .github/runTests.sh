@@ -1,4 +1,5 @@
 # look for changed directories
+cd api-connectors
 ARRAY=()
 for file in $1
 do
@@ -28,12 +29,14 @@ done
 # run all tests inside impacted config folder
 for dir in "${uniquedirs[@]}"
 do
-    if [[ " ${dirs[@]} " =~ " ${dir} " ]]; then
-        for testfile in ./${dir}/tests/*
-        do
-            echo testfile:"$testfile"
-            pytest $testfile
-        done
-    fi  
+    echo $dir
+    # if [[ " ${dirs[@]} " =~ " ${dir} " ]]; then
+    # for testfile in ./${dir}/*/tests/*
+    for testfile in ./*/tests/*
+    do
+    	echo testfile:"$testfile"
+        pytest $testfile
+    done
+    # fi  
 done
 
