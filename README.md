@@ -16,9 +16,7 @@ You can contribute to this project in two ways. Please check the [contributing g
 * Your contribution will be recoginized on [Contributors](#contributors-).
 
 ## Index
-
 * [Art](#art)
-
 * [Business](#business)
 * [Finance](#finance)
 * [Geocoding](#geocoding)
