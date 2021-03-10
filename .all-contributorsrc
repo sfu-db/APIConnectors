@@ -100,6 +100,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "yxie66",
+      "name": "Yi Xie",
+      "avatar_url": "https://avatars.githubusercontent.com/u/22486719?v=4",
+      "profile": "https://github.com/yxie66",
+      "contributions": [
+        "code",
+        "maintenance"
+      ]
     }
   ],
   "contributorsPerLine": 7,
