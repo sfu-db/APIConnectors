@@ -33,7 +33,7 @@ for dir in "${uniquedirs[@]}"
 do
     echo $dir
     if [[ " ${dirs[@]} " =~ " ${dir} " ]]; then
-        for testfile in ./${dir}/*/tests/*
+        for testfile in ./${dir}/tests/*
         do
             echo testfile:"$testfile"
             pytest $testfile
