@@ -1,3 +1,5 @@
+echo $1
+
 # look for changed directories
 cd api-connectors
 ARRAY=()
@@ -30,13 +32,13 @@ done
 for dir in "${uniquedirs[@]}"
 do
     echo $dir
-    # if [[ " ${dirs[@]} " =~ " ${dir} " ]]; then
-    # for testfile in ./${dir}/*/tests/*
-    for testfile in ./*/tests/*
-    do
-    	echo testfile:"$testfile"
-        pytest $testfile
-    done
-    # fi  
+    if [[ " ${dirs[@]} " =~ " ${dir} " ]]; then
+        for testfile in ./${dir}/*/tests/*
+        # for testfile in ./*/tests/*
+        do
+            echo testfile:"$testfile"
+            pytest $testfile
+        done
+    fi  
 done
 
