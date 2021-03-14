@@ -1,7 +1,6 @@
 echo $1
 
 # look for changed directories
-cd api-connectors
 ARRAY=()
 for file in $1
 do
@@ -19,6 +18,7 @@ echo changed_dirs:"${uniquedirs[@]}"
 
 # get config folder under repo (e.g. twitter, yelp)
 dirs=()
+cd api-connectors
 echo $PWD
 for dirname in $(find ${PWD} -maxdepth 1 -type d -not -path '*/\.*')
 do
@@ -34,7 +34,6 @@ do
     echo $dir
     if [[ " ${dirs[@]} " =~ " ${dir} " ]]; then
         for testfile in ./${dir}/*/tests/*
-        # for testfile in ./*/tests/*
         do
             echo testfile:"$testfile"
             pytest $testfile
