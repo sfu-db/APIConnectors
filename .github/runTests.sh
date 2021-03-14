@@ -8,7 +8,7 @@ do
     echo changed_file:$file
     filename="$(basename -- $file)"
     extension="${filename##*.}"
-    parentdir=$(echo "$file" | cut -d "/" -f1)
+    parentdir=$(echo "$file" | cut -d "/" -f2)
     echo parent_dir:${parentdir}
     ARRAY+=(${parentdir})
 done
