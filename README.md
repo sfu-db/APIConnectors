@@ -597,9 +597,9 @@ df
 |  9 | Binance Coin | bnb      |       51.47     |  7.60256e+09 |                10 |    51.63     |    49.76     |         1.24       |                       2.47631 |             1.64863e+08 |                            2.21659 | 2021-02-03T19:25:45.456Z |
 </details>
 
+
 <details>
-  <summary>What are the cryptocurrencies with highest increasing and decreasing percentage?</summary>
-  
+<summary>What are the cryptocurrencies with highest increasing and decreasing percentage?</summary>
 ```python
 from dataprep.connector import connect
 
