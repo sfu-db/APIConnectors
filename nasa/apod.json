@@ -1,0 +1,53 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://api.nasa.gov/planetary/apod",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "api_key"
+        },
+        "params": {
+            "date": false,
+            "start_date": false,
+            "end_date": false,
+            "count": false,
+            "thumbs": false
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$[*]",
+        "schema": {
+            "copyright": {
+                "target": "$.copyright",
+                "type": "string"
+            },
+            "date": {
+                "target": "$.date",
+                "type": "string"
+            },
+            "explanation": {
+                "target": "$.explanation",
+                "type": "string"
+            },
+            "hdurl": {
+                "target": "$.hdurl",
+                "type": "string"
+            },
+            "media_type": {
+                "target": "$.media_type",
+                "type": "string"
+            },
+            "title": {
+                "target": "$.title",
+                "type": "string"
+            },
+            "url": {
+                "target": "$.url",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}
