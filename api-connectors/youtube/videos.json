@@ -63,7 +63,7 @@
                 "type": "string"
             },
             "publishTime": {
-                "target": "$.publishTime",
+                "target": "$.snippet.publishTime",
                 "type": "string"
             }
         },
