@@ -27,6 +27,7 @@ You can contribute to this project in two ways. Please check the [contributing g
 * [Science](#science)
 * [Shopping](#shopping)
 * [Social](#social)
+* [Travel](#travel)
 * [Video](#video)
 * [Weather](#weather)
 
@@ -57,7 +58,7 @@ df[['title', 'division', 'classification', 'technique', 'department', 'century',
 
 <details>
   <summary>Find 10 people that are Dutch.</summary>
-  
+
   ```python
 from dataprep.connector import connect
 
@@ -99,7 +100,7 @@ df
 
 <details>
   <summary>Find 5 records for publications that were published in 2013.</summary>
-  
+
   ```python
 from dataprep.connector import connect
 
@@ -122,7 +123,7 @@ df[['title','publication date','publication place','format']]
 
 <details>
   <summary>Find 5 galleries that are on floor (Level) 2 in the Harvard Art Museums building.</summary>
-  
+
   ```python
 from dataprep.connector import connect
 
@@ -1913,7 +1914,7 @@ gdf.plot(ax=world.plot(figsize=(10, 6)), marker='o', color='red', markersize=15)
 #### [Guardian](./guardian) -- Collect Guardian News Data 
 <details>
   <summary>Which news section contain most mentions related to bitcoin ?</summary>
-  
+
 ```python
 from dataprep.connector import connect, info, Connector
 import pandas as pd
@@ -1964,7 +1965,7 @@ df3.groupby('section').count().sort_values("headline", ascending=False)
 
 <details>
   <summary>Find articles with covid precautions ?</summary>
-  
+
 ```python
 from dataprep.connector import connect, Connector
 
@@ -2849,7 +2850,7 @@ df[['title', 'description', 'channelTitle']]
 
 <details>
   <summary>What are the top 10 sports activities?</summary>
-  
+
   ```python
 from dataprep.connector import connect, info
 import pandas as pd
@@ -2876,6 +2877,142 @@ df[['title', 'description', 'channelTitle']]
 
 
 
+### Travel
+
+#### [Amadeus](./amadeus) -- Collect Twitch Streams and Channels Information
+
+<details>
+  <summary>What are the hotels within 5 km of the Sydney city center, available from 2021-04-01 to 2021-04-02?</summary>
+
+```python
+from dataprep.connector import connect
+import pandas as pd
+
+# You can get ”client_id“ and "cliend_secret" by following https://developers.amadeus.com/
+dc = connect('amadeus', _auth={'client_id':client_id, 'client_secret':client_secret})
+
+df = await dc.query('hotel', cityCode="SYD", radius=5,
+                    checkInDate='2021-04-01', checkOutDate='2021-04-02',
+                    roomQuantity=1)
+df  
+```
+
+|      | name                                           | rating | latitude  | longitude | lines                | city   | contact         | description                                       | amenities                                         |
+| ---- | ---------------------------------------------- | ------ | --------- | --------- | -------------------- | ------ | --------------- | ------------------------------------------------- | ------------------------------------------------- |
+| 0    | Sydney Harbour Marriott Hotel at Circular Quay | 4      | -33.86262 | 151.20903 | [30 PITT STREET]     | SYDNEY | +61 2 9259 7000 | Located in the bustling heart of the city, Syd... | [BREAKFAST_FULL, SPA, EXECUTIVE_FLOOR, SAUNA, ... |
+| 1    | PARK REGIS CITY CENTRE                         | 4      | -33.87318 | 151.20901 | [27 PARK STREET]     | SYDNEY | 61-2-92676511   | Park Regis City Centre boasts 122 stylishly ap... | [BUSINESS_CENTER, ICE_MACHINES, DISABLED_FACIL..  |
+| 2    | Best Western Plus Hotel Stellar                | 3      | -33.87749 | 151.2118  | [4 WENTWORTH AVENUE] | SYDNEY | +61 2 92649754  | Located on the bustling corner of Hyde Park an... | [HIGH_SPEED_INTERNET, RESTAURANT, 24_HOUR_FRON..  |
+
+</details>
+
+<details>
+  <summary>What are the available flights from Sydney to Bangkok on 2021-05-02?</summary>
+
+```python
+from dataprep.connector import connect
+import pandas as pd
+
+# You can get ”client_id“ and "cliend_secret" by following https://developers.amadeus.com/
+dc = connect('amadeus', _auth={'client_id':client_id, 'client_secret':client_secret})
+
+df = await dc.query('air', originLocationCode="SYD",
+                    destinationLocationCode="BKK",
+                    departureDate="2021-05-02",
+                    adults=1)
+df
+```
+
+|      | source | duration | departure time      | arrival time        | number of bookable seats | total price | currency | one way | itineraries                                       |
+| ---- | ------ | -------- | ------------------- | ------------------- | ------------------------ | ----------- | -------- | ------- | ------------------------------------------------- |
+| 0    | GDS    | PT28H30M | 2021-05-02T11:35:00 | 2021-05-03T12:05:00 | 9                        | 385.42      | EUR      | False   | [{'departure': {'iataCode': 'SYD', 'terminal':... |
+| 1    | GDS    | PT14H15M | 2021-05-02T11:35:00 | 2021-05-02T21:50:00 | 9                        | 387.10      | EUR      | False   | [{'departure': {'iataCode': 'SYD', 'terminal':... |
+| .    | ..     | ...      | ...                 | ...                 | ...                      | ...         | ...      | ...     | ...                                               |
+| 68   | GDS    | PT35H30M | 2021-05-02T20:55:00 | 2021-05-04T05:25:00 | 9                        | 5932.38     | EUR      | False   | [{'departure': {'iataCode': 'SYD', 'terminal':... |
+
+</details>
+
+<details>
+  <summary>What are the best tours and activities in Barcelona?</summary>
+
+```python
+from dataprep.connector import connect
+import pandas as pd
+
+# You can get ”client_id“ and "cliend_secret" by following https://developers.amadeus.com/
+dc = connect('amadeus', _auth={'client_id':client_id, 'client_secret':client_secret})
+
+df = await dc.query('activity', latitude=41.397158, longitude=2.160873)
+df[['name','short description', 'rating', 'price', 'currency']]
+```
+
+|      | name                                              | short description                                 | rating   | price | currency |
+| ---- | ------------------------------------------------- | ------------------------------------------------- | -------- | ----- | -------- |
+| 0    | Sagrada Familia fast-track tickets and guided ... | Explore unfinished masterpiece with fast-track... | 4.400000 | 39.00 | EUR      |
+| 1    | Guided tour of Sagrada Familia with entrance t... | Admire the astonishing views of Barcelona from... | 4.400000 | 51.00 | EUR      |
+| 2    | La Pedrera Night Experience: A Behind-Closed-D... | In Barcelona, go inside one of Antoni Gaudi’s ... | 4.500000 | 34.00 | EUR      |
+| .    | ...                                               | ...                                               | ...      | ...   | ...      |
+| 19   | Barcelona: Casa Batlló Entrance Ticket with Sm... | Discover Casa Batlló, one of Gaudí’s masterpie... | 4.614300 | 25.00 | EUR      |
+
+</details>
+
+<details>
+  <summary>What are the best places to visit in Barcelona?</summary>
+
+```python
+from dataprep.connector import connect
+import pandas as pd
+
+# You can get ”client_id“ and "cliend_secret" by following https://developers.amadeus.com/
+dc = connect('/amadeus', _auth={'client_id':client_id, 'client_secret':client_secret})
+
+df = await dc.query('interest', latitude=41.397158, longitude=2.160873, limit=30)
+df
+```
+
+|      | name                | category   | rank | tags                                              |
+| ---- | ------------------- | ---------- | ---- | ------------------------------------------------- |
+| 0    | Casa Batlló         | SIGHTS     | 5    | [sightseeing, sights, museum, landmark, tourgu... |
+| 1    | La Pepita           | RESTAURANT | 30   | [restaurant, tapas, pub, bar, sightseeing, com... |
+| 2    | Brunch & Cake       | RESTAURANT | 30   | [vegetarian, restaurant, breakfast, shopping, ... |
+| 3    | Cervecería Catalana | RESTAURANT | 30   | [restaurant, tapas, sightseeing, traditionalcu... |
+| 4    | Botafumeiro         | RESTAURANT | 30   | [restaurant, seafood, sightseeing, professiona... |
+| 5    | Casa Amatller       | SIGHTS     | 100  | [sightseeing, sights, museum, landmark, restau... |
+| 6    | Tapas 24            | RESTAURANT | 100  | [restaurant, tapas, traditionalcuisine, sights... |
+| 7    | Dry Martini         | NIGHTLIFE  | 100  | [bar, restaurant, nightlife, club, sightseeing... |
+| 8    | Con Gracia          | RESTAURANT | 100  | [restaurant, sightseeing, commercialplace, pro... |
+| 9    | Osmosis             | RESTAURANT | 100  | [restaurant, shopping, transport, professional... |
+
+</details>
+
+<details>
+  <summary>How safe is Barcelona?</summary>
+
+```python
+from dataprep.connector import connect
+import pandas as pd
+
+# You can get ”client_id“ and "cliend_secret" by following https://developers.amadeus.com/
+dc = connect('amadeus', _auth={'client_id':client_id, 'client_secret':client_secret})
+
+df = await dc.query('safety', latitude=41.397158, longitude=2.160873)
+df
+```
+
+|      | id         | name                                           | subtype  | lgbtq score | medical score | overall score | physical harm score | political freedom score | theft score |
+| ---- | ---------- | ---------------------------------------------- | -------- | ----------- | ------------- | ------------- | ------------------- | ----------------------- | ----------- |
+| 0    | Q930402719 | Barcelona                                      | CITY     | 39          | 69            | 45            | 36                  | 50                      | 44          |
+| 1    | Q930402720 | Antiga Esquerra de l'Eixample (Barcelona)      | DISTRICT | 37          | 69            | 44            | 34                  | 50                      | 42          |
+| 2    | Q930402721 | Baix Guinardó (Barcelona)                      | DISTRICT | 37          | 69            | 44            | 34                  | 50                      | 42          |
+| 3    | Q930402724 | Can Baró (Barcelona)                           | DISTRICT | 37          | 69            | 44            | 34                  | 50                      | 42          |
+| 4    | Q930402731 | El Born (Barcelona)                            | DISTRICT | 42          | 69            | 47            | 39                  | 50                      | 49          |
+| 5    | Q930402732 | El Camp de l'Arpa del Clot (Barcelona)         | DISTRICT | 37          | 69            | 45            | 35                  | 50                      | 43          |
+| 6    | Q930402733 | El Camp d'en Grassot i Gràcia Nova (Barcelona) | DISTRICT | 37          | 69            | 44            | 34                  | 50                      | 42          |
+| 7    | Q930402736 | El Coll (Barcelona)                            | DISTRICT | 37          | 69            | 44            | 34                  | 50                      | 42          |
+| 8    | Q930402738 | El Fort Pienc (Barcelona)                      | DISTRICT | 37          | 69            | 44            | 34                  | 50                      | 42          |
+| 9    | Q930402740 | El Parc i la Llacuna del Poblenou (Barcelona)  | DISTRICT | 37          | 69            | 45            | 35                  | 50                      | 43          |
+
+</details>
+
 
 
 
@@ -2900,7 +3037,7 @@ df[["temp"]]
 | 0   | 267.96 |
 
   </details>
-  
+
 <details>
   <summary>What is the wind speed in each provincial capital city?</summary>
 

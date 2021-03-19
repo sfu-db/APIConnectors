@@ -1,0 +1,73 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://test.api.amadeus.com/v2/shopping/hotel-offers",
+        "method": "GET",
+        "authorization": {
+            "type": "OAuth2",
+            "grantType": "ClientCredentials",
+            "tokenServerUrl": "https://test.api.amadeus.com/v1/security/oauth2/token"
+        },
+        "params": {
+            "cityCode": true,
+            "latitude": false,
+            "longitude": false,
+            "radius": false,
+            "hotelName": false,
+            "checkInDate": false,
+            "checkOutDate": false,
+            "roomQuantity": false,
+            "adults": false,
+            "chains": false,
+            "ratings": false,
+            "amenities": false,
+            "priceRange": false
+        }
+    },
+    "examples": {
+        "cityCode": "'PAR'"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.data[*]",
+        "schema": {
+            "name": {
+                "target": "$.hotel.name",
+                "type": "string"
+            },
+            "rating": {
+                "target": "$.hotel.rating",
+                "type": "string"
+            },
+            "latitude": {
+                "target": "$.hotel.latitude",
+                "type": "string"
+            },
+            "longitude": {
+                "target": "$.hotel.longitude",
+                "type": "string"
+            },
+            "lines": {
+                "target": "$.hotel.address.lines",
+                "type": "list"
+            },
+            "city": {
+                "target": "$.hotel.address.cityName",
+                "type": "string"
+            },
+            "contact": {
+                "target": "$.hotel.contact.phone",
+                "type": "string"
+            },
+            "description": {
+                "target": "$.hotel.description.text",
+                "type": "string"
+            },
+            "amenities": {
+                "target": "$.hotel.amenities",
+                "type": "list"
+            }
+        },
+        "orient": "records"
+    }
+}
