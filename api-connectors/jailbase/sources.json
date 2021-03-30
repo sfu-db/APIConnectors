@@ -1,0 +1,56 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://jailbase-jailbase.p.rapidapi.com/sources/",
+        "method": "GET",
+        "authorization": {
+            "type": "Header",
+            "keyName": "x-rapidapi-key"
+        },
+        "params": {}
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.records[*]",
+        "schema": {
+            "city": {
+                "target": "$.city",
+                "type": "string"
+            },
+            "name": {
+                "target": "$.name",
+                "type": "string"
+            },
+            "source_id": {
+                "target": "$.source_id",
+                "type": "string"
+            },
+            "state_full": {
+                "target": "$.state_full",
+                "type": "string"
+            },
+            "address": {
+                "target": "$.address1",
+                "type": "string"
+            },
+            "county": {
+                "target": "$.county",
+                "type": "string"
+            },
+            "phone": {
+                "target": "$.phone",
+                "type": "string"
+            },
+            "zip_code": {
+                "target": "$.zip_code",
+                "type": "string"
+            },
+            "email": {
+                "target": "$.email",
+                "type": "string"
+            }
+
+        },
+        "orient": "records"
+    }
+}
