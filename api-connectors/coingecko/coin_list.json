@@ -1,0 +1,27 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://api.coingecko.com/api/v3/coins/list",
+        "method": "GET",
+        "params": {}
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.[*]",
+        "schema": {
+            "id": {
+                "target": "$.id",
+                "type": "string"
+            },
+            "symbol": {
+                "target": "$.symbol",
+                "type": "string"
+            },
+            "name": {
+                "target": "$.name",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}

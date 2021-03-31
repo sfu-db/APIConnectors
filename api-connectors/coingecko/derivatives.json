@@ -1,0 +1,57 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://api.coingecko.com/api/v3/derivatives",
+        "method": "GET",
+        "params": {
+            "include_tickers": false
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.[*]",
+        "schema": {
+            "market": {
+                "target": "$.market",
+                "type": "string"
+            },
+            "symbol": {
+                "target": "$.symbol",
+                "type": "string"
+            },
+            "index_id": {
+                "target": "$.index_id",
+                "type": "string"
+            },
+            "contract_type": {
+                "target": "$.contract_type",
+                "type": "string"
+            },
+            "index": {
+                "target": "$.index",
+                "type": "float"
+            },
+            "basis": {
+                "target": "$.basis",
+                "type": "float"
+            },
+            "funding_rate": {
+                "target": "$.funding_rate",
+                "type": "float"
+            },
+            "open_interest": {
+                "target": "$.open_interest",
+                "type": "float"
+            },
+            "volume_24h": {
+                "target": "$.volume_24h",
+                "type": "float"
+            },
+            "last_traded_at": {
+                "target": "$.last_traded_at",
+                "type": "int"
+            }
+        },
+        "orient": "records"
+    }
+}

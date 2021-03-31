@@ -1,0 +1,55 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://api.currentsapi.services/v1/search",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "apiKey"
+        },
+        "params": {
+            "language": false,
+            "keywords": false,
+            "country": false,
+            "category": false,
+            "start_date": false,
+            "end_date": false
+        }
+    },
+    "examples": {
+        "keywords": "'covid19'",
+        "start_date": "'2020-10-10'",
+        "end_date": "'2021-01-01'"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.news[*]",
+        "schema": {
+            "title": {
+                "target": "$.title",
+                "type": "string"
+            },
+            "category": {
+                 "target": "$.category",
+                "type": "list"
+            },
+            "description": {
+                "target": "$.description",
+                "type": "string"
+            },
+            "url": {
+                "target": "$.url",
+                "type": "string"
+            },
+            "author": {
+                "target": "$.author",
+                "type": "string"
+            },
+            "published": {
+                "target": "$.published",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}
