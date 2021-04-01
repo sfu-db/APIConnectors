@@ -1,0 +1,17 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://foo.bar/path",
+        "method": "GET",
+        "params": {
+            "q": true,
+            "h": false
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.result",
+        "schema": {},
+        "orient": "records"
+    }
+}
