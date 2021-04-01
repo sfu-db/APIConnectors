@@ -1,0 +1,45 @@
+{
+    "version": 1,
+    "request": {
+        "url": "http://www.omdbapi.com/",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "apikey"
+        },
+        "params": {
+            "s": true,
+            "type": false,
+            "y": false,
+            "page": false,
+            "v": false
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.Search[*]",
+        "schema": {
+            "title": {
+                "target": "$.Title",
+                "type": "string"
+            },
+            "year": {
+                "target": "$.Year",
+                "type": "string"
+            },
+            "poster": {
+                "target": "$.Poster",
+                "type": "string"
+            },
+            "imdb_id": {
+                "target": "$.imdbID",
+                "type": "string"
+            },
+            "type": {
+                "target": "$.Type",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}
