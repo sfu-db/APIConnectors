@@ -18,6 +18,7 @@ You can contribute to this project in two ways. Please check the [contributing g
 ## Index
 * [Art](#art)
 * [Business](#business)
+* [Crime](#crime)
 * [Finance](#finance)
 * [Geocoding](#geocoding)
 * [Lifestyle](#lifestyle)
@@ -462,6 +463,206 @@ df.drop('total', axis=1)
 </div>
 </details>
 
+
+### Crime
+
+#### [JailBase](./jailbase) -- Collect Prisoner Data
+<details>
+<summary>What is the URL for the mugshot of Almondo Smith?</summary>
+
+```python
+# You can get ”jailbase_access_token“ by registering as a developer https://rapidapi.com/JailBase/api/jailbase
+dc = connect('jailbase', _auth={'access_token':jailbase_access_token})
+
+df = await dc.query('search', source_id='wi-wcsd', last_name='smith', first_name='almondo')
+
+df['mugshot'][0]
+```
+
+
+
+
+'https://imgstore.jailbase.com/small/arrested/wi-wcsd/2017-12-29/almondo-smith-679063bf90e389938d70b0b49caf7944.pic1.jpg'
+
+</details>
+<details>
+<summary>Who were the 10 most recently arrested people by Wood County Sheriff's Department?</summary>
+
+```python
+# You can get ”jailbase_access_token“ by registering as a developer https://rapidapi.com/JailBase/api/jailbase
+dc = connect('jailbase', _auth={'access_token':jailbase_access_token})
+sources = await dc.query('sources')
+department = sources[sources['name']=='Wood County Sheriff\'s Dept']
+
+df = await dc.query('recent', source_id=department['source_id'].values[0])
+
+df
+```
+
+
+
+
+<div>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>id</th>
+<th>name</th>
+<th>mugshot</th>
+<th>charges</th>
+<th>more_info_url</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>23917656</td>
+<td>Curtis Joseph</td>
+<td>https://imgstore.jailbase.com/small/arrested/w...</td>
+<td>[[]]</td>
+<td>http://www.jailbase.com/en/wi-wcsdcurtis-josep...</td>
+</tr>
+<tr>
+<th>1</th>
+<td>23917654</td>
+<td>Taner Summers</td>
+<td>https://imgstore.jailbase.com/small/arrested/w...</td>
+<td>[[]]</td>
+<td>http://www.jailbase.com/en/wi-wcsdtaner-summer...</td>
+</tr>
+<tr>
+<th>2</th>
+<td>23901411</td>
+<td>Maryann Randolph</td>
+<td>https://imgstore.jailbase.com/small/arrested/w...</td>
+<td>[[]]</td>
+<td>http://www.jailbase.com/en/wi-wcsdmaryann-rand...</td>
+</tr>
+<tr>
+<th>3</th>
+<td>23821284</td>
+<td>Antonia Cinodijay</td>
+<td>https://imgstore.jailbase.com/widgets/NoMug.gif</td>
+<td>[[]]</td>
+<td>http://www.jailbase.com/en/wi-wcsdantonia-cino...</td>
+</tr>
+<tr>
+<th>4</th>
+<td>23821280</td>
+<td>Deangelo Barker</td>
+<td>https://imgstore.jailbase.com/small/arrested/w...</td>
+<td>[[]]</td>
+<td>http://www.jailbase.com/en/wi-wcsddeangelo-bar...</td>
+</tr>
+<tr>
+<th>5</th>
+<td>23811811</td>
+<td>Tekeisha Faucibus</td>
+<td>https://imgstore.jailbase.com/small/arrested/w...</td>
+<td>[[]]</td>
+<td>http://www.jailbase.com/en/wi-wcsdtekeisha-fau...</td>
+</tr>
+<tr>
+<th>6</th>
+<td>23811810</td>
+<td>Tariq Nunoke</td>
+<td>https://imgstore.jailbase.com/small/arrested/w...</td>
+<td>[[]]</td>
+<td>http://www.jailbase.com/en/wi-wcsdtariq-nunoke...</td>
+</tr>
+<tr>
+<th>7</th>
+<td>23811808</td>
+<td>Sarah Jusakaja</td>
+<td>https://imgstore.jailbase.com/small/arrested/w...</td>
+<td>[[]]</td>
+<td>http://www.jailbase.com/en/wi-wcsdsarah-jusaka...</td>
+</tr>
+<tr>
+<th>8</th>
+<td>23791805</td>
+<td>Angela Burch</td>
+<td>https://imgstore.jailbase.com/small/arrested/w...</td>
+<td>[[]]</td>
+<td>http://www.jailbase.com/en/wi-wcsdangela-burch...</td>
+</tr>
+<tr>
+<th>9</th>
+<td>23775367</td>
+<td>Suzanne Nicholson</td>
+<td>https://imgstore.jailbase.com/small/arrested/w...</td>
+<td>[[]]</td>
+<td>http://www.jailbase.com/en/wi-wcsdsuzanne-nich...</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</details>
+<details>
+<summary>How many police offices are in each US state in the JailBase system?</summary>
+
+```python
+# You can get ”jailbase_access_token“ by registering as a developer https://rapidapi.com/JailBase/api/jailbase
+dc = connect('jailbase', _auth={'access_token':jailbase_access_token})
+
+df = await dc.query('sources')
+
+state_counts = df['state'].value_counts()
+state_counts
+```
+
+
+
+
+    North Carolina    81
+    Kentucky          75
+    Missouri          73
+    Arkansas          70
+    Iowa              67
+    Texas             57
+    Virginia          47
+    Florida           46
+    Mississippi       44
+    Indiana           38
+    New York          37
+    South Carolina    35
+    Ohio              29
+    Colorado          27
+    Tennessee         26
+    Alabama           26
+    Idaho             23
+    New Mexico        18
+    California        18
+    Michigan          17
+    Georgia           17
+    Illinois          14
+    Washington        13
+    Wisconsin         11
+    Oregon            10
+    Nevada             9
+    Arizona            9
+    Louisiana          8
+    New Jersey         7
+    Oklahoma           6
+    Utah               5
+    Minnesota          5
+    Pennsylvania       4
+    Maryland           4
+    Kansas             3
+    North Dakota       3
+    South Dakota       2
+    Wyoming            2
+    Alaska             1
+    West Virginia      1
+    Nebraska           1
+    Montana            1
+    Connecticut        1
+    Name: state, dtype: int64
+
+
+</details>
 
 
 ### Finance
