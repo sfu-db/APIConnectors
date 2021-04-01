@@ -1,0 +1,113 @@
+{
+    "version": 1,
+    "request": {
+        "url": "http://www.omdbapi.com/",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "apikey"
+        },
+        "params": {
+            "i": false,
+            "t": false,
+            "y": false,
+            "plot": false,
+            "v": false
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$",
+        "schema": {
+            "title": {
+                "target": "$.Title",
+                "type": "string"
+            },
+            "year": {
+                "target": "$.Year",
+                "type": "string"
+            },
+            "rated": {
+                "target": "$.Rated",
+                "type": "string"
+            },
+            "released": {
+                "target": "$.Released",
+                "type": "string"
+            },
+            "runtime": {
+                "target": "$.Runtime",
+                "type": "string"
+            },
+            "genre": {
+                "target": "$.Genre",
+                "type": "string"
+            },
+            "director": {
+                "target": "$.Director",
+                "type": "string"
+            },
+            "writers": {
+                "target": "$.Writer",
+                "type": "string"
+            },
+            "actors": {
+                "target": "$.Actors",
+                "type": "string"
+            },
+            "plot": {
+                "target": "$.Plot",
+                "type": "string"
+            },
+            "language": {
+                "target": "$.Language",
+                "type": "string"
+            },
+            "country": {
+                "target": "$.Country",
+                "type": "string"
+            },
+            "awards": {
+                "target": "$.Awards",
+                "type": "string"
+            },
+            "poster": {
+                "target": "$.Poster",
+                "type": "string"
+            },
+            "metascore": {
+                "target": "$.Metascore",
+                "type": "string"
+            },
+            "imdb_rating": {
+                "target": "$.imdbRating",
+                "type": "string"
+            },
+            "imdb_votes": {
+                "target": "$.imdbVotes",
+                "type": "string"
+            },
+            "imdb_id": {
+                "target": "$.imdbID",
+                "type": "string"
+            },
+            "type": {
+                "target": "$.Type",
+                "type": "string"
+            },
+            "box_office": {
+                "target": "$.BoxOffice",
+                "type": "string"
+            },
+            "producer": {
+                "target": "$.Production",
+                "type": "string"
+            },
+            "website": {
+                "target": "$.Website",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}

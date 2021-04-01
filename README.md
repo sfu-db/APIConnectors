@@ -2975,6 +2975,98 @@ tag_count
 ### Video
 
 
+#### [OMDB](./omdb) -- Collect Movie Data
+
+<details>
+<summary>List Avengers movies from most to least popular</summary>
+
+```python
+from dataprep.connector import connect
+import pandas as pd
+
+# You can get ”omdb_access_token“ by registering as a developer http://www.omdbapi.com/apikey.aspx
+conn_omdb = connect('omdb', _auth={'access_token':omdb_access_token})
+
+df = await conn_omdb.query('by_search', s='avengers')
+df = df.head(4)
+
+movies_df = pd.DataFrame()
+for movie in df.iterrows():
+    movies_df = movies_df.append(await conn_omdb.query('by_id_or_title', i=movie[1]['imdb_id']))
+
+movies_df = movies_df.sort_values('imdb_rating', ascending=False)
+movies_df.reset_index(drop=True)
+```
+
+
+
+
+|   |                   title | year | rated |    released | runtime |                            genre |                 director |                                           writers |                                            actors |                                              plot | ... |                                            awards |                                            poster | metascore | imdb_rating | imdb_votes |   imdb_id |  type |   box_office |                             producer | website |
+|---|------------------------:|-----:|------:|------------:|--------:|---------------------------------:|-------------------------:|--------------------------------------------------:|--------------------------------------------------:|--------------------------------------------------:|----:|--------------------------------------------------:|--------------------------------------------------:|----------:|------------:|-----------:|----------:|------:|-------------:|-------------------------------------:|--------:|
+| 0 |  Avengers: Infinity War | 2018 | PG-13 | 27 Apr 2018 | 149 min |        Action, Adventure, Sci-Fi | Anthony Russo, Joe Russo | Christopher Markus (screenplay by), Stephen Mc... | Robert Downey Jr., Chris Hemsworth, Mark Ruffa... | The Avengers and their allies must be willing ... | ... | Nominated for 1 Oscar. Another 46 wins & 73 no... | https://m.media-amazon.com/images/M/MV5BMjMxNj... |        68 |         8.4 |    839,788 | tt4154756 | movie | $678,815,482 |                       Marvel Studios |     N/A |
+| 1 |       Avengers: Endgame | 2019 | PG-13 | 26 Apr 2019 | 181 min | Action, Adventure, Drama, Sci-Fi | Anthony Russo, Joe Russo | Christopher Markus (screenplay by), Stephen Mc... | Robert Downey Jr., Chris Evans, Mark Ruffalo, ... | After the devastating events of Avengers: Infi... | ... | Nominated for 1 Oscar. Another 69 wins & 102 n... | https://m.media-amazon.com/images/M/MV5BMTc5MD... |        78 |         8.4 |    816,700 | tt4154796 | movie | $858,373,000 | Marvel Studios, Walt Disney Pictures |     N/A |
+| 2 |            The Avengers | 2012 | PG-13 | 04 May 2012 | 143 min |        Action, Adventure, Sci-Fi |              Joss Whedon | Joss Whedon (screenplay), Zak Penn (story), Jo... | Robert Downey Jr., Chris Evans, Mark Ruffalo, ... | Earth's mightiest heroes must come together an... | ... | Nominated for 1 Oscar. Another 38 wins & 79 no... | https://m.media-amazon.com/images/M/MV5BNDYxNj... |        69 |           8 |  1,263,208 | tt0848228 | movie | $623,357,910 |                       Marvel Studios |     N/A |
+| 3 | Avengers: Age of Ultron | 2015 | PG-13 | 01 May 2015 | 141 min |        Action, Adventure, Sci-Fi |              Joss Whedon | Joss Whedon, Stan Lee (based on the Marvel com... | Robert Downey Jr., Chris Hemsworth, Mark Ruffa... | When Tony Stark and Bruce Banner try to jump-s... | ... |                          8 wins & 49 nominations. | https://m.media-amazon.com/images/M/MV5BMTM4OG... |        66 |         7.3 |    748,735 | tt2395427 | movie | $459,005,868 |                       Marvel Studios |     N/A |
+
+</details>
+
+<details>
+<summary>What is the order of the following movies from highest to lowest amount of money made: Titanic, Avatar, Skyfall</summary>
+
+```python
+from dataprep.connector import connect
+import pandas as pd
+
+# You can get ”omdb_access_token“ by registering as a developer http://www.omdbapi.com/apikey.aspx
+conn_omdb = connect('omdb', _auth={'access_token':omdb_access_token})
+
+df = await conn_omdb.query('by_id_or_title', t='titanic')
+df = df.append(await conn_omdb.query('by_id_or_title', t='avatar'))
+df = df.append(await conn_omdb.query('by_id_or_title', t='skyfall'))
+
+df = df.sort_values('box_office', ascending=False)
+df.reset_index(drop=True)
+```
+
+
+
+
+|   |   title | year | rated |    released | runtime |                              genre |      director |                                           writers |                                            actors |                                              plot | ... |                                            awards |                                            poster | metascore | imdb_rating | imdb_votes |   imdb_id |  type |   box_office |
+|---|--------:|-----:|------:|------------:|--------:|-----------------------------------:|--------------:|--------------------------------------------------:|--------------------------------------------------:|--------------------------------------------------:|----:|--------------------------------------------------:|--------------------------------------------------:|----------:|------------:|-----------:|----------:|------:|-------------:|
+| 0 |  Avatar | 2009 | PG-13 | 18 Dec 2009 | 162 min | Action, Adventure, Fantasy, Sci-Fi | James Cameron |                                     James Cameron | Sam Worthington, Zoe Saldana, Sigourney Weaver... | A paraplegic Marine dispatched to the moon Pan... | ... |  Won 3 Oscars. Another 86 wins & 130 nominations. | https://m.media-amazon.com/images/M/MV5BMTYwOT... |        83 |         7.8 |  1,120,847 | tt0499549 | movie | $760,507,625 |
+| 1 | Titanic | 1997 | PG-13 | 19 Dec 1997 | 194 min |                     Drama, Romance | James Cameron |                                     James Cameron | Leonardo DiCaprio, Kate Winslet, Billy Zane, K... | A seventeen-year-old aristocrat falls in love ... | ... | Won 11 Oscars. Another 112 wins & 83 nominations. | https://m.media-amazon.com/images/M/MV5BMDdmZG... |        75 |         7.8 |  1,048,704 | tt0120338 | movie | $659,363,944 |
+| 2 | Skyfall | 2012 | PG-13 | 09 Nov 2012 | 143 min |        Action, Adventure, Thriller |    Sam Mendes | Neal Purvis, Robert Wade, John Logan, Ian Flem... | Daniel Craig, Judi Dench, Javier Bardem, Ralph... | James Bond's loyalty to M is tested when her p... | ... |  Won 2 Oscars. Another 63 wins & 122 nominations. | https://m.media-amazon.com/images/M/MV5BMWZiNj... |        81 |         7.7 |    631,795 | tt1074638 | movie | $304,360,277 |
+
+</details>
+
+<details>
+<summary>Is "Anomalisa" a positive or negative movie?</summary>
+
+```python
+from dataprep.connector import connect
+
+# download nltk with command: pip3 install nltk
+import nltk
+from nltk.sentiment import SentimentIntensityAnalyzer
+nltk.download('vader_lexicon')
+
+# You can get ”omdb_access_token“ by registering as a developer http://www.omdbapi.com/apikey.aspx
+conn_omdb = connect('omdb', _auth={'access_token':omdb_access_token})
+
+df = await conn_omdb.query('by_id_or_title', t='anomalisa')
+
+plot = df['plot']
+sia = SentimentIntensityAnalyzer()
+if sia.polarity_scores(plot[0])['compound'] > 0:
+    print(df['title'][0], 'is a positive movie')
+else:
+    print(df['title'][0], 'is a negative movie')
+```
+
+Anomalisa is a negative movie
+</details>
+
+
 #### [Youtube](./youtube) -- Collect Youtube's Content MetaData.
 
 <details>
