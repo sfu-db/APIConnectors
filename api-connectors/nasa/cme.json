@@ -1,0 +1,62 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://api.nasa.gov/DONKI/CME",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "api_key"
+        },
+        "params": {
+            "startDate": true,
+            "endDate": true
+        }
+    },
+    "examples": {
+        "start_date": "'2020-01-01'",
+        "end_date": "'2020-02-01'"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$[*]",
+        "schema": {
+            "activity_id": {
+                "target": "$.activityID",
+                "type": "string"
+            },
+            "catalog": {
+                "target": "$.catalog",
+                "type": "string"
+            },
+            "start_time": {
+                "target": "$.startTime",
+                "type": "string"
+            },
+            "source_location": {
+                "target": "$.sourceLocation",
+                "type": "string"
+            },
+            "active_region_num": {
+                "target": "$.activeRegionNum",
+                "type": "string"
+            },
+            "note": {
+                "target": "$.note",
+                "type": "string"
+            },
+            "instruments": {
+                "target": "$.instruments[*].displayName",
+                "type": "object"
+            },
+            "linked_events": {
+                "target": "$.linkedEvents[*]",
+                "type": "object"
+            },
+            "link": {
+                "target": "$.link",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}

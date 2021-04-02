@@ -2485,6 +2485,115 @@ df.head(1)
 | 1899 | Triple descent and the two kinds of overfittin... | [NeurIPS] | 2020 |
   </details>
 
+#### [NASA](api-connectors/nasa) -- Collect NASA Data.
+<details>
+  <summary>What are the title of Astronomy Picture of the Day from 2020-01-01 to 2020-01-10?</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”nasa_access_key“ by following https://api.nasa.gov/
+conn_nasa = connect("api-connectors/nasa", _auth={'access_token': nasa_access_key})
+
+df = await conn_nasa.query("apod", start_date='2020-01-01', end_date='2020-01-10')
+df['title']
+```
+| id | title                           |
+|---:|:--------------------------------|
+|  0 | Betelgeuse Imagined             |
+|  1 | The Fainting of Betelgeuse      |
+|  2 | Quadrantids over the Great Wall |
+|... | ...                             |
+|  9 | Nacreous Clouds over Sweden     |
+</details>
+
+<details>
+  <summary>What are Coronal Mass Ejection(CME) data from 2020-01-01 to 2020-02-01?</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”nasa_access_key“ by following https://api.nasa.gov/
+conn_nasa = connect("api-connectors/nasa", _auth={'access_token': nasa_access_key})
+
+df = await conn_nasa.query('cme', startDate='2020-01-01', endDate='2020-02-01')
+df
+```
+
+| id | activity_id                 | catalog     | start_time        | ... | link                                                     |
+|---:|:----------------------------|:------------|:------------------|:----|:---------------------------------------------------------|
+|  0 | 2020-01-05T16:45:00-CME-001 | M2M_CATALOG | 2020-01-05T16:45Z | ... | https://kauai.ccmc.gsfc.nasa.gov/DONKI/view/CME/15256/-1 |
+|  1 | 2020-01-14T11:09:00-CME-001 | M2M_CATALOG | 2020-01-14T11:09Z | ... | https://kauai.ccmc.gsfc.nasa.gov/DONKI/view/CME/15271/-1 |
+| .. | ...                         | ...         | ...               | ... | ...                                                      |
+|  4 | 2020-01-25T18:54:00-CME-001 | M2M_CATALOG | 2020-01-25T18:54Z | ... | https://kauai.ccmc.gsfc.nasa.gov/DONKI/view/CME/15296/-1 |
+</details>
+
+<details>
+  <summary>How many Geomagnetic Storms(GST) have occurred from 2020-01-01 to 2021-01-01? When is it?</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”nasa_access_key“ by following https://api.nasa.gov/
+conn_nasa = connect("api-connectors/nasa", _auth={'access_token': nasa_access_key})
+
+df = await conn_nasa.query('gst', startDate='2020-01-01', endDate='2021-01-01')
+print("Geomagnetic Storms have occurred %s times from 2020-01-01 to 2021-01-01." % len(df))
+df['start_time']
+```
+Geomagnetic Storms have occurred 1 times from 2020-01-01 to 2021-01-01.
+
+| id | start_time                      |
+|---:|:--------------------------------|
+|  0 | 2020-09-27T21:00Z               |
+</details>
+
+<details>
+  <summary>How many Solar Flare(FLR) have occurred and completed from 2020-01-01 to 2021-01-01? How long did they last?</summary>
+
+```python
+import pandas as pd
+from dataprep.connector import connect
+
+# You can get ”nasa_access_key“ by following https://api.nasa.gov/
+conn_nasa = connect("api-connectors/nasa", _auth={'access_token': nasa_access_key})
+
+df = await conn_nasa.query('flr', startDate='2020-01-01', endDate='2021-01-01')
+df = df.dropna(subset=['end_time']).reset_index(drop=True)
+df['duration'] = pd.to_datetime(df['end_time']) - pd.to_datetime(df['begin_time'])
+print('Solar Flare have occurred %s times from 2020-01-01 to 2021-01-01.' % len(df))
+print(df['duration'])
+```
+There are 1 times Geomagnetic Storms(GST) have occurred from 2020-01-01 to 2021-01-01.
+
+| id | duration                      |
+|---:|:------------------------------|
+|  0 | 0 days 01:07:00               |
+|  1 | 0 days 00:23:00               |
+|  2 | 0 days 00:47:00               |
+
+</details>
+
+<details>
+  <summary>What are Solar Energetic Particle(SEP) data from 2019-01-01 to 2021-01-01?</summary>
+
+```python
+import pandas as pd
+from dataprep.connector import connect
+
+# You can get ”nasa_access_key“ by following https://api.nasa.gov/
+conn_nasa = connect("api-connectors/nasa", _auth={'access_token': nasa_access_key})
+
+df = await conn_nasa.query('sep', startDate='2019-01-01', endDate='2021-01-01')
+df
+```
+
+| id | sep_id                      | event_time        | instruments                     | ... | link                                                     |
+|---:|:----------------------------|:------------------|:--------------------------------|:----|:-------------------------------------------------------- |
+|  0 | 2020-11-30T04:26:00-SEP-001 | 2020-11-30T04:26Z | ['STEREO A: IMPACT 13-100 MeV'] | ... | https://kauai.ccmc.gsfc.nasa.gov/DONKI/view/SEP/16166/-1 |
+|  1 | 2020-11-30T14:16:00-SEP-001 | 2020-11-30T14:16Z | ['STEREO A: IMPACT 13-100 MeV'] | ... | https://kauai.ccmc.gsfc.nasa.gov/DONKI/view/SEP/16169/-1 |
+
+</details>
 
 ### Shopping
 

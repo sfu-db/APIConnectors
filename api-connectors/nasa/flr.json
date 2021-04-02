@@ -1,0 +1,66 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://api.nasa.gov/DONKI/FLR",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "api_key"
+        },
+        "params": {
+            "startDate": true,
+            "endDate": true
+        }
+    },
+    "examples": {
+        "start_date": "'2020-01-01'",
+        "end_date": "'2021-01-01'"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$[*]",
+        "schema": {
+            "flr_id": {
+                "target": "$.flrID",
+                "type": "string"
+            },
+            "instruments": {
+                "target": "$.instruments[*].displayName",
+                "type": "string"
+            },
+            "begin_time": {
+                "target": "$.beginTime",
+                "type": "string"
+            },
+            "peak_time": {
+                "target": "$.peakTime",
+                "type": "string"
+            },
+            "end_time": {
+                "target": "$.endTime",
+                "type": "string"
+            },
+            "class_type": {
+                "target": "$.classType",
+                "type": "string"
+            },
+            "source_location": {
+                "target": "$.sourceLocation",
+                "type": "string"
+            },
+            "active_region_num": {
+                "target": "$.activeRegionNum",
+                "type": "string"
+            },
+            "linked_events": {
+                "target": "$.linkedEvents[*]",
+                "type": "object"
+            },
+            "link": {
+                "target": "$.link",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}
