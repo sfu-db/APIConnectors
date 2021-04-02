@@ -1,0 +1,46 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://api.nasa.gov/DONKI/GST",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "api_key"
+        },
+        "params": {
+            "startDate": true,
+            "endDate": true
+        }
+    },
+    "examples": {
+        "start_date": "'2020-01-01'",
+        "end_date": "'2021-01-01'"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$[*]",
+        "schema": {
+            "gst_id": {
+                "target": "$.gstID",
+                "type": "string"
+            },
+            "start_time": {
+                "target": "$.startTime",
+                "type": "string"
+            },
+            "allKpIndex": {
+                "target": "$.allKpIndex[*]",
+                "type": "object"
+            },
+            "linked_events": {
+                "target": "$.linkedEvents[*]",
+                "type": "object"
+            },
+            "link": {
+                "target": "$.link",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}
