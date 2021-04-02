@@ -1,0 +1,72 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://api.coingecko.com/api/v3/coins/markets",
+        "method": "GET",
+        "params": {
+            "vs_currency": true,
+            "sparkline": false,
+            "order": false,
+            "per_page": false,
+            "page": false
+        }
+    },
+    "examples": {
+        "vs_currency": "'usd'"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.[*]",
+        "schema": {
+            "name": {
+                "target": "$.name",
+                "type": "string"
+            },
+            "symbol": {
+                "target": "$.symbol",
+                "type": "string"
+            },
+            "current_price": {
+                "target": "$.current_price",
+                "type": "float"
+            },
+            "market_cap": {
+                "target": "$.market_cap",
+                "type": "float"
+            },
+            "market_cap_rank": {
+                "target": "$.market_cap_rank",
+                "type": "int"
+            },
+            "high_24h": {
+                "target": "$.high_24h",
+                "type": "float"
+            },
+            "low_24h": {
+                "target": "$.low_24h",
+                "type": "float"
+            },
+            "price_change_24h": {
+                "target": "$.price_change_24h",
+                "type": "float"
+            },
+            "price_change_percentage_24h": {
+                "target": "$.price_change_percentage_24h",
+                "type": "float"
+            },
+            "market_cap_change_24h": {
+                "target": "$.market_cap_change_24h",
+                "type": "float"
+            },
+            "market_cap_change_percentage_24h": {
+                "target": "$.market_cap_change_percentage_24h",
+                "type": "float"
+            },
+            "last_updated": {
+                "target": "$.last_updated",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}

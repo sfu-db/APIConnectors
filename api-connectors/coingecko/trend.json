@@ -1,0 +1,36 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://api.coingecko.com/api/v3/search/trending",
+        "method": "GET",
+        "params": {}
+    },
+
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.coins[*].[*].item",
+        "schema": {
+            "id": {
+                "target": "$.id",
+                "type": "string"
+            },
+            "name": {
+                "target": "$.name",
+                "type": "string"
+            },
+            "symbol": {
+                "target": "$.symbol",
+                "type": "string"
+            },
+            "market_cap_rank": {
+                "target": "$.market_cap_rank",
+                "type": "int"
+            },
+            "score": {
+                "target": "$.score",
+                "type": "int"
+            }
+        },
+        "orient": "records"
+    }
+}
