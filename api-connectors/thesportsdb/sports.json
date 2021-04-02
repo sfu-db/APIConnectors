@@ -1,0 +1,27 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://www.thesportsdb.com/api/v1/json/1/all_sports.php",
+        "method": "GET",
+        "params": {}
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.sports[*]",
+        "schema": {
+            "id": {
+                "target": "$.idSport",
+                "type": "int"
+            },
+            "sports": {
+                "target": "$.strSport",
+                "type": "string"
+            },
+            "type": {
+                "target": "$.strFormat",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}
