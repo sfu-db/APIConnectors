@@ -28,6 +28,7 @@ You can contribute to this project in two ways. Please check the [contributing g
 * [Science](#science)
 * [Shopping](#shopping)
 * [Social](#social)
+* [Sports](#sports)
 * [Video](#video)
 * [Weather](#weather)
 
@@ -2967,6 +2968,151 @@ tag_count
 | 7    | نماز_راہ_نجات_ہے         | 6         |
 | 8    | London                   | 5         |
 | 9    | TravelTuesday            | 5         |
+
+</details>
+
+
+### Sports
+
+
+#### [TheSportsDB](./thesportsdb) -- Collect Team and League Data
+
+<details>
+<summary>What were scores of the last 10 NBA games?</summary>
+
+```python
+from dataprep.connector import connect
+
+conn_thesportsdb = connect('thesportsdb')
+
+NBA_LEAGUE_ID = 4387
+df = await conn_thesportsdb.query('events', id=NBA_LEAGUE_ID)
+
+df.drop(['id', 'sport', 'spectators'], axis=1).iloc[:10]
+```
+
+
+
+
+|   | home_team   | away_team   | home_score  | away_score  |
+|-: |-: |-: |-: |-: |
+| 0   | Toronto Raptors   | Phoenix Suns  | 100   | 104   |
+| 1   | Milwaukee Bucks   | Boston Celtics  | 114   | 122   |
+| 2   | Detroit Pistons   | Brooklyn Nets   | 111   | 113   |
+| 3   | Sacramento Kings  | Golden State Warriors   | 141   | 119   |
+| 4   | Los Angeles Lakers  | Philadelphia 76ers  | 101   | 109   |
+| 5   | San Antonio Spurs   | Los Angeles Clippers  | 85  | 98  |
+| 6   | New York Knicks   | Washington Wizards  | 106   | 102   |
+| 7   | Miami Heat  | Portland Trail Blazers  | 122   | 125   |
+| 8   | Utah Jazz   | Brooklyn Nets   | 118   | 88  |
+| 9   | Sacramento Kings  | Atlanta Hawks   | 110   | 108   |
+
+
+</details>
+
+<details>
+<summary>What is the oldest sports team in Toronto?</summary>
+
+```python
+from dataprep.connector import connect
+
+conn_thesportsdb = connect('thesportsdb')
+
+df = await conn_thesportsdb.query('teams_by_city', t='toronto')
+
+df = df[df.inaugural_year!=0]
+df[df.inaugural_year==df.inaugural_year.min()]
+```
+
+
+
+
+|   | id  | team  | inaugural_year  | league_id   | facebook  | twitter   | instagram   |
+|-: |-: |-: |-: |-: |-: |-: |-  |
+| 7   | 135005  | Toronto Argonauts   | 1873  | 4405  | www.facebook.com/ArgosFootball  | twitter.com/torontoargos  | instagram.com/torontoargos  |
+
+
+</details>
+
+<details>
+<summary>What are all team sports supported by TheSportsDB?</summary>
+
+```python
+from dataprep.connector import connect
+
+conn_thesportsdb = connect('thesportsdb')
+
+df = await conn_thesportsdb.query('sports')
+
+df[df.type=='TeamvsTeam']
+```
+
+
+
+
+|   | id  | sports  | type  |
+|-: |-: |-: |-: |
+| 0   | 102   | Soccer  | TeamvsTeam  |
+| 3   | 105   | Baseball  | TeamvsTeam  |
+| 4   | 106   | Basketball  | TeamvsTeam  |
+| 5   | 107   | American Football   | TeamvsTeam  |
+| 6   | 108   | Ice Hockey  | TeamvsTeam  |
+| 8   | 110   | Rugby   | TeamvsTeam  |
+| 10  | 112   | Cricket   | TeamvsTeam  |
+| 12  | 114   | Australian Football   | TeamvsTeam  |
+| 14  | 116   | Volleyball  | TeamvsTeam  |
+| 15  | 117   | Netball   | TeamvsTeam  |
+| 16  | 118   | Handball  | TeamvsTeam  |
+| 18  | 120   | Field Hockey  | TeamvsTeam  |
+
+
+</details>
+
+<details>
+<summary>Which NBA stadium has highest seating capacity?</summary>
+
+```python
+from dataprep.connector import connect
+
+conn_thesportsdb = connect('thesportsdb')
+
+NBA_LEAGUE_ID = 4387
+df = await conn_thesportsdb.query('teams_by_league', id=NBA_LEAGUE_ID)
+
+df[df.stadium_capacity==df.stadium_capacity.max()]
+```
+
+
+|   | id  | team  | inaugural_year  | league_id   | facebook  | twitter   | instagram   | stadium_capacity  |
+|-: |-: |-: |-: |-: |-: |-: |-: |-: |
+| 4   | 134870  | Chicago Bulls   | 1966  | 4387  | facebook.com/chicagobulls   | twitter.com/chicagobulls  | instagram.com/chicagobulls  | 23000   |
+
+
+
+
+</details>
+
+<details>
+<summary>What are social media links of the Vancouver Canucks?</summary>
+
+```python
+from dataprep.connector import connect
+
+conn_thesportsdb = connect('thesportsdb')
+
+CANUCKS_ID = 134850
+df = await conn_thesportsdb.query('team', id=CANUCKS_ID)
+
+df[['facebook', 'twitter', 'instagram']]
+```
+
+
+
+
+|   | facebook  | twitter   | instagram   |
+|-: |-: |-: |-: |
+| 0   | www.facebook.com/Canucks  | twitter.com/VanCanucks  | instagram.com/Canucks   |
+
 
 </details>
 

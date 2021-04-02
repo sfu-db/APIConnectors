@@ -1,0 +1,9 @@
+{
+    "tables": [
+        "events",
+        "sports",
+        "team",
+        "teams_by_city",
+        "teams_by_league"
+    ]
+}
