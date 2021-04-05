@@ -1,0 +1,52 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://www.themuse.com/api/public/companies",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "apikey"
+        },
+        "params": {
+            "page": true,
+            "descending": false,
+            "industry": false,
+            "size": false,
+            "location": false
+        }
+    },
+    "examples": {
+        "page": "1"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.results[*]",
+        "schema": {
+            "id": {
+                "target": "$.id",
+                "type": "string"
+            },
+            "name": {
+                "target": "$.name",
+                "type": "string"
+            },
+            "locations": {
+                "target": "$.locations",
+                "type": "list"
+            },
+            "size": {
+                "target": "$.size.[*].name",
+                "type": "string"
+            },
+            "publication_date": {
+                "target": "$.publication_date",
+                "type": "string"
+            },
+            "url": {
+                "target": "$.refs.landing_page",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}

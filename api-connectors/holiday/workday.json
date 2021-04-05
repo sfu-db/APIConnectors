@@ -1,0 +1,36 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://holidayapi.com/v1/workday",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "key"
+        },
+        "params": {
+            "country": true,
+            "start": true,
+            "days": true
+        }
+    },
+    "examples": {
+        "country": "'CA'",
+        "start": "'2020-01-01'",
+        "days": "100"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.workday[*]",
+        "schema": {
+            "date": {
+                "target": "$.date",
+                "type": "string"
+            },
+            "weekday": {
+                "target": "$.weekday.name",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}
