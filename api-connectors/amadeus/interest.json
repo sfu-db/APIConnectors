@@ -1,0 +1,45 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://test.api.amadeus.com/v1/reference-data/locations/pois",
+        "method": "GET",
+        "authorization": {
+            "type": "OAuth2",
+            "grantType": "ClientCredentials",
+            "tokenServerUrl": "https://test.api.amadeus.com/v1/security/oauth2/token"
+        },
+        "params": {
+            "latitude": true,
+            "longitude": true,
+            "radius": false,
+            "categories": false
+        }
+    },
+    "examples": {
+        "latitude": "41.397158",
+        "longitude": "2.160873"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.data[*]",
+        "schema": {
+            "name": {
+                "target": "$.name",
+                "type": "string"
+            },
+            "category": {
+                "target": "$.category",
+                "type": "string"
+            },
+            "rank": {
+                "target": "$.rank",
+                "type": "string"
+            },
+            "tags": {
+                "target": "$.tags",
+                "type": "list"
+            }
+        },
+        "orient": "records"
+    }
+}
