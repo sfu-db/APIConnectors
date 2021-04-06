@@ -3684,6 +3684,156 @@ df
 
 </details>
 
+
+#### [OurAirport](./omdb) -- Collect Travel Data
+
+<details>
+<summary>What is the country given GeoNames ID?</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”ourairport_access_token“ by registering as a developer https://rapidapi.com/sujayvsarma/api/ourairport-data-search/details
+conn_ourairport = connect('ourairport', _auth={'access_token':ourairport_access_token})
+
+id = '302634'
+df = await conn_ourairport.query('country', name_or_id_or_keyword=id)
+
+df
+```
+
+|   | id  | name  | continent   |
+|-: |-: |-: |-: |
+| 0   | 302634  | India   | AS  |
+
+
+</details>
+
+<details>
+<summary>What are region names of a range of ID numbers?</summary>
+
+```python
+from dataprep.connector import connect
+import pandas as pd
+
+# You can get ”ourairport_access_token“ by registering as a developer https://rapidapi.com/sujayvsarma/api/ourairport-data-search/details
+conn_ourairport = connect('ourairport', _auth={'access_token':ourairport_access_token})
+
+df = pd.DataFrame()
+for id in range(303294, 303306):
+    id = str(id)
+    row = await conn_ourairport.query('region', name_or_id_or_keyword=id)
+    df = pd.concat([df, pd.DataFrame(row.iloc[0].values)], axis=1)
+
+df = df.transpose()
+df.columns = ['id', 'name', 'country']
+df.reset_index(drop=True)
+```
+
+|   | id  | name  | country   |
+|-: |-: |-: |-: |
+| 0   | 303294  | Alberta   | CA  |
+| 1   | 303295  | British Columbia  | CA  |
+| 2   | 303296  | Manitoba  | CA  |
+| 3   | 303297  | New Brunswick   | CA  |
+| 4   | 303298  | Newfoundland and Labrador   | CA  |
+| 5   | 303299  | Nova Scotia   | CA  |
+| 6   | 303300  | Northwest Territories   | CA  |
+| 7   | 303301  | Nunavut   | CA  |
+| 8   | 303302  | Ontario   | CA  |
+| 9   | 303303  | Prince Edward Island  | CA  |
+| 10  | 303304  | Quebec  | CA  |
+| 11  | 303305  | Saskatchewan  | CA  |
+
+
+</details>
+
+<details>
+<summary>What are all countries in Asia?</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”ourairport_access_token“ by registering as a developer https://rapidapi.com/sujayvsarma/api/ourairport-data-search/details
+conn_ourairport = connect('ourairport', _auth={'access_token':ourairport_access_token})
+
+
+df = await conn_ourairport.query('country', name_or_id_or_keyword='302742')
+
+
+df = pd.DataFrame()
+for id in range(302556, 302742):
+    id = str(id)
+    row = await conn_ourairport.query('country', name_or_id_or_keyword=id)
+    df = pd.concat([df, pd.DataFrame(row.iloc[0].values)], axis=1)
+
+df = df.transpose()
+df.columns = ['id', 'name', 'continent']
+df = df[df.continent=='AS'] 
+df.reset_index(drop=True)
+```
+
+|   | id  | name  | continent   |
+|-: |-: |-: |-: |
+| 0   | 302618  | United Arab Emirates  | AS  |
+| 1   | 302619  | Afghanistan   | AS  |
+| 2   | 302620  | Armenia   | AS  |
+| 3   | 302621  | Azerbaijan  | AS  |
+| 4   | 302622  | Bangladesh  | AS  |
+| 5   | 302623  | Bahrain   | AS  |
+| 6   | 302624  | Brunei  | AS  |
+| 7   | 302625  | Bhutan  | AS  |
+| 8   | 302626  | Cocos (Keeling) Islands   | AS  |
+| 9   | 302627  | China   | AS  |
+| 10  | 302628  | Christmas Island  | AS  |
+| 11  | 302629  | Cyprus  | AS  |
+| 12  | 302630  | Georgia   | AS  |
+| 13  | 302631  | Hong Kong   | AS  |
+| 14  | 302632  | Indonesia   | AS  |
+| 15  | 302633  | Israel  | AS  |
+| 16  | 302634  | India   | AS  |
+| 17  | 302635  | British Indian Ocean Territory  | AS  |
+| 18  | 302636  | Iraq  | AS  |
+| 19  | 302637  | Iran  | AS  |
+| 20  | 302638  | Jordan  | AS  |
+| 21  | 302639  | Japan   | AS  |
+| 22  | 302640  | Kyrgyzstan  | AS  |
+| 23  | 302641  | Cambodia  | AS  |
+| 24  | 302642  | North Korea   | AS  |
+| 25  | 302643  | South Korea   | AS  |
+| 26  | 302644  | Kuwait  | AS  |
+| 27  | 302645  | Kazakhstan  | AS  |
+| 28  | 302646  | Laos  | AS  |
+| 29  | 302647  | Lebanon   | AS  |
+| 30  | 302648  | Sri Lanka   | AS  |
+| 31  | 302649  | Burma   | AS  |
+| 32  | 302650  | Mongolia  | AS  |
+| 33  | 302651  | Macau   | AS  |
+| 34  | 302652  | Maldives  | AS  |
+| 35  | 302653  | Malaysia  | AS  |
+| 36  | 302654  | Nepal   | AS  |
+| 37  | 302655  | Oman  | AS  |
+| 38  | 302656  | Philippines   | AS  |
+| 39  | 302657  | Pakistan  | AS  |
+| 40  | 302658  | Palestinian Territory   | AS  |
+| 41  | 302659  | Qatar   | AS  |
+| 42  | 302660  | Saudi Arabia  | AS  |
+| 43  | 302661  | Singapore   | AS  |
+| 44  | 302662  | Syria   | AS  |
+| 45  | 302663  | Thailand  | AS  |
+| 46  | 302664  | Tajikistan  | AS  |
+| 47  | 302665  | Timor-Leste   | AS  |
+| 48  | 302666  | Turkmenistan  | AS  |
+| 49  | 302667  | Turkey  | AS  |
+| 50  | 302668  | Taiwan  | AS  |
+| 51  | 302669  | Uzbekistan  | AS  |
+| 52  | 302670  | Vietnam   | AS  |
+| 53  | 302671  | Yemen   | AS  |
+
+
+</details>
+
+
 ### Video
 
 

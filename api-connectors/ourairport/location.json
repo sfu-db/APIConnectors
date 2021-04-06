@@ -1,0 +1,52 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://ourairport-data-search.p.rapidapi.com/airport/{ip_address}",
+        "method": "GET",
+        "authorization": {
+            "type": "Header",
+            "keyName": "X-RapidAPI-Key"
+        },
+        "params": {
+            "ip_address": true
+        }
+    },
+    "examples": {
+        "ip_address": "'8.8.8.8'"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.results[*]",
+        "schema": {
+            "id": {
+                "target": "$.id",
+                "type": "int"
+            },
+            "type": {
+                "target": "$.type",
+                "type": "string"
+            },
+            "name": {
+                "target": "$.name",
+                "type": "string"
+            },
+            "country": {
+                "target": "$.country",
+                "type": "string"
+            },
+            "municipality": {
+                "target": "$.municipality",
+                "type": "string"
+            },
+            "latitude": {
+                "target": "$.lat",
+                "type": "int"
+            },
+            "longitude": {
+                "target": "$.lon",
+                "type": "int"
+            }
+        },
+        "orient": "records"
+    }
+}
