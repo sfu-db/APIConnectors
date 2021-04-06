@@ -12,7 +12,31 @@
             "latitude": true,
             "longitude": true,
             "radius": false,
-            "categories": false
+            "categories": false,
+            "limit": false,
+            "page[limit]": {
+                "required": false,
+                "removeIfEmpty": true,
+                "template": "{{limit}}",
+                "fromKey": [
+                    "limit"
+                ]
+            },
+            "offset":false,
+            "page[offset]": {
+                "required": false,
+                "removeIfEmpty": true,
+                "template": "{{offset}}",
+                "fromKey": [
+                    "offset"
+                ]
+            }
+        },
+        "pagination": {
+            "type": "page",
+            "pageKey": "page[offset]",
+            "limitKey": "page[limit]",
+            "maxCount": 50
         }
     },
     "examples": {
