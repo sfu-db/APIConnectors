@@ -1,0 +1,56 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://test.api.amadeus.com/v1/shopping/activities",
+        "method": "GET",
+        "authorization": {
+            "type": "OAuth2",
+            "grantType": "ClientCredentials",
+            "tokenServerUrl": "https://test.api.amadeus.com/v1/security/oauth2/token"
+        },
+        "params": {
+            "latitude": true,
+            "longitude": true,
+            "radius": false
+        }
+    },
+    "examples": {
+        "latitude": "41.397158",
+        "longitude": "2.160873"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.data[*]",
+        "schema": {
+            "name": {
+                "target": "$.name",
+                "type": "string"
+            },
+            "short description": {
+                "target": "$.shortDescription",
+                "type": "string"
+            },
+            "rating": {
+                "target": "$.rating",
+                "type": "string"
+            },
+            "price": {
+                "target": "$.price.amount",
+                "type": "string"
+            },
+            "currency": {
+                "target": "$.price.currencyCode",
+                "type": "string"
+            },
+            "url": {
+                "target": "$.self.href",
+                "type": "string"
+            },
+            "booking link": {
+                "target": "$.bookingLink",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}

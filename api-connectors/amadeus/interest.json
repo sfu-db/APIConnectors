@@ -1,0 +1,69 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://test.api.amadeus.com/v1/reference-data/locations/pois",
+        "method": "GET",
+        "authorization": {
+            "type": "OAuth2",
+            "grantType": "ClientCredentials",
+            "tokenServerUrl": "https://test.api.amadeus.com/v1/security/oauth2/token"
+        },
+        "params": {
+            "latitude": true,
+            "longitude": true,
+            "radius": false,
+            "categories": false,
+            "limit": false,
+            "page[limit]": {
+                "required": false,
+                "removeIfEmpty": true,
+                "template": "{{limit}}",
+                "fromKey": [
+                    "limit"
+                ]
+            },
+            "offset":false,
+            "page[offset]": {
+                "required": false,
+                "removeIfEmpty": true,
+                "template": "{{offset}}",
+                "fromKey": [
+                    "offset"
+                ]
+            }
+        },
+        "pagination": {
+            "type": "page",
+            "pageKey": "page[offset]",
+            "limitKey": "page[limit]",
+            "maxCount": 50
+        }
+    },
+    "examples": {
+        "latitude": "41.397158",
+        "longitude": "2.160873"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.data[*]",
+        "schema": {
+            "name": {
+                "target": "$.name",
+                "type": "string"
+            },
+            "category": {
+                "target": "$.category",
+                "type": "string"
+            },
+            "rank": {
+                "target": "$.rank",
+                "type": "string"
+            },
+            "tags": {
+                "target": "$.tags",
+                "type": "list"
+            }
+        },
+        "orient": "records"
+    }
+}

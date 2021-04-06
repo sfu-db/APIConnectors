@@ -1,0 +1,64 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://test.api.amadeus.com/v1/safety/safety-rated-locations",
+        "method": "GET",
+        "authorization": {
+            "type": "OAuth2",
+            "grantType": "ClientCredentials",
+            "tokenServerUrl": "https://test.api.amadeus.com/v1/security/oauth2/token"
+        },
+        "params": {
+            "latitude": true,
+            "longitude": true,
+            "radius": false
+        }
+    },
+    "examples": {
+        "latitude": "41.397158",
+        "longitude": "2.160873"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.data[*]",
+        "schema": {
+            "id": {
+                "target": "$.id",
+                "type": "string"
+            },
+            "name": {
+                "target": "$.name",
+                "type": "string"
+            },
+            "subtype": {
+                "target": "$.subType",
+                "type": "string"
+            },
+            "lgbtq score": {
+                "target": "$.safetyScores.lgbtq",
+                "type": "int"
+            },
+            "medical score": {
+                "target": "$.safetyScores.medical",
+                "type": "int"
+            },
+            "overall score": {
+                "target": "$.safetyScores.overall",
+                "type": "int"
+            },
+            "physical harm score": {
+                "target": "$.safetyScores.physicalHarm",
+                "type": "int"
+            },
+            "political freedom score": {
+                "target": "$.safetyScores.politicalFreedom",
+                "type": "int"
+            },
+            "theft score": {
+                "target": "$.safetyScores.theft",
+                "type": "int"
+            }
+        },
+        "orient": "records"
+    }
+}

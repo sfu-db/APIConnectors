@@ -1,0 +1,77 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://test.api.amadeus.com/v2/shopping/flight-offers",
+        "method": "GET",
+        "authorization": {
+            "type": "OAuth2",
+            "grantType": "ClientCredentials",
+            "tokenServerUrl": "https://test.api.amadeus.com/v1/security/oauth2/token"
+        },
+        "params": {
+            "originLocationCode": true,
+            "destinationLocationCode": true,
+            "departureDate": true,
+            "returnDate": false,
+            "adults": true,
+            "children": false,
+            "infants": false,
+            "travelClass": false,
+            "includedAirlineCodes": false,
+            "excludedAirlineCodes": false,
+            "nonStop": false,
+            "currencyCode": false,
+            "maxPrice": false,
+            "max": false
+        }
+    },
+    "examples": {
+        "originLocationCode": "'SYD'",
+        "destinationLocationCode": "'BKK'",
+        "departureDate": "2021-05-21",
+        "adults": 1
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.data[*]",
+        "schema": {
+            "source": {
+                "target": "$.source",
+                "type": "string"
+            },
+            "duration": {
+                "target": "$.itineraries[0].duration",
+                "type": "string"
+            },
+            "departure time": {
+                "target": "$.itineraries[0].segments[0].departure.at",
+                "type": "string"
+            },
+            "arrival time": {
+                "target": "$.itineraries[0].segments[-1].arrival.at",
+                "type": "string"
+            },
+            "number of bookable seats": {
+                "target": "$.numberOfBookableSeats",
+                "type": "string"
+            },
+            "total price": {
+                "target": "$.price.total",
+                "type": "string"
+            },
+            "currency": {
+                "target": "$.price.currency",
+                "type": "string"
+            },
+            "one way": {
+                "target": "$.oneWay",
+                "type": "boolean"
+            },
+             "itineraries": {
+                "target": "$.itineraries[0].segments",
+                "type": "list"
+            }
+        },
+        "orient": "records"
+    }
+}
