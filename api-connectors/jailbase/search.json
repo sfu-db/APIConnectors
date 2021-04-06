@@ -1,0 +1,53 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://jailbase-jailbase.p.rapidapi.com/search/",
+        "method": "GET",
+        "authorization": {
+            "type": "Header",
+            "keyName": "x-rapidapi-key"
+        },
+        "params": {
+        	"source_id": true,
+            "last_name": true,
+        	"first_name": false,
+            "page": false
+        }
+    },
+    "examples": {
+    	"source_id": "'al-mlso'",
+        "last_name": "'smith'"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.records[*]",
+        "schema": {
+            "id": {
+                "target": "$.id",
+                "type": "int"
+            },
+            "name": {
+                "target": "$.name",
+                "type": "string"
+            },
+            "county_state": {
+                "target": "$.county_state",
+                "type": "string"
+            },
+            "mugshot": {
+                "target": "$.mugshot",
+                "type": "string"
+            },
+            "charges": {
+                "target": "$.charges",
+                "type": "object"
+            },
+            "more_info_url": {
+                "target": "$.more_info_url",
+                "type": "string"
+            }
+
+        },
+        "orient": "records"
+    }
+}

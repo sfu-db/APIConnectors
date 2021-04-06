@@ -1,5 +1,6 @@
 {
     "tables": [
+	"symbol_lookup",
         "general_news",
         "company_news",
         "filings",

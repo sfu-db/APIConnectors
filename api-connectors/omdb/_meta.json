@@ -1,0 +1,6 @@
+{
+    "tables": [
+        "by_id_or_title",
+        "by_search"
+    ]
+}

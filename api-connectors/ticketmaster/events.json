@@ -1,0 +1,131 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://app.ticketmaster.com/discovery/v2/events",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "apikey"
+        },
+        "params": {
+            "id": false,
+            "keyword": false,
+            "postalCode": false,
+            "page":false,
+            "size":false,
+            "latlong": false,
+            "city": false,
+            "stateCode":false,
+            "countryCode": false,
+            "classificationName": false,
+            "startDateTime":false,
+            "endDateTime":false,
+            "onsaleStartDateTime":false,
+            "onsaleEndDateTime":false
+        },
+        "pagination": {
+            "type": "page",
+            "pageKey": "page",
+            "limitKey": "size",
+            "maxCount": 50
+        }
+    },
+    "examples":{
+        "countryCode": "CA"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$._embedded.events[*]",
+        "schema": {
+            "id": {
+                "target": "$.id",
+                "type": "string"
+            },
+            "name": {
+                "target": "$.name",
+                "type": "string"
+            },
+            "min_price": {
+                "target": "$.priceRanges[*].min",
+                "type": "string"
+            },
+            "max_price": {
+                "target": "$.priceRanges[*].max",
+                "type": "string"
+            },
+            "currency": {
+                "target": "$.priceRanges[*].currency",
+                "type": "string"
+            },
+            "url": {
+                "target": "$.url",
+                "type": "string"
+            },
+            "sales_start_date": {
+                "target": "$.sales.public.startDateTime",
+                "type": "string"
+            },
+            "sales_end_date": {
+                "target": "$.sales.public.endDateTime",
+                "type": "string"
+            },
+            "event_date": {
+                "target": "$.dates.start.localDate",
+                "type": "string"
+            },
+            "event_time": {
+                "target": "$.dates.start.localTime",
+                "type": "string"
+            },
+            "sale_status": {
+                "target": "$.dates.status.code",
+                "type": "string"
+            },
+            "segment_name": {
+                "target": "$.classifications[*].segment.name",
+                "type": "object"
+            },
+            "genre_name": {
+                "target": "$.classifications[*].genre.name",
+                "type": "object"
+            },
+            "subgenre_name": {
+                "target": "$.classifications[*].subGenre.name",
+                "type": "object"
+            },
+            "venue_name": {
+                "target": "$._embedded.venues[*].name",
+                "type": "string"
+            },
+            "city": {
+                "target": "$._embedded.venues[*].city.name",
+                "type": "string"
+            },
+            "state": {
+                "target": "$._embedded.venues[*].state.name",
+                "type": "string"
+            },
+            "country": {
+                "target": "$._embedded.venues[*].country.name",
+                "type": "string"
+            },
+            "address": {
+                "target": "$._embedded.venues[*].address",
+                "type": "string"
+            },
+            "postalCode": {
+                "target": "$._embedded.venues[*].postalCode",
+                "type": "string"
+            },
+            "longitude": {
+                "target": "$._embedded.venues[*].location.longitude",
+                "type": "string"
+            },
+            "latitude": {
+                "target": "$._embedded.venues[*].location.latitude",
+                "type": "string"
+            }
+        },
+        "orient":"records"
+    }
+}

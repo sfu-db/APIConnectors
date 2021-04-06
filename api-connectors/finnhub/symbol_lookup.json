@@ -1,0 +1,37 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://finnhub.io/api/v1/search",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "token"
+        },
+        "params": {
+            "q" : true
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$[*]",
+        "schema": {
+            "description": {
+                "target": "$[*].description",
+                "type": "string"
+            },
+            "displaySymbol": {
+                "target": "$[*].displaySymbol",
+                "type": "string"
+            },
+            "symbol": {
+                "target": "$[*].symbol",
+                "type": "string"
+            },
+            "type": {
+                "target": "$[*].type",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}

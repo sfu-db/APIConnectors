@@ -1,0 +1,48 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://www.thesportsdb.com/api/v1/json/1/eventspastleague.php",
+        "method": "GET",
+        "params": {
+            "id": true
+        }
+    },
+    "examples": {
+        "id": 4387
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.events[*]",
+        "schema": {
+            "id": {
+                "target": "$.idEvent",
+                "type": "int"
+            },
+            "sport": {
+                "target": "$.strSport",
+                "type": "string"
+            },
+            "home_team": {
+                "target": "$.strHomeTeam",
+                "type": "string"
+            },
+            "away_team": {
+                "target": "$.strAwayTeam",
+                "type": "string"
+            },
+            "home_score": {
+                "target": "$.intHomeScore",
+                "type": "int"
+            },
+            "away_score": {
+                "target": "$.intAwayScore",
+                "type": "int"
+            },
+            "spectators": {
+                "target": "$.intSpectators",
+                "type": "int"
+            }
+        },
+        "orient": "records"
+    }
+}
