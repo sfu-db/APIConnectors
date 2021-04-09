@@ -1,0 +1,26 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://api.covidtracking.com/v2/states/{state}/{date}.json",
+        "method": "GET",
+        "params": {},
+        "urlParse": {
+            "parse":false 
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.[*]",
+        "schema": {
+            "headline": {
+                "target": "$.links.self",
+                "type": "string"
+            },
+            "url": {
+                "target": "$.meta.build_time",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}
