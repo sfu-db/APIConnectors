@@ -1,0 +1,38 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://foo.bar/path",
+        "method": "GET"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.result",
+        "schema": {
+            "type1": {
+                "target": "$.type1",
+                "type": "string"
+            },
+            "type2": {
+                "target": "$.type2",
+                "type": "list"
+            },
+            "type3": {
+                "target": "$.type3",
+                "type": "object"
+            },
+             "type4": {
+                "target": "$.type1",
+                "type": "boolean"
+            },
+            "type5": {
+                "target": "$.type2",
+                "type": "int"
+            },
+            "type6": {
+                "target": "$.type3",
+                "type": "float"
+            }
+        },
+        "orient": "records"
+    }
+}

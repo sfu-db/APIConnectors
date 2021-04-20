@@ -1,0 +1,18 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://foo.bar/path",
+        "method": "GET",
+        "authorization": {
+            "type": "OAuth2",
+            "grantType": "ClientCredentials",
+            "tokenServerUrl": "https://foo.bar/api/token"
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.result",
+        "schema": {},
+        "orient": "records"
+    }
+}
