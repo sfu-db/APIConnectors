@@ -1,12 +1,10 @@
 {
     "version": 1,
     "request": {
-        "url": "https://api.covidtracking.com/v2/states/{state}/daily.json",
+        "url": "http://api.covidtracking.com/v2/states/{state}/daily.json",
         "method": "GET",
-        "params": {},
-        "urlParse": {
-            "parse":false 
-        }
+        "params":  {}
+         
     },
     "response": {
         "ctype": "application/json",

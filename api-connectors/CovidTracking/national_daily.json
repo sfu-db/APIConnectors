@@ -3,10 +3,8 @@
     "request": {
         "url": "http://api.covidtracking.com/v2/us/daily/{date}.json",
         "method": "GET",
-        "params": {},
-        "urlParse": {
-            "parse":false 
-        }
+        "params":  {}
+         
     },
     "response": {
         "ctype": "application/json",
