@@ -3,9 +3,8 @@
     "request": {
         "url": "https://foo.bar/path",
         "method": "GET",
-        "params": {
-            "q": true,
-            "h": false
+        "authorization": {
+            "type": "Bearer"
         }
     },
     "response": {

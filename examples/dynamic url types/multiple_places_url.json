@@ -1,0 +1,14 @@
+ {
+    "version": 1,
+    "request": {
+        "url": "http://foo/v2/states/{state}/{date}.json",
+        "method": "GET",
+        "params":  {}
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.[*]",
+        "schema": {},
+        "orient": "records"
+    }
+} 

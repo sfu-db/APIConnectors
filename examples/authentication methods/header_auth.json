@@ -1,0 +1,17 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://foo.bar/path",
+        "method": "GET",
+        "authorization": {
+            "type": "Header",
+            "keyName": "Ocp-Apim-Subscription-Key"
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.result",
+        "schema": {},
+        "orient": "records"
+    }
+}
