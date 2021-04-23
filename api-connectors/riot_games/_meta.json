@@ -1,0 +1,9 @@
+{
+    "tables": [
+        "lol_tournaments",
+        "lor_leaderboards",
+        "tft_challengers",
+        "tft_grandmasters",
+        "tft_masters",
+    ]
+}

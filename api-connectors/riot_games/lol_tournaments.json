@@ -1,0 +1,44 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://{region}.api.riotgames.com/lol/clash/v1/tournaments",
+        "method": "GET",
+        "authorization": {
+            "type": "Header",
+            "keyName": "X-Riot-Token"
+        },
+        "params": {
+            "region": true
+        }
+    },
+    "examples": {
+        "region": "'na1'"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.[*]",
+        "schema": {
+            "id": {
+                "target": "$.id",
+                "type": "int"
+            },
+            "name_key": {
+                "target": "$.nameKey",
+                "type": "string"
+            },
+            "name_key_secondary": {
+                "target": "$.nameKeySecondary",
+                "type": "string"
+            },
+            "registration_time": {
+                "target": "$.schedule[*].registrationTime",
+                "type": "int"
+            },
+            "start_time": {
+                "target": "$.schedule[*].startTime",
+                "type": "int"
+            }
+        },
+        "orient": "records"
+    }
+}
