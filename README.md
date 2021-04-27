@@ -1117,6 +1117,135 @@ The nearest grocery of SFU is Nesters Market. It is 1.234 miles far, and It is e
 
 </details>
 
+#### [GeoDB Cities](./geodb) -- Collect country, region, city information
+
+<details>
+  <summary> Which cities have names that start with "Van" and have a population larger than 200000?</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”token" for geodb at 
+# https://rapidapi.com/wirefreethought/api/geodb-cities/details
+dc = connect('geodb', _auth={'access_token':token})
+df = await dc.query('city', namePrefix='Van', minPopulation="200000", limit="10")
+df
+```
+
+|      | id      | wiki data id | name      | type | country | region           | latitude  | longitude   | population |
+| ---- | ------- | ------------ | --------- | ---- | ------- | ---------------- | --------- | ----------- | ---------- |
+| 0    | 10841   | Q24639       | Vancouver | CITY | Canada  | British Columbia | 49.260833 | -123.113889 | 631486     |
+| 1    | 34611   | Q127623      | Vantaa    | CITY | Finland | Åland Islands    | 60.300000 | 25.033333   | 223027     |
+| 2    | 3453047 | Q83061       | Van       | CITY | Turkey  | Van Province     | 38.501944 | 43.416667   | 353419     |
+
+</details>
+
+<details>
+  <summary>Which countries have names that start with "F" and use Euro as their currency?</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”token" for geodb at 
+# https://rapidapi.com/wirefreethought/api/geodb-cities/details
+dc = connect('geodb', _auth={'access_token':token})
+df = await dc.query('country', currencyCode='EUR', namePrefix='F', limit='10')
+df
+```
+
+|      | wiki data id | name    | code | currency codes |
+| ---- | ------------ | ------- | ---- | -------------- |
+| 0    | Q33          | Finland | FI   | [EUR]          |
+| 1    | Q142         | France  | FR   | [EUR]          |
+
+</details>
+
+<details>
+  <summary>What's the detail information of New York CIty?</summary>
+
+  ```python
+from dataprep.connector import connect
+
+# You can get ”token" for geodb at 
+# https://rapidapi.com/wirefreethought/api/geodb-cities/details
+dc = connect('geodb', _auth={'access_token':token})
+df = await dc.query('city_detail', cityid='Q60')
+df
+  ```
+
+|      | id     | wiki data id | type | name          | country                  | country code | region   | region code | latitude | longitude | population | elevation meters | timezone          |
+| ---- | ------ | ------------ | ---- | ------------- | ------------------------ | ------------ | -------- | ----------- | -------- | --------- | ---------- | ---------------- | ----------------- |
+| 0    | 123214 | Q60          | CITY | New York City | United States of America | US           | New York | NY          | 40.67    | -73.94    | 8398748    | 10.0             | America__New_York |
+
+</details>
+
+<details>
+  <summary>Get all regions with name start with "C" in a United States</summary>
+
+  ```python
+from dataprep.connector import connect
+
+# You can get ”token" for geodb at 
+# https://rapidapi.com/wirefreethought/api/geodb-cities/details
+dc = connect('geodb', _auth={'access_token':token})
+df = await dc.query('country_region', countryid='US', namePrefix='C', limit='10')
+df
+  ```
+
+|      | wiki data id | name        | country code | fips code | iso code |
+| ---- | ------------ | ----------- | ------------ | --------- | -------- |
+| 0    | Q99          | California  | US           | 06        | CA       |
+| 1    | Q1261        | Colorado    | US           | 08        | CO       |
+| 2    | Q779         | Connecticut | US           | 09        | CT       |
+
+</details>
+
+<details>
+  <summary>Get all cities with population larger than 2000000 in New York, US</summary>
+  
+  ```python
+from dataprep.connector import connect
+
+# You can get ”token" for geodb at 
+# https://rapidapi.com/wirefreethought/api/geodb-cities/details
+dc = connect('geodb', _auth={'access_token':token})
+df = await dc.query('country_region_city', countryid='US', regioncode='NY', minPopulation='2000000',limit='10')
+df
+  ```
+
+|      | id      | wiki data id | name          | latitude  | longitude  | population |
+| ---- | ------- | ------------ | ------------- | --------- | ---------- | ---------- |
+| 0    | 122111  | Q18419       | Brooklyn      | 40.692778 | -73.990278 | 2636735    |
+| 1    | 3101789 | Q11980692    | Kings County  | 40.634390 | -73.950270 | 2504700    |
+| 2    | 123214  | Q60          | New York City | 40.670000 | -73.940000 | 839874     |
+| 3    | 123716  | Q18424       | Queens        | 40.704167 | -73.917778 | 2339150    |
+| 4    | 3100451 | Q5142559     | Queens County | 40.611744 | -74.061505 | 2230722    |
+
+</details>
+
+<details>
+  <summary>What are the cities within 3 kilometers around New York？</summary>
+  
+  ```python
+from dataprep.connector import connect
+
+# You can get ”token" for geodb at 
+# https://rapidapi.com/wirefreethought/api/geodb-cities/details
+dc = connect('geodb', _auth={'access_token':token})
+df = await dc.query('city_near_city', cityid='Q60', radius='3', distanceUnit='KM', limit='10')
+df[['id', 'wiki data id', 'name', 'type', 'population', 'distance']]
+  ```
+
+|      | id     | wiki data id | name          | type | population | distance |
+| ---- | ------ | ------------ | ------------- | ---- | ---------- | -------- |
+| 0    | 122855 | Q2354222     | Crown Heights | CITY | 143000     | 0.46     |
+| 1    | 122205 | Q991279      | Brownsville   | CITY | 55043      | 1.95     |
+| 2    | 123982 | Q840381      | Flatbush      | CITY | 105804     | 2.56     |
+
+</details>
+
+
+
 ### Jobs
 
 #### [The Muse](./themuse) -- Collect Job Ads, Company Information

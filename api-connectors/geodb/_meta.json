@@ -1,0 +1,10 @@
+{
+    "tables": [
+        "city",
+        "country",
+        "city_detail",
+        "country_region",
+        "country_region_city",
+        "city_near_city"
+    ]
+}

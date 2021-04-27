@@ -1,0 +1,76 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://wft-geo-db.p.rapidapi.com/v1/geo/cities/{cityid}",
+        "method": "GET",
+        "authorization": {
+            "type": "Header",
+            "keyName": "X-RapidAPI-Key"
+        },
+        "params": {
+            "cityid": true
+        }
+    },
+    "examples": {
+        "cityid": "'Q60'"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.data[*]",
+        "schema": {
+            "id": {
+                "target": "$.id",
+                "type": "int"
+            },
+            "wiki data id": {
+                "target": "$.wikiDataId",
+                "type": "string"
+            },
+            "type": {
+                "target": "$.type",
+                "type": "string"
+            },
+            "name": {
+                "target": "$.name",
+                "type": "string"
+            },
+            "country": {
+                "target": "$.country",
+                "type": "string"
+            },
+            "country code": {
+                "target": "$.countryCode",
+                "type": "string"
+            },
+            "region": {
+                "target": "$.region",
+                "type": "string"
+            },
+            "region code": {
+                "target": "$.regionCode",
+                "type": "string"
+            },
+            "latitude": {
+                "target": "$.latitude",
+                "type": "float"
+            },
+            "longitude": {
+                "target": "$.longitude",
+                "type": "float"
+            },
+            "population": {
+                "target": "$.population",
+                "type": "int"
+            },
+            "elevation meters": {
+                "target": "$.elevationMeters",
+                "type": "float"
+            },
+            "timezone": {
+                "target": "$.timezone",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}
