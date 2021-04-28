@@ -1,0 +1,36 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://ourairport-data-search.p.rapidapi.com/country/{name_or_id_or_keyword}",
+        "method": "GET",
+        "authorization": {
+            "type": "Header",
+            "keyName": "X-RapidAPI-Key"
+        },
+        "params": {
+            "name_or_id_or_keyword": true
+        }
+    },
+    "examples": {
+        "name_or_id_or_keyword": "'India'"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.results[*]",
+        "schema": {
+            "id": {
+                "target": "$.id",
+                "type": "int"
+            },
+            "name": {
+                "target": "$.name",
+                "type": "string"
+            },
+            "continent": {
+                "target": "$.continent",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}

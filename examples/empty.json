@@ -1,0 +1,27 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://foo.bar/path",
+        "method": "GET",
+        "authorization": {},
+        "params": {},
+        "search": {
+            "key": "q"
+        },
+        "pagination": {
+            "type": "",
+            "offsetKey": "",
+            "limitKey": "",
+            "maxCount": 
+        }
+    },
+    "examples": {
+        "q": "' '"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.result",
+        "schema": {},
+        "orient": "records"
+    }
+}
