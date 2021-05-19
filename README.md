@@ -33,7 +33,7 @@ You can contribute to this project in two ways. Please check the [contributing g
 
 ### Art
 
-#### [Harvard Art Museum](./harvardartmuseum) -- Collect Museums' Collection Data
+#### [Harvard Art Museum](./api-connectors/harvardartmuseum) -- Collect Museums' Collection Data
 
 <details>
   <summary>Find the objects with dog in their titles and were made in 1990.</summary>
@@ -48,11 +48,11 @@ df = await dc.query('object', title='dog', yearmade=1990)
 df[['title', 'division', 'classification', 'technique', 'department', 'century', 'dated']]
   ```
 
-|      | title                       | division                    | classification | technique            | department                | century      | dated |
-| ---- | --------------------------- | --------------------------- | -------------- | -------------------- | ------------------------- | ------------ | ----- |
-| 0    | Paris (black dog on street) | Modern and Contemporary Art | Photographs    | Gelatin silver print | Department of Photographs | 20th century | 1990s |
-| 1    | Pregnant Woman with Dog     | Modern and Contemporary Art | Photographs    | Gelatin silver print | Department of Photographs | 20th century | 1990  |
-| 2    | Pompeii Dog                 | Modern and Contemporary Art | Prints         | Drypoint             | Department of Prints      | 20th century | 1990  |
+|     | title                       | division                    | classification | technique            | department                | century      | dated |
+| --- | --------------------------- | --------------------------- | -------------- | -------------------- | ------------------------- | ------------ | ----- |
+| 0   | Paris (black dog on street) | Modern and Contemporary Art | Photographs    | Gelatin silver print | Department of Photographs | 20th century | 1990s |
+| 1   | Pregnant Woman with Dog     | Modern and Contemporary Art | Photographs    | Gelatin silver print | Department of Photographs | 20th century | 1990  |
+| 2   | Pompeii Dog                 | Modern and Contemporary Art | Prints         | Drypoint             | Department of Prints      | 20th century | 1990  |
 
 </details>
 
@@ -69,13 +69,13 @@ df = await dc.query('person', q='culture:Dutch', size=10)
 df[['display name', 'gender', 'culture', 'display date', 'object count', 'birth place', 'death place']]
   ```
 
-|      | display name                    | gender  | culture | display date   | object count | birth place                      | death place            |
-| ---- | ------------------------------- | ------- | ------- | -------------- | ------------ | -------------------------------- | ---------------------- |
-| 0    | Joris Abrahamsz. van der Haagen | unknown | Dutch   | 1615 - 1669    | 7            | Arnhem or Dordrecht, Netherlands | The Hague, Netherlands |
-| 1    | François Morellon de la Cave    | unknown | Dutch   | 1723 - 65      | 1            | None                             | None                   |
-| 2    | Cornelis Vroom                  | unknown | Dutch   | 1590/92 - 1661 | 3            | Haarlem(?), Netherlands          | Haarlem, Netherlands   |
-| 3    | Constantijn Daniel van Renesse  | unknown | Dutch   | 1626 - 1680    | 2            | Maarssen                         | Eindhoven              |
-| 4    | Dirck Dalens, the Younger       | unknown | Dutch   | 1654 - 1688    | 3            | Amsterdam, Netherlands           | Amsterdam, Netherlands |
+|     | display name                    | gender  | culture | display date   | object count | birth place                      | death place            |
+| --- | ------------------------------- | ------- | ------- | -------------- | ------------ | -------------------------------- | ---------------------- |
+| 0   | Joris Abrahamsz. van der Haagen | unknown | Dutch   | 1615 - 1669    | 7            | Arnhem or Dordrecht, Netherlands | The Hague, Netherlands |
+| 1   | François Morellon de la Cave    | unknown | Dutch   | 1723 - 65      | 1            | None                             | None                   |
+| 2   | Cornelis Vroom                  | unknown | Dutch   | 1590/92 - 1661 | 3            | Haarlem(?), Netherlands          | Haarlem, Netherlands   |
+| 3   | Constantijn Daniel van Renesse  | unknown | Dutch   | 1626 - 1680    | 2            | Maarssen                         | Eindhoven              |
+| 4   | Dirck Dalens, the Younger       | unknown | Dutch   | 1654 - 1688    | 3            | Amsterdam, Netherlands           | Amsterdam, Netherlands |
 
 </details>
 
@@ -92,9 +92,9 @@ df = await dc.query('exhibition', venue='HAM', after='2020-01-01')
 df
 ```
 
-|      | title                                                   | begin date | end date   | url                                                      |
-| ---- | ------------------------------------------------------- | ---------- | ---------- | -------------------------------------------------------- |
-| 0    | Painting Edo: Japanese Art from the Feinberg Collection | 2020-02-14 | 2021-07-18 | https://www.harvardartmuseums.org/visit/exhibitions/5909 |
+|     | title                                                   | begin date | end date   | url                                                      |
+| --- | ------------------------------------------------------- | ---------- | ---------- | -------------------------------------------------------- |
+| 0   | Painting Edo: Japanese Art from the Feinberg Collection | 2020-02-14 | 2021-07-18 | https://www.harvardartmuseums.org/visit/exhibitions/5909 |
 
 </details>
 
@@ -111,13 +111,13 @@ df = await dc.query('publication', q='publicationyear:2013', size=5)
 df[['title','publication date','publication place','format']]
   ```
 
-|      | title                                             | publication date | publication place | format                   |
-| ---- | ------------------------------------------------- | ---------------- | ----------------- | ------------------------ |
-| 0    | 19th Century Paintings, Drawings & Watercolours   | January 23, 2013 | London            | Auction/Dealer Catalogue |
-| 1    | "With Éclat" The Boston Athenæum and the Orig...  | 2013             | Boston, MA        | Book                     |
-| 2    | "Review: Fragonard's Progress of Love at the F... | 2013             | London            | Article/Essay            |
-| 3    | Alternative Narratives                            | February 2013    | None              | Article/Essay            |
-| 4    | Victorian & British Impressionist Art             | July 11, 2013    | London            | Auction/Dealer Catalogue |
+|     | title                                             | publication date | publication place | format                   |
+| --- | ------------------------------------------------- | ---------------- | ----------------- | ------------------------ |
+| 0   | 19th Century Paintings, Drawings & Watercolours   | January 23, 2013 | London            | Auction/Dealer Catalogue |
+| 1   | "With Éclat" The Boston Athenæum and the Orig...  | 2013             | Boston, MA        | Book                     |
+| 2   | "Review: Fragonard's Progress of Love at the F... | 2013             | London            | Article/Essay            |
+| 3   | Alternative Narratives                            | February 2013    | None              | Article/Essay            |
+| 4   | Victorian & British Impressionist Art             | July 11, 2013    | London            | Auction/Dealer Catalogue |
 
 </details>
 
@@ -134,13 +134,13 @@ df = await dc.query('gallery', floor=2, size=5)
 df[['id','name','theme','object count']]
   ```
 
-|      | id   | name                                         | theme                                             | object count |
-| ---- | ---- | -------------------------------------------- | ------------------------------------------------- | ------------ |
-| 0    | 2200 | European and American Art, 17th–19th century | The Emergence of Romanticism in Early Nineteen... | 20           |
-| 1    | 2210 | West Arcade                                  | None                                              | 6            |
-| 2    | 2340 | European and American Art, 17th–19th century | The Silver Cabinet: Art and Ritual, 1600–1850     | 73           |
-| 3    | 2460 | East Arcade                                  | None                                              | 2            |
-| 4    | 2700 | European and American Art, 19th century      | Impressionism and the Late Nineteenth Century     | 19           |
+|     | id   | name                                         | theme                                             | object count |
+| --- | ---- | -------------------------------------------- | ------------------------------------------------- | ------------ |
+| 0   | 2200 | European and American Art, 17th–19th century | The Emergence of Romanticism in Early Nineteen... | 20           |
+| 1   | 2210 | West Arcade                                  | None                                              | 6            |
+| 2   | 2340 | European and American Art, 17th–19th century | The Silver Cabinet: Art and Ritual, 1600–1850     | 73           |
+| 3   | 2460 | East Arcade                                  | None                                              | 2            |
+| 4   | 2700 | European and American Art, 19th century      | Impressionism and the Late Nineteenth Century     | 19           |
 
 </details>
 
@@ -150,7 +150,7 @@ df[['id','name','theme','object count']]
 
 ### Business
 
-#### [Yelp](./yelp) -- Collect Local Business Data
+#### [Yelp](./api-connectors/yelp) -- Collect Local Business Data
 <details>
   <summary>What's the phone number of Capilano Suspension Bridge Park?</summary>
 
@@ -239,7 +239,7 @@ df[["name", "review_count"]]
 | 20  | Hokkaido Ramen Santouka        | 4.0    | Vancouver |
 </details>
 
-#### [Hunter](./hunter) -- Collect and Verify Professional Email Addresses
+#### [Hunter](./api-connectors/hunter) -- Collect and Verify Professional Email Addresses
 <details>
 <summary>Who are executives of Asana and what are their emails?</summary>
 
@@ -466,7 +466,7 @@ df.drop('total', axis=1)
 
 ### Crime
 
-#### [JailBase](./jailbase) -- Collect Prisoner Data
+#### [JailBase](./api-connectors/jailbase) -- Collect Prisoner Data
 <details>
 <summary>What is the URL for the mugshot of Almondo Smith?</summary>
 
@@ -667,7 +667,7 @@ state_counts
 
 ### Finance
 
-#### [Finnhub](./finnhub) -- Collect Financial, Market, Economic Data
+#### [Finnhub](./api-connectors/finnhub) -- Collect Financial, Market, Economic Data
 <details>
   <summary>How to get a list of cryptocurrencies and their exchanges</summary>
 
@@ -688,12 +688,12 @@ df_symbols = pd.concat(symbols)
 df_symbols
 ```
 
-| id     | description       | displaySymbol	              | symbol           |
-| ------ | ----------------- | ------------------------------ | ---------------  |
-| 0      | Binance FRONT/ETH | FRONT/ETH	                  | BINANCE:FRONTETH |
-| 1      | Binance ATOM/BUSD | ATOM/BUSD	                  | BINANCE:ATOMBUSD |
-| ...    | ...           	 | ...   	                      | ...              |
-| 281    | Poloniex AKRO/BTC | AKRO/BTC                       | POLONIEX:BTC_AKRO|
+| id  | description       | displaySymbol | symbol            |
+| --- | ----------------- | ------------- | ----------------- |
+| 0   | Binance FRONT/ETH | FRONT/ETH     | BINANCE:FRONTETH  |
+| 1   | Binance ATOM/BUSD | ATOM/BUSD     | BINANCE:ATOMBUSD  |
+| ... | ...               | ...           | ...               |
+| 281 | Poloniex AKRO/BTC | AKRO/BTC      | POLONIEX:BTC_AKRO |
 </details>
 
 <details>
@@ -714,9 +714,9 @@ date_to = today.replace(day=days_in_month).strftime('%Y-%m-%d')
 ipo_df = await conn_finnhub.query('ipo_calender', from_=date_from, to=date_to)
 ipo_df[ipo_df['totalSharesValue'] == ipo_df['totalSharesValue'].max()]
 ```
-| id | date        | exchange    | name                            | numberOfShares | ...  | totalSharesValue  |
-|--- | ----------- | ----------- | ------------------------------- | -------------- | ---  | ----------------- |
-|  5 | 2021-02-03  | NYSE        | TELUS International (Cda) Inc.  | 33333333       | ...  | 9.58333e+08       |
+| id  | date       | exchange | name                           | numberOfShares | ... | totalSharesValue |
+| --- | ---------- | -------- | ------------------------------ | -------------- | --- | ---------------- |
+| 5   | 2021-02-03 | NYSE     | TELUS International (Cda) Inc. | 33333333       | ... | 9.58333e+08      |
 </details>
 
 <details>
@@ -740,13 +740,13 @@ stocks_df = stocks_df.sort_values(by='actual', ascending=False).rename(columns={
 stocks_df.reset_index(drop=True)
 ```
 
-| id | symbol   | avg_actual    |
-|--- | ---------| ------------- |
-|  0 | GOOGL    | 12.9375       |
-|  1 | AMZN     | 8.5375        |
-|  2 | FB       | 2.4475        |
-| .. | ...      | ...           |
-|  9 | TSLA     | 0.556         |
+| id  | symbol | avg_actual |
+| --- | ------ | ---------- |
+| 0   | GOOGL  | 12.9375    |
+| 1   | AMZN   | 8.5375     |
+| 2   | FB     | 2.4475     |
+| ..  | ...    | ...        |
+| 9   | TSLA   | 0.556      |
 </details>
 
 <details>
@@ -767,20 +767,20 @@ result = await conn_finnhub.query('earnings_calender', symbol='TSLA', from_=star
 result = result.set_index('date')
 result
 ```
-| id | date       |   epsActual |   epsEstimate | hour   |   quarter | ... | symbol   |   year |
-|:---|:-----------|------------:|--------------:|:-------|----------:| --- |:---------|-------:|
-| 0  | 2021-01-27 |       0.8   |     1.37675   | amc    |         4 | ... | TSLA     |   2020 |
-| 1  | 2020-10-21 |       0.76  |     0.600301  | amc    |         3 | ... | TSLA     |   2020 |
-| 2  | 2020-07-22 |       0.436 |    -0.0267036 | amc    |         2 | ... | TSLA     |   2020 |
-| .. | ...        | ...         | ...           | ...    | ...       | ... | ...      | ...    |
-| 3  | 2011-02-15 |      -0.094 |    -0.101592  | amc    |         4 | ... | TSLA     |   2010 |
+| id   | date       | epsActual | epsEstimate | hour | quarter | ... | symbol | year |
+| :--- | :--------- | --------: | ----------: | :--- | ------: | --- | :----- | ---: |
+| 0    | 2021-01-27 |       0.8 |     1.37675 | amc  |       4 | ... | TSLA   | 2020 |
+| 1    | 2020-10-21 |      0.76 |    0.600301 | amc  |       3 | ... | TSLA   | 2020 |
+| 2    | 2020-07-22 |     0.436 |  -0.0267036 | amc  |       2 | ... | TSLA   | 2020 |
+| ..   | ...        |       ... |         ... | ...  |     ... | ... | ...    |  ... |
+| 3    | 2011-02-15 |    -0.094 |   -0.101592 | amc  |       4 | ... | TSLA   | 2010 |
 
 </details>
 
 
 ### Geocoding
 
-#### [MapQuest](./mapquest) -- Collect Driving Directions, Maps, Traffic Data
+#### [MapQuest](./api-connectors/mapquest) -- Collect Driving Directions, Maps, Traffic Data
 <details>
   <summary>Where is the Simon Fraser University? Give all the places if there is more than one campus.</summary>
 
@@ -795,10 +795,10 @@ campus = await conn_map.query("place", q = "Simon Fraser University", sort = "re
 campus = campus[campus["name"] == "Simon Fraser University"].reset_index()
 ```
 
-| id |   index | name                    | country   | state   | city      | address                 | postalCode   | coordinates              | details                                                               |
-|---:|--------:|:------------------------|:----------|:--------|:----------|:------------------------|:-------------|:-------------------------|:----------------------------------------------------------------------|
-|  0 |       0 | Simon Fraser University | CA        | BC      | Burnaby   | 8888 University Drive E | V5A 1S6      | [-122.90416, 49.27647]   | ... |
-|  1 |       2 | Simon Fraser University | CA        | BC      | Vancouver | 602 Hastings St W       | V6B 1P2      | [-123.113431, 49.284626] | ... |
+|   id | index | name                    | country | state | city      | address                 | postalCode | coordinates              | details |
+| ---: | ----: | :---------------------- | :------ | :---- | :-------- | :---------------------- | :--------- | :----------------------- | :------ |
+|    0 |     0 | Simon Fraser University | CA      | BC    | Burnaby   | 8888 University Drive E | V5A 1S6    | [-122.90416, 49.27647]   | ...     |
+|    1 |     2 | Simon Fraser University | CA      | BC    | Vancouver | 602 Hastings St W       | V6B 1P2    | [-123.113431, 49.284626] | ...     |
 </details>
 
 <details>
@@ -821,9 +821,9 @@ There are 1 KFCs in Burnaby
 
 Their addresses are:
 
-| id | address      |
-|---:|-------------:|
-| 0  | 5094 Kingsway|
+|   id |       address |
+| ---: | ------------: |
+|    0 | 5094 Kingsway |
 
 </details>
 
@@ -902,14 +902,14 @@ shop_list = shop_list[shop_list["state"] == "BC"]
 shop_list.groupby('city')['name'].count().sort_values(ascending=False).head(10)
 ```
 
-| city            | count     |
-|----------------:|----------:|
-| Vancouver       | 42        |
-| Victoria        | 24        |
-| Surrey          | 15        |
-| Burnaby         | 14        |
-| ...             | ...       |
-| North Vancouver | 8         |
+|            city | count |
+| --------------: | ----: |
+|       Vancouver |    42 |
+|        Victoria |    24 |
+|          Surrey |    15 |
+|         Burnaby |    14 |
+|             ... |   ... |
+| North Vancouver |     8 |
 
 </details>
 
@@ -934,18 +934,18 @@ route
 ```
 The nearest grocery of SFU is Nesters Market. It is 1.234 miles far, and It is expected to take 3m21s of driving.
 
-| id |   index | narrative                                                            |   distance |   time |
-|---:|--------:|:---------------------------------------------------------------------|-----------:|-------:|
-|  0 |       0 | Start out going east on University Dr toward Arts Rd.                |      0.348 |     57 |
-|  1 |       1 | Turn left to stay on University Dr.                                  |      0.606 |     84 |
-|  2 |       2 | Enter next roundabout and take the 1st exit onto University High St. |      0.28  |     60 |
-|  3 |       3 | 9000 UNIVERSITY HIGH STREET is on the left.                          |      0     |      0 |
+|   id | index | narrative                                                            | distance | time |
+| ---: | ----: | :------------------------------------------------------------------- | -------: | ---: |
+|    0 |     0 | Start out going east on University Dr toward Arts Rd.                |    0.348 |   57 |
+|    1 |     1 | Turn left to stay on University Dr.                                  |    0.606 |   84 |
+|    2 |     2 | Enter next roundabout and take the 1st exit onto University High St. |     0.28 |   60 |
+|    3 |     3 | 9000 UNIVERSITY HIGH STREET is on the left.                          |        0 |    0 |
 
 </details>
 
 ### Lifestyle
 
-#### [Spoonacular](./spoonacular) -- Collect Recipe, Food, and Nutritional Information Data
+#### [Spoonacular](./api-connectors/spoonacular) -- Collect Recipe, Food, and Nutritional Information Data
 
 <details>
   <summary>Which foods are unhealthy, i.e.,have high carbs and high fat content?</summary>
@@ -964,14 +964,14 @@ df = df[df['calories']>1100] # considering foods with more than 1100 calories pe
 df[["title","calories","fat","carbs"]].sort_values(by=['calories'], ascending=False)
   ```
 
-| id   | title                             | calories | fat  | carbs |
-| ---- | --------------------------------- | -------- | ---- | ----- |
-| 2    | Brownie Chocolate Chip Cheesecake | 1210     | 92g  | 79g   |
-| 8    | Potato-Cheese Pie                 | 1208     | 80g  | 96g   |
-| 0    | Stuffed Shells with Beef and Broc | 1192     | 72g  | 81g   |
-| 3    | Coconut Crusted Rockfish          | 1187     | 72g  | 92g   |
-| 4    | Grilled Ratatouille               | 1143     | 82g  | 88g   |
-| 7    | Pecan Bars                        | 1121     | 84g  | 91g   |
+| id  | title                             | calories | fat | carbs |
+| --- | --------------------------------- | -------- | --- | ----- |
+| 2   | Brownie Chocolate Chip Cheesecake | 1210     | 92g | 79g   |
+| 8   | Potato-Cheese Pie                 | 1208     | 80g | 96g   |
+| 0   | Stuffed Shells with Beef and Broc | 1192     | 72g | 81g   |
+| 3   | Coconut Crusted Rockfish          | 1187     | 72g | 92g   |
+| 4   | Grilled Ratatouille               | 1143     | 82g | 88g   |
+| 7   | Pecan Bars                        | 1121     | 84g | 91g   |
 
 </details>
 
@@ -996,12 +996,12 @@ df.insert(1,'Protein(g)',g)
 df[["title","Protein(g)"]].sort_values(by='Protein(g)',ascending=False)
   ```
 
-| id   | title                                             | Protein(g) |
-| ---- | ------------------------------------------------- | ---------- |
-| 3    | Strip steak with roasted cherry tomatoes and v... | 56.2915    |
-| 0    | Low Carb Brunch Burger                            | 53.7958    |
-| 2    | Entrecote Steak with Asparagus                    | 41.6676    |
-| 1    | Italian Style Meatballs                           | 35.9293    |
+| id  | title                                             | Protein(g) |
+| --- | ------------------------------------------------- | ---------- |
+| 3   | Strip steak with roasted cherry tomatoes and v... | 56.2915    |
+| 0   | Low Carb Brunch Burger                            | 53.7958    |
+| 2   | Entrecote Steak with Asparagus                    | 41.6676    |
+| 1   | Italian Style Meatballs                           | 35.9293    |
 
 </details>
 
@@ -1017,11 +1017,11 @@ df = await dc.query('recipes', query='popular veg dishes', cuisine='italian', di
 df[["title"]]
   ```
 
-| id   | Title                                             |
-| ---- | ------------------------------------------------- |
-| 0    | Vegan Pea and Mint Pesto Bruschetta               |
-| 1    | Gluten Free Vegan Gnocchi                         |
-| 2    | Fresh Tomato Risotto with Grilled Green Vegeta... |
+| id  | Title                                             |
+| --- | ------------------------------------------------- |
+| 0   | Vegan Pea and Mint Pesto Bruschetta               |
+| 1   | Gluten Free Vegan Gnocchi                         |
+| 2   | Fresh Tomato Risotto with Grilled Green Vegeta... |
 
 </details>
 
@@ -1040,13 +1040,13 @@ df['likes'] = pd.to_numeric(df['likes'])
 df[['title', 'likes']].sort_values(by=['likes'], ascending=False).head(5)
   ```
 
-| id   | title                                             | likes |
-| ---- | ------------------------------------------------- | ----- |
-| 9    | Oven-Fried Ranch Chicken                          | 561   |
-| 1    | Fried Chicken and Wild Rice Waffles with Pink ... | 78    |
-| 6    | CCC: Carla Hall’s Fried Chicken                   | 47    |
-| 2    | Buttermilk Fried Chicken                          | 12    |
-| 0    | My Pantry Shelf                                   | 10    |
+| id  | title                                             | likes |
+| --- | ------------------------------------------------- | ----- |
+| 9   | Oven-Fried Ranch Chicken                          | 561   |
+| 1   | Fried Chicken and Wild Rice Waffles with Pink ... | 78    |
+| 6   | CCC: Carla Hall’s Fried Chicken                   | 47    |
+| 2   | Buttermilk Fried Chicken                          | 12    |
+| 0   | My Pantry Shelf                                   | 10    |
 
 </details>
 
@@ -1078,7 +1078,7 @@ Average calories for high calorie Korean foods: 644.765 kcal
 
 ### Music
 
-#### [MusixMatch](./musicmatch) -- Collect Music Lyrics Data
+#### [MusixMatch](./api-connectors/musicmatch) -- Collect Music Lyrics Data
 <details>
   <summary>What is Katy Perry's Twitter URL?</summary>
 
@@ -1766,7 +1766,7 @@ album
 </div>
 </details>  
 
-#### [Spotify](./spotify) -- Collect Albums, Artists, and Tracks Metadata
+#### [Spotify](./api-connectors/spotify) -- Collect Albums, Artists, and Tracks Metadata
 
 <details>
   <summary>How many followers does Eminem have?</summary>
@@ -1917,7 +1917,7 @@ print(df['album_name'] + ", by " + df['artist'][0] + ", with " + str(df['market_
 ​    
 </details> 
 
-#### [iTunes](./itunes) — Collect iTunes Data
+#### [iTunes](./api-connectors/itunes) -- Collect iTunes Data
 
 <details>
   <summary>What are all Jack Johnson audio and video content?</summary>
@@ -1968,17 +1968,17 @@ df = df[df['artistName']=='Ang Lee']
 df
 ```
 
-| id   | type  | kind          | artistName | collectionName              | trackName           | trackTime |
-| ---- | ----- | ------------- | ---------- | --------------------------- | ------------------- | --------- |
-| 0    | track | feature-movie | Ang Lee    | Fox 4K HDR Drama Collection | Life of Pi          | 7642675   |
-| 1    | track | feature-movie | Ang Lee    | None                        | Gemini Man          | 7049958   |
-| ...  | ...   | ...           | ...        | ...                         | ...                 | ...       |
-| 11   | track | feature-movie | Ang Lee    | None                        | Ride With the Devil | 8290498   |
+| id  | type  | kind          | artistName | collectionName              | trackName           | trackTime |
+| --- | ----- | ------------- | ---------- | --------------------------- | ------------------- | --------- |
+| 0   | track | feature-movie | Ang Lee    | Fox 4K HDR Drama Collection | Life of Pi          | 7642675   |
+| 1   | track | feature-movie | Ang Lee    | None                        | Gemini Man          | 7049958   |
+| ... | ...   | ...           | ...        | ...                         | ...                 | ...       |
+| 11  | track | feature-movie | Ang Lee    | None                        | Ride With the Devil | 8290498   |
 </details>
 
 ### Networking
 
-#### [IPLegit](./iplegit) -- Collect IP Address Data
+#### [IPLegit](./api-connectors/iplegit) -- Collect IP Address Data
 
 <details>
 <summary>How can I check if an IP address is bad, so I can block it from accessing my website?</summary>
@@ -2111,7 +2111,7 @@ gdf.plot(ax=world.plot(figsize=(10, 6)), marker='o', color='red', markersize=15)
 ### News
 
 
-#### [Guardian](./guardian) -- Collect Guardian News Data 
+#### [Guardian](./api-connectors/guardian) -- Collect Guardian News Data 
 <details>
   <summary>Which news section contain most mentions related to bitcoin ?</summary>
   
@@ -2125,7 +2125,7 @@ df3.groupby('section').count().sort_values("headline", ascending=False)
 
 ```
 | section                            | headline | url | publish_date |
-|------------------------------------|----------|-----|--------------|
+| ---------------------------------- | -------- | --- | ------------ |
 |                                    |          |     |              |
 | World news                         | 378      | 378 | 378          |
 | Business                           | 103      | 103 | 103          |
@@ -2173,18 +2173,18 @@ conn_guardian = connect('guardian', update = True, _auth={'access_token': API_ke
 df2 = await conn_guardian.query('article', _q='covid 19 protect',  _count=100)
 df2[df2.section=='Opinion']
 ```
-| id | headline                                          | section | url                                               | publish_date         |
-|----|---------------------------------------------------|---------|---------------------------------------------------|----------------------|
-| 0  | Billionaires made $1tn since Covid-19. They ca... | Opinion | https://www.theguardian.com/commentisfree/2020... | 2020-12-09T11:32:20Z |
-| 1  | Jeff Bezos became even richer thanks to Covid-... | Opinion | https://www.theguardian.com/commentisfree/2020... | 2020-12-13T07:30:00Z |
-| 20 | Here's how to tackle the Covid-19 anti-vaxxers... | Opinion | https://www.theguardian.com/commentisfree/2020... | 2020-11-26T16:02:14Z |
-| 41 | Can the UK deliver on the Covid vaccine rollou... | Opinion | https://www.theguardian.com/commentisfree/2020... | 2020-12-11T09:00:24Z |
-| 68 | Covid-19 has turned back the clock on working ... | Opinion | https://www.theguardian.com/commentisfree/2020... | 2020-12-10T14:19:27Z |
-| 84 | The Guardian view on Covid-19 promises: season... | Opinion | https://www.theguardian.com/commentisfree/2020... | 2020-12-14T18:42:10Z |
-| 88 | The Guardian view on responding to the Covid-1... | Opinion | https://www.theguardian.com/commentisfree/2020... | 2020-12-30T18:58:05Z |
+| id  | headline                                          | section | url                                               | publish_date         |
+| --- | ------------------------------------------------- | ------- | ------------------------------------------------- | -------------------- |
+| 0   | Billionaires made $1tn since Covid-19. They ca... | Opinion | https://www.theguardian.com/commentisfree/2020... | 2020-12-09T11:32:20Z |
+| 1   | Jeff Bezos became even richer thanks to Covid-... | Opinion | https://www.theguardian.com/commentisfree/2020... | 2020-12-13T07:30:00Z |
+| 20  | Here's how to tackle the Covid-19 anti-vaxxers... | Opinion | https://www.theguardian.com/commentisfree/2020... | 2020-11-26T16:02:14Z |
+| 41  | Can the UK deliver on the Covid vaccine rollou... | Opinion | https://www.theguardian.com/commentisfree/2020... | 2020-12-11T09:00:24Z |
+| 68  | Covid-19 has turned back the clock on working ... | Opinion | https://www.theguardian.com/commentisfree/2020... | 2020-12-10T14:19:27Z |
+| 84  | The Guardian view on Covid-19 promises: season... | Opinion | https://www.theguardian.com/commentisfree/2020... | 2020-12-14T18:42:10Z |
+| 88  | The Guardian view on responding to the Covid-1... | Opinion | https://www.theguardian.com/commentisfree/2020... | 2020-12-30T18:58:05Z |
 </details>
 
-#### [Times](./times) -- Collect New York Times Data
+#### [Times](./api-connectors/times) -- Collect New York Times Data
 <details>
   <summary>Who is the author of article 'Yellen Outlines Economic Priorities, and Republicans Draw Battle Lines'</summary>
 
@@ -2196,9 +2196,9 @@ conn_times = connect("times", _auth={"access_token":times_access_token})
 df = await conn_times.query('ac',q='Yellen Outlines Economic Priorities, and Republicans Draw Battle Lines')
 df[["authors"]]
 ```
-| id | authors           |
-|---:|:------------------|
-|  0 | By Alan Rappeport |
+|   id | authors           |
+| ---: | :---------------- |
+|    0 | By Alan Rappeport |
 </details>
 
 <details>
@@ -2212,9 +2212,9 @@ conn_times = connect("times", _auth={"access_token":times_access_token})
 df = await conn_times.query('ac',q="ottawa",sort='newest')
 df[['headline','authors','abstract','url','pub_date']].head(1)
 ```
-|    | headline                                                      | ... | pub_date                 |
-|---:|:--------------------------------------------------------------|:----|:-------------------------|
-|  0 | 21 Men Accuse Lincoln Project Co-Founder of Online Harassment | ... | 2021-01-31T14:48:35+0000 |
+|      | headline                                                      | ...  | pub_date                 |
+| ---: | :------------------------------------------------------------ | :--- | :----------------------- |
+|    0 | 21 Men Accuse Lincoln Project Co-Founder of Online Harassment | ...  | 2021-01-31T14:48:35+0000 |
 </details>
 
 <details>
@@ -2230,13 +2230,13 @@ df = await conn_times.query('ac',q="Trump",fq='section_name:("technology")',begi
 print(df['headline'])
 print("Trump was mentioned in " + str(len(df)) + " articles")
 ```
-| id | headline                                                                                   |
-|---:|:-------------------------------------------------------------------------------------------|
-|  0 | No, Trump cannot win Georgia’s electoral votes through a write-in Senate campaign.         |
-|  1 | How Misinformation ‘Superspreaders’ Seed False Election Theories                           |
-|  2 | No, Trump’s sister did not publicly back him. He was duped by a fake account.              |
-| .. | ...                                                                                        |
-| 49 | Trump Official’s Tweet, and Its Removal, Set Off Flurry of Anti-Mask Posts                 |
+|   id | headline                                                                           |
+| ---: | :--------------------------------------------------------------------------------- |
+|    0 | No, Trump cannot win Georgia’s electoral votes through a write-in Senate campaign. |
+|    1 | How Misinformation ‘Superspreaders’ Seed False Election Theories                   |
+|    2 | No, Trump’s sister did not publicly back him. He was duped by a fake account.      |
+|   .. | ...                                                                                |
+|   49 | Trump Official’s Tweet, and Its Removal, Set Off Flurry of Anti-Mask Posts         |
 
 Trump was mentioned in 50 articles
 </details>
@@ -2265,20 +2265,20 @@ ranking_df
 ```
 [2, 6, 3, 6, 1, 0]
 
-|    | name           |   number of mentions |
-|---:|:---------------|---------------------:|
-|  1 | Taylor Swift   |                    6 |
-|  3 | BTS            |                    6 |
-|  2 | Lady Gaga      |                    3 |
-|  0 | Katy Perry     |                    2 |
-|  4 | Rihanna        |                    1 |
-|  5 | Kim Kardashian |                    0 |
+|      | name           | number of mentions |
+| ---: | :------------- | -----------------: |
+|    1 | Taylor Swift   |                  6 |
+|    3 | BTS            |                  6 |
+|    2 | Lady Gaga      |                  3 |
+|    0 | Katy Perry     |                  2 |
+|    4 | Rihanna        |                  1 |
+|    5 | Kim Kardashian |                  0 |
 </details>
 
 
 ### Science
 
-#### [DBLP](./dblp) -- Collect Computer Science Publication Data
+#### [DBLP](./api-connectors/dblp) -- Collect Computer Science Publication Data
 
 <details>
   <summary>Who wrote this paper?</summary>
@@ -2338,7 +2338,7 @@ ranking_df
 ### Shopping
 
 
-#### [Etsy](./etsy) -- Collect Handmade Marketplace Data.
+#### [Etsy](./api-connectors/etsy) -- Collect Handmade Marketplace Data.
 
 <details>
   <summary>What are the products I can get when I search for "winter jackets"?</summary>
@@ -2353,12 +2353,12 @@ df = await conn_etsy.query("items", keywords = "winter jackets")
 df[['title',"url","description","price","currency"]]
 ```
 
-| id   | title                                             | url                                               | description                                         | price  | currency | quantity |
-| ---- | ------------------------------------------------- | ------------------------------------------------- | --------------------------------------------------- | ------ | -------- | -------- |
-| 0    | White coat,cashmere coat,wool jacket with belt... | https://www.etsy.com/listing/646692584/white-c... | ★Please leave your phone number to me while yo...   | 183.00 | USD      | 1        |
-| 1    | Vintage 90&#39;s Nike ACG Parka Jacket Large N... | https://www.etsy.com/listing/937300597/vintage... | Vintage 90&#39;s Nike ACG Parka Jacket Large N...   | 110.00 | USD      | 1        |
-| ...  | ... ...                                           | ... ...                                           | ... ...                                             | ...    | ....     | ..       |
-| 24   | Miss yo 2018 Vintage Checker Jacket for Blythe... | https://www.etsy.com/listing/613790308/miss-yo... | ~~ Welcome to our shop ~~\n\nSet include:\n1 Vin... | 52.00  | SGD      | 1        |
+| id  | title                                             | url                                               | description                                         | price  | currency | quantity |
+| --- | ------------------------------------------------- | ------------------------------------------------- | --------------------------------------------------- | ------ | -------- | -------- |
+| 0   | White coat,cashmere coat,wool jacket with belt... | https://www.etsy.com/listing/646692584/white-c... | ★Please leave your phone number to me while yo...   | 183.00 | USD      | 1        |
+| 1   | Vintage 90&#39;s Nike ACG Parka Jacket Large N... | https://www.etsy.com/listing/937300597/vintage... | Vintage 90&#39;s Nike ACG Parka Jacket Large N...   | 110.00 | USD      | 1        |
+| ... | ... ...                                           | ... ...                                           | ... ...                                             | ...    | ....     | ..       |
+| 24  | Miss yo 2018 Vintage Checker Jacket for Blythe... | https://www.etsy.com/listing/613790308/miss-yo... | ~~ Welcome to our shop ~~\n\nSet include:\n1 Vin... | 52.00  | SGD      | 1        |
 
 </details>
 
@@ -2376,9 +2376,9 @@ df = await conn_etsy.query("shops", shop_name = "CrazedGaming",  _count = 1)
 df[["name", "url", "favorites"]]
 ```
 
-| id   | Name         | Url                                               | Favorites |
-| ---- | ------------ | ------------------------------------------------- | --------- |
-| 0    | CrazedGaming | https://www.etsy.com/shop/CrazedGaming?utm_sou... | 265       |
+| id  | Name         | Url                                               | Favorites |
+| --- | ------------ | ------------------------------------------------- | --------- |
+| 0   | CrazedGaming | https://www.etsy.com/shop/CrazedGaming?utm_sou... | 265       |
 
 </details>
 
@@ -2431,12 +2431,12 @@ result_df = planner_df[((planner_df['state'] == 'active') & (planner_df['quantit
 result_df
 ```
 
-| id   | title                                             | state  | url                                               | description                                       | price | currency | quantity | views | favorites |
-| ---- | ------------------------------------------------- | ------ | ------------------------------------------------- | ------------------------------------------------- | ----- | -------- | -------- | ----- | --------- |
-| 1    | 2021 Plaid About You Medium Daily Weekly Month... | active | https://www.etsy.com/listing/789842329/2021-pl... | Planning and organizing life is a snap with th... | 15.99 | USD      | 496      | 100   | 11        |
-| 2    | 2021 Undated Diary Planner , Notebook Weekly D... | active | https://www.etsy.com/listing/917640414/2021-un... | A6 2021 Yearly Monthly Weekly Agenda Planner ,... | 12.00 | GBP      | 792      | 3433  | 168       |
-| .    | ... ...                                           | ...    | ... ...                                           | ... ...                                           | ...   | ..       | ...      | ...   | ...       |
-| 85   | July 2020-June 2021 Big Blue Year Large Daily ... | active | https://www.etsy.com/listing/776300099/july-20... | This 12-month academic year planner offers a c... | 6.95  | USD      | 493      | 454   | 31        |
+| id  | title                                             | state  | url                                               | description                                       | price | currency | quantity | views | favorites |
+| --- | ------------------------------------------------- | ------ | ------------------------------------------------- | ------------------------------------------------- | ----- | -------- | -------- | ----- | --------- |
+| 1   | 2021 Plaid About You Medium Daily Weekly Month... | active | https://www.etsy.com/listing/789842329/2021-pl... | Planning and organizing life is a snap with th... | 15.99 | USD      | 496      | 100   | 11        |
+| 2   | 2021 Undated Diary Planner , Notebook Weekly D... | active | https://www.etsy.com/listing/917640414/2021-un... | A6 2021 Yearly Monthly Weekly Agenda Planner ,... | 12.00 | GBP      | 792      | 3433  | 168       |
+| .   | ... ...                                           | ...    | ... ...                                           | ... ...                                           | ...   | ..       | ...      | ...   | ...       |
+| 85  | July 2020-June 2021 Big Blue Year Large Daily ... | active | https://www.etsy.com/listing/776300099/july-20... | This 12-month academic year planner offers a c... | 6.95  | USD      | 493      | 454   | 31        |
 
 </details>
 
@@ -2484,18 +2484,18 @@ new_df = df[["title", "url", "views"]]
 new_df.sort_values(by="views", ascending=False).reset_index(drop=True).head(10)
   ```
 
-| id   | title                                               | url                                               | views |
-| ---- | --------------------------------------------------- | ------------------------------------------------- | ----- |
-| 0    | Hanging ceramic wind chime in gloss white glaz...   | https://www.etsy.com/listing/101462779/hanging... | 24406 |
-| 1    | Trending Now! Best Seller Birthday Gift for Mo...   | https://www.etsy.com/listing/555128094/trendin... | 17058 |
-| 2    | Beautiful Ceramic outdoor hanging wind chime -...   | https://www.etsy.com/listing/155966922/beautif... | 9758  |
-| 3    | Wind Chime, Garden Yard Art for Outdoor Home D...   | https://www.etsy.com/listing/159252106/wind-ch... | 8850  |
-| 4    | Ceramic cow bells \| wind chime bell \| wall han... | https://www.etsy.com/listing/538608210/ceramic... | 6540  |
-| 5    | Mom Gift Ideas Housewarming Gifts Garden Decor...   | https://www.etsy.com/listing/171539253/mom-gif... | 6123  |
-| 6    | Ceramic Wind Chimes single strand Wall Hanging...   | https://www.etsy.com/listing/598234797/ceramic... | 5288  |
-| 7    | Handcraft Ceramic Bird Wind Chime/ Bird Windch...   | https://www.etsy.com/listing/697798625/handcra... | 4733  |
-| 8    | Glass Wind Chime Green Leaves Windchime Garden...   | https://www.etsy.com/listing/744753959/glass-w... | 4579  |
-| 9    | Handmade ceramic and driftwood wind chimes Bea...   | https://www.etsy.com/listing/615210251/handmad... | 2774  |
+| id  | title                                               | url                                               | views |
+| --- | --------------------------------------------------- | ------------------------------------------------- | ----- |
+| 0   | Hanging ceramic wind chime in gloss white glaz...   | https://www.etsy.com/listing/101462779/hanging... | 24406 |
+| 1   | Trending Now! Best Seller Birthday Gift for Mo...   | https://www.etsy.com/listing/555128094/trendin... | 17058 |
+| 2   | Beautiful Ceramic outdoor hanging wind chime -...   | https://www.etsy.com/listing/155966922/beautif... | 9758  |
+| 3   | Wind Chime, Garden Yard Art for Outdoor Home D...   | https://www.etsy.com/listing/159252106/wind-ch... | 8850  |
+| 4   | Ceramic cow bells \| wind chime bell \| wall han... | https://www.etsy.com/listing/538608210/ceramic... | 6540  |
+| 5   | Mom Gift Ideas Housewarming Gifts Garden Decor...   | https://www.etsy.com/listing/171539253/mom-gif... | 6123  |
+| 6   | Ceramic Wind Chimes single strand Wall Hanging...   | https://www.etsy.com/listing/598234797/ceramic... | 5288  |
+| 7   | Handcraft Ceramic Bird Wind Chime/ Bird Windch...   | https://www.etsy.com/listing/697798625/handcra... | 4733  |
+| 8   | Glass Wind Chime Green Leaves Windchime Garden...   | https://www.etsy.com/listing/744753959/glass-w... | 4579  |
+| 9   | Handmade ceramic and driftwood wind chimes Bea...   | https://www.etsy.com/listing/615210251/handmad... | 2774  |
 
 </details>
 
@@ -2505,7 +2505,7 @@ new_df.sort_values(by="views", ascending=False).reset_index(drop=True).head(10)
 
 ### Social
 
-#### [Twitch](./twitch) -- Collect Twitch Streams and Channels Information
+#### [Twitch](./api-connectors/twitch) -- Collect Twitch Streams and Channels Information
 <details>
   <summary>How many followers does the Twitch user "Logic" have?</summary>
 
@@ -2823,7 +2823,7 @@ Number of streams in the past 24 hours:
 </details>  
 
 
-#### [Twitter](./twitter) -- Collect Tweets Information
+#### [Twitter](./api-connectors/twitter) -- Collect Tweets Information
 
 <details>
   <summary>What are the 10 latest english tweets by SFU handle (@SFU) ?</summary>
@@ -2905,18 +2905,18 @@ retweets_df = retweets_df.sort_values(by=['RT_Count'], ascending=False).reset_in
 retweets_df
   ```
 
-| id   | User            | RT_Count |
-| ---- | --------------- | -------- |
-| 0    | John_Greed      | 195      |
-| 1    | uEatCrayons     | 85       |
-| 2    | Demo2020cracy   | 78       |
-| 3    | store_pup       | 75       |
-| 4    | miknitem_oasis  | 61       |
-| 5    | MarkCrypto23    | 54       |
-| 6    | realmamivee     | 52       |
-| 7    | trailblazers    | 50       |
-| 8    | devilsvalentine | 40       |
-| 9    | SharingforCari1 | 38       |
+| id  | User            | RT_Count |
+| --- | --------------- | -------- |
+| 0   | John_Greed      | 195      |
+| 1   | uEatCrayons     | 85       |
+| 2   | Demo2020cracy   | 78       |
+| 3   | store_pup       | 75       |
+| 4   | miknitem_oasis  | 61       |
+| 5   | MarkCrypto23    | 54       |
+| 6   | realmamivee     | 52       |
+| 7   | trailblazers    | 50       |
+| 8   | devilsvalentine | 40       |
+| 9   | SharingforCari1 | 38       |
 
 </details>
 
@@ -2955,18 +2955,18 @@ tag_count = tag_count.iloc[0:10,:]
 tag_count
   ```
 
-| id   | tag_list                 | tag_count |
-| ---- | ------------------------ | --------- |
-| 0    | jobs                     | 52        |
-| 1    | TractorMarch             | 24        |
-| 2    | corpsehusbandallegations | 22        |
-| 3    | SidNaazians              | 10        |
-| 4    | GodMorningTuesday        | 8         |
-| 5    | SupremeGodKabir          | 7         |
-| 6    | hiring                   | 7         |
-| 7    | نماز_راہ_نجات_ہے         | 6         |
-| 8    | London                   | 5         |
-| 9    | TravelTuesday            | 5         |
+| id  | tag_list                 | tag_count |
+| --- | ------------------------ | --------- |
+| 0   | jobs                     | 52        |
+| 1   | TractorMarch             | 24        |
+| 2   | corpsehusbandallegations | 22        |
+| 3   | SidNaazians              | 10        |
+| 4   | GodMorningTuesday        | 8         |
+| 5   | SupremeGodKabir          | 7         |
+| 6   | hiring                   | 7         |
+| 7   | نماز_راہ_نجات_ہے         | 6         |
+| 8   | London                   | 5         |
+| 9   | TravelTuesday            | 5         |
 
 </details>
 
@@ -2975,7 +2975,7 @@ tag_count
 ### Video
 
 
-#### [Youtube](./youtube) -- Collect Youtube's Content MetaData.
+#### [Youtube](./api-connectors/youtube) -- Collect Youtube's Content MetaData.
 
 <details>
   <summary>What are the top 10 Fitness Channels?</summary>
@@ -2989,18 +2989,18 @@ df = await dc.query('videos', q='Fitness', part='snippet', type='channel', _coun
 df[['title', 'description']]
   ```
 
-| id   | title                       | description                                       |
-| ---- | --------------------------- | ------------------------------------------------- |
-| 0    | Jordan Yeoh Fitness         | Hey! Welcome to my Youtube channel! I got noth... |
-| 1    | FitnessBlender              | 600 free full length workout videos & counting... |
-| 2    | The Fitness Marshall        | Get early access to dances by clicking here: h... |
-| 3    | POPSUGAR Fitness            | POPSUGAR Fitness offers fresh fitness tutorial... |
-| 4    | LiveFitness                 | Hi, I am Nicola and I love all things fitness!... |
-| 5    | TpindellFitness             | Strive for progress, not perfection.              |
-| 6    | Love Sweat Fitness          | My personal weight loss journey of 45 pounds c... |
-| 7    | Martial Arts Fitness        | Welcome To My Channel. I love Martial Arts 🥇 ...  |
-| 8    | Zuzka Light                 | My name is Zuzka Light, and my channel is all ... |
-| 9    | Fitness Factory Lüdenscheid | Schaut unter ff-luedenscheid.com Kostenlos übe... |
+| id  | title                       | description                                       |
+| --- | --------------------------- | ------------------------------------------------- |
+| 0   | Jordan Yeoh Fitness         | Hey! Welcome to my Youtube channel! I got noth... |
+| 1   | FitnessBlender              | 600 free full length workout videos & counting... |
+| 2   | The Fitness Marshall        | Get early access to dances by clicking here: h... |
+| 3   | POPSUGAR Fitness            | POPSUGAR Fitness offers fresh fitness tutorial... |
+| 4   | LiveFitness                 | Hi, I am Nicola and I love all things fitness!... |
+| 5   | TpindellFitness             | Strive for progress, not perfection.              |
+| 6   | Love Sweat Fitness          | My personal weight loss journey of 45 pounds c... |
+| 7   | Martial Arts Fitness        | Welcome To My Channel. I love Martial Arts 🥇 ...  |
+| 8   | Zuzka Light                 | My name is Zuzka Light, and my channel is all ... |
+| 9   | Fitness Factory Lüdenscheid | Schaut unter ff-luedenscheid.com Kostenlos übe... |
 
 </details>
 
@@ -3034,17 +3034,17 @@ for singer in singers:
 df[['title', 'description', 'channelTitle']]
   ```
 
-| id   | title                                               | description                                         | channelTitle           |
-| ---- | --------------------------------------------------- | --------------------------------------------------- | ---------------------- |
-| 0    | Taylor Swift Discography                            |                                                     | Sarah Bella            |
-| 1    | Ed Sheeran - New And Best Songs (2021)              | Best Of Ed Sheeran 2021 \|\| Ed Sheeran Greatest... | Full Albums!           |
-| 2    | Shawn Mendes: The Album 2018 (Full Album)           |                                                     | WorldMusicStream       |
-| 3    | Ariana Grande - Positions (Full Album)              | October 30, 2020.                                   | lo115                  |
-| 4    | Michael Jackson Mix                                 | Michael Jackson's Songs.                            | Leo Meneses            |
-| 5    | Selena Gomez - Rare [FULL ALBUM 2020]               | selena gomez,selena gomez rare album,selena go...   | THUNDERS               |
-| 6    | Lady Gaga - Greatest Hits                           | Lady Gaga - Greatest Hits 01 The Edge Of Glory...   | Gunther Ruymen         |
-| 7    | Shreya Ghoshal Tamil Hit Songs \| #TamilSongs \|... |                                                     | Sony Music South       |
-| 8    | The Best of Bruno Mars                              |                                                     | Warner Music Australia |
+| id  | title                                               | description                                         | channelTitle           |
+| --- | --------------------------------------------------- | --------------------------------------------------- | ---------------------- |
+| 0   | Taylor Swift Discography                            |                                                     | Sarah Bella            |
+| 1   | Ed Sheeran - New And Best Songs (2021)              | Best Of Ed Sheeran 2021 \|\| Ed Sheeran Greatest... | Full Albums!           |
+| 2   | Shawn Mendes: The Album 2018 (Full Album)           |                                                     | WorldMusicStream       |
+| 3   | Ariana Grande - Positions (Full Album)              | October 30, 2020.                                   | lo115                  |
+| 4   | Michael Jackson Mix                                 | Michael Jackson's Songs.                            | Leo Meneses            |
+| 5   | Selena Gomez - Rare [FULL ALBUM 2020]               | selena gomez,selena gomez rare album,selena go...   | THUNDERS               |
+| 6   | Lady Gaga - Greatest Hits                           | Lady Gaga - Greatest Hits 01 The Edge Of Glory...   | Gunther Ruymen         |
+| 7   | Shreya Ghoshal Tamil Hit Songs \| #TamilSongs \|... |                                                     | Sony Music South       |
+| 8   | The Best of Bruno Mars                              |                                                     | Warner Music Australia |
 
 </details>
 
@@ -3060,18 +3060,18 @@ df = await dc.query('videos', q='Sports', part='snippet', type='activity', _coun
 df[['title', 'description', 'channelTitle']]
   ```
 
-|      | title                                               | description                                         | channelTitle       |
-| ---- | --------------------------------------------------- | --------------------------------------------------- | ------------------ |
-| 0    | Sports Tak                                          | Sports Tak, as the name suggests, is all about...   | Sports Tak         |
-| 1    | Sports                                              | sport : an activity involving physical exertio...   | Sports             |
-| 2    | Greatest Sports Moments                             | UPDATE: I AM IN THE PROCESS OF MAKING REVISION...   | WTD Productions    |
-| 3    | Viagra Boys - Sports (Official Video)               | Director: Simon Jung DOP: Paul Evans Producer:...   | viagra boys        |
-| 4    | Volleyball Open Tournament, Jagdev Kalan \|\| 12... | Volleyball Open Tournament, Jagdev Kalan \|\| 12... | Fine Sports        |
-| 5    | Beach Bunny - Sports                                | booking/inquires: beachbunnymusic@gmail.com hu...   | Beach Bunny        |
-| 6    | Top 100 Best Sports Bloopers 2020                   | Watch the Top 100 best sports bloopers from 20...   | Crazy Laugh Action |
-| 7    | Memorable Moments in Sports History                 | Memorable Moments in Sports History! SUBSCRİBE...   | Cenk Bezirci       |
-| 8    | Craziest “Saving Lives” Moments in Sports History   | Craziest “Saving Lives” Moments in Sports Hist...   | Highlight Reel     |
-| 9    | Most Savage Sports Highlights on Youtube (S01E01)   | I do these videos ever year or so, they are ba...   | Joseph Vincent     |
+|     | title                                               | description                                         | channelTitle       |
+| --- | --------------------------------------------------- | --------------------------------------------------- | ------------------ |
+| 0   | Sports Tak                                          | Sports Tak, as the name suggests, is all about...   | Sports Tak         |
+| 1   | Sports                                              | sport : an activity involving physical exertio...   | Sports             |
+| 2   | Greatest Sports Moments                             | UPDATE: I AM IN THE PROCESS OF MAKING REVISION...   | WTD Productions    |
+| 3   | Viagra Boys - Sports (Official Video)               | Director: Simon Jung DOP: Paul Evans Producer:...   | viagra boys        |
+| 4   | Volleyball Open Tournament, Jagdev Kalan \|\| 12... | Volleyball Open Tournament, Jagdev Kalan \|\| 12... | Fine Sports        |
+| 5   | Beach Bunny - Sports                                | booking/inquires: beachbunnymusic@gmail.com hu...   | Beach Bunny        |
+| 6   | Top 100 Best Sports Bloopers 2020                   | Watch the Top 100 best sports bloopers from 20...   | Crazy Laugh Action |
+| 7   | Memorable Moments in Sports History                 | Memorable Moments in Sports History! SUBSCRİBE...   | Cenk Bezirci       |
+| 8   | Craziest “Saving Lives” Moments in Sports History   | Craziest “Saving Lives” Moments in Sports Hist...   | Highlight Reel     |
+| 9   | Most Savage Sports Highlights on Youtube (S01E01)   | I do these videos ever year or so, they are ba...   | Joseph Vincent     |
 
 </details>
 
@@ -3122,21 +3122,21 @@ df['name'] = names
 df[["name", "wind"]].reset_index(drop=True)
 ```
 
-| id | name          | wind |
-|----|---------------|------|
-| 0  | Edmonton      | 6.17 |
-| 1  | Victoria      | 1.34 |
-| 2  | Winnipeg      | 2.57 |
-| 3  | Fredericton   | 4.63 |
-| 4  | St. John's    | 5.14 |
-| 5  | Halifax       | 5.14 |
-| 6  | Toronto       | 1.76 |
-| 7  | Charlottetown | 5.14 |
-| 8  | Quebec City   | 3.09 |
-| 9  | Regina        | 4.12 |
-| 10 | Yellowknife   | 3.60 |
-| 11 | Iqaluit       | 5.66 |
-| 12 | Whitehorse    | 9.77 |
+| id  | name          | wind |
+| --- | ------------- | ---- |
+| 0   | Edmonton      | 6.17 |
+| 1   | Victoria      | 1.34 |
+| 2   | Winnipeg      | 2.57 |
+| 3   | Fredericton   | 4.63 |
+| 4   | St. John's    | 5.14 |
+| 5   | Halifax       | 5.14 |
+| 6   | Toronto       | 1.76 |
+| 7   | Charlottetown | 5.14 |
+| 8   | Quebec City   | 3.09 |
+| 9   | Regina        | 4.12 |
+| 10  | Yellowknife   | 3.60 |
+| 11  | Iqaluit       | 5.66 |
+| 12  | Whitehorse    | 9.77 |
 
   </details>
 
