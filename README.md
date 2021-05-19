@@ -469,7 +469,7 @@ df.drop('total', axis=1)
 
 ### Calendar
 
-#### [Holiday](./holiday) -- Collect Holiday, Workday Data
+#### [Holiday](./api-connectors/holiday) -- Collect Holiday, Workday Data
 
 <details>
   <summary>What are the supported countries, their country codes and languages supported?</summary>
@@ -853,7 +853,7 @@ result
 
 </details>
 
-#### [CoinGecko](./coingecko) -- Collect Cryptocurrency Data
+#### [CoinGecko](./api-connectors/coingecko) -- Collect Cryptocurrency Data
 
 <details>
   <summary>What are the 10 cryptocurrencies with highest market cap and their current information?</summary>
@@ -1119,7 +1119,7 @@ The nearest grocery of SFU is Nesters Market. It is 1.234 miles far, and It is e
 
 ### Jobs
 
-#### [The Muse](./themuse) -- Collect Job Ads, Company Information
+#### [The Muse](./api-connectors/themuse) -- Collect Job Ads, Company Information
 
 <details>
   <summary>What are the data science jobs in Vancouver on the fisrt page?</summary>
@@ -2539,7 +2539,7 @@ ranking_df
 |    5 | Kim Kardashian |                  0 |
 </details>
 
-#### [Currents](./currents) -- Collect Currents News Data
+#### [Currents](./api-connectors/currents) -- Collect Currents News Data
 <details>
   <summary>How to get latest Chinese news?</summary>
 
@@ -3399,7 +3399,7 @@ tag_count
 ### Sports
 
 
-#### [TheSportsDB](./thesportsdb) -- Collect Team and League Data
+#### [TheSportsDB](./api-connectors/thesportsdb) -- Collect Team and League Data
 
 <details>
 <summary>What were scores of the last 10 NBA games?</summary>
@@ -3542,7 +3542,7 @@ df[['facebook', 'twitter', 'instagram']]
 
 ### Travel
 
-#### [Amadeus](./amadeus) -- Collect Twitch Streams and Channels Information
+#### [Amadeus](./api-connectors/amadeus) -- Collect Twitch Streams and Channels Information
 
 <details>
   <summary>What are the hotels within 5 km of the Sydney city center, available from 2021-05-01 to 2021-05-02?</summary>
@@ -3685,7 +3685,7 @@ df
 </details>
 
 
-#### [OurAirport](./omdb) -- Collect Travel Data
+#### [OurAirport](./api-connectors/ourairport) -- Collect Travel Data
 
 <details>
 <summary>What is the country given GeoNames ID?</summary>
