@@ -1,0 +1,46 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://api.nasa.gov/DONKI/SEP",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "api_key"
+        },
+        "params": {
+            "startDate": true,
+            "endDate": true
+        }
+    },
+    "examples": {
+        "start_date": "'2019-01-01'",
+        "end_date": "'2021-01-01'"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$[*]",
+        "schema": {
+            "sep_id": {
+                "target": "$.sepID",
+                "type": "string"
+            },
+            "event_time": {
+                "target": "$.eventTime",
+                "type": "string"
+            },
+            "instruments": {
+                "target": "$.instruments[*].displayName",
+                "type": "object"
+            },
+            "linked_events": {
+                "target": "$.linkedEvents[*]",
+                "type": "object"
+            },
+            "link": {
+                "target": "$.link",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}

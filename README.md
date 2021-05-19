@@ -18,9 +18,11 @@ You can contribute to this project in two ways. Please check the [contributing g
 ## Index
 * [Art](#art)
 * [Business](#business)
+* [Calendar](#calendar)
 * [Crime](#crime)
 * [Finance](#finance)
 * [Geocoding](#geocoding)
+* [Jobs](#jobs)
 * [Lifestyle](#lifestyle)
 * [Music](#music)
 * [Networking](#networking)
@@ -28,6 +30,8 @@ You can contribute to this project in two ways. Please check the [contributing g
 * [Science](#science)
 * [Shopping](#shopping)
 * [Social](#social)
+* [Sports](#sports)
+* [Travel](#travel)
 * [Video](#video)
 * [Weather](#weather)
 
@@ -58,7 +62,7 @@ df[['title', 'division', 'classification', 'technique', 'department', 'century',
 
 <details>
   <summary>Find 10 people that are Dutch.</summary>
-  
+
   ```python
 from dataprep.connector import connect
 
@@ -100,7 +104,7 @@ df
 
 <details>
   <summary>Find 5 records for publications that were published in 2013.</summary>
-  
+
   ```python
 from dataprep.connector import connect
 
@@ -123,7 +127,7 @@ df[['title','publication date','publication place','format']]
 
 <details>
   <summary>Find 5 galleries that are on floor (Level) 2 in the Harvard Art Museums building.</summary>
-  
+
   ```python
 from dataprep.connector import connect
 
@@ -463,6 +467,78 @@ df.drop('total', axis=1)
 </div>
 </details>
 
+### Calendar
+
+#### [Holiday](./holiday) -- Collect Holiday, Workday Data
+
+<details>
+  <summary>What are the supported countries, their country codes and languages supported?</summary>
+
+
+```python
+from dataprep.connector import connect
+
+# You can get ”holiday_key“ by following https://holidayapi.com/docs
+dc = connect('holiday', _auth={'access_token': holiday_key})
+
+df = await dc.query("country")
+df
+```
+
+|     | code | name                 | languages |
+| --- | ---- | -------------------- | --------- |
+| 0   | AD   | Andorra              | ['ca'     |
+| 1   | AE   | United Arab Emirates | ['ar']    |
+| ..  | ..   | ...                  | ...       |
+| 249 | ZW   | Zimbabwe             | ['en']    |
+
+</details>
+
+<details>
+  <summary>What are the public holidays of Canada in 2020?</summary>
+
+
+```python
+from dataprep.connector import connect
+
+# You can get ”holiday_key“ by following https://holidayapi.com/docs
+dc = connect('holiday', _auth={'access_token': holiday_key})
+
+df = await dc.query('holiday', country='CA', year=2020, public=True)
+df
+```
+
+|     | name           | date       | public | observed   | weekday   |
+| --- | -------------- | ---------- | ------ | ---------- | --------- |
+| 0   | New Year's Day | 2020-01-01 | True   | 2020-01-01 | Wednesday |
+| 1   | Good Friday    | 2020-04-10 | True   | 2020-04-10 | Friday    |
+| 2   | Victoria Day   | 2020-05-18 | True   | 2020-05-18 | Monday    |
+| 3   | Canada Day     | 2020-07-01 | True   | 2020-07-01 | Wednesday |
+| 4   | Labor Day      | 2020-09-07 | True   | 2020-09-07 | Monday    |
+| 5   | Christmas Day  | 2020-12-25 | True   | 2020-12-25 | Friday    |
+
+
+</details>
+
+<details>
+  <summary>Which day is the 100th workday starting from 2020-01-01, in Canada?</summary>
+
+
+```python
+from dataprep.connector import connect
+
+# You can get ”holiday_key“ by following https://holidayapi.com/docs
+dc = connect('holiday', _auth={'access_token': holiday_key})
+
+df = await dc.query('workday', country='CA', start='2020-01-01', days=100)
+df
+```
+
+|     | date      | weekday |
+| --- | --------- | ------- |
+| 0   | 2020-5-22 | Friday  |
+
+</details>
 
 ### Crime
 
@@ -777,6 +853,104 @@ result
 
 </details>
 
+#### [CoinGecko](./coingecko) -- Collect Cryptocurrency Data
+
+<details>
+  <summary>What are the 10 cryptocurrencies with highest market cap and their current information?</summary>
+
+```python
+from dataprep.connector import connect
+
+conn_coingecko = connect("coingecko")
+df = await conn_coingecko.query('markets', vs_currency='usd', order='market_cap_desc', per_page=10, page=1)
+df
+```
+|      | name         | symbol | current_price |  market_cap | market_cap_rank | high_24h | low_24h | price_change_24h | price_change_percentage_24h | market_cap_change_24h | market_cap_change_percentage_24h | last_updated             |
+| ---: | :----------- | :----- | ------------: | ----------: | --------------: | -------: | ------: | ---------------: | --------------------------: | --------------------: | -------------------------------: | :----------------------- |
+|    0 | Bitcoin      | btc    |         36811 | 6.86613e+11 |               1 |    37153 |   35344 |          1440.68 |                      4.0731 |           3.10933e+10 |                           4.7433 | 2021-02-03T19:24:09.271Z |
+|    1 | Ethereum     | eth    |       1628.99 | 1.87035e+11 |               2 |  1645.73 | 1486.42 |           132.91 |                     8.88404 |           1.64296e+10 |                          9.63018 | 2021-02-03T19:22:32.413Z |
+|   .. | ...          | ...    |           ... |         ... |             ... |      ... |     ... |              ... |                         ... |                   ... |                              ... | ...                      |
+|    9 | Binance Coin | bnb    |         51.47 | 7.60256e+09 |              10 |    51.63 |   49.76 |             1.24 |                     2.47631 |           1.64863e+08 |                          2.21659 | 2021-02-03T19:25:45.456Z |
+</details>
+
+<details>
+  <summary>What are the cryptocurrencies with highest increasing and decreasing percentage?</summary>
+
+```python
+from dataprep.connector import connect
+
+conn_coingecko = connect("coingecko")
+df = await conn_coingecko.query('markets', vs_currency='usd', per_page=1000, page=1)
+df = df.sort_values(by=['price_change_percentage_24h']).reset_index(drop=True).dropna()
+print("Coin with highest decreasing percetage: {}, which decreases {}%".format(df['name'].iloc[0], df['price_change_percentage_24h'].iloc[0]))
+print("Coin with highest increasing percetage: {}, which increases {}%".format(df['name'].iloc[-1], df['price_change_percentage_24h'].iloc[-1]))
+```
+Coin with the highest decreasing percentage: `PancakeSwap`, which decreases `-13.79622%`
+
+Coin with the highest increasing percentage: `StormX`, which increases `101.24182%`
+</details>
+
+<details>
+  <summary>Which cryptocurrencies are trending in CoinGecko?</summary>
+
+```python
+from dataprep.connector import connect
+
+conn_coingecko = connect("coingecko")
+df = await conn_coingecko.query('trend')
+df
+```
+|      | id                | name        | symbol | market_cap_rank | score |
+| ---: | :---------------- | :---------- | :----- | --------------: | ----: |
+|    0 | bao-finance       | Bao Finance | BAO    |             175 |     0 |
+|    1 | milk2             | MILK2       | MILK2  |             634 |     1 |
+|    2 | unitrade          | Unitrade    | TRADE  |             529 |     2 |
+|    3 | pancakeswap-token | PancakeSwap | CAKE   |             110 |     3 |
+|    4 | fsw-token         | Falconswap  | FSW    |             564 |     4 |
+|    5 | zeroswap          | ZeroSwap    | ZEE    |             550 |     5 |
+|    6 | storm             | StormX      | STMX   |             211 |     6 |
+
+</details>
+
+<details>
+  <summary>What are the 10 US exchanges with highest trade volume in the past 24 hours?</summary>
+
+```python
+from dataprep.connector import connect
+
+conn_coingecko = connect("coingecko")
+df = await conn_coingecko.query('exchanges')
+result = df[df['country']=='United States'].reset_index(drop=True).head(10)
+result
+```
+|      | id         | name         | year_established | ...  | trade_volume_24h_btc_normalized |
+| ---: | :--------- | :----------- | ---------------: | :--- | ------------------------------: |
+|    0 | gdax       | Coinbase Pro |             2012 | ...  |                         90085.6 |
+|    1 | kraken     | Kraken       |             2011 | ...  |                         48633.1 |
+|    2 | binance_us | Binance US   |             2019 | ...  |                         7380.83 |
+|   .. | ...        | ...          |              ... | ...  |                             ... |
+
+</details>
+
+<details>
+  <summary>What are the 3 latest traded derivatives with perpetual contract?</summary>
+
+```python
+from dataprep.connector import connect
+import pandas as pd
+
+conn_coingecko = connect("coingecko")
+df = await conn_coingecko.query('derivatives')
+perpetual_df = df[df['contract_type'] == 'perpetual'].reset_index(drop=True)
+perpetual_df['last_traded_at'] = pd.to_datetime(perpetual_df['last_traded_at'], unit='s')
+perpetual_df.sort_values(by=['last_traded_at'], ascending=False).head(3).reset_index(drop=True)
+```
+|      | market         | symbol     | index_id | contract_type |     index |     basis | funding_rate | open_interest |  volume_24h | last_traded_at      |
+| ---: | :------------- | :--------- | :------- | :------------ | --------: | --------: | -----------: | ------------: | ----------: | :------------------ |
+|    0 | Huobi Futures  | MATIC-USDT | MATIC    | perpetual     | 0.0433357 | -0.606296 |     0.247604 |           nan | 1.43338e+06 | 2021-02-03 20:14:24 |
+|    1 | Biki (Futures) | 1          | BTC      | perpetual     |   36769.8 | -0.153111 |      -0.0519 |           nan | 1.00131e+08 | 2021-02-03 20:14:23 |
+|    2 | Huobi Futures  | CVC-USDT   | CVC      | perpetual     |  0.178268 | -0.336302 |     0.106314 |           nan |      876960 | 2021-02-03 20:14:23 |
+</details>
 
 ### Geocoding
 
@@ -940,6 +1114,96 @@ The nearest grocery of SFU is Nesters Market. It is 1.234 miles far, and It is e
 |    1 |     1 | Turn left to stay on University Dr.                                  |    0.606 |   84 |
 |    2 |     2 | Enter next roundabout and take the 1st exit onto University High St. |     0.28 |   60 |
 |    3 |     3 | 9000 UNIVERSITY HIGH STREET is on the left.                          |        0 |    0 |
+
+</details>
+
+### Jobs
+
+#### [The Muse](./themuse) -- Collect Job Ads, Company Information
+
+<details>
+  <summary>What are the data science jobs in Vancouver on the fisrt page?</summary>
+
+
+  ```python
+from dataprep.connector import connect
+
+# You can get ”app_key“ by following https://www.themuse.com/developers/api/v2/apps
+dc = connect('themuse', _auth={'access_token': app_key})
+
+df = await dc.query('jobs', page=1, category='Data Science', location='Vancouver, Canada')
+df[['id', 'name', 'company', 'locations', 'levels', 'publication_date']]
+  ```
+
+|     | id      | name                                   | company           | locations                                         | levels                                            | publication_date            |
+| --- | ------- | -------------------------------------- | ----------------- | ------------------------------------------------- | ------------------------------------------------- | --------------------------- |
+| 0   | 5126286 | Senior Data Scientist                  | Discord           | [{'name': 'Flexible / Remote'}]                   | [{'name': 'Senior Level', 'short_name': 'senio... | 2021-03-15T11:10:24Z        |
+| 1   | 5543215 | Data Scientist-AI/ML (Remote)          | Dell Technologies | [{'name': 'Chicago, IL'}, {'name': 'Flexible /... | [{'name': 'Mid Level', 'short_name': 'mid'}]      | 2021-04-02T11:45:57Z        |
+| 2   | 4959228 | Senior Data Scientist                  | Humana            | [{'name': 'Flexible / Remote'}]                   | [{'name': 'Senior Level', 'short_name': 'senio... | 2021-01-05T11:28:23.814281Z |
+| 3   | 5172631 | Data Scientist - Marketing             | Stash             | [{'name': 'Flexible / Remote'}]                   | [{'name': 'Mid Level', 'short_name': 'mid'}]      | 2021-03-26T23:09:33Z        |
+| 4   | 5372353 | Data Science Intern, Machine Learning  | Coursera          | [{'name': 'Flexible / Remote'}]                   | [{'name': 'Internship', 'short_name': 'interns... | 2021-04-05T23:04:40Z        |
+| 5   | 5298606 | Senior Machine Learning Engineer       | Affirm            | [{'name': 'Flexible / Remote'}]                   | [{'name': 'Senior Level', 'short_name': 'senio... | 2021-03-17T23:10:51Z        |
+| 6   | 5166882 | Data Scientist                         | Postmates         | [{'name': 'Bellevue, WA'}, {'name': 'Los Angel... | [{'name': 'Mid Level', 'short_name': 'mid'}]      | 2021-02-01T17:49:53.238832Z |
+| 7   | 5375212 | Director, Data Science & Analytics     | UKG               | [{'name': 'Flexible / Remote'}, {'name': 'Lowe... | [{'name': 'management', 'short_name': 'managem... | 2021-03-31T23:17:53Z        |
+| 8   | 5130731 | Senior Data Scientist                  | Humana            | [{'name': 'Flexible / Remote'}]                   | [{'name': 'Senior Level', 'short_name': 'senio... | 2021-01-26T11:42:44.232111Z |
+| 9   | 5306269 | Director of Data Sourcing and Strategy | Opendoor          | [{'name': 'Flexible / Remote'}]                   | [{'name': 'management', 'short_name': 'managem... | 2021-03-31T23:05:22Z        |
+
+</details>
+
+<details>
+  <summary>What are the senior-level data science positions at Amazon on the first page?</summary>
+
+
+  ```python
+from dataprep.connector import connect
+
+# You can get ”app_key“ by following https://www.themuse.com/developers/api/v2/apps
+dc = connect('themuse', _auth={'access_token': app_key})
+
+df = await dc.query('jobs', page=1, category='Data Science', company='Amazon', level='Senior Level')
+df[:10][['id', 'name', 'company', 'locations', 'publication_date']]
+  ```
+
+|     | id      | name                                              | company | locations                            | publication_date            |
+| --- | ------- | ------------------------------------------------- | ------- | ------------------------------------ | --------------------------- |
+| 0   | 5153796 | Sr. Data Architect, Data Lake & Analytics - Na... | Amazon  | [{'name': 'San Diego, CA'}]          | 2021-02-01T22:54:14.002653Z |
+| 1   | 4083477 | Principal Data Architect, Data Lake & Analytics   | Amazon  | [{'name': 'Chicago, IL'}]            | 2021-02-01T23:14:17.251814Z |
+| 2   | 4149878 | Principal Data Architect, Data Warehousing & MPP  | Amazon  | [{'name': 'Arlington, VA'}]          | 2021-02-01T23:15:22.017573Z |
+| 3   | 4497753 | Data Architect - Data Lake & Analytics - Natio... | Amazon  | [{'name': 'Irvine, CA'}]             | 2021-02-01T23:15:22.439949Z |
+| 4   | 4870271 | Data Scientist                                    | Amazon  | [{'name': 'Seattle, WA'}]            | 2021-02-01T23:04:25.967878Z |
+| 5   | 4603482 | Data Scientist - Prime Gaming                     | Amazon  | [{'name': 'Seattle, WA'}]            | 2021-02-01T23:10:37.628292Z |
+| 6   | 5193240 | Data Scientist                                    | Amazon  | [{'name': 'Seattle, WA'}]            | 2021-02-04T23:56:19.176327Z |
+| 7   | 4678426 | Sr Data Architect - Streaming                     | Amazon  | [{'name': 'Roseville, CA'}]          | 2021-02-01T22:51:25.598645Z |
+| 8   | 4150011 | Data Architect - Data Lake & Analytics - Natio... | Amazon  | [{'name': 'Tampa, FL'}]              | 2021-02-04T23:56:18.281215Z |
+| 9   | 4346719 | Sr. Data Scientist - ML Labs                      | Amazon  | [{'name': 'London, United Kingdom'}] | 2021-02-01T23:12:42.038111Z |
+
+</details>
+
+<details>
+  <summary>What are the top 10 companies in engineering? (sorted by factors such as trendiness, uniqueness, newness, etc)?</summary>
+
+  ```python
+from dataprep.connector import connect
+
+# You can get ”app_key“ by following https://www.themuse.com/developers/api/v2/apps
+dc = connect('themuse', _auth={'access_token': app_key})
+
+df = await dc.query('companies', industry='Engineering', page=1)
+df[:10]
+  ```
+
+|     | id    | name                 | locations                                         | size        | publication_date            | url                                               |
+| --- | ----- | -------------------- | ------------------------------------------------- | ----------- | --------------------------- | ------------------------------------------------- |
+| 0   | 706   | Appian               | [{'name': 'Tysons Corner, VA'}]                   | Medium Size | 2015-11-25T18:17:50.926146Z | https://www.themuse.com/companies/appian          |
+| 1   | 12168 | Bristol Myers Squibb | [{'name': 'Boudry, Switzerland'}, {'name': 'De... | Large Size  | 2020-12-15T15:55:56.940074Z | https://www.themuse.com/companies/bristolmyers... |
+| 2   | 11897 | McMaster-Carr        | [{'name': 'Atlanta, GA'}, {'name': 'Chicago, I... | Large Size  | 2020-02-10T21:57:15.338561Z | https://www.themuse.com/companies/mcmastercarr    |
+| 3   | 12162 | ServiceNow           | [{'name': 'Santa Clara, CA'}]                     | Large Size  | 2021-01-26T23:48:13.066632Z | https://www.themuse.com/companies/servicenow      |
+| 4   | 11731 | Tenaska              | [{'name': 'Boston, MA'}, {'name': 'Dallas, TX'... | Large Size  | 2019-03-14T14:01:54.465873Z | https://www.themuse.com/companies/tenaska         |
+| 5   | 11885 | Brex                 | [{'name': 'Flexible / Remote'}, {'name': 'New ... | Medium Size | 2020-02-05T23:16:44.780028Z | https://www.themuse.com/companies/brex            |
+| 6   | 1483  | Inline Plastics      | [{'name': 'Shelton, CT'}]                         | Medium Size | 2017-09-11T14:49:24.153633Z | https://www.themuse.com/companies/inlineplastics  |
+| 7   | 12113 | Dematic              | [{'name': 'Atlanta, GA'}, {'name': 'Banbury, U... | Large Size  | 2020-09-17T20:29:19.400892Z | https://www.themuse.com/companies/dematic         |
+| 8   | 11967 | Kairos Power         | [{'name': 'Albuquerque, NM'}, {'name': 'Charlo... | Medium Size | 2020-12-07T21:29:33.538815Z | https://www.themuse.com/companies/kairospower     |
+| 9   | 11913 | Siemens              | [{'name': 'Munich, Germany'}]                     | Large Size  | 2020-01-23T21:35:56.937727Z | https://www.themuse.com/companies/siemens         |
 
 </details>
 
@@ -2114,7 +2378,7 @@ gdf.plot(ax=world.plot(figsize=(10, 6)), marker='o', color='red', markersize=15)
 #### [Guardian](./api-connectors/guardian) -- Collect Guardian News Data 
 <details>
   <summary>Which news section contain most mentions related to bitcoin ?</summary>
-  
+
 ```python
 from dataprep.connector import connect, info, Connector
 import pandas as pd
@@ -2165,7 +2429,7 @@ df3.groupby('section').count().sort_values("headline", ascending=False)
 
 <details>
   <summary>Find articles with covid precautions ?</summary>
-  
+
 ```python
 from dataprep.connector import connect, Connector
 
@@ -2275,6 +2539,58 @@ ranking_df
 |    5 | Kim Kardashian |                  0 |
 </details>
 
+#### [Currents](./currents) -- Collect Currents News Data
+<details>
+  <summary>How to get latest Chinese news?</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”currents_access_token“ by following https://currentsapi.services/zh_CN
+conn_currents = connect('currents', _auth={'access_token': currents_access_token})
+df = await conn_currents.query('latest_news', language='zh')
+df.head()
+```
+|   id | title                | category       | ...  | author   | published                 |
+| ---: | :------------------- | :------------- | :--- | :------- | :------------------------ |
+|    0 | 為何上市公司該汰換了 | [entrepreneur] | ...  | 經濟日報 | 2021-02-03 08:48:39 +0000 |
+</details>
+
+<details>
+  <summary>How to get the political news about 'Trump'?</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”currents_access_token“ by following https://currentsapi.services/zh_CN
+conn_currents = connect('currents', _auth={'access_token': currents_access_token})
+df = await conn_currents.query('search', keywords='Trump', category='politics')
+df.head(3)
+```
+|      | title                                                                                                        | category              | description                                                                                                                    | url                                                                                                               | author        | published                 |
+| ---: | :----------------------------------------------------------------------------------------------------------- | :-------------------- | :----------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------- | :------------ | :------------------------ |
+|    0 | Biden Started The Process Of Unwinding Trump's Assault On Immigration, But Activists Want Him To Move Faster | ['politics', 'world'] | "These people cannot continue to wait."                                                                                        | https://www.buzzfeednews.com/article/adolfoflores/biden-immigration-executive-orders-review                       | Adolfo Flores | 2021-02-03 08:39:51 +0000 |
+|    1 | Pro-Trump lawyer Lin Wood reportedly under investigation for voter fraud                                     | ['politics', 'world'] | A source told CBS Atlanta affiliate WGCL that Lin Wood is being investigated for allegedly voting "out of state."              | https://www.cbsnews.com/news/pro-trump-lawyer-lin-wood-under-investigation-for-alleged-illegal-voting-2020-02-03/ | April Siese   | 2021-02-03 08:21:25 +0000 |
+|    2 | Trump Supporters Say They Attacked The Capitol Because He Told Them To, Undercutting His Impeachment Defense | ['politics', 'world'] | “President Trump told Us to ‘fight like hell,’” one Trump supporter reportedly posted online after the assault on the Capitol. | https://www.buzzfeednews.com/article/zoetillman/trump-impeachment-capitol-rioters-fight-like-hell                 | Zoe Tillman   | 2021-02-03 07:25:34 +0000 |
+</details>
+
+<details>
+  <summary>How to get the news about COVID-19 from 2020-12-25?</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”currents_access_token“ by following https://currentsapi.services/zh_CN
+conn_currents = connect('currents', _auth={'access_token': currents_access_token})
+df = await conn_currents.query('search', keywords='covid', start_date='2020-12-25',end_date='2020-12-25')
+df.head(1)
+```
+
+|      | title                                                               | category    | ...  | published                 |
+| ---: | :------------------------------------------------------------------ | :---------- | :--- | :------------------------ |
+|    0 | Commentary: Let our charitable giving equal our political donations | ['opinion'] | ...  | 2020-12-25 00:00:00 +0000 |
+</details>
+
 
 ### Science
 
@@ -2334,6 +2650,115 @@ ranking_df
 | 1899 | Triple descent and the two kinds of overfittin... | [NeurIPS] | 2020 |
   </details>
 
+#### [NASA](api-connectors/nasa) -- Collect NASA Data.
+<details>
+  <summary>What are the title of Astronomy Picture of the Day from 2020-01-01 to 2020-01-10?</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”nasa_access_key“ by following https://api.nasa.gov/
+conn_nasa = connect("api-connectors/nasa", _auth={'access_token': nasa_access_key})
+
+df = await conn_nasa.query("apod", start_date='2020-01-01', end_date='2020-01-10')
+df['title']
+```
+|   id | title                           |
+| ---: | :------------------------------ |
+|    0 | Betelgeuse Imagined             |
+|    1 | The Fainting of Betelgeuse      |
+|    2 | Quadrantids over the Great Wall |
+|  ... | ...                             |
+|    9 | Nacreous Clouds over Sweden     |
+</details>
+
+<details>
+  <summary>What are Coronal Mass Ejection(CME) data from 2020-01-01 to 2020-02-01?</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”nasa_access_key“ by following https://api.nasa.gov/
+conn_nasa = connect("api-connectors/nasa", _auth={'access_token': nasa_access_key})
+
+df = await conn_nasa.query('cme', startDate='2020-01-01', endDate='2020-02-01')
+df
+```
+
+|   id | activity_id                 | catalog     | start_time        | ...  | link                                                     |
+| ---: | :-------------------------- | :---------- | :---------------- | :--- | :------------------------------------------------------- |
+|    0 | 2020-01-05T16:45:00-CME-001 | M2M_CATALOG | 2020-01-05T16:45Z | ...  | https://kauai.ccmc.gsfc.nasa.gov/DONKI/view/CME/15256/-1 |
+|    1 | 2020-01-14T11:09:00-CME-001 | M2M_CATALOG | 2020-01-14T11:09Z | ...  | https://kauai.ccmc.gsfc.nasa.gov/DONKI/view/CME/15271/-1 |
+|   .. | ...                         | ...         | ...               | ...  | ...                                                      |
+|    4 | 2020-01-25T18:54:00-CME-001 | M2M_CATALOG | 2020-01-25T18:54Z | ...  | https://kauai.ccmc.gsfc.nasa.gov/DONKI/view/CME/15296/-1 |
+</details>
+
+<details>
+  <summary>How many Geomagnetic Storms(GST) have occurred from 2020-01-01 to 2021-01-01? When is it?</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”nasa_access_key“ by following https://api.nasa.gov/
+conn_nasa = connect("api-connectors/nasa", _auth={'access_token': nasa_access_key})
+
+df = await conn_nasa.query('gst', startDate='2020-01-01', endDate='2021-01-01')
+print("Geomagnetic Storms have occurred %s times from 2020-01-01 to 2021-01-01." % len(df))
+df['start_time']
+```
+Geomagnetic Storms have occurred 1 times from 2020-01-01 to 2021-01-01.
+
+|   id | start_time        |
+| ---: | :---------------- |
+|    0 | 2020-09-27T21:00Z |
+</details>
+
+<details>
+  <summary>How many Solar Flare(FLR) have occurred and completed from 2020-01-01 to 2021-01-01? How long did they last?</summary>
+
+```python
+import pandas as pd
+from dataprep.connector import connect
+
+# You can get ”nasa_access_key“ by following https://api.nasa.gov/
+conn_nasa = connect("api-connectors/nasa", _auth={'access_token': nasa_access_key})
+
+df = await conn_nasa.query('flr', startDate='2020-01-01', endDate='2021-01-01')
+df = df.dropna(subset=['end_time']).reset_index(drop=True)
+df['duration'] = pd.to_datetime(df['end_time']) - pd.to_datetime(df['begin_time'])
+print('Solar Flare have occurred %s times from 2020-01-01 to 2021-01-01.' % len(df))
+print(df['duration'])
+```
+There are 1 times Geomagnetic Storms(GST) have occurred from 2020-01-01 to 2021-01-01.
+
+|   id | duration        |
+| ---: | :-------------- |
+|    0 | 0 days 01:07:00 |
+|    1 | 0 days 00:23:00 |
+|    2 | 0 days 00:47:00 |
+
+</details>
+
+<details>
+  <summary>What are Solar Energetic Particle(SEP) data from 2019-01-01 to 2021-01-01?</summary>
+
+```python
+import pandas as pd
+from dataprep.connector import connect
+
+# You can get ”nasa_access_key“ by following https://api.nasa.gov/
+conn_nasa = connect("api-connectors/nasa", _auth={'access_token': nasa_access_key})
+
+df = await conn_nasa.query('sep', startDate='2019-01-01', endDate='2021-01-01')
+df
+```
+
+|   id | sep_id                      | event_time        | instruments                     | ...  | link                                                     |
+| ---: | :-------------------------- | :---------------- | :------------------------------ | :--- | :------------------------------------------------------- |
+|    0 | 2020-11-30T04:26:00-SEP-001 | 2020-11-30T04:26Z | ['STEREO A: IMPACT 13-100 MeV'] | ...  | https://kauai.ccmc.gsfc.nasa.gov/DONKI/view/SEP/16166/-1 |
+|    1 | 2020-11-30T14:16:00-SEP-001 | 2020-11-30T14:16Z | ['STEREO A: IMPACT 13-100 MeV'] | ...  | https://kauai.ccmc.gsfc.nasa.gov/DONKI/view/SEP/16169/-1 |
+
+</details>
 
 ### Shopping
 
@@ -2971,8 +3396,537 @@ tag_count
 </details>
 
 
+### Sports
+
+
+#### [TheSportsDB](./thesportsdb) -- Collect Team and League Data
+
+<details>
+<summary>What were scores of the last 10 NBA games?</summary>
+
+```python
+from dataprep.connector import connect
+
+conn_thesportsdb = connect('thesportsdb')
+
+NBA_LEAGUE_ID = 4387
+df = await conn_thesportsdb.query('events', id=NBA_LEAGUE_ID)
+
+df.drop(['id', 'sport', 'spectators'], axis=1).iloc[:10]
+```
+
+
+
+
+|      |          home_team |              away_team | home_score | away_score |
+| ---: | -----------------: | ---------------------: | ---------: | ---------: |
+|    0 |    Toronto Raptors |           Phoenix Suns |        100 |        104 |
+|    1 |    Milwaukee Bucks |         Boston Celtics |        114 |        122 |
+|    2 |    Detroit Pistons |          Brooklyn Nets |        111 |        113 |
+|    3 |   Sacramento Kings |  Golden State Warriors |        141 |        119 |
+|    4 | Los Angeles Lakers |     Philadelphia 76ers |        101 |        109 |
+|    5 |  San Antonio Spurs |   Los Angeles Clippers |         85 |         98 |
+|    6 |    New York Knicks |     Washington Wizards |        106 |        102 |
+|    7 |         Miami Heat | Portland Trail Blazers |        122 |        125 |
+|    8 |          Utah Jazz |          Brooklyn Nets |        118 |         88 |
+|    9 |   Sacramento Kings |          Atlanta Hawks |        110 |        108 |
+
+
+</details>
+
+<details>
+<summary>What is the oldest sports team in Toronto?</summary>
+
+```python
+from dataprep.connector import connect
+
+conn_thesportsdb = connect('thesportsdb')
+
+df = await conn_thesportsdb.query('teams_by_city', t='toronto')
+
+df = df[df.inaugural_year!=0]
+df[df.inaugural_year==df.inaugural_year.min()]
+```
+
+
+
+
+|      |     id |              team | inaugural_year | league_id |                       facebook |                  twitter | instagram                  |
+| ---: | -----: | ----------------: | -------------: | --------: | -----------------------------: | -----------------------: | -------------------------- |
+|    7 | 135005 | Toronto Argonauts |           1873 |      4405 | www.facebook.com/ArgosFootball | twitter.com/torontoargos | instagram.com/torontoargos |
+
+
+</details>
+
+<details>
+<summary>What are all team sports supported by TheSportsDB?</summary>
+
+```python
+from dataprep.connector import connect
+
+conn_thesportsdb = connect('thesportsdb')
+
+df = await conn_thesportsdb.query('sports')
+
+df[df.type=='TeamvsTeam']
+```
+
+
+
+
+|      |   id |              sports |       type |
+| ---: | ---: | ------------------: | ---------: |
+|    0 |  102 |              Soccer | TeamvsTeam |
+|    3 |  105 |            Baseball | TeamvsTeam |
+|    4 |  106 |          Basketball | TeamvsTeam |
+|    5 |  107 |   American Football | TeamvsTeam |
+|    6 |  108 |          Ice Hockey | TeamvsTeam |
+|    8 |  110 |               Rugby | TeamvsTeam |
+|   10 |  112 |             Cricket | TeamvsTeam |
+|   12 |  114 | Australian Football | TeamvsTeam |
+|   14 |  116 |          Volleyball | TeamvsTeam |
+|   15 |  117 |             Netball | TeamvsTeam |
+|   16 |  118 |            Handball | TeamvsTeam |
+|   18 |  120 |        Field Hockey | TeamvsTeam |
+
+
+</details>
+
+<details>
+<summary>Which NBA stadium has highest seating capacity?</summary>
+
+```python
+from dataprep.connector import connect
+
+conn_thesportsdb = connect('thesportsdb')
+
+NBA_LEAGUE_ID = 4387
+df = await conn_thesportsdb.query('teams_by_league', id=NBA_LEAGUE_ID)
+
+df[df.stadium_capacity==df.stadium_capacity.max()]
+```
+
+
+|      |     id |          team | inaugural_year | league_id |                  facebook |                  twitter |                  instagram | stadium_capacity |
+| ---: | -----: | ------------: | -------------: | --------: | ------------------------: | -----------------------: | -------------------------: | ---------------: |
+|    4 | 134870 | Chicago Bulls |           1966 |      4387 | facebook.com/chicagobulls | twitter.com/chicagobulls | instagram.com/chicagobulls |            23000 |
+
+
+
+
+</details>
+
+<details>
+<summary>What are social media links of the Vancouver Canucks?</summary>
+
+```python
+from dataprep.connector import connect
+
+conn_thesportsdb = connect('thesportsdb')
+
+CANUCKS_ID = 134850
+df = await conn_thesportsdb.query('team', id=CANUCKS_ID)
+
+df[['facebook', 'twitter', 'instagram']]
+```
+
+
+
+
+|      |                 facebook |                twitter |             instagram |
+| ---: | -----------------------: | ---------------------: | --------------------: |
+|    0 | www.facebook.com/Canucks | twitter.com/VanCanucks | instagram.com/Canucks |
+
+
+</details>
+
+### Travel
+
+#### [Amadeus](./amadeus) -- Collect Twitch Streams and Channels Information
+
+<details>
+  <summary>What are the hotels within 5 km of the Sydney city center, available from 2021-05-01 to 2021-05-02?</summary>
+
+
+```python
+from dataprep.connector import connect
+import pandas as pd
+
+# You can get ”client_id“ and "cliend_secret" by following https://developers.amadeus.com/
+dc = connect('amadeus', _auth={'client_id':client_id, 'client_secret':client_secret})
+
+# Query a date in the future
+df = await dc.query('hotel', cityCode="SYD", radius=5,
+                    checkInDate='2021-05-01', checkOutDate='2021-05-02',
+                    roomQuantity=1)
+df  
+```
+
+|     | name                            | rating | latitude  | longitude | lines                 | city   | contact        | description                                       | amenities                                         |
+| --- | ------------------------------- | ------ | --------- | --------- | --------------------- | ------ | -------------- | ------------------------------------------------- | ------------------------------------------------- |
+| 0   | PARK REGIS CITY CENTRE          | 4      | -33.87318 | 151.20901 | [27 PARK STREET]      | SYDNEY | 61-2-92676511  | Park Regis City Centre boasts 122 stylishly ap... | [BUSINESS_CENTER, ICE_MACHINES, DISABLED_FACIL... |
+| 1   | ibis Sydney King Street Wharf   | 3      | -33.86679 | 151.20256 | [22 SHELLEY STREET]   | SYDNEY | 61/2/82430700  | Enjoying pride of place near the waterfront in... | [ELEVATOR, 24_HOUR_FRONT_DESK, PARKING, INTERN... |
+| 2   | Best Western Plus Hotel Stellar | 3      | -33.87749 | 151.2118  | [4 WENTWORTH AVENUE]  | SYDNEY | +61 2 92649754 | Located on the bustling corner of Hyde Park an... | [HIGH_SPEED_INTERNET, RESTAURANT, 24_HOUR_FRON..  |
+| 3   | ibis Sydney World Square        | 3      | -33.87782 | 151.20759 | [382-384 PITT STREET] | SYDNEY | 61/2/92820000  | Located in Sydney CBD within Sydney's vibrant ... | [ELEVATOR, SAFE_DEPOSIT_BOX, PARKING, INTERNET... |
+
+</details>
+
+<details>
+  <summary>What are the available flights from Sydney to Bangkok on 2021-05-02?</summary>
+
+
+```python
+from dataprep.connector import connect
+import pandas as pd
+
+# You can get ”client_id“ and "cliend_secret" by following https://developers.amadeus.com/
+dc = connect('amadeus', _auth={'client_id':client_id, 'client_secret':client_secret})
+
+# Query a date in the future
+df = await dc.query('air', originLocationCode="SYD",
+                    destinationLocationCode="BKK",
+                    departureDate="2021-05-02",
+                    adults=1, max=250)
+df
+```
+
+|     | source | duration | departure time      | arrival time        | number of bookable seats | total price | currency | one way | itineraries                                       |
+| --- | ------ | -------- | ------------------- | ------------------- | ------------------------ | ----------- | -------- | ------- | ------------------------------------------------- |
+| 0   | GDS    | PT28H30M | 2021-05-02T11:35:00 | 2021-05-03T12:05:00 | 9                        | 385.42      | EUR      | False   | [{'departure': {'iataCode': 'SYD', 'terminal':... |
+| 1   | GDS    | PT14H15M | 2021-05-02T11:35:00 | 2021-05-02T21:50:00 | 9                        | 387.10      | EUR      | False   | [{'departure': {'iataCode': 'SYD', 'terminal':... |
+| .   | ..     | ...      | ...                 | ...                 | ...                      | ...         | ...      | ...     | ...                                               |
+| 68  | GDS    | PT35H30M | 2021-05-02T20:55:00 | 2021-05-04T05:25:00 | 9                        | 5932.38     | EUR      | False   | [{'departure': {'iataCode': 'SYD', 'terminal':... |
+
+</details>
+
+<details>
+  <summary>What are the best tours and activities in Barcelona?</summary>
+
+
+```python
+from dataprep.connector import connect
+import pandas as pd
+
+# You can get ”client_id“ and "cliend_secret" by following https://developers.amadeus.com/
+dc = connect('amadeus', _auth={'client_id':client_id, 'client_secret':client_secret})
+
+df = await dc.query('activity', latitude=41.397158, longitude=2.160873)
+df[['name','short description', 'rating', 'price', 'currency']]
+```
+
+|     | name                                              | short description                                 | rating   | price | currency |
+| --- | ------------------------------------------------- | ------------------------------------------------- | -------- | ----- | -------- |
+| 0   | Sagrada Familia fast-track tickets and guided ... | Explore unfinished masterpiece with fast-track... | 4.400000 | 39.00 | EUR      |
+| 1   | Guided tour of Sagrada Familia with entrance t... | Admire the astonishing views of Barcelona from... | 4.400000 | 51.00 | EUR      |
+| 2   | La Pedrera Night Experience: A Behind-Closed-D... | In Barcelona, go inside one of Antoni Gaudi’s ... | 4.500000 | 34.00 | EUR      |
+| .   | ...                                               | ...                                               | ...      | ...   | ...      |
+| 19  | Barcelona: Casa Batlló Entrance Ticket with Sm... | Discover Casa Batlló, one of Gaudí’s masterpie... | 4.614300 | 25.00 | EUR      |
+
+</details>
+
+<details>
+  <summary>What are the best places to visit in Barcelona?</summary>
+
+
+```python
+from dataprep.connector import connect
+import pandas as pd
+
+# You can get ”client_id“ and "cliend_secret" by following https://developers.amadeus.com/
+dc = connect('/amadeus', _auth={'client_id':client_id, 'client_secret':client_secret})
+
+df = await dc.query('interest', latitude=41.397158, longitude=2.160873, limit=30)
+df
+```
+
+|     | name                | category   | rank | tags                                              |
+| --- | ------------------- | ---------- | ---- | ------------------------------------------------- |
+| 0   | Casa Batlló         | SIGHTS     | 5    | [sightseeing, sights, museum, landmark, tourgu... |
+| 1   | La Pepita           | RESTAURANT | 30   | [restaurant, tapas, pub, bar, sightseeing, com... |
+| 2   | Brunch & Cake       | RESTAURANT | 30   | [vegetarian, restaurant, breakfast, shopping, ... |
+| 3   | Cervecería Catalana | RESTAURANT | 30   | [restaurant, tapas, sightseeing, traditionalcu... |
+| 4   | Botafumeiro         | RESTAURANT | 30   | [restaurant, seafood, sightseeing, professiona... |
+| 5   | Casa Amatller       | SIGHTS     | 100  | [sightseeing, sights, museum, landmark, restau... |
+| 6   | Tapas 24            | RESTAURANT | 100  | [restaurant, tapas, traditionalcuisine, sights... |
+| 7   | Dry Martini         | NIGHTLIFE  | 100  | [bar, restaurant, nightlife, club, sightseeing... |
+| 8   | Con Gracia          | RESTAURANT | 100  | [restaurant, sightseeing, commercialplace, pro... |
+| 9   | Osmosis             | RESTAURANT | 100  | [restaurant, shopping, transport, professional... |
+
+</details>
+
+<details>
+  <summary>How safe is Barcelona?</summary>
+
+
+```python
+from dataprep.connector import connect
+import pandas as pd
+
+# You can get ”client_id“ and "cliend_secret" by following https://developers.amadeus.com/
+dc = connect('amadeus', _auth={'client_id':client_id, 'client_secret':client_secret})
+
+df = await dc.query('safety', latitude=41.397158, longitude=2.160873)
+df
+```
+
+|     | id         | name                                           | subtype  | lgbtq score | medical score | overall score | physical harm score | political freedom score | theft score |
+| --- | ---------- | ---------------------------------------------- | -------- | ----------- | ------------- | ------------- | ------------------- | ----------------------- | ----------- |
+| 0   | Q930402719 | Barcelona                                      | CITY     | 39          | 69            | 45            | 36                  | 50                      | 44          |
+| 1   | Q930402720 | Antiga Esquerra de l'Eixample (Barcelona)      | DISTRICT | 37          | 69            | 44            | 34                  | 50                      | 42          |
+| 2   | Q930402721 | Baix Guinardó (Barcelona)                      | DISTRICT | 37          | 69            | 44            | 34                  | 50                      | 42          |
+| 3   | Q930402724 | Can Baró (Barcelona)                           | DISTRICT | 37          | 69            | 44            | 34                  | 50                      | 42          |
+| 4   | Q930402731 | El Born (Barcelona)                            | DISTRICT | 42          | 69            | 47            | 39                  | 50                      | 49          |
+| 5   | Q930402732 | El Camp de l'Arpa del Clot (Barcelona)         | DISTRICT | 37          | 69            | 45            | 35                  | 50                      | 43          |
+| 6   | Q930402733 | El Camp d'en Grassot i Gràcia Nova (Barcelona) | DISTRICT | 37          | 69            | 44            | 34                  | 50                      | 42          |
+| 7   | Q930402736 | El Coll (Barcelona)                            | DISTRICT | 37          | 69            | 44            | 34                  | 50                      | 42          |
+| 8   | Q930402738 | El Fort Pienc (Barcelona)                      | DISTRICT | 37          | 69            | 44            | 34                  | 50                      | 42          |
+| 9   | Q930402740 | El Parc i la Llacuna del Poblenou (Barcelona)  | DISTRICT | 37          | 69            | 45            | 35                  | 50                      | 43          |
+
+</details>
+
+
+#### [OurAirport](./omdb) -- Collect Travel Data
+
+<details>
+<summary>What is the country given GeoNames ID?</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”ourairport_access_token“ by registering as a developer https://rapidapi.com/sujayvsarma/api/ourairport-data-search/details
+conn_ourairport = connect('ourairport', _auth={'access_token':ourairport_access_token})
+
+id = '302634'
+df = await conn_ourairport.query('country', name_or_id_or_keyword=id)
+
+df
+```
+
+|      |     id |  name | continent |
+| ---: | -----: | ----: | --------: |
+|    0 | 302634 | India |        AS |
+
+
+</details>
+
+<details>
+<summary>What are region names of a range of ID numbers?</summary>
+
+```python
+from dataprep.connector import connect
+import pandas as pd
+
+# You can get ”ourairport_access_token“ by registering as a developer https://rapidapi.com/sujayvsarma/api/ourairport-data-search/details
+conn_ourairport = connect('ourairport', _auth={'access_token':ourairport_access_token})
+
+df = pd.DataFrame()
+for id in range(303294, 303306):
+    id = str(id)
+    row = await conn_ourairport.query('region', name_or_id_or_keyword=id)
+    df = pd.concat([df, pd.DataFrame(row.iloc[0].values)], axis=1)
+
+df = df.transpose()
+df.columns = ['id', 'name', 'country']
+df.reset_index(drop=True)
+```
+
+|      |     id |                      name | country |
+| ---: | -----: | ------------------------: | ------: |
+|    0 | 303294 |                   Alberta |      CA |
+|    1 | 303295 |          British Columbia |      CA |
+|    2 | 303296 |                  Manitoba |      CA |
+|    3 | 303297 |             New Brunswick |      CA |
+|    4 | 303298 | Newfoundland and Labrador |      CA |
+|    5 | 303299 |               Nova Scotia |      CA |
+|    6 | 303300 |     Northwest Territories |      CA |
+|    7 | 303301 |                   Nunavut |      CA |
+|    8 | 303302 |                   Ontario |      CA |
+|    9 | 303303 |      Prince Edward Island |      CA |
+|   10 | 303304 |                    Quebec |      CA |
+|   11 | 303305 |              Saskatchewan |      CA |
+
+
+</details>
+
+<details>
+<summary>What are all countries in Asia?</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”ourairport_access_token“ by registering as a developer https://rapidapi.com/sujayvsarma/api/ourairport-data-search/details
+conn_ourairport = connect('ourairport', _auth={'access_token':ourairport_access_token})
+
+
+df = await conn_ourairport.query('country', name_or_id_or_keyword='302742')
+
+
+df = pd.DataFrame()
+for id in range(302556, 302742):
+    id = str(id)
+    row = await conn_ourairport.query('country', name_or_id_or_keyword=id)
+    df = pd.concat([df, pd.DataFrame(row.iloc[0].values)], axis=1)
+
+df = df.transpose()
+df.columns = ['id', 'name', 'continent']
+df = df[df.continent=='AS'] 
+df.reset_index(drop=True)
+```
+
+|      |     id |                           name | continent |
+| ---: | -----: | -----------------------------: | --------: |
+|    0 | 302618 |           United Arab Emirates |        AS |
+|    1 | 302619 |                    Afghanistan |        AS |
+|    2 | 302620 |                        Armenia |        AS |
+|    3 | 302621 |                     Azerbaijan |        AS |
+|    4 | 302622 |                     Bangladesh |        AS |
+|    5 | 302623 |                        Bahrain |        AS |
+|    6 | 302624 |                         Brunei |        AS |
+|    7 | 302625 |                         Bhutan |        AS |
+|    8 | 302626 |        Cocos (Keeling) Islands |        AS |
+|    9 | 302627 |                          China |        AS |
+|   10 | 302628 |               Christmas Island |        AS |
+|   11 | 302629 |                         Cyprus |        AS |
+|   12 | 302630 |                        Georgia |        AS |
+|   13 | 302631 |                      Hong Kong |        AS |
+|   14 | 302632 |                      Indonesia |        AS |
+|   15 | 302633 |                         Israel |        AS |
+|   16 | 302634 |                          India |        AS |
+|   17 | 302635 | British Indian Ocean Territory |        AS |
+|   18 | 302636 |                           Iraq |        AS |
+|   19 | 302637 |                           Iran |        AS |
+|   20 | 302638 |                         Jordan |        AS |
+|   21 | 302639 |                          Japan |        AS |
+|   22 | 302640 |                     Kyrgyzstan |        AS |
+|   23 | 302641 |                       Cambodia |        AS |
+|   24 | 302642 |                    North Korea |        AS |
+|   25 | 302643 |                    South Korea |        AS |
+|   26 | 302644 |                         Kuwait |        AS |
+|   27 | 302645 |                     Kazakhstan |        AS |
+|   28 | 302646 |                           Laos |        AS |
+|   29 | 302647 |                        Lebanon |        AS |
+|   30 | 302648 |                      Sri Lanka |        AS |
+|   31 | 302649 |                          Burma |        AS |
+|   32 | 302650 |                       Mongolia |        AS |
+|   33 | 302651 |                          Macau |        AS |
+|   34 | 302652 |                       Maldives |        AS |
+|   35 | 302653 |                       Malaysia |        AS |
+|   36 | 302654 |                          Nepal |        AS |
+|   37 | 302655 |                           Oman |        AS |
+|   38 | 302656 |                    Philippines |        AS |
+|   39 | 302657 |                       Pakistan |        AS |
+|   40 | 302658 |          Palestinian Territory |        AS |
+|   41 | 302659 |                          Qatar |        AS |
+|   42 | 302660 |                   Saudi Arabia |        AS |
+|   43 | 302661 |                      Singapore |        AS |
+|   44 | 302662 |                          Syria |        AS |
+|   45 | 302663 |                       Thailand |        AS |
+|   46 | 302664 |                     Tajikistan |        AS |
+|   47 | 302665 |                    Timor-Leste |        AS |
+|   48 | 302666 |                   Turkmenistan |        AS |
+|   49 | 302667 |                         Turkey |        AS |
+|   50 | 302668 |                         Taiwan |        AS |
+|   51 | 302669 |                     Uzbekistan |        AS |
+|   52 | 302670 |                        Vietnam |        AS |
+|   53 | 302671 |                          Yemen |        AS |
+
+
+</details>
+
 
 ### Video
+
+
+#### [OMDB](./api-connectors/omdb) -- Collect Movie Data
+
+<details>
+<summary>List Avengers movies from most to least popular</summary>
+
+```python
+from dataprep.connector import connect
+import pandas as pd
+
+# You can get ”omdb_access_token“ by registering as a developer http://www.omdbapi.com/apikey.aspx
+conn_omdb = connect('omdb', _auth={'access_token':omdb_access_token})
+
+df = await conn_omdb.query('by_search', s='avengers')
+df = df.head(4)
+
+movies_df = pd.DataFrame()
+for movie in df.iterrows():
+    movies_df = movies_df.append(await conn_omdb.query('by_id_or_title', i=movie[1]['imdb_id']))
+
+movies_df = movies_df.sort_values('imdb_rating', ascending=False)
+movies_df.reset_index(drop=True)
+```
+
+
+
+
+|     |                   title | year | rated |    released | runtime |                            genre |                 director |                                           writers |                                            actors |                                              plot |  ... |                                            awards |                                            poster | metascore | imdb_rating | imdb_votes |   imdb_id |  type |   box_office |                             producer | website |
+| --- | ----------------------: | ---: | ----: | ----------: | ------: | -------------------------------: | -----------------------: | ------------------------------------------------: | ------------------------------------------------: | ------------------------------------------------: | ---: | ------------------------------------------------: | ------------------------------------------------: | --------: | ----------: | ---------: | --------: | ----: | -----------: | -----------------------------------: | ------: |
+| 0   |  Avengers: Infinity War | 2018 | PG-13 | 27 Apr 2018 | 149 min |        Action, Adventure, Sci-Fi | Anthony Russo, Joe Russo | Christopher Markus (screenplay by), Stephen Mc... | Robert Downey Jr., Chris Hemsworth, Mark Ruffa... | The Avengers and their allies must be willing ... |  ... | Nominated for 1 Oscar. Another 46 wins & 73 no... | https://m.media-amazon.com/images/M/MV5BMjMxNj... |        68 |         8.4 |    839,788 | tt4154756 | movie | $678,815,482 |                       Marvel Studios |     N/A |
+| 1   |       Avengers: Endgame | 2019 | PG-13 | 26 Apr 2019 | 181 min | Action, Adventure, Drama, Sci-Fi | Anthony Russo, Joe Russo | Christopher Markus (screenplay by), Stephen Mc... | Robert Downey Jr., Chris Evans, Mark Ruffalo, ... | After the devastating events of Avengers: Infi... |  ... | Nominated for 1 Oscar. Another 69 wins & 102 n... | https://m.media-amazon.com/images/M/MV5BMTc5MD... |        78 |         8.4 |    816,700 | tt4154796 | movie | $858,373,000 | Marvel Studios, Walt Disney Pictures |     N/A |
+| 2   |            The Avengers | 2012 | PG-13 | 04 May 2012 | 143 min |        Action, Adventure, Sci-Fi |              Joss Whedon | Joss Whedon (screenplay), Zak Penn (story), Jo... | Robert Downey Jr., Chris Evans, Mark Ruffalo, ... | Earth's mightiest heroes must come together an... |  ... | Nominated for 1 Oscar. Another 38 wins & 79 no... | https://m.media-amazon.com/images/M/MV5BNDYxNj... |        69 |           8 |  1,263,208 | tt0848228 | movie | $623,357,910 |                       Marvel Studios |     N/A |
+| 3   | Avengers: Age of Ultron | 2015 | PG-13 | 01 May 2015 | 141 min |        Action, Adventure, Sci-Fi |              Joss Whedon | Joss Whedon, Stan Lee (based on the Marvel com... | Robert Downey Jr., Chris Hemsworth, Mark Ruffa... | When Tony Stark and Bruce Banner try to jump-s... |  ... |                          8 wins & 49 nominations. | https://m.media-amazon.com/images/M/MV5BMTM4OG... |        66 |         7.3 |    748,735 | tt2395427 | movie | $459,005,868 |                       Marvel Studios |     N/A |
+
+</details>
+
+<details>
+<summary>What is the order of the following movies from highest to lowest amount of money made: Titanic, Avatar, Skyfall</summary>
+
+```python
+from dataprep.connector import connect
+import pandas as pd
+
+# You can get ”omdb_access_token“ by registering as a developer http://www.omdbapi.com/apikey.aspx
+conn_omdb = connect('omdb', _auth={'access_token':omdb_access_token})
+
+df = await conn_omdb.query('by_id_or_title', t='titanic')
+df = df.append(await conn_omdb.query('by_id_or_title', t='avatar'))
+df = df.append(await conn_omdb.query('by_id_or_title', t='skyfall'))
+
+df = df.sort_values('box_office', ascending=False)
+df.reset_index(drop=True)
+```
+
+
+
+
+|     |   title | year | rated |    released | runtime |                              genre |      director |                                           writers |                                            actors |                                              plot |  ... |                                            awards |                                            poster | metascore | imdb_rating | imdb_votes |   imdb_id |  type |   box_office |
+| --- | ------: | ---: | ----: | ----------: | ------: | ---------------------------------: | ------------: | ------------------------------------------------: | ------------------------------------------------: | ------------------------------------------------: | ---: | ------------------------------------------------: | ------------------------------------------------: | --------: | ----------: | ---------: | --------: | ----: | -----------: |
+| 0   |  Avatar | 2009 | PG-13 | 18 Dec 2009 | 162 min | Action, Adventure, Fantasy, Sci-Fi | James Cameron |                                     James Cameron | Sam Worthington, Zoe Saldana, Sigourney Weaver... | A paraplegic Marine dispatched to the moon Pan... |  ... |  Won 3 Oscars. Another 86 wins & 130 nominations. | https://m.media-amazon.com/images/M/MV5BMTYwOT... |        83 |         7.8 |  1,120,847 | tt0499549 | movie | $760,507,625 |
+| 1   | Titanic | 1997 | PG-13 | 19 Dec 1997 | 194 min |                     Drama, Romance | James Cameron |                                     James Cameron | Leonardo DiCaprio, Kate Winslet, Billy Zane, K... | A seventeen-year-old aristocrat falls in love ... |  ... | Won 11 Oscars. Another 112 wins & 83 nominations. | https://m.media-amazon.com/images/M/MV5BMDdmZG... |        75 |         7.8 |  1,048,704 | tt0120338 | movie | $659,363,944 |
+| 2   | Skyfall | 2012 | PG-13 | 09 Nov 2012 | 143 min |        Action, Adventure, Thriller |    Sam Mendes | Neal Purvis, Robert Wade, John Logan, Ian Flem... | Daniel Craig, Judi Dench, Javier Bardem, Ralph... | James Bond's loyalty to M is tested when her p... |  ... |  Won 2 Oscars. Another 63 wins & 122 nominations. | https://m.media-amazon.com/images/M/MV5BMWZiNj... |        81 |         7.7 |    631,795 | tt1074638 | movie | $304,360,277 |
+
+</details>
+
+<details>
+<summary>Is "Anomalisa" a positive or negative movie?</summary>
+
+```python
+from dataprep.connector import connect
+
+# download nltk with command: pip3 install nltk
+import nltk
+from nltk.sentiment import SentimentIntensityAnalyzer
+nltk.download('vader_lexicon')
+
+# You can get ”omdb_access_token“ by registering as a developer http://www.omdbapi.com/apikey.aspx
+conn_omdb = connect('omdb', _auth={'access_token':omdb_access_token})
+
+df = await conn_omdb.query('by_id_or_title', t='anomalisa')
+
+plot = df['plot']
+sia = SentimentIntensityAnalyzer()
+if sia.polarity_scores(plot[0])['compound'] > 0:
+    print(df['title'][0], 'is a positive movie')
+else:
+    print(df['title'][0], 'is a negative movie')
+```
+
+Anomalisa is a negative movie
+</details>
 
 
 #### [Youtube](./api-connectors/youtube) -- Collect Youtube's Content MetaData.
@@ -3050,7 +4004,7 @@ df[['title', 'description', 'channelTitle']]
 
 <details>
   <summary>What are the top 10 sports activities?</summary>
-  
+
   ```python
 from dataprep.connector import connect, info
 import pandas as pd
@@ -3083,7 +4037,7 @@ df[['title', 'description', 'channelTitle']]
 ### Weather
 
 
-#### [OpenWeatherMap](openweathermap) -- Collect Current and Historical Weather Data
+#### [OpenWeatherMap](./api-connectors/openweathermap) -- Collect Current and Historical Weather Data
 
 <details>
   <summary>What is the temperature of London, Ontario?</summary>
@@ -3101,7 +4055,7 @@ df[["temp"]]
 | 0   | 267.96 |
 
   </details>
-  
+
 <details>
   <summary>What is the wind speed in each provincial capital city?</summary>
 

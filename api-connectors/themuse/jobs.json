@@ -1,0 +1,57 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://www.themuse.com/api/public/jobs",
+        "method": "GET",
+        "authorization": {
+            "type": "QueryParam",
+            "keyParam": "apikey"
+        },
+        "params": {
+            "page": true,
+            "descending": false,
+            "company": false,
+            "category": false,
+            "level": false,
+            "location": false
+        }
+    },
+    "examples": {
+        "page": "1"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.results[*]",
+        "schema": {
+            "id": {
+                "target": "$.id",
+                "type": "string"
+            },
+            "name": {
+                "target": "$.name",
+                "type": "string"
+            },
+            "company": {
+                "target": "$.company.name",
+                "type": "string"
+            },
+            "locations": {
+                "target": "$.locations",
+                "type": "string"
+            },
+            "levels": {
+                "target": "$.levels",
+                "type": "list"
+            },
+            "publication_date": {
+                "target": "$.publication_date",
+                "type": "string"
+            },
+            "url": {
+                "target": "$.refs.landing_page",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}

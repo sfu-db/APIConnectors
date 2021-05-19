@@ -1,0 +1,52 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://www.thesportsdb.com/api/v1/json/1/lookupteam.php",
+        "method": "GET",
+        "params": {
+            "id": true
+        }
+    },
+    "examples": {
+        "id": 134864
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.teams[*]",
+        "schema": {
+            "id": {
+                "target": "$.idTeam",
+                "type": "int"
+            },
+            "team": {
+                "target": "$.strTeam",
+                "type": "string"
+            },
+            "inaugural_year": {
+                "target": "$.intFormedYear",
+                "type": "int"
+            },
+            "league_id": {
+                "target": "$.idLeague",
+                "type": "int"
+            },
+            "facebook": {
+                "target": "$.strFacebook",
+                "type": "string"
+            },
+            "twitter": {
+                "target": "$.strTwitter",
+                "type": "string"
+            },
+            "instagram": {
+                "target": "$.strInstagram",
+                "type": "string"
+            },
+            "stadium_capacity": {
+                "target": "$.intStadiumCapacity",
+                "type": "int"
+            }
+        },
+        "orient": "records"
+    }
+}

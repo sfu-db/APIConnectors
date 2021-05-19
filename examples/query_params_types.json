@@ -1,0 +1,34 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://foo.bar/path",
+        "method": "GET",
+        "params": {
+            "q": true,
+            "h": false,
+            "author": {
+                "template": "author:{{author | replace(\" \", \"_\")}}:",
+                "required": false,
+                "removeIfEmpty": true,
+                "fromKey": "author",
+                "toKey": "q"
+            },
+            "name_parts": {
+                "template": "author:{{first_name}}_{{last_name}}:",
+                "required": false,
+                "removeIfEmpty": true,
+                "fromKey": [
+                    "first_name",
+                    "last_name"
+                ],
+                "toKey": "q"
+            }
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.result",
+        "schema": {},
+        "orient": "records"
+    }
+}
