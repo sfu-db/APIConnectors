@@ -1,0 +1,7 @@
+{
+    "tables":[
+        "teams",
+        "awards",
+        "seasons"
+    ]
+}

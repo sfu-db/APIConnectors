@@ -1,0 +1,51 @@
+{
+    "version": 1,
+    "request": {
+        "url": "http://statsapi.web.nhl.com/api/v1/seasons",
+        "method": "GET",
+        "params": {}
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.seasons.[*]",
+        "schema": {
+            "seasonId": {
+                "target": "$.seasonId",
+                "type": "string"
+            },
+            "regularSeasonStartDate": {
+                "target": "$.regularSeasonStartDate",
+                "type": "string"
+            },
+            "regularSeasonEndDate": {
+                "target": "$.regularSeasonEndDate",
+                "type": "string"
+            },
+            "numberOfGames": {
+                "target": "$.numberOfGames",
+                "type": "int"
+            },
+            "tiesInUse": {
+                "target": "$.tiesInUse",
+                "type": "boolean"
+            },
+            "olympicsParticipation": {
+                "target": "$.olympicsParticipation",
+                "type": "boolean"
+            },
+            "conferencesInUse": {
+                "target": "$.conferencesInUse",
+                "type": "boolean"
+            },
+            "divisionsInUse": {
+                "target": "$.divisionsInUse",
+                "type": "boolean"
+            },
+            "wildCardInUse": {
+                "target": "$.wildCardInUse",
+                "type": "boolean"
+            }
+        },
+        "orient": "records"
+    }
+}

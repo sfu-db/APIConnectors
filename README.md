@@ -3398,6 +3398,68 @@ tag_count
 
 ### Sports
 
+#### [NHL](./api-connectors/nhl) -- Collect National Hockey League Data
+
+<details>
+  <summary>How long was the 2000 - 2001 season?</summary>
+
+```python
+from dataprep.connector import connect
+import pandas as pd
+
+conn = Connector(config_path="./config")
+df = await conn.query("seasons")
+
+#string to datetime
+df["regularSeasonStartDate"] = pd.to_datetime(df["regularSeasonStartDate"])
+df["regularSeasonEndDate"] = pd.to_datetime(df["regularSeasonEndDate"])
+df['season_length'] = df["regularSeasonEndDate"] - df["regularSeasonStartDate"]
+
+#selecting 2000/2001 season
+df.loc[df["seasonId"] == "20002001"][["seasonId", "season_length"]]
+```
+| seasonId  | season_length   |
+| --------- | --------------- |
+| 20002001  | 186 days        |
+
+  </details>
+
+<details>
+  <summary>What is the venue of the Pittsburgh Penguins called?</summary>
+
+```python
+from dataprep.connector import connect
+
+conn = Connector(config_path="./config")
+df = await conn.query("teams", expand="team.roster", season="20202021")
+
+df.loc[df["name"]=="Pittsburgh Penguins"][["name","venue_name"]]
+```
+| name                 | venue_name        |
+| -------------------- | ----------------- |
+| Pittsburgh Penguins  | PPG Paints Arena  |
+
+  </details>
+
+<details>
+  <summary>What are the names of all the Team awards in the NHL?</summary>
+
+```python
+from dataprep.connector import connect
+
+conn = Connector(config_path="./config")
+df = await conn.query("awards")
+
+df.loc[df["recipientType"] == "Team"][["name"]]
+```
+| name                      |
+| ------------------------- |
+| Stanley Cup               |
+| Clarence S. Campbell Bowl |
+| Presidents’ Trophy        |
+| Prince of Wales Trophy    |
+
+  </details>
 
 #### [TheSportsDB](./api-connectors/thesportsdb) -- Collect Team and League Data
 

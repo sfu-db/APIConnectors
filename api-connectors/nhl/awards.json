@@ -1,0 +1,47 @@
+{
+    "version": 1,
+    "request": {
+        "url": "http://statsapi.web.nhl.com/api/v1/awards",
+        "method": "GET",
+        "params": {}
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.awards[*]",
+        "schema": {
+            "name": {
+                "target": "$.name",
+                "type": "string"
+            },
+            "shortName": {
+                "target": "$.shortName",
+                "type": "string"
+            },
+            "recipientType": {
+                "target": "$.recipientType",
+                "type": "string"
+            },
+            "description": {
+                "target": "$.description",
+                "type": "string"
+            },
+            "history": {
+                "target": "$.history",
+                "type": "string"
+            },
+            "imageUrl": {
+                "target": "$.imageUrl",
+                "type": "string"
+            },
+            "homePageUrl": {
+                "target": "$.homePageUrl",
+                "type": "string"
+            },
+            "link": {
+                "target": "$.link",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}
