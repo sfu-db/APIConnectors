@@ -1,0 +1,143 @@
+{
+    "version": 1,
+    "request": {
+        "url": "http://statsapi.web.nhl.com/api/v1/teams",
+        "method": "GET",
+        "params": {
+            "teamId": false,
+            "expand": false,
+            "season": false
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.teams[*]",
+        "schema": {
+            "id": {
+                "target": "$.id",
+                "type": "int"
+            },
+            "name": {
+                "target": "$.name",
+                "type": "string"
+            },
+            "link": {
+                "target": "$.link",
+                "type": "string"
+            },
+            "venue_name": {
+                "target": "$.venue.name",
+                "type": "string"
+            },
+            "venue_link": {
+                "target": "$.venue.link",
+                "type": "string"
+            },
+            "venue_city": {
+                "target": "$.venue.city",
+                "type": "string"
+            },
+            "venue_timeZone_id": {
+                "target": "$.venue.timeZone.id",
+                "type": "string"
+            },
+            "venue_timeZone_offset": {
+                "target": "$.venue.timeZone.offset",
+                "type": "string"
+            },
+            "venue_timeZone_tz": {
+                "target": "$.venue.timeZone.tz",
+                "type": "string"
+            },
+            "abbreviation": {
+                "target": "$.abbreviation",
+                "type": "string"
+            },
+            "teamName": {
+                "target": "$.teamName",
+                "type": "string"
+            },
+            "locationName": {
+                "target": "$.locationName",
+                "type": "string"
+            },
+            "firstYearOfPlay": {
+                "target": "$.firstYearOfPlay",
+                "type": "string"
+            },
+            "division_id": {
+                "target": "$.division.id",
+                "type": "string"
+            },
+            "division_name": {
+                "target": "$.division.name",
+                "type": "string"
+            },
+            "division_link": {
+                "target": "$.division.name",
+                "type": "string"
+            },
+            "division_abbreviation": {
+                "target": "$.division.name",
+                "type": "string"
+            },
+            "conference_id": {
+                "target": "$.conference.id",
+                "type": "string"
+            },
+            "conference_name": {
+                "target": "$.conference.name",
+                "type": "string"
+            },
+            "conference_link": {
+                "target": "$.conference.link",
+                "type": "string"
+            },
+            "franchise_id": {
+                "target": "$.franchise.franchiseId",
+                "type": "string"
+            },
+            "franchise_teamName": {
+                "target": "$.franchise.teamName",
+                "type": "string"
+            },
+            "franchise_link": {
+                "target": "$.franchise.link",
+                "type": "string"
+            },
+            "shortName": {
+                "target": "$.shortName",
+                "type": "string"
+            },
+            "officialSiteUrl": {
+                "target": "$.officialSiteUrl",
+                "type": "string"
+            },
+            "franchiseId": {
+                "target": "$.franchiseId",
+                "type": "int"
+            },
+            "teamStats": {
+                "target": "$.teamStats",
+                "type": "list"
+            },
+            "nextGameSchedule": {
+                "target": "$.nextGameSchedule",
+                "type": "object"
+            },
+            "previousGameSchedule": {
+                "target": "$.previousGameSchedule",
+                "type": "object"
+            },
+            "roster": {
+                "target": "$.roster",
+                "type": "object"
+            },
+            "active": {
+                "target": "$.active",
+                "type": "boolean"
+            }
+        },
+        "orient": "records"
+    }
+}
