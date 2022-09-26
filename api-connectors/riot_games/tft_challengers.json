@@ -1,0 +1,60 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://{region}.api.riotgames.com/tft/league/v1/challenger",
+        "method": "GET",
+        "authorization": {
+            "type": "Header",
+            "keyName": "X-Riot-Token"
+        },
+        "params": {
+            "region": true
+        }
+    },
+    "examples": {
+        "region": "'kr'"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.entries[*]",
+        "schema": {
+            "player_id": {
+                "target": "$.summonerId",
+                "type": "string"
+            },
+            "name": {
+                "target": "$.summonerName",
+                "type": "string"
+            },
+            "league_points": {
+                "target": "$.leaguePoints",
+                "type": "int"
+            },
+            "wins": {
+                "target": "$.wins",
+                "type": "int"
+            },
+            "losses": {
+                "target": "$.losses",
+                "type": "int"
+            },
+            "veteran": {
+                "target": "$.veteran",
+                "type": "boolean"
+            },
+            "inactive": {
+                "target": "$.inactive",
+                "type": "boolean"
+            },
+            "fresh_blood": {
+                "target": "$.freshBlood",
+                "type": "boolean"
+            },
+            "hot_streak": {
+                "target": "$.hotStreak",
+                "type": "boolean"
+            }
+        },
+        "orient": "records"
+    }
+}

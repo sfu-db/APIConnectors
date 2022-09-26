@@ -21,6 +21,7 @@ You can contribute to this project in two ways. Please check the [contributing g
 * [Calendar](#calendar)
 * [Crime](#crime)
 * [Finance](#finance)
+* [Games](#games)
 * [Geocoding](#geocoding)
 * [Jobs](#jobs)
 * [Lifestyle](#lifestyle)
@@ -951,6 +952,172 @@ perpetual_df.sort_values(by=['last_traded_at'], ascending=False).head(3).reset_i
 |    1 | Biki (Futures) | 1          | BTC      | perpetual     |   36769.8 | -0.153111 |      -0.0519 |           nan | 1.00131e+08 | 2021-02-03 20:14:23 |
 |    2 | Huobi Futures  | CVC-USDT   | CVC      | perpetual     |  0.178268 | -0.336302 |     0.106314 |           nan |      876960 | 2021-02-03 20:14:23 |
 </details>
+
+
+### Games
+
+
+#### [Riot Games](riot_games) -- Collect Video game data from Riot Games 
+
+<details>
+  <summary>How many days is the next League of Legends tournament running for in North America?</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”riot_games_access_token“ by registering as a developer https://developer.riotgames.com/
+conn_riot_games = connect('riot_games', _auth={'access_token':riot_games_access_token})
+
+df = await conn_riot_games.query('lol_tournaments', region='na1')
+
+days = df['name_key_secondary']
+max_day = 0
+for day in days:
+    day = int(day.split("day_",1)[1])
+    if day > max_day:
+        max_day = day
+        
+print(max_day, 'days')
+```
+
+    4 days
+
+</details>
+
+
+<details>
+  <summary>Find cluster labels for Asian League of Rinterra players based on their league points.</summary>
+
+```python
+from dataprep.connector import connect
+from sklearn.cluster import KMeans
+import pandas as pd
+
+# You can get ”riot_games_access_token“ by registering as a developer https://developer.riotgames.com/
+conn_riot_games = connect('riot_games', _auth={'access_token':riot_games_access_token})
+
+df = await conn_riot_games.query('lor_leaderboards', region='asia')
+
+X = pd.DataFrame(df.league_points)
+model = KMeans()
+model.fit(X)
+df['cluster_labels'] = model.labels_
+df
+```
+
+|   | name  | rank  | league_points   | cluster_labels  |
+|-: |-: |-: |-: |-: |
+| 0   | WCS Master  | 0   | 3001  | 1   |
+| 1   | UCG SDARO   | 1   | 2627  | 5   |
+| 2   | pisukaru  | 2   | 587   | 7   |
+| 3   | 영처리2  | 3   | 546   | 7   |
+| 4   | jake  | 4   | 539   | 7   |
+| ...   | ...   | ...   | ...   | ...   |
+| 594   | 더스티네스   | 594   | 0   | 0   |
+| 595   | HamapaBack  | 595   | 0   | 0   |
+| 596   | 북미 판다곰  | 596   | 0   | 0   |
+| 597   | Coray   | 597   | 0   | 0   |
+| 598   | 고양이집사   | 598   | 0   | 0   |
+
+
+</details>
+
+<details>
+  <summary>List highest trending North American, Teamfight Tactics masters based on recent wins, activity and league points</summary>
+
+```python
+from dataprep.connector import connect
+import pandas as pd
+
+# You can get ”riot_games_access_token“ by registering as a developer https://developer.riotgames.com/
+conn_riot_games = connect('riot_games', _auth={'access_token':riot_games_access_token})
+
+df = await conn_riot_games.query('tft_masters', region='na1')
+
+trending = pd.DataFrame()
+for i, row in df.iterrows():
+    if not row.inactive and row.hot_streak:
+        trending = trending.append(row)
+
+trending.sort_values(['league_points'], ascending=False)
+```
+
+
+|   | fresh_blood   | hot_streak  | inactive  | league_points   | losses  | name  | player_id   | veteran   | wins  |
+|-: |-: |-: |-: |-: |-: |-: |-: |-: |-  |
+| 10479   | 0.0   | 1.0   | 0.0   | 219.0   | 419.0   | Fried twist   | qxlcIGuhYSrihdPop8h1I8nszwHd_STYMdFYZ8bjkrA6hAM   | 0.0   | 78.0  |
+| 6054  | 0.0   | 1.0   | 0.0   | 215.0   | 49.0  | Ge Ju 9z  | vYyJ_eow2vSKAFoci2OStuBF_3mC872lFoHYRkjPxkmWI3U   | 0.0   | 11.0  |
+| 12517   | 0.0   | 1.0   | 0.0   | 213.0   | 30.0  | LaJi SUPPORT  | lZlEx1NSVgooDSvWKabqaaJg5FHS0MxIyiDrtai1yYz0Sjin  | 0.0   | 29.0  |
+| 10790   | 0.0   | 1.0   | 0.0   | 202.0   | 67.0  | Dis396  | tyQiNvL66Lk29zzLS0wizD6QvAZmiMKrZCSW5QLIAH75dso   | 0.0   | 15.0  |
+| 1241  | 0.0   | 1.0   | 0.0   | 175.0   | 202.0   | izsakura2   | t9hu5kb4dvmiwJuqNf5hkzAeQGXZjtulwAD_fkEXf56Pd_ep  | 0.0   | 33.0  |
+| ...   | ...   | ...   | ...   | ...   | ...   | ...   | ...   | ...   | ...   |
+| 6954  | 0.0   | 1.0   | 0.0   | 0.0   | 52.0  | zddddddy  | Kk9OOe92TwTQM-6ij8B_8iEND298w15OJ03ontPmhoWxJB...   | 0.0   | 24.0  |
+| 2554  | 0.0   | 1.0   | 0.0   | 0.0   | 62.0  | Lintrolling   | 9e8lvokk5JYgq8K8PGA3GzXgi10I23UQGPjuuFun5_-noKY   | 0.0   | 11.0  |
+| 82  | 0.0   | 1.0   | 0.0   | 0.0   | 31.0  | RacheI Zane   | q_7HyUSPdKVSNRTWIjEAd-fhpRyJPbpZ-CHEC9oMgft9l2M   | 0.0   | 10.0  |
+| 2769  | 0.0   | 1.0   | 0.0   | 0.0   | 56.0  | 10086 Take u Fly  | PcawuEtvx4Zorkq1O4Ad3zUdLJooA01MOV_Nb_PEMxfHWGs   | 0.0   | 19.0  |
+| 18  | 0.0   | 1.0   | 0.0   | 0.0   | 19.0  | Toshi Roll  | PPq5MIZkw2pIxsWTvyiPTSjZTvDV9FH472NPXjDcWT9Uqyo   | 0.0   | 8.0   |
+
+</details>
+
+<details>
+  <summary>Who is the best Korean, Teamfight Tactics veteran challenger?
+</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”riot_games_access_token“ by registering as a developer https://developer.riotgames.com/
+conn_riot_games = connect('riot_games', _auth={'access_token':riot_games_access_token})
+
+df = await conn_riot_games.query('tft_challengers', region='kr')
+
+for i, row in df.iterrows():
+    if row.veteran == True:
+        print(row['name'])
+        break
+```
+
+    구깨룩3
+
+
+</details>
+
+<details>
+  <summary>List Grandmasters in order of win-loss ratio</summary>
+
+```python
+from dataprep.connector import connect
+
+# You can get ”riot_games_access_token“ by registering as a developer https://developer.riotgames.com/
+conn_riot_games = connect('riot_games', _auth={'access_token':riot_games_access_token})
+
+df = await conn_riot_games.query('tft_grandmasters', region='jp1')
+
+win_loss_ratios = []
+for i, row in df.iterrows():
+    win_loss_ratio = row.wins / row.losses
+    win_loss_ratios.append(win_loss_ratio)
+
+df['win_loss_ratio'] = win_loss_ratios
+df.sort_values(['win_loss_ratio'], ascending=False)
+```
+
+|   | player_id   | name  | league_points   | wins  | losses  | veteran   | inactive  | fresh_blood   | hot_streak  | win_loss_ratio  |
+|-: |-: |-: |-: |-: |-: |-: |-: |-: |-: |-  |
+| 93  | WJ4VwbbbDA-9tOs7gev_xt2gls3gG1z6ZaqyHWsnzI7gJp0   | スランプジャパン  | 690   | 38  | 118   | False   | False   | True  | False   | 0.322034  |
+| 61  | -5bowfubfVhL6gFU7QIPgOITWkyfjq98KaIW2Y1awT174o...   | lsp32   | 707   | 83  | 270   | False   | False   | True  | False   | 0.307407  |
+| 57  | Yl96DsPVNXv-MN0SK5_KSOsi6bsTMC6yPIfwUQ9Pp-mjKDg   | 国日代VDafutyfs  | 672   | 79  | 260   | False   | False   | False   | False   | 0.303846  |
+| 1   | ioUR_fR5MeyuDaXS1kzLc0Jm5UVQQFQgoGkZYSLeNvZRY7...   | Young Cái Hand  | 782   | 139   | 474   | False   | False   | False   | False   | 0.293249  |
+| 15  | 6yTAJK-mL-9c4SAanU6OC4X58DT_I6d7risCASftxfcWYL...   | LLLXY0504   | 624   | 55  | 189   | False   | False   | True  | False   | 0.291005  |
+| ...   | ...   | ...   | ...   | ...   | ...   | ...   | ...   | ...   | ...   | ...   |
+| 31  | Bv0RIYd2QHNvBOYtaQl8ncAJimQ-YDfFQZUvoMuMZpAalL...   | dosaidon0   | 803   | 48  | 489   | False   | False   | False   | False   | 0.098160  |
+| 58  | LCr2u5fYW4v-WcEG2WeiW8Im-0qO6q4MiVLY75_zECyGabE   | mitsfranken   | 719   | 57  | 598   | True  | False   | False   | False   | 0.095318  |
+| 68  | 3hZLkddFoPTx28T3tYv4syWc-mku41vWmJLo9AFZkB4bfQ  | リキえもん   | 710   | 15  | 168   | False   | False   | False   | False   | 0.089286  |
+| 11  | oVzNZPfY_yjFYfYAp8G9kuZ_SHMdfomPpNevVklPfUyjEqM   | ちよちゃん114  | 721   | 61  | 721   | False   | False   | True  | False   | 0.084605  |
+| 13  | jlO3045YJZ8B8NKgJ_7fQRSVXPH5Zghe0Ds78Zr60NWFyQ  | marsh   | 646   | 28  | 338   | False   | False   | True  | False   | 0.082840  |
+
+</details>
+
 
 ### Geocoding
 
@@ -4090,10 +4257,6 @@ df[['title', 'description', 'channelTitle']]
 | 9   | Most Savage Sports Highlights on Youtube (S01E01)   | I do these videos ever year or so, they are ba...   | Joseph Vincent     |
 
 </details>
-
-
-
-
 
 
 ### Weather

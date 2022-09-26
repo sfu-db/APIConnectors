@@ -1,0 +1,36 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://{region}.api.riotgames.com/lor/ranked/v1/leaderboards",
+        "method": "GET",
+        "authorization": {
+            "type": "Header",
+            "keyName": "X-Riot-Token"
+        },
+        "params": {
+            "region": true
+        }
+    },
+    "examples": {
+        "region": "'asia'"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.players[*]",
+        "schema": {
+            "name": {
+                "target": "$.name",
+                "type": "string"
+            },
+            "rank": {
+                "target": "$.rank",
+                "type": "int"
+            },
+            "league_points": {
+                "target": "$.lp",
+                "type": "int"
+            }
+        },
+        "orient": "records"
+    }
+}
