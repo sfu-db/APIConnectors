@@ -1,5 +1,7 @@
 {
     "tables": [
-        "tweets"
+        "tweets",
+        "followers",
+        "friends"
     ]
 }

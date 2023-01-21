@@ -1,5 +1,7 @@
 {
     "tables": [
-        "article"
+        "article",
+        "tag",
+        "section"
     ]
 }
