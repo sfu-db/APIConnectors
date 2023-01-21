@@ -1,0 +1,54 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://wft-geo-db.p.rapidapi.com/v1/geo/countries/{countryid}/regions/{regioncode}/cities",
+        "method": "GET",
+        "authorization": {
+            "type": "Header",
+            "keyName": "X-RapidAPI-Key"
+        },
+        "params": {
+            "countryid": true,
+            "regioncode": true,
+            "limit": false,
+            "namePrefix": false,
+            "timeZoneIds": false,
+            "minPopulation": false
+        }
+    },
+    "examples": {
+        "countryid": "'US'",
+        "regioncode": "'NY'"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.data[*]",
+        "schema": {
+            "id": {
+                "target": "$.id",
+                "type": "int"
+            },
+            "wiki data id": {
+                "target": "$.wikiDataId",
+                "type": "string"
+            },
+            "name": {
+                "target": "$.name",
+                "type": "string"
+            },
+            "latitude": {
+                "target": "$.latitude",
+                "type": "float"
+            },
+            "longitude": {
+                "target": "$.longitude",
+                "type": "float"
+            },
+            "population": {
+                "target": "$.population",
+                "type": "int"
+            }
+        },
+        "orient": "records"
+    }
+}

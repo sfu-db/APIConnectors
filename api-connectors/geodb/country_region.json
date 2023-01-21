@@ -1,0 +1,46 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://wft-geo-db.p.rapidapi.com/v1/geo/countries/{countryid}/regions",
+        "method": "GET",
+        "authorization": {
+            "type": "Header",
+            "keyName": "X-RapidAPI-Key"
+        },
+        "params": {
+            "countryid": true,
+            "limit": false,
+            "namePrefix": false
+        }
+    },
+    "examples": {
+        "countryid": "'US'"
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.data[*]",
+        "schema": {
+            "wiki data id": {
+                "target": "$.wikiDataId",
+                "type": "string"
+            },
+            "name": {
+                "target": "$.name",
+                "type": "string"
+            },
+            "country code": {
+                "target": "$.countryCode",
+                "type": "string"
+            },
+            "fips code": {
+                "target": "$.fipsCode",
+                "type": "string"
+            },
+            "iso code": {
+                "target": "$.isoCode",
+                "type": "string"
+            }
+        },
+        "orient": "records"
+    }
+}

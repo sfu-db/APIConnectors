@@ -1,0 +1,39 @@
+{
+    "version": 1,
+    "request": {
+        "url": "https://wft-geo-db.p.rapidapi.com/v1/geo/countries",
+        "method": "GET",
+        "authorization": {
+            "type": "Header",
+            "keyName": "X-RapidAPI-Key"
+        },
+        "params": {
+            "limit": false,
+            "currencyCode": false,
+            "namePrefix": false
+        }
+    },
+    "response": {
+        "ctype": "application/json",
+        "tablePath": "$.data[*]",
+        "schema": {
+            "wiki data id": {
+                "target": "$.wikiDataId",
+                "type": "string"
+            },
+            "name": {
+                "target": "$.name",
+                "type": "string"
+            },
+            "code": {
+                "target": "$.code",
+                "type": "string"
+            },
+            "currency codes": {
+                "target": "$.currencyCodes",
+                "type": "list"
+            }
+        },
+        "orient": "records"
+    }
+}
